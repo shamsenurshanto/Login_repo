@@ -1,16 +1,27 @@
 import 'dart:convert';
-
+import 'package:hive/hive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_app/dashBoard.dart';
 import 'package:my_app/splashScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:http/http.dart' as http;
 
+import 'Tokener.dart';
+
+// Create a global variable to hold the cookie value
+String? jwtToken;
+
+
+class MyCookieClass {
+  static String? jwtToken;
+}
 
    postDate(context) async {
     var response = await http.post(Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
@@ -22,27 +33,45 @@ import 'package:shared_preferences/shared_preferences.dart';
    
       
 
-           var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions");
-String token = getToken();
-final responsew = await http.get(url, headers: {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'Authorization': 'Bearer $token',
-});
-print('Token : ${token}');
-print(responsew);
+           var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login");
+//  final responsew = await http.get(Uri.parse('http://your-nodejs-server.com/get-jwt-token'));
+
+   // Make a request to the Node.js server to get a JWT token
+  final responsew = await http.post(
+    Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
+    body: {'userEmailPhone': "ab63@gmail.com", 'userPass': '12345678'},
+  );
+
+ // Extract the cookie from the response headers
+  String cookie = responsew.headers['set-cookie']!;
+
+  // Print the cookie
+  print(cookie);
+  await Hive.initFlutter();
+  var box = await Hive.openBox("mybox");
+  final _box = Hive.box("mybox");
+  _box.put("tokens", cookie);
+
+
+
+  // Save the JWT token as a global variable
+  MyCookieClass.jwtToken = cookie;
+
+ 
    
 
 
 
-    print(response.body);
+  
     var gh = response.body;
-    print(jsonDecode(gh)["success"]);
+    print(response);
+    // print("token from main login " + jwtToken);
     username = _textController.text;
-    print(username.toString());
+    // print(username.toString());
     if(jsonDecode(gh)["success"])
     {
       print("hoise");
+      print(jwtToken);
      
        Navigator.push(
                 context,
