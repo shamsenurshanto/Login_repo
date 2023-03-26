@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/Login.dart';
 import 'package:my_app/MainLogin.dart';
+import 'package:my_app/UserDetails.dart';
 import 'package:my_app/dashBoard.dart';
+import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/splashScreen.dart';
 
 void main() {
@@ -22,10 +24,11 @@ class MyApp extends StatelessWidget {
       bool gh ;
       gh=true;
     if(gh){
-           return MaterialApp(
+ return MaterialApp(
     
      
-      home: const mainLogin(),
+     home:  mainLogin(),
+      // home:  userDetails("email"),
     );
     }
     else
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
     
      
-      home: const dashBoard(),
+      home:  dash2(),
     );
     }
    

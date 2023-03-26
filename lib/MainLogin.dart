@@ -5,7 +5,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:my_app/UserDetails.dart';
 import 'package:my_app/dashBoard.dart';
+import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/splashScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
@@ -22,35 +24,50 @@ String? jwtToken;
 class MyCookieClass {
   static String? jwtToken;
 }
-
+  
    postDate(context) async {
-    var response = await http.post(Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
-    body: {
-      "userEmailPhone":username.toString(),
-      "userPass":"12345678",
+  
+    // var response = await http.post(Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
+    // body: {
+      // "userEmailPhone":username.toString(),
+    //   "userPass":"12345678",
 
-    });
+    // });
    
-      
-
+        String  username = "g";
+          username = _textController.text;
            var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login");
 //  final responsew = await http.get(Uri.parse('http://your-nodejs-server.com/get-jwt-token'));
 
    // Make a request to the Node.js server to get a JWT token
-  final responsew = await http.post(
+   if(username==null)
+   {
+       username = "ab03@gmail.com";
+   }
+   
+  final response = await http.post(
     Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
-    body: {'userEmailPhone': "ab63@gmail.com", 'userPass': '12345678'},
+    body: {
+      'userEmailPhone': username, 
+      'userPass': '12345678'
+      
+      },
   );
 
  // Extract the cookie from the response headers
-  String cookie = responsew.headers['set-cookie']!;
+  String cookie = response.headers['set-cookie']!;
 
   // Print the cookie
+  print("in Login ------------------------------------");
   print(cookie);
+  print(username.toString());
   await Hive.initFlutter();
   var box = await Hive.openBox("mybox");
   final _box = Hive.box("mybox");
   _box.put("tokens", cookie);
+
+   print("in Login222 ------------------------------------");
+  print(_box.put("tokens", cookie));
 
 
 
@@ -64,9 +81,10 @@ class MyCookieClass {
 
   
     var gh = response.body;
-    print(response);
+    print("hoise *****************************************");
+    print(response.body);
     // print("token from main login " + jwtToken);
-    username = _textController.text;
+  
     // print(username.toString());
     if(jsonDecode(gh)["success"])
     {
@@ -77,7 +95,8 @@ class MyCookieClass {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return dashBoard();
+                    return dash2();
+                    // return userDetails("email");
                   },
                 ),
               );
@@ -86,7 +105,7 @@ class MyCookieClass {
 
 
   final _textController = TextEditingController();
-  String username = "G";
+
 class mainLogin extends StatelessWidget {
   const mainLogin({super.key});
   
@@ -215,7 +234,7 @@ class mainLogin extends StatelessWidget {
                
            ),
 
-           Text(username),
+          //  Text(username),
 
 
 
