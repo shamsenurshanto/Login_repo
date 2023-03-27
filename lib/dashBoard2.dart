@@ -5,6 +5,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/UserDetails.dart';
 import 'models/team.dart';
+import 'package:flutter/material.dart';
+
 
 class dash2 extends StatelessWidget {
   List<Team> teams = [];
@@ -103,58 +105,95 @@ print(tokenString2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Dashboard")
+      
+        
+      ),
+        floatingActionButton: FloatingActionButton(
+        
+        onPressed: () {
+         print("hello from button");
+        },
+        child: const Icon(Icons.add,color: Colors.white,)
+        ,
+      )
+      ,
+      
       body: SafeArea(
-        child: FutureBuilder(
-            future: getTeams(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Card(
-                  child: ListView.builder(
-                  itemCount: teams.length,
-                  padding: EdgeInsets.all(8),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ListTile(
-                          onTap: () {
-                           print(teams[index].type);
-                          
-                            print("hello");
-                             Navigator.push(context,MaterialPageRoute(
-                  builder: (context) {
-                    // return dash2();
-                   
-                    return userDetails(teams[index].mainMail);
-                  },
-                ),
-              );
-                          },
-                          title: Text(teams[index].amount.toString()),
-                          subtitle: Text(teams[index].sender_email),
-                          trailing: Text("\$${teams[index].amount.toString()}",
-                          
-                           textScaleFactor: 1.5,
-                           style: TextStyle(
-                            color: Colors.deepPurple,
-                            fontWeight: FontWeight.bold
-                           ),
+        
+       child: 
+       
+       Container(
+        child: 
+        
+        
+         FutureBuilder(
+          
+            
+              future: getTeams(),
+              builder:
+              
+                
+               (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Card(
+                    child: ListView.builder(
+                    itemCount: teams.length,
+                    padding: EdgeInsets.all(8),
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ListTile(
+                            onTap: () {
+                             print(teams[index].type);
+                            
+                              print("hello");
+                               Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      // return dash2();
+                     
+                      return userDetails(teams[index].mainMail);
+                    },
+                  ),
+                );
+                            },
+                            title: Text(teams[index].amount.toString()),
+                            subtitle: Text(teams[index].sender_email),
+                            trailing: Text("\$${teams[index].amount.toString()}",
+                            
+                             textScaleFactor: 1.5,
+                             style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontWeight: FontWeight.bold
+                             ),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                )
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }),
+                      );
+                    },
+                  )
+                  );
+                      
+                  
+                  
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+                
+              },
+              
+              
+              
+              ),
+       ),
+            
       ),
+      
     );
   }
 }

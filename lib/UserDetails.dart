@@ -31,6 +31,7 @@ class userDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(title: Text("Transaction")),
       body: SafeArea(
         child: FutureBuilder(
             future: getTeams2(),
