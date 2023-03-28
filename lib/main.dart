@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/Login.dart';
 import 'package:my_app/MainLogin.dart';
 import 'package:my_app/UserDetails.dart';
+import 'package:my_app/abc.dart';
+import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/splashScreen.dart';
@@ -27,8 +29,9 @@ class MyApp extends StatelessWidget {
  return MaterialApp(
     
      
-     home:  mainLogin(),
+    //  home:  abc(),
       // home:  userDetails("email"),
+       home:  addTrans(),
     );
     }
     else

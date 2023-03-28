@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
+import 'package:my_app/addTransaction2.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 
@@ -112,8 +114,18 @@ print(tokenString2);
         floatingActionButton: FloatingActionButton(
         
         onPressed: () {
-         print("hello from button");
-        },
+                           
+                            
+                              print("hello");
+                               Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      return addTrans();
+                     
+                      // return userDetails(teams[index].mainMail);
+                    },
+                  ),
+                );
+                            },
         child: const Icon(Icons.add,color: Colors.white,)
         ,
       )
