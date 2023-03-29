@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
      
     //  home:  abc(),
       // home:  userDetails("email"),
-       home:  addTrans(),
+      //  home:  addTrans(),
+      // home:  mainLogin(),
+      home:  mainLogin(),
+      
     );
     }
     else

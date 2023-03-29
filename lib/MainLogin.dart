@@ -27,12 +27,7 @@ class MyCookieClass {
   
    postDate(context) async {
   
-    // var response = await http.post(Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login"),
-    // body: {
-      // "userEmailPhone":username.toString(),
-    //   "userPass":"12345678",
-
-    // });
+    
    
         String  username = "g";
           username = _textController.text;
@@ -84,12 +79,16 @@ class MyCookieClass {
     print("hoise *****************************************");
     print(response.body);
     // print("token from main login " + jwtToken);
-  
+    var jh = json.decode(response.body);
+  print(jh['data']['_id']);
     // print(username.toString());
     if(jsonDecode(gh)["success"])
     {
       print("hoise");
       print(jwtToken);
+
+      _box.put("User_id",jh['data']['_id'] );
+        _box.put("User_email",username );
      
        Navigator.push(
                 context,
@@ -103,7 +102,7 @@ class MyCookieClass {
     }
    }
 
-
+//controller for gettiung the form value in text
   final _textController = TextEditingController();
 
 class mainLogin extends StatelessWidget {
