@@ -36,6 +36,8 @@ class _addTransState extends State<addTrans> {
     String recv_id =" ";
     String  send_id = " ";
     String TextFormEmail = " ";
+    String Sender_mail=" ";
+    String receiver_mail = "";
     
   getUser() async {
    
@@ -71,12 +73,14 @@ class _addTransState extends State<addTrans> {
           // amountOfReal = double.parse(_textController_For_amount.text);
           print(amountOfReal.runtimeType);
      var box = await Hive.openBox("mybox");
-  final _box2 = Hive.box("mybox");
+     final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
      var _idgh = _box2.get("User_id");
           var email= _box2.get("User_email");//here it gets user id ;
               //  var _idgh = _box2.get("User_id");
-  String LoanVal =" ";
+      String LoanVal =" ";
+      print("--------------------");
+      print(gh);
 
    print("https://smoggy-toad-fedora.cyclic.app/api/transaction/createtransaction");
     
@@ -86,6 +90,8 @@ class _addTransState extends State<addTrans> {
               LoanVal = "63efbef607ca4144957e03ef";
                 send_id=_idgh;
                 recv_id =TextFormEmail;
+                Sender_mail = email;
+                receiver_mail = _textController_For_EmailSearch.text;
               //(resp["data"]["_id"]
                   // String recv_id =" ";
     // String  send_id = " ";
@@ -104,26 +110,54 @@ class _addTransState extends State<addTrans> {
                   LoanVal = "63efbf6207ca4144957e03f1";
 
 
-    }
-    
+          }
+    var map = new Map<String, dynamic>();
+map['type'] = '63efbef607ca4144957e03ef';
+map['amount'] = 650;
+map['sender'] =  {
+                    "senderEmailPhone":"ab66@gmail.com",
+                    "senderId":""
+                };
+map['senderStatus'] = "SENT";
+map['receiver'] =  {
+                    "receiverEmailPhone":"",
+                    "receiverId":"63fc3d77847d6e54d113a686"
+                };
+map['receiverStatus'] = 'ACKNOWLEDGED';
+
     
       final response = await http.post(
     Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/transaction/createtransaction"),
-    body: 
-    
-   { 
-    "type":"63efbef607ca4144957e03ef",
-    "amount":650,
-    "sender":{
-        "senderEmailPhone":"ab66@gmail.com",
-        "senderId":""
-    },
-    "senderStatus":"SENT",
-    "receiver":{
-        "receiverEmailPhone":"",
-        "receiverId":"63fc3d77847d6e54d113a686"
-    },
-    "receiverStatus":"ACKNOWLEDGED"}
+    headers: {
+      
+       'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'},
+    body:         
+      jsonEncode(
+
+
+          { 
+                "type":LoanVal,
+                "amount":double.parse(_amount),
+                "sender":
+                {
+                    "senderEmailPhone":Sender_mail,
+                    "senderId":send_id
+                },
+                "senderStatus":"SENT",
+                "receiver":
+                {
+                    "receiverEmailPhone":receiver_mail,
+                    "receiverId":recv_id
+                },
+                "receiverStatus":"ACKNOWLEDGED"
+                
+                }
+      )
+
+
+              
     
 
     
