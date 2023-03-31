@@ -183,6 +183,8 @@ print(tokenString2);
 
 
       appBar: AppBar(title: Text("Dashboard"),
+      backgroundColor: Colors.deepPurple,
+      
       automaticallyImplyLeading: false,
       
         

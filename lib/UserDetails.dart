@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'models/team.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
 class userDetails extends StatelessWidget {
   List<Team> teams = [];
        
@@ -35,6 +37,68 @@ class userDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar:  
+       Container(
+       
+        // margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
+        //  color: Colors.deepPurple,
+    
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15.0),
+            bottomRight: Radius.circular(0.0),
+            topLeft: Radius.circular(15.0),
+            bottomLeft: Radius.circular(0.0)),
+      ),
+
+        child: 
+        
+        Padding(
+        
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        
+      
+      
+              child:  GNav(
+  
+  // selected tab background color
+  // navigation bar padding
+
+  backgroundColor: Colors.deepPurple.withOpacity(0.88),
+  color: Colors.white,
+  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+  activeColor: Colors.deepPurple,
+  tabBackgroundColor: Colors.white,
+  gap: 8,
+  tabs: [
+    GButton(
+      icon: Icons.home,
+      text: 'Home',
+      onPressed: (){
+        print("hello");
+      },
+    ),
+    GButton(
+      icon: Icons.baby_changing_station_outlined,
+      text: 'Likes',
+    ),
+    GButton(
+      icon: Icons.search,
+      text: 'Search',
+    ),
+    GButton(
+      icon: Icons.add,
+      text: 'Profile',
+    )
+  ]
+),
+         
+            
+          ),
+      
+       )
+       ,
        appBar: AppBar(title: Text("Transaction Summary",
        style: TextStyle(fontSize: 15),)),
       body: SafeArea(

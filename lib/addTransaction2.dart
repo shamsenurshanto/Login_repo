@@ -14,6 +14,8 @@ import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
 
 class addTrans extends StatefulWidget {
   const addTrans({super.key});
@@ -204,9 +206,73 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
      List<String> _items = <String>["Loan Taken","Loan Given"];
 
     return Scaffold(
-      
+      bottomNavigationBar:  
+       Container(
        
-       appBar: AppBar(title: Text("Add a Transaction"),centerTitle: true,),
+        // margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
+        //  color: Colors.deepPurple,
+    
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15.0),
+            bottomRight: Radius.circular(0.0),
+            topLeft: Radius.circular(15.0),
+            bottomLeft: Radius.circular(0.0)),
+      ),
+
+        child: 
+        
+        Padding(
+        
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        
+      
+      
+              child:  GNav(
+  
+  // selected tab background color
+  // navigation bar padding
+
+  backgroundColor: Colors.deepPurple.withOpacity(0.88),
+  color: Colors.white,
+  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+  activeColor: Colors.deepPurple,
+  tabBackgroundColor: Colors.white,
+  gap: 8,
+  tabs: [
+    GButton(
+      icon: Icons.home,
+      text: 'Home',
+      onPressed: (){
+        print("hello");
+      },
+    ),
+    GButton(
+      icon: Icons.baby_changing_station_outlined,
+      text: 'Likes',
+    ),
+    GButton(
+      icon: Icons.search,
+      text: 'Search',
+    ),
+    GButton(
+      icon: Icons.add,
+      text: 'Profile',
+    )
+  ]
+),
+         
+            
+          ),
+      
+       )
+       ,
+       
+       appBar: AppBar(title: Text("Transaction"),
+      backgroundColor: Colors.deepPurple,
+       
+       centerTitle: true,),
        
        body: 
        
