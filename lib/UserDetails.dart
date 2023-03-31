@@ -2,6 +2,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'models/team.dart';
@@ -16,12 +17,15 @@ class userDetails extends StatelessWidget {
 
    userDetails(this.id);
    
+   
   Future getTeams2()async {
+
+    print(id);
 
   var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
-     print("Useeeeeeeeeeeeeeer detaaaaails");
+     print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
      print(gh);
      print(id);
              var response = await http.get(Uri.https('smoggy-toad-fedora.cyclic.app', 'api/transaction/getsumofusers/${id}'), headers: {'Cookie': 'jwt_token=$gh'});
@@ -31,7 +35,8 @@ class userDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(title: Text("Transaction")),
+       appBar: AppBar(title: Text("Transaction Summary",
+       style: TextStyle(fontSize: 15),)),
       body: SafeArea(
         child: FutureBuilder(
             future: getTeams2(),
@@ -44,28 +49,38 @@ class userDetails extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
+                      child:
+                     
+                       Container(
+                          
+                           margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 30.0),
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
+                          
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: ListTile(
-                          onTap: () {
-                            print("hello  on page off user details");
-          
-              
-                          },
-                          title: Text(""),
-                          subtitle: Text(""),
-                          trailing: Text("\$${jsonData['data']['userBSent'].toString()}",
-                          
-                           textScaleFactor: 1.5,
-                           style: TextStyle(
-                            color: Colors.deepPurple,
-                            fontWeight: FontWeight.bold
-                           ),
-                          ),
+                        width: 300,
+                        height: 100,
+                        child: 
+
+                  Center(
+                    
+                      child: Container(
+                        child: Text("All the Transaction",
+                        
+                        style: GoogleFonts.hammersmithOne(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blueGrey),
+
                         ),
+                        
+                        
+                      ),
+
+                  )
+
                       ),
                     );
                   },

@@ -1,13 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
+import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 
 class dash2 extends StatelessWidget {
@@ -73,7 +76,7 @@ print(tokenString2);
 
     var response = await http.get(Uri.https('smoggy-toad-fedora.cyclic.app', 'api/transaction/usersalltransactions'), headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
-    // print(response.body);
+    print(response.body);
     // print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
@@ -81,33 +84,106 @@ print(tokenString2);
       String mainMail2="";
       if(eachTeam['type']=="63efbef607ca4144957e03ef")
       {
-            mainMail2 = eachTeam['sender']['senderId'];
+         
+            mainMail2 = eachTeam['receiver']['receiverId'];
       }
       else
       {
-         mainMail2 = eachTeam['receiver']['receiverId'];
+            mainMail2 = eachTeam['sender']['senderId'];
       }
-      final team = Team(
+      if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
+     {
+       final team = Team(
         id: eachTeam['_id'],
-        sender_email: eachTeam['sender']['senderId'],
-        receiver_email: eachTeam['receiver']['receiverId'],
+        sender_email: eachTeam['sender']['senderEmailPhone'],
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'],
         type: eachTeam['type'],
         amount: eachTeam['amount'],
         mainMail: mainMail2
         
         
       );
-      
       teams.add(team);
+      print(team);
+     }
+      
+      
     }
-
+     print("---------------------------------------");
     print(teams.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Dashboard")
+      bottomNavigationBar:  
+       Container(
+       
+        // margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
+        //  color: Colors.deepPurple,
+    
+            decoration: BoxDecoration(
+              color: Colors.deepPurple,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(15.0),
+            bottomRight: Radius.circular(0.0),
+            topLeft: Radius.circular(15.0),
+            bottomLeft: Radius.circular(0.0)),
+      ),
+
+        child: 
+        
+        Padding(
+        
+        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+        
+      
+      
+              child:  GNav(
+  
+  // selected tab background color
+  // navigation bar padding
+
+  backgroundColor: Colors.deepPurple.withOpacity(0.88),
+  color: Colors.white,
+  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+  activeColor: Colors.deepPurple,
+  tabBackgroundColor: Colors.white,
+  gap: 8,
+  tabs: [
+    GButton(
+      icon: Icons.home,
+      text: 'Home',
+      onPressed: (){
+        print("hello");
+      },
+    ),
+    GButton(
+      icon: Icons.baby_changing_station_outlined,
+      text: 'Likes',
+    ),
+    GButton(
+      icon: Icons.search,
+      text: 'Search',
+    ),
+    GButton(
+      icon: Icons.add,
+      text: 'Profile',
+    )
+  ]
+),
+         
+            
+          ),
+      
+       )
+       ,
+    
+
+
+
+      appBar: AppBar(title: Text("Dashboard"),
+      automaticallyImplyLeading: false,
       
         
       ),
@@ -117,13 +193,20 @@ print(tokenString2);
                            
                             
                               print("hello");
-                               Navigator.push(context,MaterialPageRoute(
+            Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
                       return addTrans();
                      
                       // return userDetails(teams[index].mainMail);
-                    },
-                  ),
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
                 );
                             },
         child: const Icon(Icons.add,color: Colors.white,)
@@ -174,8 +257,8 @@ print(tokenString2);
                   ),
                 );
                             },
-                            title: Text(teams[index].amount.toString()),
-                            subtitle: Text(teams[index].sender_email),
+                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].receiver_email):Text(teams[index].sender_email),
+                            subtitle: teams[index].type=="63efbef607ca4144957e03ef"?Text("Loan Given"):Text("Loan Taken"),
                             trailing: Text("\$${teams[index].amount.toString()}",
                             
                              textScaleFactor: 1.5,
@@ -193,8 +276,57 @@ print(tokenString2);
                       
                   
                   
-                } else {
-                  return Center(child: CircularProgressIndicator());
+                }
+                 else {
+                  // return Center(child: CircularProgressIndicator());
+
+                  return Shimmer.fromColors(
+                    
+                    child: 
+                 Center(
+                  child: 
+                   Container(
+                    child: 
+                    ListView.builder(
+                    itemCount: 10,
+                    padding: EdgeInsets.all(8),
+                    itemBuilder: (context, index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
+                          
+                      
+           
+                                Container(
+                          width: 354,
+                                  height: 70,
+                                margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          
+                        ),
+
+                       
+                    
+
+                        
+                      
+                        ],
+                      );
+                    },
+                  )
+                    
+                  ),
+                 )
+                  
+                  
+                  , baseColor:Colors.grey.withOpacity(0.1), highlightColor: Colors.grey.shade300);
+
+
                 }
                 
               },

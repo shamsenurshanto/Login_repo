@@ -90,7 +90,7 @@ class MyCookieClass {
       _box.put("User_id",jh['data']['_id'] );
         _box.put("User_email",username );
      
-       Navigator.push(
+       Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) {

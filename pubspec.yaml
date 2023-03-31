@@ -43,6 +43,10 @@ dependencies:
   shared_preferences: ^2.0.20
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  shimmer: ^2.0.0
+  flushbar: ^1.10.4
+  google_fonts: ^4.0.3
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
 

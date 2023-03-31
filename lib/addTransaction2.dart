@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
+import 'package:my_app/dashBoard2.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 
@@ -108,6 +110,14 @@ class _addTransState extends State<addTrans> {
          {
 
                   LoanVal = "63efbf6207ca4144957e03f1";
+                    send_id=TextFormEmail;
+                recv_id =_idgh;
+                Sender_mail = _textController_For_EmailSearch.text;
+                receiver_mail = email;
+                print(send_id);
+    print(recv_id);
+    print(email);
+    print(_textController_For_EmailSearch.text);
 
 
           }
@@ -168,6 +178,11 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
 
        print(response.body);
 
+
+
+          
+
+
      }
 
 
@@ -176,6 +191,10 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
   void initState() {
     _isLoading = false;
     getUser();
+      setState(() {
+       
+    });
+
     super.initState();
   }
 
@@ -324,10 +343,27 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                          print(_dropDownValue);
 
                          postTrans();
+
+
+                             
+
+                           Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return dash2();
+                    // return userDetails("email");
+                  },
+                ),
+              );
+
+
                       
                         },
                    
           ),
+
+          ElevatedButton(  onPressed: () => showTopSnackBar(context), child: Text("click "))
                  
              ],
          ),
@@ -339,3 +375,28 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
     );
   }
   }
+
+
+ void showTopSnackBar(BuildContext context) =>
+  Container(
+    child:  Center(
+    child: 
+    
+      Flushbar(
+      
+          icon: Icon(Icons.error, size: 32, color: Colors.white),
+          shouldIconPulse: false,
+          title: 'Transaction has been added',
+          message: 'Transaction has been added to the list ',
+           
+          onTap: (_) {
+            print('Clicked bar');
+          },
+          duration: Duration(seconds: 2),
+          flushbarPosition: FlushbarPosition.BOTTOM,
+          margin: EdgeInsets.fromLTRB(8, kToolbarHeight + 10, 18, 0),
+          borderRadius: 16,
+        )..show(context)
+    ,
+   ),
+  );
