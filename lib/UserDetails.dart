@@ -30,7 +30,7 @@ class userDetails extends StatelessWidget {
      print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
      print(gh);
      print(id);
-             var response = await http.get(Uri.https('smoggy-toad-fedora.cyclic.app', 'api/transaction/getsumofusers/${id}'), headers: {'Cookie': 'jwt_token=$gh'});
+             var response = await http.get(Uri.https('https://personalrec.onrender.com', 'api/transaction/getsumofusers/${id}'), headers: {'Cookie': 'jwt_token=$gh'});
      jsonData = jsonDecode(response.body);
     print(jsonData);
   }

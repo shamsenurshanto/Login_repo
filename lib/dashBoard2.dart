@@ -74,7 +74,7 @@ class dash2 extends StatelessWidget {
 print(tokenString2);
    print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https('smoggy-toad-fedora.cyclic.app', 'api/transaction/usersalltransactions'), headers: {'Cookie': 'jwt_token=$tokenString2'});
+    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'), headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
@@ -82,19 +82,23 @@ print(tokenString2);
     for (var eachTeam in jsonData['data']) {
       print(eachTeam['sender']['senderId']);
       String mainMail2="";
+       String mainName="";
       if(eachTeam['type']=="63efbef607ca4144957e03ef")
       {
          
-            mainMail2 = eachTeam['receiver']['receiverId'];
+            mainMail2 = eachTeam['receiver']['receiverEmailPhone'];
+            mainName = eachTeam['receiver']['receiverId']['userName'];
       }
       else
       {
-            mainMail2 = eachTeam['sender']['senderId'];
+          mainMail2 = eachTeam['sender']['senderEmailPhone'];
+            mainName = eachTeam['sender']['senderId']['userName'];
       }
       if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
      {
        final team = Team(
-        id: eachTeam['_id'],
+
+        id: eachTeam['sender']['senderId']['_id'],
         sender_email: eachTeam['sender']['senderEmailPhone'],
         receiver_email: eachTeam['receiver']['receiverEmailPhone'],
         type: eachTeam['type'],

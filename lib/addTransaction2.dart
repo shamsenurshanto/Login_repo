@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flushbar/flushbar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -49,10 +49,10 @@ class _addTransState extends State<addTrans> {
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
   
-   print("https://smoggy-toad-fedora.cyclic.app/api/user/searchuser/${_textController_For_EmailSearch.text}");
+   print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
     
 
-     var response = await http.post(Uri.https('smoggy-toad-fedora.cyclic.app', 'api/user/getuser'), body: {
+     var response = await http.post(Uri.https('https://personalrec.onrender.com', 'api/user/getuser'), body: {
       'userEmailPhone': _textController_For_EmailSearch.text,
       'userPass': '12345678'
       
@@ -86,7 +86,7 @@ class _addTransState extends State<addTrans> {
       print("--------------------");
       print(gh);
 
-   print("https://smoggy-toad-fedora.cyclic.app/api/transaction/createtransaction");
+   print("https://personalrec.onrender.com/api/transaction/createtransaction");
     
          if(_dropDownValue=="Loan Given")
          {
@@ -139,7 +139,7 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
 
     
       final response = await http.post(
-    Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/transaction/createtransaction"),
+    Uri.parse("https://personalrec.onrender.com/api/transaction/createtransaction"),
     headers: {
       
        'Content-Type': 'application/json; charset=UTF-8',
@@ -447,22 +447,23 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
   Container(
     child:  Center(
     child: 
+    Text("kk")
     
-      Flushbar(
+      // Flushbar(
       
-          icon: Icon(Icons.error, size: 32, color: Colors.white),
-          shouldIconPulse: false,
-          title: 'Transaction has been added',
-          message: 'Transaction has been added to the list ',
+      //     icon: Icon(Icons.error, size: 32, color: Colors.white),
+      //     shouldIconPulse: false,
+      //     title: 'Transaction has been added',
+      //     message: 'Transaction has been added to the list ',
            
-          onTap: (_) {
-            print('Clicked bar');
-          },
-          duration: Duration(seconds: 2),
-          flushbarPosition: FlushbarPosition.BOTTOM,
-          margin: EdgeInsets.fromLTRB(8, kToolbarHeight + 10, 18, 0),
-          borderRadius: 16,
-        )..show(context)
-    ,
+      //     onTap: (_) {
+      //       print('Clicked bar');
+      //     },
+      //     duration: Duration(seconds: 2),
+      //     flushbarPosition: FlushbarPosition.BOTTOM,
+      //     margin: EdgeInsets.fromLTRB(8, kToolbarHeight + 10, 18, 0),
+      //     borderRadius: 16,
+      //   )..show(context)
+    
    ),
   );

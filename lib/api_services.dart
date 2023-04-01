@@ -16,7 +16,7 @@ getPost()async {
   final _box2 = Hive.box("mybox");
 
   Uri url = Uri.parse(base);
-  Uri url2 = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions");
+  Uri url2 = Uri.parse("https://personalrec.onrender.com/api/transaction/usersalltransactions");
 
   // var res = await http.get(url);
   // var res2 = await http.get(url2);
@@ -65,7 +65,7 @@ getPost()async {
 
   String tokenString = gh.toString();
     final protectedResponse = await http.get(
-    Uri.parse('https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions'),
+    Uri.parse('https://personalrec.onrender.com/api/transaction/usersalltransactions'),
     headers: {'Cookie': 'jwt_token=$tokenString2'},
   );
  
