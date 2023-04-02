@@ -10,8 +10,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
+import 'package:my_app/abc.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
+import 'package:my_app/tbb.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -48,15 +50,29 @@ class _addTransState extends State<addTrans> {
      var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
+     print(gh);
   
-   print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
+  //  print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
     
-
-     var response = await http.post(Uri.https('https://personalrec.onrender.com', 'api/user/getuser'), body: {
-      'userEmailPhone': _textController_For_EmailSearch.text,
-      'userPass': '12345678'
+ var response = await http.post(Uri.https('personalrec.onrender.com', 'api/user/getuser'),
+ 
+    headers: {
       
-      }, );
+      //  'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'
+      },
+
+ 
+  body: {
+
+
+      'userEmailPhone': "ab63@gmail.com"
+     
+      
+      }, 
+      
+       );
     //  jsonData = jsonDecode(response.body);
     // print(jsonData);
     var resp = json.decode(response.body);
@@ -79,16 +95,16 @@ class _addTransState extends State<addTrans> {
      var box = await Hive.openBox("mybox");
      final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
-     var _idgh = _box2.get("User_id");
+     var _idgh = _box2.get("User_id");//my user id 
           var email= _box2.get("User_email");//here it gets user id ;
               //  var _idgh = _box2.get("User_id");
       String LoanVal =" ";
       print("--------------------");
       print(gh);
 
-   print("https://personalrec.onrender.com/api/transaction/createtransaction");
+  //  print("https://personalrec.onrender.com/api/transaction/createtransaction");
     
-         if(_dropDownValue=="Loan Given")
+         if(_dropDownValue=="Loan Taken")
          {
 
               LoanVal = "63efbef607ca4144957e03ef";
@@ -108,7 +124,7 @@ class _addTransState extends State<addTrans> {
 
 
          }
-         else if(_dropDownValue=="Loan Taken")
+         else if(_dropDownValue=="Loan Given")
          {
 
                   LoanVal = "63efbf6207ca4144957e03f1";
@@ -144,7 +160,8 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
       
        'Content-Type': 'application/json; charset=UTF-8',
       
-      'Cookie': 'jwt_token=$gh'},
+      'Cookie': 'jwt_token=$gh'
+      },
     body:         
       jsonEncode(
 
@@ -205,84 +222,26 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
     
      List<String> _items = <String>["Loan Taken","Loan Given"];
 
-    return Scaffold(
-      bottomNavigationBar:  
-       Container(
-       
-        // margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
-        //  color: Colors.deepPurple,
-    
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(15.0),
-            bottomLeft: Radius.circular(0.0)),
-      ),
-
-        child: 
-        
-        Padding(
-        
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-        
+ return Scaffold(
       
-      
-              child:  GNav(
-  
-  // selected tab background color
-  // navigation bar padding
-
-  backgroundColor: Colors.deepPurple.withOpacity(0.88),
-  color: Colors.white,
-  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-  activeColor: Colors.deepPurple,
-  tabBackgroundColor: Colors.white,
-  gap: 8,
-  tabs: [
-    GButton(
-      icon: Icons.home,
-      text: 'Home',
-      onPressed: (){
-        print("hello");
-      },
-    ),
-    GButton(
-      icon: Icons.baby_changing_station_outlined,
-      text: 'Likes',
-    ),
-    GButton(
-      icon: Icons.search,
-      text: 'Search',
-    ),
-    GButton(
-      icon: Icons.add,
-      text: 'Profile',
-    )
-  ]
-),
-         
-            
-          ),
-      
-       )
-       ,
+       appBar: AppBar(title: Text("Transaction Summary",
+       style: TextStyle(fontSize: 20),),
+        backgroundColor: Colors.deepPurple,
+       ),
        
-       appBar: AppBar(title: Text("Transaction"),
-      backgroundColor: Colors.deepPurple,
-       
-       centerTitle: true,),
-       
-       body: 
-       
-       Container(
-
+     
+     
+      body: SafeArea(
+          
+          child: 
+        
+          Container(
+              
          padding: EdgeInsets.all(30.0),
          
          child: ListView(
 
-
+   ///Find the valid user section 
              children: [
               SizedBox(
              height: 100,
@@ -313,7 +272,7 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                 ),
            
             child:  _isLoading
-                              ? const CircularProgressIndicator(color: Colors.white,)
+                              ? const CircularProgressIndicator(color: Colors.deepPurple,)
                              
                               : Text(
                                  "Search User",
@@ -417,7 +376,7 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return dash2();
+                    return MyBottomNavigationBar();
                     // return userDetails("email");
                   },
                 ),
@@ -434,6 +393,8 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
              ],
          ),
        ),
+          
+        )
 
 
 

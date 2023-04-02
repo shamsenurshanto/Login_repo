@@ -7,11 +7,13 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/abc.dart';
+import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/splashScreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:my_app/tbb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:http/http.dart' as http;
@@ -96,8 +98,8 @@ class MyCookieClass {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return dash2();
-                    // return userDetails("email");
+                    // return MyBottomNavigationBar();
+                    return MyBottomNavigationBar();
                   },
                 ),
               );

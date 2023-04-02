@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
+import 'package:my_app/tbb.dart';
 import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,10 @@ class dash2 extends StatelessWidget {
 print(tokenString2);
    print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'), headers: {'Cookie': 'jwt_token=$tokenString2'});
+    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+     headers: {'Cookie': 'jwt_token=$tokenString2'}
+     
+     );
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
@@ -83,16 +87,21 @@ print(tokenString2);
       print(eachTeam['sender']['senderId']);
       String mainMail2="";
        String mainName="";
-      if(eachTeam['type']=="63efbef607ca4144957e03ef")
+         print(eachTeam['type']['en_typeName']);
+      if(eachTeam['type']['_id']=="63efbef607ca4144957e03ef")
       {
-         
-            mainMail2 = eachTeam['receiver']['receiverEmailPhone'];
-            mainName = eachTeam['receiver']['receiverId']['userName'];
+         mainMail2 = eachTeam['sender']['senderEmailPhone'];
+            mainName = eachTeam['sender']['senderId']['userName'];
+          
+           
       }
       else
       {
-          mainMail2 = eachTeam['sender']['senderEmailPhone'];
-            mainName = eachTeam['sender']['senderId']['userName'];
+          
+
+             mainMail2 = eachTeam['receiver']['receiverEmailPhone'];
+            mainName = eachTeam['receiver']['receiverId']['userName'];
+              // print(eachTeam['type']['_id']);
       }
       if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
      {
@@ -101,7 +110,7 @@ print(tokenString2);
         id: eachTeam['sender']['senderId']['_id'],
         sender_email: eachTeam['sender']['senderEmailPhone'],
         receiver_email: eachTeam['receiver']['receiverEmailPhone'],
-        type: eachTeam['type'],
+        type: eachTeam['type']['en_typeName'],
         amount: eachTeam['amount'],
         mainMail: mainMail2
         
@@ -120,68 +129,7 @@ print(tokenString2);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  
-       Container(
-       
-        // margin: EdgeInsets.fromLTRB(0, 0, 0, 3),
-        //  color: Colors.deepPurple,
-    
-            decoration: BoxDecoration(
-              color: Colors.deepPurple,
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(15.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(15.0),
-            bottomLeft: Radius.circular(0.0)),
-      ),
-
-        child: 
-        
-        Padding(
-        
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-        
-      
-      
-              child:  GNav(
-  
-  // selected tab background color
-  // navigation bar padding
-
-  backgroundColor: Colors.deepPurple.withOpacity(0.88),
-  color: Colors.white,
-  padding: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-  activeColor: Colors.deepPurple,
-  tabBackgroundColor: Colors.white,
-  gap: 8,
-  tabs: [
-    GButton(
-      icon: Icons.home,
-      text: 'Home',
-      onPressed: (){
-        print("hello");
-      },
-    ),
-    GButton(
-      icon: Icons.baby_changing_station_outlined,
-      text: 'Likes',
-    ),
-    GButton(
-      icon: Icons.search,
-      text: 'Search',
-    ),
-    GButton(
-      icon: Icons.add,
-      text: 'Profile',
-    )
-  ]
-),
-         
-            
-          ),
-      
-       )
-       ,
+     
     
 
 
@@ -263,8 +211,8 @@ print(tokenString2);
                   ),
                 );
                             },
-                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].receiver_email):Text(teams[index].sender_email),
-                            subtitle: teams[index].type=="63efbef607ca4144957e03ef"?Text("Loan Given"):Text("Loan Taken"),
+                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].sender_email):Text(teams[index].receiver_email),
+                            subtitle: Text((teams[index].type).toString()),
                             trailing: Text("\$${teams[index].amount.toString()}",
                             
                              textScaleFactor: 1.5,

@@ -8,6 +8,7 @@ import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/splashScreen.dart';
+import 'package:my_app/tbb.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,8 +34,10 @@ class MyApp extends StatelessWidget {
       // home:  userDetails("email"),
       //  home:  addTrans(),
       home:  mainLogin(),
-      // home:  mainLogin(),
+          // home: MyBottomNavigationBar()
       
+      
+ 
       
     );
     }
