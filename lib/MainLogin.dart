@@ -71,7 +71,7 @@ class MyCookieClass {
 
 
   // Save the JWT token as a global variable
-  MyCookieClass.jwtToken = cookie;
+  // MyCookieClass.jwtToken = cookie;
 
  
    
