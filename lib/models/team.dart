@@ -2,11 +2,11 @@ class Team {
   final String id; // eg. LAL
   // final String sender_email,receiver_email,type,amount; // eg. Los Angeles
  final String sender_email;
- final receiver_email;
- final type;
- final amount;
- final mainMail;
- final name;
+ final String receiver_email;
+ final String type;
+ final int amount;
+ final String mainMail;
+ final String name;
 
   Team({
     required this.id,

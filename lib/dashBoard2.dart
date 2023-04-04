@@ -92,21 +92,23 @@ print(tokenString2);
        String mainName="";
          print(eachTeam['type']['en_typeName']);
          final team;
+         print("___________________________________________________--------------");
       if(eachTeam['type']['en_typeName']=="LoanTaken")
       {
-         mainMail2 = eachTeam['sender']['senderId']['_id'];
-            mainName = eachTeam['sender']['senderId']['userName'];
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
             
           print(mainName);
             team = Team(
 
-        id: eachTeam['sender']['senderId']['_id'],
-        sender_email: eachTeam['sender']['senderEmailPhone'],
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'],
-        type: eachTeam['type']['en_typeName'],
+        id: eachTeam['sender']['senderId']['_id'].toString(),
+        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
+        type: eachTeam['type']['en_typeName'].toString(),
         amount: eachTeam['amount'],
-        mainMail: eachTeam['sender']['senderId']['_id'],
-        name: eachTeam['sender']['senderId']['userEmail'],
+         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
+     
+        name: eachTeam['sender']['senderId']['userName'].toString(),
         
         
         
@@ -117,18 +119,18 @@ print(tokenString2);
       {
           
 
-             mainMail2 = eachTeam['receiver']['receiverId']['_id'];
-            mainName = eachTeam['receiver']['receiverId']['userName'];
+            //  mainMail2 = eachTeam['receiver']['receiverId']['_id'];
+            // mainName = eachTeam['receiver']['receiverId']['userName'];
               print(mainName);
                  team = Team(
 
-        id: eachTeam['sender']['senderId']['_id'],
-        sender_email: eachTeam['sender']['senderEmailPhone'],
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'],
-        type: eachTeam['type']['en_typeName'],
+        id: eachTeam['sender']['senderId']['_id'].toString(),
+        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
+        type: eachTeam['type']['en_typeName'].toString(),
         amount: eachTeam['amount'],
-        mainMail:eachTeam['receiver']['receiverId']['_id'],
-        name: eachTeam['receiver']['receiverId']['userName']
+          mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+        name: eachTeam['receiver']['receiverId']['userName'].toString()
         
         
         
@@ -142,7 +144,8 @@ print(tokenString2);
       print(mainName);
       
       teams.add(team);
-      print(team.name);
+      
+      print(teams[teams.length-1].name);
      }
       
       
@@ -231,9 +234,9 @@ print(tokenString2);
                     builder: (context) {
                       // return dash2();
                          print(")))))))))))))))))))))))))))))))");
-                         print(teams[index].name);
+                         print(index);
                      print(teams[index].name);
-                      return userDetails(teams[index]);
+                      return UserDetails(teams[index]);
                     },
                   ),
                 );
