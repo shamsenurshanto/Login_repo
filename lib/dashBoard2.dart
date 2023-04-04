@@ -15,10 +15,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 
 class dash2 extends StatelessWidget {
+      String passFromTheclassmail = "";
+    String passFromTheclassid = "";
   List<Team> teams = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
   Future getTeams() async {
+
 
 
   var box = await Hive.openBox("mybox");
@@ -88,36 +91,58 @@ print(tokenString2);
       String mainMail2="";
        String mainName="";
          print(eachTeam['type']['en_typeName']);
-      if(eachTeam['type']['_id']=="63efbef607ca4144957e03ef")
+         final team;
+      if(eachTeam['type']['en_typeName']=="LoanTaken")
       {
-         mainMail2 = eachTeam['sender']['senderEmailPhone'];
+         mainMail2 = eachTeam['sender']['senderId']['_id'];
             mainName = eachTeam['sender']['senderId']['userName'];
-          
-           
-      }
-      else
-      {
-          
-
-             mainMail2 = eachTeam['receiver']['receiverEmailPhone'];
-            mainName = eachTeam['receiver']['receiverId']['userName'];
-              // print(eachTeam['type']['_id']);
-      }
-      if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
-     {
-       final team = Team(
+            
+          print(mainName);
+            team = Team(
 
         id: eachTeam['sender']['senderId']['_id'],
         sender_email: eachTeam['sender']['senderEmailPhone'],
         receiver_email: eachTeam['receiver']['receiverEmailPhone'],
         type: eachTeam['type']['en_typeName'],
         amount: eachTeam['amount'],
-        mainMail: mainMail2
+        mainMail: eachTeam['sender']['senderId']['_id'],
+        name: eachTeam['sender']['senderId']['userEmail'],
+        
         
         
       );
+           
+      }
+      else
+      {
+          
+
+             mainMail2 = eachTeam['receiver']['receiverId']['_id'];
+            mainName = eachTeam['receiver']['receiverId']['userName'];
+              print(mainName);
+                 team = Team(
+
+        id: eachTeam['sender']['senderId']['_id'],
+        sender_email: eachTeam['sender']['senderEmailPhone'],
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'],
+        type: eachTeam['type']['en_typeName'],
+        amount: eachTeam['amount'],
+        mainMail:eachTeam['receiver']['receiverId']['_id'],
+        name: eachTeam['receiver']['receiverId']['userName']
+        
+        
+        
+      );
+      }
+ 
+      // print(mainName);
+      if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
+     {
+           print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+      print(mainName);
+      
       teams.add(team);
-      print(team);
+      print(team.name);
      }
       
       
@@ -199,19 +224,22 @@ print(tokenString2);
                           ),
                           child: ListTile(
                             onTap: () {
-                             print(teams[index].type);
-                            
+                             print(teams[index].name);
+                                 
                               print("hello");
                                Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
                       // return dash2();
-                     
-                      return userDetails(teams[index].mainMail);
+                         print(")))))))))))))))))))))))))))))))");
+                         print(teams[index].name);
+                     print(teams[index].name);
+                      return userDetails(teams[index]);
                     },
                   ),
                 );
                             },
-                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].sender_email):Text(teams[index].receiver_email),
+                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].receiver_email):Text(teams[index].sender_email),
+                            
                             subtitle: Text((teams[index].type).toString()),
                             trailing: Text("\$${teams[index].amount.toString()}",
                             

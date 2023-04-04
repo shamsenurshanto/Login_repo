@@ -6,6 +6,7 @@ class Team {
  final type;
  final amount;
  final mainMail;
+ final name;
 
   Team({
     required this.id,
@@ -13,7 +14,8 @@ class Team {
      required this.receiver_email,
       required this.type,
        required this.amount,
-       required this.mainMail
+       required this.mainMail,
+       required this.name
   }
   
    

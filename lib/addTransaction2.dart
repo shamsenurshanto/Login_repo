@@ -51,6 +51,7 @@ class _addTransState extends State<addTrans> {
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
      print(gh);
+     String user_name = _textController_For_EmailSearch.text;
   
   //  print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
     
@@ -67,7 +68,7 @@ class _addTransState extends State<addTrans> {
   body: {
 
 
-      'userEmailPhone': "ab63@gmail.com"
+      'userEmailPhone': user_name
      
       
       }, 
@@ -288,6 +289,7 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                           });
                           print(_textController_For_EmailSearch.text.runtimeType);
                           if(_textController_For_EmailSearch.text!=null)
+
                           getUser();
                           else
                           return;
