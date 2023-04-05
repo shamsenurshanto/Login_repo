@@ -101,10 +101,7 @@ print(tokenString2);
         //     mainName = eachTeam['sender']['senderId']['userName'];
             
           print(mainName);
-          if(eachTeam['sender']['senderId']['_id'])
-          {
-            
-          }
+         
             team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -252,7 +249,28 @@ print(tokenString2);
                             title: teams[index].type=="LoanTaken"?Text(teams[index].sender_email):Text(teams[index].receiver_email),
                             
                             subtitle: Text((teams[index].type).toString()),
-                            trailing:Text(teams[index].amount.toString())
+                            trailing:RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "\$${teams[index].amount} ",
+                                    style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 20
+                                    )
+                                  ),
+                                  WidgetSpan(
+                                             child: Icon(
+                                Icons.flight,
+                                size: 16,
+                                color: Colors.deepPurpleAccent, //<-- SEE HERE
+                              ),
+                                                                ),
+                                                                
+                                ],
+                              ),
+)
+
                              
 
                             
