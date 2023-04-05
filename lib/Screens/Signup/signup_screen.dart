@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/Screens/Signup/components/signup_form_pages.dart';
 
 import 'package:my_app/constants.dart';
 import 'package:my_app/responsive.dart';
@@ -12,7 +13,8 @@ class SignUpScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Background(
+    return Scaffold(
+      body: Background(
       child: SingleChildScrollView(
         child: Responsive(
           mobile: const MobileSignupScreen(),
@@ -27,7 +29,7 @@ class SignUpScreen extends StatelessWidget {
                   children: const [
                     SizedBox(
                       width: 450,
-                      child: SignUpForm(),
+                      child:SignUpScreen(),
                     ),
                     SizedBox(height: defaultPadding / 2),
                     // SocalSignUp()
@@ -38,6 +40,7 @@ class SignUpScreen extends StatelessWidget {
           ),
         ),
       ),
+    ),
     );
   }
 }
@@ -58,7 +61,7 @@ class MobileSignupScreen extends StatelessWidget {
             Spacer(),
             Expanded(
               flex: 8,
-              child: SignUpForm(),
+              child: signupScreens_(),
             ),
             Spacer(),
           ],

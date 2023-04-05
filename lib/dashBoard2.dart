@@ -23,9 +23,11 @@ class dash2 extends StatelessWidget {
   Future getTeams() async {
 
 
-
+     teams.clear();
   var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
+   var _idLoggedIn= _box2.get("User_id");//my user id 
+          var email= _box2.get("User_email");
   
 
                //hive initialization and get data
@@ -99,6 +101,10 @@ print(tokenString2);
         //     mainName = eachTeam['sender']['senderId']['userName'];
             
           print(mainName);
+          if(eachTeam['sender']['senderId']['_id'])
+          {
+            
+          }
             team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -214,7 +220,9 @@ print(tokenString2);
                (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Card(
-                    child: ListView.builder(
+                    child:
+                    
+                     ListView.builder(
                     itemCount: teams.length,
                     padding: EdgeInsets.all(8),
                     itemBuilder: (context, index) {
@@ -241,17 +249,13 @@ print(tokenString2);
                   ),
                 );
                             },
-                            title: teams[index].type=="63efbef607ca4144957e03ef"?Text(teams[index].receiver_email):Text(teams[index].sender_email),
+                            title: teams[index].type=="LoanTaken"?Text(teams[index].sender_email):Text(teams[index].receiver_email),
                             
                             subtitle: Text((teams[index].type).toString()),
-                            trailing: Text("\$${teams[index].amount.toString()}",
+                            trailing:Text(teams[index].amount.toString())
+                             
+
                             
-                             textScaleFactor: 1.5,
-                             style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontWeight: FontWeight.bold
-                             ),
-                            ),
                           ),
                         ),
                       );

@@ -109,10 +109,10 @@ class _addTransState extends State<addTrans> {
          {
 
               LoanVal = "63efbef607ca4144957e03ef";
-                send_id=_idgh;
-                recv_id =TextFormEmail;
-                Sender_mail = email;
-                receiver_mail = _textController_For_EmailSearch.text;
+                send_id=TextFormEmail;
+                recv_id =_idgh;
+                Sender_mail = _textController_For_EmailSearch.text;
+                receiver_mail =email ;
               //(resp["data"]["_id"]
                   // String recv_id =" ";
     // String  send_id = " ";
@@ -129,10 +129,10 @@ class _addTransState extends State<addTrans> {
          {
 
                   LoanVal = "63efbf6207ca4144957e03f1";
-                    send_id=TextFormEmail;
-                recv_id =_idgh;
-                Sender_mail = _textController_For_EmailSearch.text;
-                receiver_mail = email;
+                    send_id=_idgh;
+                recv_id =TextFormEmail;
+                Sender_mail = email;
+                receiver_mail = _textController_For_EmailSearch.text;
                 print(send_id);
     print(recv_id);
     print(email);
@@ -390,7 +390,9 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                    
           ),
 
-          ElevatedButton(  onPressed: () => showTopSnackBar(context), child: Text("click "))
+          // ElevatedButton(  onPressed: () => showTopSnackBar(context), child: Text("click ")
+          
+          // )
                  
              ],
          ),

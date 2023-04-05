@@ -41,7 +41,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     id = widget.teams.id;
     var response = await http.get(
-      Uri.https('personalrec.onrender.com', 'api/transaction//getsumofusers/$id'),
+      Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
       headers: {'Cookie': 'jwt_token=$gh'},
     );
     print(response.body);

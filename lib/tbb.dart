@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/MainLogin.dart';
 import 'package:my_app/abc.dart';
+import 'package:my_app/aboutUs.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
+import 'package:my_app/profilePages.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   @override
@@ -12,7 +14,7 @@ class MyBottomNavigationBar extends StatefulWidget {
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [    dash2(),       abc(),    mainLogin(), addTrans() ];
+  final List<Widget> _pages = [    dash2(),       abc(),    ProfilePage(), AboutPage() ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,8 +58,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add Transaction',
+            icon: Icon(Icons.local_post_office),
+            label: 'Contact Us',
           ),
         ],
       ),
