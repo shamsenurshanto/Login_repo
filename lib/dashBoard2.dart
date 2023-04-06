@@ -188,9 +188,9 @@ print(tokenString2);
         receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
         type: "Loan Given",
         amount: eachTeam['amount'],
-         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
+        mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
      
-        name: eachTeam['sender']['senderId']['userName'].toString(),
+        name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
         
         
@@ -215,9 +215,11 @@ print(tokenString2);
         receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
         type: "Loan Taken",
         amount: eachTeam['amount'],
-         mainMail:eachTeam['receiver']['senderId']['_id'].toString(),
+        
+
+         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
      
-        name: eachTeam['receiver']['receiverId']['userName'].toString(),
+        name: eachTeam['sender']['senderId']['userName'].toString(),
         
         
         
