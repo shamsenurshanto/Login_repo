@@ -14,16 +14,21 @@ class AddTransaction extends StatelessWidget {
          padding: EdgeInsets.all(30.0),
          child: ListView(
 
-             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Find The Valid User ",
-                  prefixIcon: Icon(Icons.verified_user_outlined),
-                  border: OutlineInputBorder(
+                    children: [
+                      TextField(
+          decoration: InputDecoration(
+            labelText: 'Find The Valid User',
+            labelStyle: TextStyle(
+              color: Colors.deepPurpleAccent, //<-- SEE HERE
+            ),
+            prefixIcon: Icon(Icons.verified_user_outlined),
+                          border: OutlineInputBorder(
 
-                  )
-                ),
-              ),
+                          )
+          ),
+        ),
+
+                    
               ElevatedButton(
            
             child:isLoading? Row(

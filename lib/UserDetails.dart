@@ -154,7 +154,7 @@ class _UserDetailsState extends State<UserDetails> {
 
                         ),
                         Text(
-                                    (widget.teams.type=="LoanTaken")?"Email : ${widget.teams.sender_email}":"Email : ${widget.teams.receiver_email}",
+                                   "Email : ${widget.teams.name}",
                                     style: GoogleFonts.hammersmithOne(
                                       fontSize: 20,
                               fontWeight: FontWeight.w700,

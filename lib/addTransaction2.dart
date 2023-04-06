@@ -249,14 +249,16 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
               ),
               TextField(
                 controller: _textController_For_EmailSearch,
-                decoration: InputDecoration(
-                  
-                  labelText: "Find The Valid User ",
-                  prefixIcon: Icon(Icons.verified_user_outlined),
-                  border: OutlineInputBorder(
+                 decoration: InputDecoration(
+            labelText: 'Find The Valid User',
+            labelStyle: TextStyle(
+              color: Colors.deepPurpleAccent, //<-- SEE HERE
+            ),
+            prefixIcon: Icon(Icons.verified_user_outlined),
+                          border: OutlineInputBorder(
 
-                  )
-                ),
+                          )
+          ),
               ),
               SizedBox(
              height: 10,
@@ -273,7 +275,7 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                 ),
            
             child:  _isLoading
-                              ? const CircularProgressIndicator(color: Colors.deepPurple,)
+                              ? const CircularProgressIndicator(color: Colors.white,)
                              
                               : Text(
                                  "Search User",
@@ -308,11 +310,11 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
           ? Text('Dropdown')
           : Text(
               _dropDownValue,
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: Colors.deepPurple),
             ),
       isExpanded: true,
       iconSize: 30.0,
-      style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight:FontWeight.bold),
+      style: TextStyle(color: Colors.deepPurple,fontSize: 20,fontWeight:FontWeight.bold),
       items: ['Select The Loan Type', 'Loan Given', 'Loan Taken'].map(
         (val) {
           return DropdownMenuItem<String>(
@@ -338,13 +340,16 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
               ),
        TextField(
         controller: _textController_For_amount,
-                decoration: InputDecoration(
-                  labelText: "Enter the Amount",
-                  prefixIcon: Icon(Icons.money),
-                  border: OutlineInputBorder(
+                 decoration: InputDecoration(
+            labelText: 'Enter The Correct Amount',
+            labelStyle: TextStyle(
+              color: Colors.deepPurpleAccent, //<-- SEE HERE
+            ),
+            prefixIcon: Icon(Icons.verified_user_outlined),
+                          border: OutlineInputBorder(
 
-                  )
-                ),
+                          )
+          ),
               ),
                   SizedBox(
              height: 20,

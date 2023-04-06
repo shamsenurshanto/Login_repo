@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -99,15 +100,52 @@ print(tokenString2);
       {
         //  mainMail2 = eachTeam['sender']['senderId']['_id'];
         //     mainName = eachTeam['sender']['senderId']['userName'];
-            
-          print(mainName);
-         
-            team = Team(
+
+        //here it is gone for change    TO SEE EACH OTHER
+         var _idgh = _box2.get("User_id");//my user id 
+          var email= _box2.get("User_email");
+          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
+          {
+            print("ole");
+            print(_idgh);
+            print(email);
+             
+
+
+
+                 team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
         sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
         receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: eachTeam['type']['en_typeName'].toString(),
+        type: "Loan Given",
+        amount: eachTeam['amount'],
+         mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
+     
+        name: eachTeam['receiver']['receiverId']['userName'].toString(),
+        
+        
+        
+      );
+
+
+
+
+
+
+          }
+          else{
+            print("lole");
+             print(_idgh);
+              print(email);
+
+
+               team = Team(
+
+        id: eachTeam['sender']['senderId']['_id'].toString(),
+        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
+        type: "Loan Taken",
         amount: eachTeam['amount'],
          mainMail:eachTeam['sender']['senderId']['_id'].toString(),
      
@@ -116,28 +154,86 @@ print(tokenString2);
         
         
       );
+
+
+
+          }
+            
+          print(mainName);
+         
+           
            
       }
-      else
+      else if(eachTeam['type']['en_typeName']=="LoanGiven")
       {
-          
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
 
-            //  mainMail2 = eachTeam['receiver']['receiverId']['_id'];
-            // mainName = eachTeam['receiver']['receiverId']['userName'];
-              print(mainName);
+        //here it is gone for change    TO SEE EACH OTHER
+         var _idgh = _box2.get("User_id");//my user id 
+          var email= _box2.get("User_email");
+          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
+          {
+            print("ole");
+            print(_idgh);
+            print(email);
+             
+
+
+
                  team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
         sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
         receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: eachTeam['type']['en_typeName'].toString(),
+        type: "Loan Given",
         amount: eachTeam['amount'],
-          mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-        name: eachTeam['receiver']['receiverId']['userName'].toString()
+         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
+     
+        name: eachTeam['sender']['senderId']['userName'].toString(),
         
         
         
       );
+
+
+
+
+
+
+          }
+          else{
+            print("lole");
+             print(_idgh);
+              print(email);
+
+
+               team = Team(
+
+        id: eachTeam['sender']['senderId']['_id'].toString(),
+        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
+        type: "Loan Taken",
+        amount: eachTeam['amount'],
+         mainMail:eachTeam['receiver']['senderId']['_id'].toString(),
+     
+        name: eachTeam['receiver']['receiverId']['userName'].toString(),
+        
+        
+        
+      );
+
+
+
+          }
+            
+          print(mainName);
+         
+           
+           
+      }
+      else{
+        team="";
       }
  
       // print(mainName);
@@ -246,7 +342,7 @@ print(tokenString2);
                   ),
                 );
                             },
-                            title: teams[index].type=="LoanTaken"?Text(teams[index].sender_email):Text(teams[index].receiver_email),
+                            title: Text(teams[index].name),
                             
                             subtitle: Text((teams[index].type).toString()),
                             trailing:RichText(
@@ -261,9 +357,9 @@ print(tokenString2);
                                   ),
                                   WidgetSpan(
                                              child: Icon(
-                                Icons.flight,
-                                size: 16,
-                                color: Colors.deepPurpleAccent, //<-- SEE HERE
+                                Icons.arrow_upward_outlined,
+                                size: 20,
+                                color: Colors.green, //<-- SEE HERE
                               ),
                                                                 ),
                                                                 
