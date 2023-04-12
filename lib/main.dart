@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_auth/constants.dart';
 import 'package:my_app/Screens/Welcome/welcome_screen.dart';
 import 'package:my_app/constants.dart';
+import 'package:my_app/homeGrid.dart';
 
 void main() => runApp(const MyApp());
 
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
+      // home: const WelcomeScreen(),
+      home: const homeGrid(),
     );
   }
 }
