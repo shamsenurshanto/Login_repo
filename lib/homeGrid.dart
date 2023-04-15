@@ -5,37 +5,66 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class homeGrid extends StatelessWidget {
   const homeGrid({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
+      backgroundColor: Colors.black,
+      
    body:Container(
-    margin: EdgeInsets.all(10),
-    child:  quilet(context)
-   )
+    margin: EdgeInsets.only(top: 20.0),
+    child: 
+    Container(
+      margin: EdgeInsets.all(10.0),
+      child: masonaryLayout(context)
+      ),
+    )
+   
 
     );
   }
   Widget masonaryLayout(BuildContext context)
   {
+
+    var arr = ["All Transaction","All pending Approval","My created List","Add Transaction","How much I own","How much I will pay"];
+
    return MasonryGridView.builder(
     
     
     gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
      itemCount: 6,
-     crossAxisSpacing: 10,
-     mainAxisSpacing: 10,
+     crossAxisSpacing: 15,
+     mainAxisSpacing: 15,
      
      itemBuilder: (context,index){
-      return ClipRRect(
+
+
+      return Column(
+        children: [
+          GestureDetector(
+        onTap: () {
+          print(index);
+        },
+        child: ClipRRect(
+          
               borderRadius: BorderRadius.circular(10),
                   //  child: Image.network("https://source.unsplash.com/random?sig=$index"),
                    child: Container(
-                    width: 100,
-                    height: 300,
-                    color: Colors.deepPurple,
-                    child: Text("hello"),
+                    width: 200,
+                    height: 200,
+                    color: Color.fromARGB(96, 115, 108, 108),
+                    child: Center(
+                      child: Text(arr[index],style: TextStyle(color: Colors.white,fontSize: 22,),textAlign: TextAlign.center,),
+                    )
                    ),
+      ),
+      ),
+      
+    
+        
+      
+        ],
       );
      }
      

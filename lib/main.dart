@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_app/Screens/Welcome/welcome_screen.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/homeGrid.dart';
+import 'package:my_app/transactionWithPending.dart';
 
 void main() => runApp(const MyApp());
 
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
             ),
           )),
       // home: const WelcomeScreen(),
-      home: const homeGrid(),
+      // home: const homeGrid(),
+      home: const transactionWithPending(),
     );
   }
 }
