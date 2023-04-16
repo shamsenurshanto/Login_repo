@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +37,7 @@ class _UserDetailsState extends State<UserDetails> {
     print(widget.teams.name);
     print(widget.teams.id);
     print(widget.teams.amount);
-    print(widget.teams.mainMail);
+    print(widget.teams.Transaction_status);
     String Bname = "";
     String Bmail = "";
     String Bamount = "";
@@ -51,130 +54,189 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
+
+       alertFunction (){
+        print("alert");
+        showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text('Change Status'),
+          content: Text('If You Acknowledge or Denied User will get a short notification'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Navigator.of(context).pop();
+              },
+              child: Text('ACKNOWLEDGED'),
+            ),
+             TextButton(
+              onPressed: () {
+                // Navigator.of(context).pop();
+              },
+              child: Text('DENIED'),
+            ),
+           
+          ],
+        );
+      },
+    );
+       }
+
     return Scaffold(
       
       appBar: AppBar(
-        title: Text(
-          "Transaction Summary",
-          style: TextStyle(fontSize: 20),
+        
+        
+        title: Text("Transaction Details",style: TextStyle(color: Colors.black),
+        
         ),
-        backgroundColor: Colors.deepPurple,
+      elevation: 4,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(
+    color: Colors.black,
       ),
-      backgroundColor: Colors.deepPurple,
+      ),
+      // backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: FutureBuilder(
           future: getTeams2(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               print("done");
-              return Card(
-                child: ListView.builder(
-                  itemCount: 1,
-                  padding: EdgeInsets.all(0),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(30.0, 90.0, 30.0, 30.0),
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            width: 500,
-                            height: 80,
-                            child: Center(
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 19,
-                                      ),
-                                      child: Text(
-                                        "All the Transaction",
-                                        style: GoogleFonts.hammersmithOne(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 400,
-                            height: 160,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
+              return Scaffold(
+                body: Container(
+                  margin: EdgeInsets.fromLTRB(2, 50, 2, 0),
+                    child: Column(
+                      children: [
+                        //transaction type
+                         Container(
+                          margin: EdgeInsets.all(10),
+                          child: Card(
+                            elevation: 5,
+                            
+                            child:  Container(
                               
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 0,
-                              ),
+                              width: 360,
+                              // height: 900,
                               child: Column(
-                                
+                               crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  Text(
-                                    "User name : ${widget.teams.name}",
-                                    style: GoogleFonts.hammersmithOne(
-                                      fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white),
-
-                        ),
-                         Text(
-                                    "Loan Type : ${widget.teams.type}",
-                                    style: GoogleFonts.hammersmithOne(
-                                      fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white),
-
-                        ),
-                         Text(
-                                    "Amount : ${widget.teams.amount}",
-                                    style: GoogleFonts.hammersmithOne(
-                                      fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white),
-
-                        ),
-                        Text(
-                                   "Email : ${widget.teams.name}",
-                                    style: GoogleFonts.hammersmithOne(
-                                      fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white),
-
-                        ),
+                               Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "Trasaction Type : "+ widget.teams.type.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ),
 
 
-                ],
-              )
-                        
-                        ),
-                                 )
-                        ],
-                       )
-                    );
-                  },
-                )
-                );
+                             //sender/receiver name
+
+                                                    Padding(
+                              padding: EdgeInsets.all(8.0),
+                           child:    widget.teams.type=="Loan Taken"?
+                                                                Text(
+                              "Sender Email : "+ widget.teams.sender_email.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ):
+
+                               Text(
+                              "Receiver Email : "+ widget.teams.receiver_email.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                            ),
+                                      
+
+
+                        // Amount
+
+                          Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "Amount: "+ widget.teams.amount.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ),
+                        // //
+                          
+                          //Transaction email
+
+                                      Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "Name: "+ widget.teams.name.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ),
+
+
+                          //Transaction status
+                           
+
+                                Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "Transaction Status: "+ widget.teams.Transaction_status.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ),
+                           // button for changing status
+
+//                                     Row(
+//                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         SizedBox(
+//                                           height: 20,
+//                                         ),
+                                        
+//                           TextButton(
+//   onPressed: () {
+//     // Do something when the button is pressed
+//     print("status");
+//   alertFunction();
+//   },
+//   child: Text(
+//     'Change Transaction Status',
+//     style: TextStyle(
+//       color: Colors.black,
+//     ),
+//   ),
+//   style: ButtonStyle(
+//     backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+//     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+//   ),
+// )
+
+
+
+//                                       ],
+//                                     ),
+                           //user B Sent
+                           //
+                           //
+                              Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "This User Total Sent : "+ jsonData['data']['userBSent'].toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ), 
+
+                           //user B received 
+
+                             Padding(padding: EdgeInsets.all(10),
+                               
+                                child:     Text(
+                              "This User Total Received : "+ jsonData['data']['userBReceived'].toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                            ),
+                               ), 
+                                ],
+                              ),
+                            )
+                          )
+                         )
+                            // Text()
+                       
+
+
+                      ],
+                    ),
+                ),
+              );
               } else {
                 return Center(
                    

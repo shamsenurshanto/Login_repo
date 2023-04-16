@@ -46,7 +46,7 @@ class transactionWithPending extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue.shade100,
         appBar: AppBar(title: Text("Home"),
-          backgroundColor: Color.fromARGB(96, 115, 108, 108),
+          backgroundColor: Colors.black12,
       
       automaticallyImplyLeading: false,
       
@@ -108,7 +108,7 @@ class transactionWithPending extends StatelessWidget {
                            Padding(
                          padding: const EdgeInsets.fromLTRB(12, 8, 0, 8),
                             child:     Text(
-                              "Loan Given",style: TextStyle(fontSize: 25 ,color: Colors.blue),
+                              "Transaction Type:",style: TextStyle(fontSize: 25 ,color: Colors.blue),
                             ),
                             
                       ),

@@ -52,6 +52,8 @@ class MyCookieClass {
       },
   );
   print(response.body);
+  var json = jsonDecode(response.body);
+  print(json['data']['userName']);
 
  // Extract the cookie from the response headers
   String cookie = response.headers['set-cookie']!;
@@ -84,15 +86,20 @@ class MyCookieClass {
     print(response.body);
     // print("token from main login " + jwtToken);
     var jh = json.decode(response.body);
-  print(jh['data']['_id']);
+ 
     // print(username.toString());
     if(jsonDecode(gh)["success"])
     {
       print("hoise");
-      print(jwtToken);
+       print(jh['data']);
+       print(jh['data']['_id']);
+      // print(jwtToken);
 
       _box.put("User_id",jh['data']['_id'] );
+      _box.put("User_name",jh['data']['userName'] );
         _box.put("User_email",username );
+              print("ooooooooooooooooooooooooooooooooooo");
+       
      
        Navigator.pushReplacement(
                 context,

@@ -90,6 +90,9 @@ class _addTransState extends State<addTrans> {
   }
 
      postTrans() async{
+
+      var senderStatus= "";
+      var receiverStatus= "";
  
           // amountOfReal = double.parse(_textController_For_amount.text);
           print(amountOfReal.runtimeType);
@@ -106,13 +109,17 @@ class _addTransState extends State<addTrans> {
   //  print("https://personalrec.onrender.com/api/transaction/createtransaction");
     
          if(_dropDownValue=="Loan Taken")
-         {
-
+         { 
+            print("takeeeennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+          
+                senderStatus="PENDING";
+                receiverStatus="ACKNOWLEDGED";
               LoanVal = "63efbef607ca4144957e03ef";
                 send_id=TextFormEmail;
                 recv_id =_idgh;
                 Sender_mail = _textController_For_EmailSearch.text;
                 receiver_mail =email ;
+              
               //(resp["data"]["_id"]
                   // String recv_id =" ";
     // String  send_id = " ";
@@ -127,7 +134,9 @@ class _addTransState extends State<addTrans> {
          }
          else if(_dropDownValue=="Loan Given")
          {
-
+          print("giveeeennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                      senderStatus="ACKNOWLEDGED";
+                receiverStatus="PENDING";
                   LoanVal = "63efbf6207ca4144957e03f1";
                     send_id=_idgh;
                 recv_id =TextFormEmail;
@@ -140,19 +149,9 @@ class _addTransState extends State<addTrans> {
 
 
           }
-    var map = new Map<String, dynamic>();
-map['type'] = '63efbef607ca4144957e03ef';
-map['amount'] = 650;
-map['sender'] =  {
-                    "senderEmailPhone":"ab66@gmail.com",
-                    "senderId":""
-                };
-map['senderStatus'] = "SENT";
-map['receiver'] =  {
-                    "receiverEmailPhone":"",
-                    "receiverId":"63fc3d77847d6e54d113a686"
-                };
-map['receiverStatus'] = 'ACKNOWLEDGED';
+    print(senderStatus)
+    ;
+    print(receiverStatus);
 
     
       final response = await http.post(
@@ -175,13 +174,13 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
                     "senderEmailPhone":Sender_mail,
                     "senderId":send_id
                 },
-                "senderStatus":"SENT",
+                "senderStatus":"",
                 "receiver":
                 {
                     "receiverEmailPhone":receiver_mail,
                     "receiverId":recv_id
                 },
-                "receiverStatus":"ACKNOWLEDGED"
+                "receiverStatus":""
                 
                 }
       )
@@ -197,6 +196,27 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
   );
 
        print(response.body);
+       print(jsonEncode(
+
+
+          { 
+                "type":LoanVal,
+                "amount":double.parse(_amount),
+                "sender":
+                {
+                    "senderEmailPhone":Sender_mail,
+                    "senderId":send_id
+                },
+                "senderStatus":senderStatus,
+                "receiver":
+                {
+                    "receiverEmailPhone":receiver_mail,
+                    "receiverId":recv_id
+                },
+                "receiverStatus":receiverStatus
+                
+                }
+      ));
 
 
 
@@ -225,10 +245,18 @@ map['receiverStatus'] = 'ACKNOWLEDGED';
 
  return Scaffold(
       
-       appBar: AppBar(title: Text("Transaction Summary",
-       style: TextStyle(fontSize: 20),),
-        backgroundColor: Colors.deepPurple,
-       ),
+         appBar: AppBar(
+        
+        
+        title: Text("Create Transaction",style: TextStyle(color: Colors.black,)
+        
+        ),
+      // elevation: 4,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(
+    color: Colors.black,
+      ),
+      ),
        
      
      

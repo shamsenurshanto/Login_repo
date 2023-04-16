@@ -1,15 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:my_app/Screens/Login/login_screen.dart';
+import 'package:my_app/tbb.dart';
 
 class ProfilePage extends StatelessWidget {
+  
   @override
+ var _idLoggedIn;
+           var email;
+           var name;
+    GoFunction() async{
+       var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+    _idLoggedIn= _box2.get("User_id");//my user id 
+           email= _box2.get("User_email");
+           name= _box2.get("User_name");
+           print(name);
+  }
   Widget build(BuildContext context) {
+    GoFunction();
     return Scaffold(
       backgroundColor: Colors.white, // Set background color to deep purple
-      appBar: AppBar(
-        title: Text('Profile'),
-        backgroundColor: Colors.deepPurple, // Set app bar color to deep purple
-      ),
+     appBar: AppBar(title: Text("Dashboard",style: TextStyle(color: Colors.black),),
+  
+      backgroundColor: Colors.white,
+  // textDirection: TextDirection.rtl, // Set text direction to right-to-left
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back,color: Colors.black,),
+    onPressed: () {
+      // Navigate back when the back button is pressed
+                 Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return MyBottomNavigationBar();
+                    // return userDetails("email");
+                  },
+                ),
+              );
+
+    },
+  ),
+ 
+),
       body: Column(
         
         mainAxisAlignment: MainAxisAlignment.center,
@@ -19,22 +52,24 @@ class ProfilePage extends StatelessWidget {
             backgroundColor: Colors.deepPurple.shade100,
             // Set profile picture here
             // You can use Image.asset or NetworkImage to load an image
-            backgroundImage: AssetImage('assets/profile_picture.jpg'),
+            backgroundImage: AssetImage('assets/images/cat.jpg'),
           ),
-          SizedBox(height: 16),
-          Text(
-            'John Doe', // Set profile name here
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple,
-            ),
-          ),
+         
           SizedBox(height: 8),
           Text(
             'Software Developer', // Set profile title here
             style: TextStyle(
               fontSize: 16,
+               fontWeight: FontWeight.bold,
+              color: Colors.deepPurple,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            email.toString(), // Set profile title here
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               color: Colors.deepPurple,
             ),
           ),

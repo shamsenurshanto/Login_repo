@@ -4,6 +4,7 @@ import 'package:my_app/abc.dart';
 import 'package:my_app/aboutUs.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
+import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -12,9 +13,9 @@ class MyBottomNavigationBar extends StatefulWidget {
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
-  final List<Widget> _pages = [    dash2(),       abc(),    ProfilePage(), AboutPage() ];
+  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), AboutPage() ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,7 +31,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         bottomNavigationBar: new Theme(
     data: Theme.of(context).copyWith(
         // sets the background color of the `BottomNavigationBar`
-        canvasColor: Colors.deepPurple,
+        canvasColor: Colors.white,
         // sets the active color of the `BottomNavigationBar` if `Brightness` is light
         primaryColor: Colors.red,
         textTheme: Theme
@@ -41,8 +42,8 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           backgroundColor: Colors.deepOrange,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.blueGrey,
           iconSize: 30,
         items: [
           BottomNavigationBarItem(
