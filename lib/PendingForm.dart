@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
+import 'package:my_app/UserDetailsForPendingList.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/tbb.dart';
 import 'package:shimmer/shimmer.dart';
@@ -15,13 +16,13 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 
-class dash2 extends StatelessWidget {
+class dash4 extends StatelessWidget {
       String passFromTheclassmail = "";
     String passFromTheclassid = "";
   List<Team> teams = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-  Future getTeams() async {
+  Future getTeams2() async {
 
 
      teams.clear();
@@ -34,10 +35,10 @@ class dash2 extends StatelessWidget {
                //hive initialization and get data
               
          
-         print("apii te +++++++++++++++++++++++");
+         //print("apii te +++++++++++++++++++++++");
          var gh = _box2.get("tokens");
    
-    print(gh.runtimeType);
+    //print(gh.runtimeType);
 
   String token = "";
 
@@ -63,7 +64,7 @@ class dash2 extends StatelessWidget {
 
     if(flag>0)
     {
-    // print();
+    // //print();
      tokenString2+=String.fromCharCode(rune);
        
     }
@@ -74,22 +75,22 @@ class dash2 extends StatelessWidget {
 
     //ab33@gmail.com
 
-  print("token api ---------- ::::::::::::::::::::");
+  //print("token api ---------- ::::::::::::::::::::");
   final _box = Hive.box("mybox");
   _box.put("toki", tokenString2);
 
-print(tokenString2);
-   print(tokenString2.runtimeType);
+//print(tokenString2);
+   //print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/pending'),
      headers: {'Cookie': 'jwt_token=$tokenString2'}
      
      );
     var jsonData = jsonDecode(response.body);
-    print(response.body);
+    //print(response.body);
     // print(jsonData['data']);
 
-    for (var eachTeam in jsonData['data']) {
+     for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
       String mainMail2="";
        String mainName="";
@@ -256,8 +257,9 @@ print(tokenString2);
       
       
     }
-     print("---------------------------------------");
-    print(teams.length);
+     //print("---------------------------------------");
+    //print(teams.length);
+    
   }
 
   @override
@@ -268,40 +270,22 @@ print(tokenString2);
 
 
 
-      appBar: AppBar(title: Text("Dashboard",style: TextStyle(color: Colors.black),),
+      appBar: AppBar(title: Text("Pending List",style: TextStyle(color: Colors.black),),
       elevation: 4,
       backgroundColor: Colors.white,
-      
+       leading: IconButton(
+    icon: Icon(Icons.arrow_back,color: Colors.black,),
+    onPressed: () {
+      // Navigate back when the back button is pressed
+      Navigator.of(context).pop();
+    },
+  ),
       automaticallyImplyLeading: false,
       
         
       ),
-        floatingActionButton: FloatingActionButton(
         
-        onPressed: () {
-                           
-                            
-                              print("hello");
-            Navigator.push(context,MaterialPageRoute(
-                    builder: (context) {
-                      return addTrans();
-                     
-                      // return userDetails(teams[index].mainMail);
-                    }
-                    
-                    
-                    ,
-                  )
-                  
-                  
-                  
-                  ,
-                );
-                            },
-        child: const Icon(Icons.add,color: Colors.white,)
-        ,
-      )
-      ,
+      
       
       body: SafeArea(
         
@@ -314,12 +298,13 @@ print(tokenString2);
          FutureBuilder(
           
             
-              future: getTeams(),
+              future: getTeams2(),
               builder:
               
                 
                (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
+                
                   return Card(
                     color: Colors.white,
                     child:
@@ -332,7 +317,7 @@ print(tokenString2);
                         onTap: () {
                            Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return UserDetails(teams[index]);
+                      return UserDetails2(teams[index]);
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -422,7 +407,7 @@ print(tokenString2);
                                 // add your onPressed logic here
                                  Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return UserDetails(teams[index]);
+                      return UserDetails2(teams[index]);
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -436,14 +421,24 @@ print(tokenString2);
                   ,
                 );
                               },
-                              child: Text(
-                                'View More',
+                              child: ClipRRect(borderRadius: BorderRadius.circular(5.0),
+                              
+                              
+                              child: Container(
+                                
+                                color: Colors.blue,
+                                    
+                                child:Padding(padding: EdgeInsets.all(8),
+                                child:  Text(
+                                'Change Status',
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.blue, // set the color of the text to blue
-                                  decoration: TextDecoration.underline, // underline the text
+                                  fontSize: 16,
+                                  color: Colors.white, // set the color of the text to blue
+                                  // decoration: TextDecoration.underline, // underline the text
                                 ),
+                              ),)
                               ),
+                              )
                             )
 
                            
@@ -610,7 +605,7 @@ print(tokenString2);
 //               itemBuilder: (BuildContext context, int index) {
 //                 return  GestureDetector(
 //                   onTap: () {
-//                     print("gester");
+//                     //print("gester");
 //                   },
 //                   child: Card(
 //                    color: Colors.white,
@@ -648,7 +643,7 @@ print(tokenString2);
 //                               TextButton(
 //                   onPressed: () {
 //                     // add your onPressed logic here
-//                     print("hello from dash");
+//                     //print("hello from dash");
 //                   },
 //                   child: Text(
 //                     'Pending',

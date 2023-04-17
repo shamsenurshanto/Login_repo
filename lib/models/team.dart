@@ -7,7 +7,7 @@ class Team {
  final int amount;
  final String mainMail;
  final String name;
-//  final String nameB;
+ final String Transaction_id;
  final String Transaction_status;
 
   Team({
@@ -18,11 +18,13 @@ class Team {
        required this.amount,
        required this.mainMail,
        required this.name,
-        // required this.nameB,
+        required this.Transaction_id,
          required this.Transaction_status
+         
   }
   
    
   
   );
+  
 }

@@ -171,14 +171,14 @@ class _addTransState extends State<addTrans> {
                 "amount":double.parse(_amount),
                 "sender":
                 {
-                    "senderEmailPhone":Sender_mail,
-                    "senderId":send_id
+                    "senderEmailPhone":Sender_mail.toString(),
+                    "senderId":send_id.toString()
                 },
                 "senderStatus":"",
                 "receiver":
                 {
-                    "receiverEmailPhone":receiver_mail,
-                    "receiverId":recv_id
+                    "receiverEmailPhone":receiver_mail.toString(),
+                    "receiverId":recv_id.toString()
                 },
                 "receiverStatus":""
                 

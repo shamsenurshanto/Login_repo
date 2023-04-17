@@ -123,7 +123,8 @@ print(tokenString2);
          mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus']
+         Transaction_status: eachTeam['transactionStatus'],
+         Transaction_id:  eachTeam['_id'].toString()
         
         
         
@@ -152,7 +153,8 @@ print(tokenString2);
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
         
-         Transaction_status: eachTeam['transactionStatus']
+         Transaction_status: eachTeam['transactionStatus'],
+         Transaction_id:  eachTeam['_id'].toString()
         
       );
 
@@ -193,7 +195,8 @@ print(tokenString2);
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
-         Transaction_status: eachTeam['transactionStatus']
+         Transaction_status: eachTeam['transactionStatus'].toString(),
+         Transaction_id:  eachTeam['_id'].toString()
         
       );
 
@@ -221,7 +224,8 @@ print(tokenString2);
          mainMail:eachTeam['sender']['senderId']['_id'].toString(),
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus']
+         Transaction_status: eachTeam['transactionStatus'],
+         Transaction_id:  eachTeam['_id'].toString()
         
         
       );
@@ -267,7 +271,13 @@ print(tokenString2);
       appBar: AppBar(title: Text("My Created Transaction",style: TextStyle(color: Colors.black),),
       elevation: 4,
       backgroundColor: Colors.white,
-      
+      leading: IconButton(
+    icon: Icon(Icons.arrow_back,color: Colors.black,),
+    onPressed: () {
+      // Navigate back when the back button is pressed
+      Navigator.of(context).pop();
+    },
+  ),
       automaticallyImplyLeading: false,
       
         
