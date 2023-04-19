@@ -81,10 +81,14 @@ class dash2 extends StatelessWidget {
 print(tokenString2);
    print(tokenString2.runtimeType);
 
+  
     var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
      headers: {'Cookie': 'jwt_token=$tokenString2'}
      
      );
+     //https://jsonplaceholder.typicode.com/posts
+
+
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);

@@ -390,12 +390,22 @@ class _addTransState extends State<addTrans> {
                   
                 ),
            
-            child: Text("Add Transaction"),
+            // child: Text("Add Transaction"),
+            child: _isLoading
+                              ? const CircularProgressIndicator(color: Colors.white,)
+                             
+                              : Text(
+                                 "Add Transaction",
+                                  textAlign: TextAlign.center,
+                                ),
 
 
 
               onPressed: () {
-
+                     setState(() {
+                            _isLoading = true;
+                          
+                          });
                 _amount = _textController_For_amount.text;
                          print(_amount);
                             userEmail = _textController_For_EmailSearch.text;

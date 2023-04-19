@@ -84,6 +84,7 @@ class _UserDetails2State extends State<UserDetails2> {
        print(widget.teams.Transaction_id);
      jsonData = jsonDecode(response.body);
     print(jsonData);
+    print("received");
  
   }
 
@@ -116,6 +117,7 @@ class _UserDetails2State extends State<UserDetails2> {
        print(widget.teams.Transaction_id);
      jsonData = jsonDecode(response.body);
     print(jsonData);
+     print("sent");
  
   }
 
@@ -131,11 +133,13 @@ class _UserDetails2State extends State<UserDetails2> {
             TextButton(
               onPressed: () {
                 // Navigator.of(context).pop();
+                // print()
                 widget.teams.type=="Loan Taken"?
                ReceiverAck():SenderAck();
+               Navigator.of(context).pop();
 
               },
-              child: Text('ACKNOWLEDGED'),
+              child: Text('ACKNOWLEDGED',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),),
             ),
              TextButton(
               onPressed: () {

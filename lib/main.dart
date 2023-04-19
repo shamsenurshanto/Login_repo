@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_auth/Screens/Welcome/welcome_screen.dart';
 // import 'package:flutter_auth/constants.dart';
 import 'package:my_app/Screens/Welcome/welcome_screen.dart';
+import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
+import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
 
 void main() => runApp(const MyApp());
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
       home: const WelcomeScreen(),
       // home: const homeGrid(),
       // home: const transactionWithPending(),
-      // home: dash2(),
+      // home: testingAPK(),
 
     );
   }
