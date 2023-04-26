@@ -37,6 +37,7 @@ String amountOfReal ="0";
 class _addTransState extends State<addTrans> {
 
     bool _isLoading=false;
+    bool _isLoading2=false;
     String selectedOption = 'Loan Type';
     String _dropDownValue="Select The Loan Type";
     String recv_id =" ";
@@ -391,7 +392,7 @@ class _addTransState extends State<addTrans> {
                 ),
            
             // child: Text("Add Transaction"),
-            child: _isLoading
+            child: _isLoading2
                               ? const CircularProgressIndicator(color: Colors.white,)
                              
                               : Text(
@@ -403,7 +404,7 @@ class _addTransState extends State<addTrans> {
 
               onPressed: () {
                      setState(() {
-                            _isLoading = true;
+                            _isLoading2 = true;
                           
                           });
                 _amount = _textController_For_amount.text;
