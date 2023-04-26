@@ -5,8 +5,11 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:my_app/MyCreastedList.dart';
 import 'package:my_app/PendingForm.dart';
+import 'package:my_app/PendingListBottom.dart';
+import 'package:my_app/TransactionBottom.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
+import 'package:my_app/myStickyBottomNavbar.dart';
 import 'package:my_app/tbb.dart';
 class homeGrid extends StatelessWidget {
   const homeGrid({super.key});
@@ -85,7 +88,7 @@ class homeGrid extends StatelessWidget {
 
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return dash4();
+                      return pendingListBottom();
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -105,7 +108,7 @@ class homeGrid extends StatelessWidget {
             //my created list 
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return dash3();
+                      return MyBottomNavigationBar2();
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -143,7 +146,7 @@ class homeGrid extends StatelessWidget {
             //add transactiomn
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return addTrans();
+                      return transactionBottom();
                      
                       // return userDetails(teams[index].mainMail);
                     }

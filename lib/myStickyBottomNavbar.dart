@@ -8,15 +8,16 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
-class MyBottomNavigationBar extends StatefulWidget {
+class MyBottomNavigationBar2 extends StatefulWidget {
   @override
-  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
+  _MyBottomNavigationBar2State createState() => _MyBottomNavigationBar2State();
 }
 
-class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+class _MyBottomNavigationBar2State extends State<MyBottomNavigationBar2> {
   int _selectedIndex = 1;
+  bool _isVisible = false;
 
-  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), AboutPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash3(),   ProfilePage(), AboutPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -40,22 +41,20 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             .textTheme
             .copyWith(caption: new TextStyle(color: Colors.yellow))),
         child: BottomNavigationBar(
-           
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           backgroundColor: Colors.deepOrange,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blueGrey,
           iconSize: 30,
-          
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+            icon: Icon(Icons.list),
+            label: 'My Created',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -65,11 +64,14 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             icon: Icon(Icons.local_post_office),
             label: 'Contact Us',
           ),
+          
+          
+          
+        
+         
         ],
       ),
-      
     ),
-    extendBody: true,
     );
   }
 }
