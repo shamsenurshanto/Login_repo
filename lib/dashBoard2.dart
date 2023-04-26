@@ -280,32 +280,7 @@ print(tokenString2);
       
         
       ),
-        floatingActionButton: FloatingActionButton(
-        
-        onPressed: () {
-                           
-                            
-                              print("hello");
-            Navigator.push(context,MaterialPageRoute(
-                    builder: (context) {
-                      return addTrans();
-                     
-                      // return userDetails(teams[index].mainMail);
-                    }
-                    
-                    
-                    ,
-                  )
-                  
-                  
-                  
-                  ,
-                );
-                            },
-        child: const Icon(Icons.add,color: Colors.white,)
-        ,
-      )
-      ,
+         
       
       body: SafeArea(
         
@@ -525,6 +500,40 @@ print(tokenString2);
        ),
             
       ),
+       floatingActionButton: FloatingActionButton(
+        
+        
+        onPressed: () {
+                           
+                            
+                              print("hello");
+            Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      return addTrans();
+                     
+                      // return userDetails(teams[index].mainMail);
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
+                );
+                            },
+        child: const Icon(Icons.add,color: Colors.white,)
+        ,
+      )
+      ,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+
+
+
+  
+ 
+  
       
     );
 // final List<String> items = [
