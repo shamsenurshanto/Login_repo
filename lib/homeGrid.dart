@@ -196,7 +196,12 @@ class homeGrid extends StatelessWidget {
                     
                     child: Center(
                       child: Padding(padding: EdgeInsets.all(3),
-                      child: Text(arr[index],style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w400),textAlign: TextAlign.center,),)
+                      child: Text(arr[index],
+                      style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w400),textAlign: TextAlign.center,
+                      ),
+                      
+                      
+                      )
                     )
                    ),)
       ),

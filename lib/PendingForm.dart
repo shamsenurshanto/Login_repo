@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 // import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,6 +96,18 @@ class dash4 extends StatelessWidget {
       String mainMail2="";
        String mainName="";
          print(eachTeam['type']['en_typeName']);
+          //createdBy
+          print("created id");
+         print(eachTeam['createdBy']['_id']);
+         print(_idLoggedIn);
+         if(_idLoggedIn==eachTeam['createdBy']['_id'])
+         {
+          continue;
+         }
+         else{
+          print("not created");
+         }
+
          final team;
          print("___________________________________________________--------------");
       if(eachTeam['type']['en_typeName']=="LoanTaken")

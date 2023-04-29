@@ -8,18 +8,15 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
-import 'NotificationWidget.dart';
-
-class transactionBottom extends StatefulWidget {
+class MyBottomNavigationBar2 extends StatefulWidget {
   @override
-  _transactionBottomState createState() => _transactionBottomState();
+  _MyBottomNavigationBar2State createState() => _MyBottomNavigationBar2State();
 }
 
-class _transactionBottomState extends State<transactionBottom> {
+class _MyBottomNavigationBar2State extends State<MyBottomNavigationBar2> {
   int _selectedIndex = 1;
-  bool _isVisible = false;
 
-  final List<Widget> _pages = [  homeGrid(),  addTrans(),   ProfilePage(), AboutPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), AboutPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,38 +40,36 @@ class _transactionBottomState extends State<transactionBottom> {
             .textTheme
             .copyWith(caption: new TextStyle(color: Colors.yellow))),
         child: BottomNavigationBar(
+           
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           backgroundColor: Colors.deepOrange,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blueGrey,
           iconSize: 30,
+          
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add Transaction',
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
-            BottomNavigationBarItem(
-            icon: notificationsButton(
-              counter : 20,
-              child: Icon(Icons.notifications),
-            ),
-            label: 'Notification')
-          
-          
-        
-         
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_post_office),
+            label: 'Contact Us',
+          ),
         ],
       ),
+      
     ),
+    extendBody: true,
     );
   }
 }

@@ -504,10 +504,7 @@ print(tokenString2);
         
         
         onPressed: () {
-                           
-                            
-                              print("hello");
-            Navigator.push(context,MaterialPageRoute(
+           Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
                       return addTrans();
                      

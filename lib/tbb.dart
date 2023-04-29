@@ -8,6 +8,8 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
+import 'NotificationWidget.dart';
+
 class MyBottomNavigationBar extends StatefulWidget {
   @override
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
@@ -27,6 +29,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       // backgroundColor: Colors.deepPurple,
       body: _pages[_selectedIndex],
         bottomNavigationBar: new Theme(
@@ -46,7 +49,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           backgroundColor: Colors.deepOrange,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blueGrey,
-          iconSize: 30,
+          iconSize: 32,
           
         items: [
           BottomNavigationBarItem(
@@ -61,11 +64,17 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_post_office),
-            label: 'Contact Us',
-          ),
-        ],
+          //   BottomNavigationBarItem(
+          //   icon: Icon(Icons.local_post_office),
+          //   label: 'Contact Us',
+          // ),
+         BottomNavigationBarItem(
+            icon: notificationsButton(
+              counter : 20,
+              child: Icon(Icons.notifications),
+            ),
+            label: 'Notification')
+        ]
       ),
       
     ),

@@ -9,6 +9,8 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
+import 'NotificationWidget.dart';
+
 class pendingListBottom extends StatefulWidget {
   @override
   _pendingListBottomState createState() => _pendingListBottomState();
@@ -61,10 +63,12 @@ class _pendingListBottomState extends State<pendingListBottom> {
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_post_office),
-            label: 'Contact Us',
-          ),
+           BottomNavigationBarItem(
+            icon: notificationsButton(
+              counter : 20,
+              child: Icon(Icons.notifications),
+            ),
+            label: 'Notification')
           
           
           
