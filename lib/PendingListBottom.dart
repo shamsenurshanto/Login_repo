@@ -10,6 +10,7 @@ import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
 import 'NotificationWidget.dart';
+import 'notificationPages.dart';
 
 class pendingListBottom extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _pendingListBottomState extends State<pendingListBottom> {
   int _selectedIndex = 1;
   bool _isVisible = false;
 
-  final List<Widget> _pages = [  homeGrid(),  dash4(),   ProfilePage(), AboutPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash4(),   ProfilePage(), NotificationPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {

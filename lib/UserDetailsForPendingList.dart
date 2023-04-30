@@ -61,7 +61,7 @@ class _UserDetails2State extends State<UserDetails2> {
      var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
-    
+     print("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
  
     
  var response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
@@ -76,7 +76,7 @@ class _UserDetails2State extends State<UserDetails2> {
  
   body: {
     "id":widget.teams.Transaction_id,
-     "receiverStatus":"RECEIEVED"
+     "receiverStatus":"RECEIVED"
     
 },
       

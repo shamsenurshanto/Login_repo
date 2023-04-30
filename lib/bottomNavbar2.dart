@@ -8,6 +8,8 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
+import 'notificationPages.dart';
+
 class MyBottomNavigationBar2 extends StatefulWidget {
   @override
   _MyBottomNavigationBar2State createState() => _MyBottomNavigationBar2State();
@@ -16,7 +18,7 @@ class MyBottomNavigationBar2 extends StatefulWidget {
 class _MyBottomNavigationBar2State extends State<MyBottomNavigationBar2> {
   int _selectedIndex = 1;
 
-  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), AboutPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), NotificationPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {

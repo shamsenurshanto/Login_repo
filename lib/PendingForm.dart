@@ -100,13 +100,7 @@ class dash4 extends StatelessWidget {
           print("created id");
          print(eachTeam['createdBy']['_id']);
          print(_idLoggedIn);
-         if(_idLoggedIn==eachTeam['createdBy']['_id'])
-         {
-          continue;
-         }
-         else{
-          print("not created");
-         }
+        
 
          final team;
          print("___________________________________________________--------------");

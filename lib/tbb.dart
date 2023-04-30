@@ -9,6 +9,7 @@ import 'package:my_app/homeGrid.dart';
 import 'package:my_app/profilePages.dart';
 
 import 'NotificationWidget.dart';
+import 'notificationPages.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class MyBottomNavigationBar extends StatefulWidget {
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 1;
 
-  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), AboutPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), NotificationPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {
