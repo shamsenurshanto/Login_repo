@@ -18,10 +18,14 @@ class ProfilePage extends StatelessWidget {
            print(name);
   }
   Widget build(BuildContext context) {
+    var height_safearea = MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top;
+              var width_safearea = MediaQuery.of(context).size.
+              width ;
     GoFunction();
     return Scaffold(
       backgroundColor: Colors.white, // Set background color to deep purple
-     appBar: AppBar(title: Text("Dashboard",style: TextStyle(color: Colors.black),),
+     appBar: AppBar(title: Text("Profile",style: TextStyle(color: Colors.black),),
   
       backgroundColor: Colors.white,
   // textDirection: TextDirection.rtl, // Set text direction to right-to-left
@@ -59,7 +63,7 @@ class ProfilePage extends StatelessWidget {
           Text(
             'Software Developer', // Set profile title here
             style: TextStyle(
-              fontSize: 16,
+              fontSize: width_safearea * 0.045918367,
                fontWeight: FontWeight.bold,
               color: Colors.deepPurple,
             ),
@@ -68,26 +72,26 @@ class ProfilePage extends StatelessWidget {
           Text(
             email.toString(), // Set profile title here
             style: TextStyle(
-              fontSize: 16,
+              fontSize: width_safearea * 0.045918367,
               fontWeight: FontWeight.bold,
               color: Colors.deepPurple,
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: height_safearea * 0.032),
           // Add any other profile details here, such as email, phone number, etc.
 
           // Logout button
          Row(
           children: [
             SizedBox(
-              width: 53,
+              width: width_safearea * 0.135204082,
             ),
              Container(
-            width: 300,
+            width: width_safearea * 0.765306122,
             child: Align(
               alignment: Alignment.topLeft,
               child: ButtonTheme(
-                minWidth: 200, // Adjust the minWidth here to resize the button
+                minWidth: width_safearea * 0.510204082, // Adjust the minWidth here to resize the button
                 child: ElevatedButton(
                   onPressed: () {
                     // Add logout functionality here
@@ -106,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                   },
                   child: Text(
                     'Logout',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: width_safearea * 0.045918367),
                   ),
                   style: ElevatedButton.styleFrom(
                     primary: Colors.deepPurpleAccent, // Set button color to deep purple accent

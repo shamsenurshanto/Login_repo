@@ -57,10 +57,10 @@ class _NotificationPageState extends State<NotificationPage> {
                                    child: Card(
                                       
                                       shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+                                      borderRadius: BorderRadius.circular(10),
+                                           ),
                   elevation: 5,
-  margin: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
 
                           child: 
                   // title: Text(_data[index]['title']),

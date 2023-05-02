@@ -19,6 +19,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'Tokener.dart';
+import 'newDash.dart';
+import 'newTbb.dart';
 
 // Create a global variable to hold the cookie value
 String? jwtToken;
@@ -123,7 +125,8 @@ class mainLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
      backgroundColor: Colors.white,
-     body: SafeArea(child:
+     body: SingleChildScrollView(
+      child: SafeArea(child:
         Center(
           child: Column(
       children: [
@@ -264,6 +267,7 @@ class mainLogin extends StatelessWidget {
         )
      
      
+     ),
      )
 
     );

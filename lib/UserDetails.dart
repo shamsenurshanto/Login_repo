@@ -54,7 +54,10 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-
+    var height_safearea = MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top;
+              var width_safearea = MediaQuery.of(context).size.
+              width ;
        alertFunction (){
         print("alert");
         showDialog(
@@ -117,7 +120,7 @@ class _UserDetailsState extends State<UserDetails> {
                             
                             child:  Container(
                               
-                              width: 360,
+                              width: width_safearea * 0.918367347,
                               // height: 900,
                               child: Column(
                                crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +128,7 @@ class _UserDetailsState extends State<UserDetails> {
                                Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "Trasaction Type : "+ widget.teams.type.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Trasaction Type : "+ widget.teams.type.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ),
 
@@ -136,11 +139,11 @@ class _UserDetailsState extends State<UserDetails> {
                               padding: EdgeInsets.all(8.0),
                            child:    widget.teams.type=="Loan Taken"?
                                                                 Text(
-                              "Sender Email : "+ widget.teams.sender_email.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Sender Email : "+ widget.teams.sender_email.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ):
 
                                Text(
-                              "Receiver Email : "+ widget.teams.receiver_email.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Receiver Email : "+ widget.teams.receiver_email.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                             ),
                                       
@@ -151,7 +154,7 @@ class _UserDetailsState extends State<UserDetails> {
                           Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "Amount: "+ widget.teams.amount.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Amount: "+ widget.teams.amount.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ),
                         // //
@@ -161,7 +164,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "Name: "+ widget.teams.name.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Name: "+ widget.teams.name.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ),
 
@@ -172,47 +175,14 @@ class _UserDetailsState extends State<UserDetails> {
                                 Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "Transaction Status: "+ widget.teams.Transaction_status.toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "Transaction Status: "+ widget.teams.Transaction_status.toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ),
-                           // button for changing status
-
-//                                     Row(
-//                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                                       children: [
-//                                         SizedBox(
-//                                           height: 20,
-//                                         ),
-                                        
-//                           TextButton(
-//   onPressed: () {
-//     // Do something when the button is pressed
-//     print("status");
-//   alertFunction();
-//   },
-//   child: Text(
-//     'Change Transaction Status',
-//     style: TextStyle(
-//       color: Colors.black,
-//     ),
-//   ),
-//   style: ButtonStyle(
-//     backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-//     foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-//   ),
-// )
-
-
-
-//                                       ],
-//                                     ),
-                           //user B Sent
-                           //
-                           //
+                          
                               Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "This User Total Sent : "+ jsonData['data']['userBSent'].toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "This User Total Sent : "+ jsonData['data']['userBSent'].toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ), 
 
@@ -221,7 +191,7 @@ class _UserDetailsState extends State<UserDetails> {
                              Padding(padding: EdgeInsets.all(10),
                                
                                 child:     Text(
-                              "This User Total Received : "+ jsonData['data']['userBReceived'].toString(),style: TextStyle(fontSize: 18 ,fontWeight: FontWeight.bold,color: Colors.black),
+                              "This User Total Received : "+ jsonData['data']['userBReceived'].toString(),style: TextStyle(fontSize: width_safearea * 0.045918367 ,fontWeight: FontWeight.bold,color: Colors.black),
                             ),
                                ), 
                                 ],
@@ -241,14 +211,14 @@ class _UserDetailsState extends State<UserDetails> {
                 return Center(
                    
                   child:Container(
-                    width: 800,
-                    height: 800,
+                    width:  width_safearea,
+                    height: height_safearea,
                   color: Colors.white,
                   child:  
                  Center(
                   child:  Container(
-                    width: 30,
-                    height: 30,
+                    width: width_safearea * 0.076530612,
+                    height: height_safearea * 0.04,
                     child: CircularProgressIndicator(),
                   ),
                  )

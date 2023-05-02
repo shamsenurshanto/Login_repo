@@ -11,11 +11,15 @@ import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/myStickyBottomNavbar.dart';
 import 'package:my_app/tbb.dart';
+
+import 'newTbb.dart';
 class homeGrid extends StatelessWidget {
   const homeGrid({super.key});
   
   @override
   Widget build(BuildContext context) {
+    
+             ;
     
     return Scaffold(
       
@@ -43,6 +47,10 @@ class homeGrid extends StatelessWidget {
   }
   Widget masonaryLayout(BuildContext context)
   {
+    var height_safearea = MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top;
+              var width_safearea = MediaQuery.of(context).size.
+              width ;
 
     var arr = ["All Transaction","All pending Approval","My created List","Add Transaction","How much I own","How much I will pay"];
 
@@ -68,7 +76,7 @@ class homeGrid extends StatelessWidget {
 
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return MyBottomNavigationBar();
+                      return dash_newMyBottomNavigationBar_new();
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -190,14 +198,14 @@ class homeGrid extends StatelessWidget {
                    child: Padding(padding: EdgeInsets.all(4),
                    
                    child: Container(
-                    width: 200,
-                    height: 200,
+                    width: width_safearea * 0.51,
+                    height: height_safearea * 0.267,
                     color: Colors.grey[100],
                     
                     child: Center(
                       child: Padding(padding: EdgeInsets.all(3),
                       child: Text(arr[index],
-                      style: TextStyle(color: Colors.black,fontSize: 18,fontWeight: FontWeight.w400),textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black,fontSize: width_safearea*0.0459,fontWeight: FontWeight.w400),textAlign: TextAlign.center,
                       ),
                       
                       
