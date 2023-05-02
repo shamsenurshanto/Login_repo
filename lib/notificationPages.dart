@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:readmore/readmore.dart';
@@ -12,7 +13,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   var _data;
-
+   var jsonData;
   @override
   void initState() {
     super.initState();
@@ -20,10 +21,20 @@ class _NotificationPageState extends State<NotificationPage> {
   }
 
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    var box = await Hive.openBox("mybox");
+    final _box2 = Hive.box("mybox");
+    var gh = _box2.get("toki");
+   var response = await http.get(
+      Uri.https('personalrec.onrender.com', 'api/user/notifications'),
+      headers: {'Cookie': 'jwt_token=$gh'},
+    );
+    // print(response.body);
+    jsonData = jsonDecode(response.body);
+    // print(jsonData);
     setState(() {
       _data = json.decode(response.body);
     });
+    print(jsonData['data'][0]['notifications'][0]);
   }
 
   @override
@@ -69,7 +80,7 @@ class _NotificationPageState extends State<NotificationPage> {
                            Padding(padding: EdgeInsets.all(15),
                            
                             child:    ReadMoreText(
-              _data[index]['body'],
+              "jhjkhfdjkdshfjkdshfjkdshfjk",
               trimLines: 2,
               colorClickableText: Colors.pink,
               trimMode: TrimMode.Line,
