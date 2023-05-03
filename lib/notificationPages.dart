@@ -35,10 +35,12 @@ class _NotificationPageState extends State<NotificationPage> {
       _data = json.decode(response.body);
     });
     print(jsonData['data'][0]['notifications'][0]);
+    print(jsonData['data'][0]['notifications'][0]['body']);//notification pages data
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
        appBar: AppBar(title: Text("Notification",style: TextStyle(color: Colors.black),),
       elevation: 4,
@@ -53,12 +55,19 @@ class _NotificationPageState extends State<NotificationPage> {
               child: CircularProgressIndicator(),
             )
           : ListView.builder(
-              itemCount: _data.length,
+              itemCount: jsonData['data'][0]['notifications'].length,
               itemBuilder: (context, index) {
+                                  String myText =  jsonData['data'][0]['notifications'][index]['body']; // changing the string text style 
+                  TextStyle myStyle = TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  );
+
                 return Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.all(8),
+                        margin: EdgeInsets.all(5),
                         width: 600,
                        
                     
@@ -70,23 +79,30 @@ class _NotificationPageState extends State<NotificationPage> {
                                       shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                            ),
-                  elevation: 5,
+                  elevation: 3,
             margin: EdgeInsets.symmetric(horizontal: 5, vertical: 1),
 
                           child: 
                   // title: Text(_data[index]['title']),
-                 
+                 /**ExpansionTile(
+   leading: Icon(Icons.add_circle_outline)
+  children: <Widget>[
+    Text('Child 1'),
+    Text('Child 2'),
+  ],
+)
+ */
                   //Text(_data[index]['body']),
                            Padding(padding: EdgeInsets.all(15),
                            
-                            child:    ReadMoreText(
-              "jhjkhfdjkdshfjkdshfjkdshfjk",
+                            child:    ReadMoreText(myText+"     "
+           ,
               trimLines: 2,
               colorClickableText: Colors.pink,
               trimMode: TrimMode.Line,
               trimCollapsedText: 'Show more',
-              trimExpandedText: 'Back',
-              moreStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
+              trimExpandedText: "show less",
+              moreStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.blue),
             ),
                            )
               
