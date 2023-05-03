@@ -419,14 +419,22 @@ print(tokenString2);
                   ,
                 );
                               },
-                              child: Text(
-                                'View More',
+                              child:Column(
+                                children: [
+                                  Icon(
+                                    Icons.add
+                                  ),
+                                   Text(
+                                
+                                'View Moregg',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.blue, // set the color of the text to blue
                                   decoration: TextDecoration.underline, // underline the text
                                 ),
                               ),
+                                ],
+                              )
                             )
 
                            

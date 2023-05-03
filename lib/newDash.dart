@@ -372,37 +372,60 @@ print(tokenString2);
                        ),
                           
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         children: [
-                           Padding(
+                        
+                      // 2nd row for the 
+                      
+                               Padding(
                          padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
                             child:     Text(
-                              teams[index].type,style: TextStyle(fontSize: 25 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w300,color: Colors.black),
+                              teams[index].type,style: TextStyle(fontSize: 17 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w700,color: Colors.black),
                             ),
                             
                       ),
-                      // 2nd row for the 
-                        Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                          children: [
-                           Icon(
-                    Icons.circle_rounded, // set the icon to the heart icon
-                    size: 12.0, // set the size of the icon to 32.0 pixels
-                    color: Colors.blue, // set the color of the icon to red
-                  ),
-
-                              TextButton(
-                  onPressed: () {
-                    // add your onPressed logic here
+                       Padding(padding: const EdgeInsets.fromLTRB(12, 4, 16, 8),
+                       
+                         child:   // if pending 
+                                teams[index].Transaction_status=="PENDING"?
+                       GestureDetector(
+                  onTap: () {
                     print("hello");
+                    // do something when icon is clicked
                   },
-                  child: Text(
-                    teams[index].Transaction_status,
-                    style: TextStyle(fontSize: width_safearea * 0.0459),
-                                      ),
-                    ),
-                          ],
-                        )
+                  child:          Icon(
+                    Icons.hourglass_bottom_rounded, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.blue.shade300, // set the color of the icon to red
+                  ),
+                )
+
+                        
+                       
+
+                         ///else complete
+                         ///:Widget
+                         :
+
+                      
+                      GestureDetector(
+                  onTap: () {
+                    print("hello");
+                    // do something when icon is clicked
+                  },
+                  child:          Icon(
+                    Icons.done_sharp, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.green.shade700, // set the color of the icon to red
+                  ),
+                )
+
+                       )
+                         
+                      
+                       
+                          
+                        
                         ],
                       )
                       ,
@@ -412,20 +435,20 @@ print(tokenString2);
                       
                         Padding(
                         padding: const EdgeInsets.fromLTRB(12, 1, 6, 8),
-                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 10,fontWeight: FontWeight.w900,color: Colors.black),
                             ),
                       ),
                        SizedBox(
                         width: width_safearea * 0.051020408,
                        ),
-                        
+                        //   Good Row
                         Row(
                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
                           children: [
                              Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
                             child:     Text(
-                              "\$"+teams[index].amount.toString(),style: TextStyle(fontSize: width_safearea * 0.051020408,fontWeight:FontWeight.w700 ),
+                              "\$"+teams[index].amount.toString(),style: TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
                             ),
                       ),
                                                   TextButton(
@@ -447,14 +470,9 @@ print(tokenString2);
                   ,
                 );
                               },
-                              child: Text(
-                                'View More',
-                                style: TextStyle(
-                                  fontSize: width_safearea * 0.04,
-                                  color: Colors.blue, // set the color of the text to blue
-                                  decoration: TextDecoration.underline, // underline the text
-                                ),
-                              ),
+                              child:    Icon(
+                                    Icons.newspaper
+                                  ),
                             )
 
                            
