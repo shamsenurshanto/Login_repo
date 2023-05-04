@@ -448,7 +448,9 @@ print(tokenString2);
                              Padding(
                       padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
                             child:     Text(
-                              "\$"+teams[index].amount.toString(),style: TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
+                              "\$"+teams[index].amount.toString(),
+                              style:
+                               TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
                             ),
                       ),
                                                   TextButton(

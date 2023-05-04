@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:hive/hive.dart';
 import 'package:my_app/MyCreastedList.dart';
 import 'package:my_app/PendingForm.dart';
 import 'package:my_app/PendingListBottom.dart';
@@ -11,16 +12,38 @@ import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/myStickyBottomNavbar.dart';
 import 'package:my_app/tbb.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'newTbb.dart';
-class homeGrid extends StatelessWidget {
-  const homeGrid({super.key});
-  
+
+class homeGrid extends StatefulWidget {
+  const homeGrid({Key? key}) : super(key: key);
+
+  @override
+  _homeGridState createState() => _homeGridState();
+}
+
+class _homeGridState extends State<homeGrid> {
+     var Lang_val;
+      void initState() {
+    super.initState();
+         var box =  Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+    // _idLoggedIn= _box2.get("User_id");//my user id 
+        var email= _box2.get("User_email");
+          Lang_val= _box2.get("Lang_val");
+          print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+         print(Lang_val);
+
+
+      }
+
   @override
   Widget build(BuildContext context) {
-    
-             ;
-    
+    var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+
     return Scaffold(
       
       appBar: AppBar(title: Text("Home",style: TextStyle(color: Colors.black),),
@@ -52,7 +75,8 @@ class homeGrid extends StatelessWidget {
               var width_safearea = MediaQuery.of(context).size.
               width ;
 
-    var arr = ["All Transaction","All pending Approval","My created List","Add Transaction","How much I own","How much I will pay"];
+    var arr = ["Transaction","Approvals","My Initiated","Add New","Loans","Recieved"];
+    var arr1 = ["লেনদেন","অনুমোদন","সূচনাকত","নতুন","দেনা","পাওনা",];
 
    return MasonryGridView.builder(
     
@@ -204,9 +228,80 @@ class homeGrid extends StatelessWidget {
                     
                     child: Center(
                       child: Padding(padding: EdgeInsets.all(3),
-                      child: Text(arr[index],
-                      style: TextStyle(color: Colors.black,fontSize: width_safearea*0.0459,fontWeight: FontWeight.w400),textAlign: TextAlign.center,
+                      child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                         Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                         child: index==0? Icon(
+                            Icons.wallet
+                          ):
+                          
+                          (index==1?
+                          Icon(
+                            Icons.approval
+                          ):(index==2?
+                          Icon(
+                            Icons.my_library_books_outlined
+                          ):
+                          (index==3?
+                          Icon(
+                            Icons.add
+                          ):
+                          (index==5)?
+                          Icon(
+                            Icons.attach_money
+                          ):
+                          IconButton(onPressed: (){
+
+                          }, icon: 
+                        FaIcon(FontAwesomeIcons.bangladeshiTakaSign)
+
+                          
+                          )
+                          )))
+                          //(foo==1)? something1():(foo==2)? something2(): something3();
+                          ),
+                          
+                          Lang_val=="Bangla"?
+                          Text(
+                            
+                            arr1[index],
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            ): Text(
+                            
+                            arr[index],
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+
+
+                        ],
                       ),
+                      
                       
                       
                       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_auth/Tokener.dart';
 import 'package:my_app/Tokener.dart';
+import 'package:my_app/newTbb.dart';
 import 'package:my_app/tbb.dart';
 import 'package:my_app/constants.dart';
 import '../../../components/already_have_an_account_acheck.dart';
@@ -19,22 +20,45 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'Tokener.dart';
+import 'package:hive/hive.dart';
 
-// import 'Tokener.dart';
+class LoginForm extends StatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
+
+  
+
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+var name,email,_selectedLanguage="English" ;
+
+//after changes 
+  void initState() {
+    super.initState();
+
+         //here is the hive
+
+            var box =  Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+    // _idLoggedIn= _box2.get("User_id");//my user id 
+           email= _box2.get("User_email");
+           name= _box2.get("User_name");
+    _box2.put("Lang_val",_selectedLanguage );
+           //put
+            //  _box2.put("User_id",jh['data']['_id'] );
+        // _box2.put("User_email",username );
+      //     _box2.put("User_id",jh['data']['_id'] );
+      // _box2.put("User_name2",jh['data']['userName'] );
+        _box2.put("Lang_val",_selectedLanguage );
+
+  }
   final TextEditingController emailController = TextEditingController();
-     final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
- 
-  
-class LoginForm extends StatelessWidget {
-  const  LoginForm({
-    Key? key,
-  }) : super(key: key);
-    
-  
 
 postDate(context) async {
   
@@ -90,13 +114,21 @@ postDate(context) async {
 
       _box.put("User_id",jh['data']['_id'] );
         _box.put("User_email",username );
-     
+          _box.put("User_id",jh['data']['_id'] );
+      _box.put("User_name2",jh['data']['userName'] );
+        _box.put("User_email",username );
+        _box.put("Lang_val", "English");
+         final _box2 = Hive.box("mybox");
+        var  name_= _box2.get("User_name2");
+              print("ooooooooooooooooooooooooooooooooooo");
+              print(name_);
        Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     // return MyBottomNavigationBar();
-                    return MyBottomNavigationBar();
+                    
+                    return dash_newMyBottomNavigationBar_new();
                   },
                 ),
               );

@@ -100,7 +100,10 @@ class MyCookieClass {
       _box.put("User_id",jh['data']['_id'] );
       _box.put("User_name",jh['data']['userName'] );
         _box.put("User_email",username );
+         final _box2 = Hive.box("mybox");
+        var  email= _box2.get("User_email");
               print("ooooooooooooooooooooooooooooooooooo");
+              print(email);
        
      
        Navigator.pushReplacement(
