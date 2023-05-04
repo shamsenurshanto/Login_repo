@@ -40,20 +40,7 @@ var name,email,_selectedLanguage="English" ;
   void initState() {
     super.initState();
 
-         //here is the hive
-
-            var box =  Hive.openBox("mybox");
-  final _box2 = Hive.box("mybox");
-    // _idLoggedIn= _box2.get("User_id");//my user id 
-           email= _box2.get("User_email");
-           name= _box2.get("User_name");
-    _box2.put("Lang_val",_selectedLanguage );
-           //put
-            //  _box2.put("User_id",jh['data']['_id'] );
-        // _box2.put("User_email",username );
-      //     _box2.put("User_id",jh['data']['_id'] );
-      // _box2.put("User_name2",jh['data']['userName'] );
-        _box2.put("Lang_val",_selectedLanguage );
+      
 
   }
   final TextEditingController emailController = TextEditingController();
