@@ -15,7 +15,23 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 
-class dash_new extends StatelessWidget {
+class dash_new extends StatefulWidget {
+  const dash_new({Key? key}) : super(key: key);
+
+  @override
+  _dash_newState createState() => _dash_newState();
+}
+
+
+class _dash_newState extends State<dash_new> {
+  
+  String _displayText = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _displayText = "d";
+  }
       String passFromTheclassmail = "";
     String passFromTheclassid = "";
     
