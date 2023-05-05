@@ -143,8 +143,9 @@ class _UserDetails2State extends State<UserDetails2> {
             ),
              TextButton(
               onPressed: () {
-                // Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 print("deni koresen");
+
               },
               child: Text('DENIED'),
             ),

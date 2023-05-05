@@ -1,29 +1,71 @@
 import 'dart:convert';
-import 'dart:math';
 // import 'dart:html';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
-import 'package:my_app/UserDetailsForPendingList.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/tbb.dart';
 import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'models/team.dart';
 
 
-class dash4 extends StatelessWidget {
+class dash4 extends StatefulWidget {
+  const dash4({Key? key}) : super(key: key);
+
+  @override
+  _dash4State createState() => _dash4State();
+}
+
+
+class _dash4State extends State<dash4> {
+  
+  String _displayText = "";
+  var Lang_val;
+  
+  var arr =["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
+  var dialog_box_eng ='If You Acknowledge or Denied User will get a short notification.Once You change status can not change it later';
+  var dialog_box_bangla ='যদি আপনি স্বীকার করেন বা অস্বীকার করেন তবে ব্যবহারকারী একটি সংক্ষিপ্ত বিজ্ঞপ্তি পাবেন৷ একবার আপনি স্থিতি পরিবর্তন করলে পরে এটি পরিবর্তন করতে পারবেন না।';
+  
+  
+
+  @override
+        void initState() {
+    super.initState();
+     var box =  Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+  
+           Lang_val= _box2.get("Lang_val");
+
+
+          //  Lang_val
+  }
       String passFromTheclassmail = "";
     String passFromTheclassid = "";
+    
   List<Team> teams = [];
+  var amountOfUser;
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-  Future getTeams2() async {
+  Future getTeams() async {
 
 
      teams.clear();
@@ -36,10 +78,10 @@ class dash4 extends StatelessWidget {
                //hive initialization and get data
               
          
-         //print("apii te +++++++++++++++++++++++");
+         print("apii te +++++++++++++++++++++++");
          var gh = _box2.get("tokens");
    
-    //print(gh.runtimeType);
+    print(gh.runtimeType);
 
   String token = "";
 
@@ -65,7 +107,7 @@ class dash4 extends StatelessWidget {
 
     if(flag>0)
     {
-    // //print();
+    // print();
      tokenString2+=String.fromCharCode(rune);
        
     }
@@ -76,32 +118,26 @@ class dash4 extends StatelessWidget {
 
     //ab33@gmail.com
 
-  //print("token api ---------- ::::::::::::::::::::");
+  print("token api ---------- ::::::::::::::::::::");
   final _box = Hive.box("mybox");
   _box.put("toki", tokenString2);
 
-//print(tokenString2);
-   //print(tokenString2.runtimeType);
+print(tokenString2);
+   print(tokenString2.runtimeType);
 
     var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/pending'),
      headers: {'Cookie': 'jwt_token=$tokenString2'}
      
      );
     var jsonData = jsonDecode(response.body);
-    //print(response.body);
+    print(response.body);
     // print(jsonData['data']);
 
-     for (var eachTeam in jsonData['data']) {
+    for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
       String mainMail2="";
        String mainName="";
          print(eachTeam['type']['en_typeName']);
-          //createdBy
-          print("created id");
-         print(eachTeam['createdBy']['_id']);
-         print(_idLoggedIn);
-        
-
          final team;
          print("___________________________________________________--------------");
       if(eachTeam['type']['en_typeName']=="LoanTaken")
@@ -264,23 +300,212 @@ class dash4 extends StatelessWidget {
       
       
     }
-     //print("---------------------------------------");
-    //print(teams.length);
-    
+     print("---------------------------------------");
+    print(teams.length);
   }
+
+  // method somuho 
+
+        ReceiverAck(int index) async {
+   
+     var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+     var gh = _box2.get("toki");
+     print("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+ 
+    
+ var response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+     
+    headers: {
+      
+      //  'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'
+      },
+
+ 
+  body: {
+    "id":teams[index].Transaction_id,
+     "receiverStatus":"RECEIVED"
+    
+},
+      
+       );
+    //    print(widget.teams.Transaction_id);
+    //  jsonData = jsonDecode(response.body);
+    // print(jsonData);
+    print("received");
+ 
+  }
+
+
+
+    SenderAck(int index) async {
+   
+     var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+     var gh = _box2.get("toki");
+    
+ 
+    
+ var response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+     
+    headers: {
+      
+      //  'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'
+      },
+
+ 
+  body: {
+    "id":teams[index].Transaction_id,
+   "senderStatus":"SENT"
+},
+      
+       );
+       print(teams[0].Transaction_id);
+    //  jsonData = jsonDecode(response.body);
+    // print(jsonData);
+    //  print("sent");
+ 
+  }
+
+       alertFunction (int index){
+        print("alert");
+        showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print("dialog");
+        return CupertinoAlertDialog(
+
+          //dialog_box_bangla
+          title: Lang_val=="English"?
+                               Text('Change Status'):Text("অপেক্ষামান তালিকা পরিবর্তন"),
+          content: Lang_val=="English"?Text(dialog_box_eng):Text(
+            dialog_box_bangla
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Navigator.of(context).pop();
+                // print()
+                teams[index].type=="Loan Taken"?
+               ReceiverAck(index):SenderAck(index);
+               Navigator.of(context).pop();
+
+              },
+              child: Lang_val=="English"?Text('ACKNOWLEDGED',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),):
+              Text('স্বীকার করলাম',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),)
+              
+              
+              ,
+            ),
+             TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                print("deni koresen");
+              },
+              child: Lang_val=="English"?Text('ACKNOWLEDGED',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),):
+              Text('অস্বীকার করলাম',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),)
+            ),
+           
+          ],
+        );
+      },
+    );
+       }
+
+        alertFunction2 (int index){
+        print("alert");
+        showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        print("dialog");
+        return CupertinoAlertDialog(
+          title: Lang_val=="English"?Text('Pending Status'):Text('অপেক্ষামান তালিকা'),
+          content: Lang_val=="English"?
+                      Column(
+                          children: [
+                            Text(
+                              "Sender Mail : "+teams[index].sender_email .toString()
+                            ),
+                            Text(
+                              "Receiver Mail : "+teams[index].receiver_email.toString()
+                            )
+                          ],
+          ):
+          Column(
+                          children: [
+                            Text(
+                              "প্রেরক : "+teams[index].sender_email .toString()
+                            ),
+                            Text(
+                              "প্রাপক : "+teams[index].receiver_email.toString()
+                            )
+                          ],
+          ),
+          actions: [
+           
+             TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                print("deni koresen");
+              },
+              child: Lang_val=="English"?
+              Text('Done'):
+              Text('সম্পন্ন'),
+            ),
+           
+          ],
+        );
+      },
+    );
+       }
+
+  //method end
+  
+
+     String getString(String number){
+      amountOfUser="";
+         for (var i = 0; i < number.length; i++) {
+ 
+  
+  
+    //  //print("hhhhhhhhhhhhhhhhhhhhhhllllllllllllllllll");
+    //  //print(inputString);
+     amountOfUser+=arr[int.parse(number[i])];
+     
+
+        
+
+   
+    print("vaaaaaaaaaaaaaalaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    // print(valAmount);
+
+  }
+    return amountOfUser;
+   }
 
   @override
   Widget build(BuildContext context) {
+    var height_safearea = MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top;
+              var width_safearea = MediaQuery.of(context).size.
+              width ;
+
+               
+
     return Scaffold(
      
     
 
 
 
-      appBar: AppBar(title: Text("Pending List",style: TextStyle(color: Colors.black),),
+      appBar: AppBar(title: Text("Approvals",style: TextStyle(color: Colors.black),),
       elevation: 4,
       backgroundColor: Colors.white,
-       leading: IconButton(
+      leading: IconButton(
     icon: Icon(Icons.arrow_back,color: Colors.black,),
     onPressed: () {
       // Navigate back when the back button is pressed
@@ -291,8 +516,32 @@ class dash4 extends StatelessWidget {
       
         
       ),
+        floatingActionButton: FloatingActionButton(
         
-      
+        onPressed: () {
+                           
+                            
+                              print("hello");
+            Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      return addTrans();
+                     
+                      // return userDetails(teams[index].mainMail);
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
+                );
+                            },
+        child: const Icon(Icons.add,color: Colors.white,)
+        ,
+      )
+      ,
       
       body: SafeArea(
         
@@ -305,13 +554,12 @@ class dash4 extends StatelessWidget {
          FutureBuilder(
           
             
-              future: getTeams2(),
+              future: getTeams(),
               builder:
               
                 
                (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                
                   return Card(
                     color: Colors.white,
                     child:
@@ -320,11 +568,18 @@ class dash4 extends StatelessWidget {
                     itemCount: teams.length,
                     padding: EdgeInsets.all(10),
                     itemBuilder: (context, index) {
+
+                          
+
+                          
+
+
+
                       return GestureDetector(
                         onTap: () {
                            Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return UserDetails2(teams[index]);
+                      return UserDetails(teams[index]);
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -343,110 +598,195 @@ class dash4 extends StatelessWidget {
                           color: Colors.grey[100],
                   margin: EdgeInsets.all(10),
                    child:  SizedBox(
-                    height: 130,
+                    height: height_safearea * 0.173,
                     child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        
                        SizedBox(
-                        width: 20,
+                        width: width_safearea * 0.051020408,
                        ),
                           
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         children: [
-                           Padding(
+                        
+                      // 2nd row for the 
+                      //loan given -> dhar dewa 
+                          Lang_val=="English"?
+
+                                Padding(
                          padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
                             child:     Text(
-                              teams[index].type,style: TextStyle(fontSize: 25 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w300,color: Colors.black),
+                              teams[index].type,style: TextStyle(fontSize: 17 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w700,color: Colors.black),
                             ),
                             
-                      ),
-                      // 2nd row for the 
-                        Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                          children: [
-                           Icon(
-                    Icons.circle_rounded, // set the icon to the heart icon
-                    size: 12.0, // set the size of the icon to 32.0 pixels
-                    color: Colors.blue, // set the color of the icon to red
-                  ),
+                      )
+                      :
+                          teams[index].type=="Loan Given"?
+                         Padding(
+                         padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+                            child:  
+                           Text(
+                            
+                           "ধার দিয়েছি",
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                         )
+                            :
 
-                              TextButton(
-                  onPressed: () {
-                    // add your onPressed logic here
+                             Padding(
+                         padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+                            child:  
+                              Text(
+                            
+                           "ধার নিয়েছি",
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                             )
+                      //  //loan given -> dhar dewa 
+                      
+                      ,
+
+
+
+                       Padding(
+                        
+                        padding: const EdgeInsets.fromLTRB(12, 4, 16, 8),
+                       
+                         child:   // if pending 
+                                teams[index].Transaction_status=="PENDING"?
+                       GestureDetector(
+                  onTap: () {
                     print("hello");
+                    alertFunction2(index);
+                    // do something when icon is clicked
                   },
-                  child: Text(
-                    teams[index].Transaction_status,
-                    style: TextStyle(fontSize: 18.0),
-                                      ),
-                    ),
-                          ],
-                        )
+                  child:          Icon(
+                    Icons.hourglass_bottom_rounded, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.blue.shade300, // set the color of the icon to red
+                  ),
+                )
+
+                        
+                       
+
+                         ///else complete
+                         ///:Widget
+                         :
+
+                      
+                      GestureDetector(
+                  onTap: () {
+                    print("hello");
+                    // do something when icon is clicked
+                  },
+                  child:          Icon(
+                    Icons.done_sharp, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.green.shade700, // set the color of the icon to red
+                  ),
+                )
+
+                       )
+                         
+                      
+                       
+                          
+                        
                         ],
                       )
                       ,
                        SizedBox(
-                        width: 20,
+                        width: width_safearea * 0.051020408,
                        ),
                       
                         Padding(
                         padding: const EdgeInsets.fromLTRB(12, 1, 6, 8),
-                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 10,fontWeight: FontWeight.w900,color: Colors.black),
                             ),
                       ),
                        SizedBox(
-                        width: 20,
+                        width: width_safearea * 0.051020408,
                        ),
-                        
+                        //   Good Row
+
+                      
                         Row(
                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
                           children: [
-                             Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+
+                              // money -> taka 
+                         
+                         Lang_val=="English"?
+
+                                Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
                             child:     Text(
-                              "\$"+teams[index].amount.toString(),style: TextStyle(fontSize: 20,fontWeight:FontWeight.w700 ),
+                              "\$"+teams[index].amount.toString(),
+                              style:
+                               TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
                             ),
-                      ),
+                      )
+                      : 
+
+                      //banglka
+                         Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
+                            child:  
+                       Text(
+                              "৳"+getString(teams[index].amount.toString()),
+                              style:
+                               TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
+                            )
+
+                         ),
+
+                      
+
+
+
+
+
+
                                                   TextButton(
                               onPressed: () {
                                 // add your onPressed logic here
-                                 Navigator.push(context,MaterialPageRoute(
-                    builder: (context) {
-                      return UserDetails2(teams[index]);
-                     
-                      // return userDetails(teams[index].mainMail);
-                    }
-                    
-                    
-                    ,
-                  )
-                  
-                  
-                  
-                  ,
-                );
+                                 alertFunction(index);
+               
                               },
-                              child: ClipRRect(borderRadius: BorderRadius.circular(5.0),
-                              
-                              
-                              child: Container(
-                                
-                                color: Colors.blue,
-                                    
-                                child:Padding(padding: EdgeInsets.all(8),
-                                child:  Text(
-                                'Change Status',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white, // set the color of the text to blue
-                                  // decoration: TextDecoration.underline, // underline the text
-                                ),
-                              ),)
-                              ),
-                              )
-                            )
+                               child: 
+                                    Icon(
+                    Icons.approval_rounded, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.green, // set the color of the icon to red
+                  ),
+                            ),
 
                            
                           ],
@@ -486,8 +826,8 @@ class dash4 extends StatelessWidget {
                       
            
                                 Container(
-                          width: 354,
-                                  height: 120,
+                          width: width_safearea * 0.903061224,
+                                  height: height_safearea * 0.1633,
                                 margin: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -525,199 +865,6 @@ class dash4 extends StatelessWidget {
       ),
       
     );
-// final List<String> items = [
-//     'Item 1',
-//     'Item 2',
-//     'Item 3',
-//     'Item 4',
-//     'Item 5',
-//     'Item 6',
-//     'Item 7',
-//     'Item 8',
-//     'Item 9',
-//     'Item 10',
-//     'Item 11',
-//     'Item 12',
-//     'Item 1',
-//     'Item 2',
-//     'Item 3',
-//     'Item 4',
-//     'Item 5',
-//     'Item 6',
-//     'Item 7',
-//     'Item 8',
-//     'Item 9',
-//     'Item 10',
-//     'Item 11',
-//     'Item 12',
-//     'Item 1',
-//     'Item 2',
-//     'Item 3',
-//     'Item 4',
-//     'Item 5',
-//     'Item 6',
-//     'Item 7',
-//     'Item 8',
-//     'Item 9',
-//     'Item 10',
-//     'Item 11',
-//     'Item 12'
-//   ];
-//     return Scaffold(
-//       backgroundColor: Colors.blue.shade100,
-//         appBar: AppBar(title: Text("Home"),
-//           backgroundColor: Color.fromARGB(96, 115, 108, 108),
-      
-//       automaticallyImplyLeading: false,
-      
-        
-//       ),
-      
     
-//          body: Container(
-//           color:  Color.fromARGB(96, 115, 108, 108),
-//           child: Column(
-            
-//             children: [
-//               //logo
-//               Center(
-//                 child: Text("Dene pawna",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900),),
-//               ),
-//                  SizedBox(
-//                     height: 30,
-//                   ),
-//               //introduction text
-//                Align(
-//                 alignment: Alignment.topLeft,
-//                  // Align however you like (i.e .centerRight, centerLeft)
-//                 child: Text("   Hi Shams, Here is your Loan Status .",textAlign: TextAlign.end,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900)),
-//               ),
-//               //sizebox
-            
-//                   SizedBox(
-//                     height: 10,
-//                   ),
-//               //intro senrtences
-//               Align(
-//                 alignment: Alignment.topLeft, // Align however you like (i.e .centerRight, centerLeft)
-//                 child: Text("   ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w900)),
-//               ),
-
-//               //lists
-
-//           SizedBox(
-//             height: 500, // set the height of the ListView
-//             child: ListView.builder(
-//               itemCount: items.length,
-//               itemBuilder: (BuildContext context, int index) {
-//                 return  GestureDetector(
-//                   onTap: () {
-//                     //print("gester");
-//                   },
-//                   child: Card(
-//                    color: Colors.white,
-//                   margin: EdgeInsets.all(10),
-//                    child:  SizedBox(
-//                     height: 130,
-//                     child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-                       
-//                        SizedBox(
-//                         width: 20,
-//                        ),
-                          
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                            Padding(
-//                          padding: const EdgeInsets.fromLTRB(12, 8, 0, 8),
-//                             child:     Text(
-//                               "Loan Given",style: TextStyle(fontSize: 25 ,color: Colors.blue),
-//                             ),
-                            
-//                       ),
-//                       // 2nd row for the 
-//                         Row(
-//                           mainAxisAlignment:MainAxisAlignment.spaceBetween,
-//                           children: [
-//                            Icon(
-//                     Icons.circle_rounded, // set the icon to the heart icon
-//                     size: 12.0, // set the size of the icon to 32.0 pixels
-//                     color: Colors.blue, // set the color of the icon to red
-//                   ),
-
-//                               TextButton(
-//                   onPressed: () {
-//                     // add your onPressed logic here
-//                     //print("hello from dash");
-//                   },
-//                   child: Text(
-//                     'Pending',
-//                     style: TextStyle(fontSize: 18.0),
-//                                       ),
-//                     ),
-//                           ],
-//                         )
-//                         ],
-//                       )
-//                       ,
-//                        SizedBox(
-//                         width: 20,
-//                        ),
-                      
-//                         Padding(
-//                         padding: const EdgeInsets.fromLTRB(12, 8, 0, 8),
-//                             child:     Text(
-//                               "ab33@gmail.com",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400),
-//                             ),
-//                       ),
-//                        SizedBox(
-//                         width: 20,
-//                        ),
-                        
-//                         Row(
-//                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
-//                           children: [
-//                              Padding(
-//                       padding: const EdgeInsets.fromLTRB(12, 8, 0, 8),
-//                             child:     Text(
-//                               "\$500",style: TextStyle(fontSize: 20),
-//                             ),
-//                       ),
-//                                                   TextButton(
-//                               onPressed: () {
-//                                 // add your onPressed logic here
-//                               },
-//                               child: Text(
-//                                 'View More',
-//                                 style: TextStyle(
-//                                   fontSize: 14,
-//                                   color: Colors.blue, // set the color of the text to blue
-//                                   decoration: TextDecoration.underline, // underline the text
-//                                 ),
-//                               ),
-//                             )
-
-                           
-//                           ],
-//                         )
-//                     ],
-//                    ),
-//                    )
-//                 ),
-//                 );
-//               },
-//             ),
-//           ),
-        
-      
-          
-    
-
-//             ],
-//           ),
-//          ),
-//     );
   }
 }
