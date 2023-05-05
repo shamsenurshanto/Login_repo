@@ -234,7 +234,7 @@ class _homeGridState extends State<homeGrid> {
                         children: [
                          Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                          child: index==0? Icon(
-                            Icons.wallet
+                            Icons.wallet_outlined
                           ):
                           
                           (index==1?
@@ -250,14 +250,10 @@ class _homeGridState extends State<homeGrid> {
                           ):
                           (index==5)?
                           Icon(
-                            Icons.attach_money
+                            Icons.paid_outlined
                           ):
-                          IconButton(onPressed: (){
-
-                          }, icon: 
-                        FaIcon(FontAwesomeIcons.bangladeshiTakaSign)
-
-                          
+                          Icon(
+                            Icons.credit_card
                           )
                           )))
                           //(foo==1)? something1():(foo==2)? something2(): something3();

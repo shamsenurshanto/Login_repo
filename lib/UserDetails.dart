@@ -73,8 +73,8 @@ class _UserDetailsState extends State<UserDetails> {
   String tokenString2 = "";
   var lan_status ="English" ;
   var loan_status = "";
-    var arrayForLoanEng =["Sent","Received"];
-  var arrayForLoanBangla =["ধার দিয়েছি","ধার নিয়েছি"];
+    var arrayForLoanEng =["Received","Sent",];
+  var arrayForLoanBangla =["ধার নিয়েছি","ধার দিয়েছি",];
 
 
 
@@ -356,7 +356,7 @@ class _UserDetailsState extends State<UserDetails> {
 
 
 
-
+               
 
           }
           else{
@@ -399,27 +399,21 @@ class _UserDetailsState extends State<UserDetails> {
       // //print(mainName);
       if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
      {
-           //print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      //print(mainName);
-       if(team.id.toString()==widget.teams.id.toString()   )
-       {
-           print(team.id.toString());
-           print(widget.teams.id.toString());
-             teams2.add(team);
-       }
-       else
-       {
-        print("milena");
-           print(team.id.toString());
-           print(widget.teams.id.toString());
 
-       }
+      if(widget.teams.name==team.name)
+           {
+            print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
+      print(team.name);
+      
+       teams2.add(team);
+           }
+       
    
       
       //print(teams[teams.length-1].name);
      }
       
-      
+    
     }
      //print("---------------------------------------");
     //print(teams.length);
@@ -648,7 +642,7 @@ class _UserDetailsState extends State<UserDetails> {
                        ///
                        ///,conta
                      Container(
-                      width: 370,
+                      width: 340,
                       height: 380,
                       child: ListView.builder(
                       itemCount: teams2.length,
@@ -666,12 +660,13 @@ class _UserDetailsState extends State<UserDetails> {
                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                              teams2[index].type=="Loan Taken"?
-                              Card(
+                              Expanded(child: Card(
+                                elevation: 1,
                               child: Row(
                                 children: [
                                   ///colum1 icon
                           IconButton(
-                      icon: Icon(FontAwesomeIcons.circlePlus,color: Colors.green.shade300,),
+                      icon: Icon(FontAwesomeIcons.circleMinus,color: Colors.green.shade300,),
                       onPressed: () {
                         // Do something when the icon is pressed
                         print("hello add");
@@ -681,7 +676,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   ///
                                    ,
                                    SizedBox(
-                                    width: 130,
+                                    width: 70,
                                    ),
                                   
                                   ///colum2
@@ -690,18 +685,59 @@ class _UserDetailsState extends State<UserDetails> {
                                   ///
                                   ///rkjs1
                         Column(
+                          mainAxisAlignment:MainAxisAlignment.start ,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                                           lan_status=="English"?
                                           teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanEng[1].toString())
-                                          :
                                           Text(arrayForLoanEng[0].toString())
+                                          :
+                                          Text(arrayForLoanEng[1].toString())
 
                                           :
                                           teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanBangla[0].toString()):
 
-                                          Text(arrayForLoanBangla[1].toString())
+                                          //bng start
+                                         Text(
+                            
+                           arrayForLoanBangla[0],
+                     style:GoogleFonts.mina(
+                        fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                                          
+                                          
+                                          :
+
+                                                  Text(
+                            
+                           arrayForLoanBangla[1],
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+
+                            //bng end
                                           ,
 
                                         lan_status=="English"?
@@ -711,7 +747,12 @@ class _UserDetailsState extends State<UserDetails> {
                                           
 
                                     ],
-                                  )
+                                  ),
+
+                                    SizedBox(
+                                    
+                                   ),
+                                  
                                    
 
                                   ///
@@ -722,11 +763,15 @@ class _UserDetailsState extends State<UserDetails> {
                                 ],
                               ),
                             )
+                            )
                             
                             :
                             ////other wisssse adddd bangla >>>>>>>>>>>>>>
-                             Card(
+                             Expanded(
+                              child: Card(
                               ///rkjs2
+                              ///
+                              elevation: 3,
                               child: Row(
                                 children: [
                                   ///colum1 icon
@@ -741,7 +786,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   ///
                                    ,
                                     SizedBox(
-                                    width: 130,
+                                    width: 70,
                                    ),
                                   
                                   ///colum2
@@ -750,18 +795,60 @@ class _UserDetailsState extends State<UserDetails> {
                                   ///
                                   ///rkjs2
                                   Column(
+                                    mainAxisAlignment:MainAxisAlignment.start ,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                           lan_status=="English"?
                                           teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanEng[1].toString())
-                                          :
                                           Text(arrayForLoanEng[0].toString())
+                                          :
+                                          Text(arrayForLoanEng[1].toString())
 
                                           :
                                           teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanBangla[0].toString()):
 
-                                          Text(arrayForLoanBangla[1].toString())
+
+                                          //bng start
+                                         Text(
+                            
+                           arrayForLoanBangla[0],
+                     style:GoogleFonts.mina(
+                        fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                                          
+                                          
+                                          :
+
+                                                  Text(
+                            
+                           arrayForLoanBangla[1],
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+
+                            //bng end
                                           ,
 
                                         lan_status=="English"?
@@ -771,7 +858,10 @@ class _UserDetailsState extends State<UserDetails> {
                                           
 
                                     ],
-                                  )
+                                  ),
+                                   SizedBox(
+                                   
+                                   ),
                                    
 
                                   ///
@@ -781,6 +871,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   ///date
                                 ],
                               ),
+                            )
                             )
                           ],
 
