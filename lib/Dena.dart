@@ -11,20 +11,21 @@ import 'package:my_app/newDash.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 
+import 'Team_new.dart';
 import 'models/team.dart';
 
-class UserDetails extends StatefulWidget {
-   Team teams;
-   String namee="";
+class UserDetails_New extends StatefulWidget {
+  //  Team teams;
+  //  String namee="";
   
 
-  UserDetails(this.teams);
+  UserDetails_New();
 
   @override
-  _UserDetailsState createState() => _UserDetailsState();
+  _UserDetails_NewState createState() => _UserDetails_NewState();
 }
 
-class _UserDetailsState extends State<UserDetails> {
+class _UserDetails_NewState extends State<UserDetails_New> {
 
   ///function for bangla 
    String valAmount = "";
@@ -54,7 +55,7 @@ class _UserDetailsState extends State<UserDetails> {
     //  //print("hhhhhhhhhhhhhhhhhhhhhhllllllllllllllllll");
     //  //print(inputString);
     valAmount+=arr[int.parse(inputString[i])];
-      widget.teams.type.toString()=="Loan Taken"?loanStaus="ধার নিয়েছি":loanStaus="ধার দিয়েছি";
+      // widget.teams.type.toString()=="Loan Taken"?loanStaus="ধার নিয়েছি":loanStaus="ধার দিয়েছি";
 
         
 
@@ -73,13 +74,13 @@ class _UserDetailsState extends State<UserDetails> {
   String tokenString2 = "";
   var lan_status ="English" ;
   var loan_status = "";
-    var arrayForLoanEng =["Received","Sent",];
-  var arrayForLoanBangla =["ধার নিয়েছি","ধার দিয়েছি",];
+    var arrayForLoanEng =["Sender: ","Receiver : ",];
+  var arrayForLoanBangla =["প্রেরক :","প্রাপক : ",];
+ var jsonData2 ;
 
 
 
-
-  void initState() {
+   void initState() {
     super.initState();
 
         
@@ -91,22 +92,14 @@ class _UserDetailsState extends State<UserDetails> {
            lan_status= _box2.get("Lang_val");
         
     //        Lang_val
+    print(lan_status);
+    print("giiiiiiiiiiiiiiiiga");
 
     getTeams();
      
 
            lan_status= _box2.get("Lang_val");
-           if(lan_status=="Bangla")
-           {
-            //print(lan_status);
-            printAndReturnString(widget.teams.amount.toString());
-
-
-           }
-           else
-           {
-            print(lan_status);
-           }
+          
   }
 
   Future<void> getTeams2() async {
@@ -123,26 +116,26 @@ class _UserDetailsState extends State<UserDetails> {
     String Bmail = "";
     String Bamount = "";
 
-    id = widget.teams.id;
-    var response = await http.get(
-      Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
-      headers: {'Cookie': 'jwt_token=$gh'},
-    );
-    //print(response.body);
-    jsonData = jsonDecode(response.body);
-    //print(jsonData);
+    // id = widget.teams.id;
+    // var response = await http.get(
+    //   Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
+    //   headers: {'Cookie': 'jwt_token=$gh'},
+    // );
+    // //print(response.body);
+    // jsonData = jsonDecode(response.body);
+    // //print(jsonData);
 
 
-      var response2 = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+      var response2 = await http.get(Uri.https('personalrec.onrender.com', 'api/user/loansummery'),
      headers: {'Cookie': 'jwt_token=$gh'}
      
      );
-    var jsonData2 = jsonDecode(response2.body);
+     jsonData = jsonDecode(response2.body);
     //print("2nd apiiiiiiiiiiiiiiiiiiiiiiiiiiii");
     //print(jsonData2);
   }
 
-   List<Team> teams2 = [];
+   List<Team_new> teams2 = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
 
@@ -173,7 +166,7 @@ class _UserDetailsState extends State<UserDetails> {
       
       //print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
 
-     teams2.clear();
+     
   var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
    var _idLoggedIn= _box2.get("User_id");//my user id 
@@ -230,14 +223,14 @@ class _UserDetailsState extends State<UserDetails> {
 //print(tokenString2);
    //print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
      headers: {'Cookie': 'jwt_token=$tokenString2'}
      
      );
     var jsonData = jsonDecode(response.body);
     //print(response.body);
-    // //print(jsonData['data']);
-
+    print(jsonData['data']);
+  teams2.clear();
     for (var eachTeam in jsonData['data']) {
 
       // loooooppppo lol 
@@ -245,173 +238,29 @@ class _UserDetailsState extends State<UserDetails> {
       String mainMail2="";
        String mainName="";
        print("------------ edhaaaaaa");
+
+       print(eachTeam['total_received']);
      
         //  //print(eachTeam['type']['en_typeName']);
          final team;
-         //print("___________________________________________________--------------");
-      if(eachTeam['type']['en_typeName']=="LoanTaken")
-      {
-        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
-        //     mainName = eachTeam['sender']['senderId']['userName'];
+            team = Team_new(
 
-        //here it is gone for change    TO SEE EACH OTHER
-         var _idgh = _box2.get("User_id");//my user id 
-          var email= _box2.get("User_email");
-          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
-          {
-            //print("ole");
-            //print(_idgh);
-            //print(email);
-             
+        
+        amount: eachTeam['total_received'],
 
-
-
-                 team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Given",
-        amount: eachTeam['amount'],
-         mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
      
-        name: eachTeam['receiver']['receiverId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+        name: eachTeam['userName'].toString(),
         
-        
+       
         
       );
-
-
-
-
-
-
-          }
-          else{
-            //print("lole");
-             //print(_idgh);
-              //print(email);
-
-
-               team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Taken",
-        amount: eachTeam['amount'],
-         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
-     
-        name: eachTeam['sender']['senderId']['userName'].toString(),
-        
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
-        
-      );
-
-
-
-          }
-            
-          //print(mainName);
-         
-           
-           
-      }
-      else if(eachTeam['type']['en_typeName']=="LoanGiven")
-      {
-        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
-        //     mainName = eachTeam['sender']['senderId']['userName'];
-
-        //here it is gone for change    TO SEE EACH OTHER
-         var _idgh = _box2.get("User_id");//my user id 
-          var email= _box2.get("User_email");
-          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
-          {
-            //print("ole");
-            //print(_idgh);
-            //print(email);
-             
-
-
-
-                 team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Given",
-        amount: eachTeam['amount'],
-        mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
-     
-        name: eachTeam['receiver']['receiverId']['userName'].toString(),
-        
-         Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString()
-        
-      );
-
-
-
-
-               
-
-          }
-          else{
-            //print("lole");
-             //print(_idgh);
-              //print(email);
-
-
-               team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Taken",
-        amount: eachTeam['amount'],
-        
-
-         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
-     
-        name: eachTeam['sender']['senderId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
-        
-        
-      );
-
-
-
-          }
-            
-          
-         
-           
-           
-      }
-      else{
-        team="";
-      }
- 
-      // //print(mainName);
-      if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
-     {
-
-      if(widget.teams.name==team.name)
-           {
-            print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
-      print(team.name);
-      
-       teams2.add(team);
-           }
        
    
       
-      //print(teams[teams.length-1].name);
-     }
+    //   //print(teams[teams.length-1].name);
+    //  }
+
+     teams2.add(team);
       
     
     }
@@ -464,7 +313,7 @@ class _UserDetailsState extends State<UserDetails> {
       appBar: AppBar(
         
         
-        title: Text("Transaction Details",style: TextStyle(color: Colors.black),
+        title: Text("Loans",style: TextStyle(color: Colors.black),
         
         ),
       elevation: 4,
@@ -476,7 +325,7 @@ class _UserDetailsState extends State<UserDetails> {
       // backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: FutureBuilder(
-          future: getTeams2(),
+          future: getTeams(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               //print("done");
@@ -535,7 +384,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       lan_status=="English"?Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                   widget.teams.type.toString(),
+                                  "Total Loan Amounts",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -548,7 +397,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       ):Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                  loanStaus,
+                                  "মোট লোন নেওয়া হয়েছে",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -566,7 +415,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       Padding(
                                         padding:EdgeInsets.fromLTRB(0, 1, 0, 1),
                                         child: lan_status=="English"? Text(
-                                    '\$'+widget.teams.amount.toString(),
+                                    '\$'+"900",
                                     style: TextStyle(
                                       fontSize: 35,
                                       fontWeight: FontWeight.bold,
@@ -575,7 +424,7 @@ class _UserDetailsState extends State<UserDetails> {
                                      
                                     ),
                                   ):Text(
-                                     '\৳'+valAmount,
+                                     '\৳'+"৯০০৯",
                                     style: TextStyle(
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold,
@@ -589,7 +438,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       Padding(
                                         padding: EdgeInsets.fromLTRB(0, 2, 0, 1),
                                         child: Text(
-                                    widget.teams.name.toString(),
+                                    "shams",
                                     style: TextStyle(
                                        fontSize: 12,
                                       fontWeight: FontWeight.w400,
@@ -648,126 +497,13 @@ class _UserDetailsState extends State<UserDetails> {
                       itemCount: teams2.length,
                       itemBuilder: (BuildContext context, int index) {
                       
-                             
-
+                           
   
    
 
   
 
-                        return Row(
-                         mainAxisAlignment: MainAxisAlignment.start,
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             teams2[index].type=="Loan Taken"?
-                              Expanded(child: Card(
-                                elevation: 1,
-                              child: Row(
-                                children: [
-                                  ///colum1 icon
-                          IconButton(
-                      icon: Icon(FontAwesomeIcons.circlePlus,color: Colors.green.shade300,),
-                      onPressed: () {
-                        // Do something when the icon is pressed
-                        print("hello add");
-                      },
-                    )
-                                  ///sizebox width 
-                                  ///
-                                   ,
-                                   SizedBox(
-                                    width: 70,
-                                   ),
-                                  
-                                  ///colum2
-                                  //////Loan status
-                                  ///amount
-                                  ///
-                                  ///rkjs1
-                        Column(
-                          mainAxisAlignment:MainAxisAlignment.start ,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                          lan_status=="English"?
-                                          teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanEng[0].toString())
-                                          :
-                                          Text(arrayForLoanEng[1].toString())
-
-                                          :
-                                          teams2[index].type=="Loan Taken"?
-
-                                          //bng start
-                                         Text(
-                            
-                           arrayForLoanBangla[0],
-                     style:GoogleFonts.mina(
-                        fontSize: width_safearea * 0.03820408,
-                       
-        shadows: [
-            Shadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(7, 7),
-                blurRadius: 15),
-          ],fontWeight:FontWeight.w400,color: Colors.black ,
-          
-                     ), textAlign: TextAlign.center,
-                     
-        //                       
-                            )
-                                          
-                                          
-                                          :
-
-                                                  Text(
-                            
-                           arrayForLoanBangla[1],
-                     style:GoogleFonts.mina(
-                       fontSize: width_safearea * 0.03820408,
-                       
-        shadows: [
-            Shadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(7, 7),
-                blurRadius: 15),
-          ],fontWeight:FontWeight.w400,color: Colors.black ,
-          
-                     ), textAlign: TextAlign.center,
-                     
-        //                       
-                            )
-
-                            //bng end
-                                          ,
-
-                                        lan_status=="English"?
-                                        Text("\$"+teams2[index].amount.toString()):
-
-                                        Text( "৳"+getString(teams2[index].amount.toString()))
-                                          
-
-                                    ],
-                                  ),
-
-                                    SizedBox(
-                                    
-                                   ),
-                                  
-                                   
-
-                                  ///
-                                  ///
-                                  ///
-                                  ///colum3
-                                  ///date
-                                ],
-                              ),
-                            )
-                            )
-                            
-                            :
-                            ////other wisssse adddd bangla >>>>>>>>>>>>>>
-                             Expanded(
+                        return  Expanded(
                               child: Card(
                               ///rkjs2
                               ///
@@ -799,19 +535,18 @@ class _UserDetailsState extends State<UserDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                           lan_status=="English"?
-                                          teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanEng[0].toString())
-                                          :
+                                         
                                           Text(arrayForLoanEng[1].toString())
+                                        
 
                                           :
-                                          teams2[index].type=="Loan Taken"?
+                                        
 
 
                                           //bng start
                                          Text(
                             
-                           arrayForLoanBangla[0],
+                           arrayForLoanBangla[1],
                      style:GoogleFonts.mina(
                         fontSize: width_safearea * 0.03820408,
                        
@@ -826,29 +561,7 @@ class _UserDetailsState extends State<UserDetails> {
                      
         //                       
                             )
-                                          
-                                          
-                                          :
-
-                                                  Text(
-                            
-                           arrayForLoanBangla[1],
-                     style:GoogleFonts.mina(
-                       fontSize: width_safearea * 0.03820408,
-                       
-        shadows: [
-            Shadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(7, 7),
-                blurRadius: 15),
-          ],fontWeight:FontWeight.w400,color: Colors.black ,
-          
-                     ), textAlign: TextAlign.center,
-                     
-        //                       
-                            )
-
-                            //bng end
+                 //bng end
                                           ,
 
                                         lan_status=="English"?
@@ -872,8 +585,7 @@ class _UserDetailsState extends State<UserDetails> {
                                 ],
                               ),
                             )
-                            )
-                          ],
+                            
 
                         );
                       },

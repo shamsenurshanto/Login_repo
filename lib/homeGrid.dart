@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hive/hive.dart';
+import 'package:my_app/Dena.dart';
 import 'package:my_app/MyCreastedList.dart';
 import 'package:my_app/PendingForm.dart';
 import 'package:my_app/PendingListBottom.dart';
@@ -159,7 +160,7 @@ class _homeGridState extends State<homeGrid> {
             //my created list 
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return dash2();
+                      return UserDetails_New();
                      
                       // return userDetails(teams[index].mainMail);
                     }
