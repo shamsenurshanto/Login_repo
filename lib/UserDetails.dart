@@ -690,9 +690,36 @@ class _UserDetailsState extends State<UserDetails> {
                             children: [
                                           lan_status=="English"?
                                           teams2[index].type=="Loan Taken"?
-                                          Text(arrayForLoanEng[0].toString())
+                                          Text(arrayForLoanEng[0].toString(),
+                                            style:GoogleFonts.mina(
+                        fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                                          
+                                          
+                                          )
                                           :
-                                          Text(arrayForLoanEng[1].toString())
+                                          Text(arrayForLoanEng[1].toString(),
+                                          
+                                           style:GoogleFonts.mina(
+                        fontSize: width_safearea * 0.03820408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w400,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                                          )
 
                                           :
                                           teams2[index].type=="Loan Taken"?
@@ -741,7 +768,12 @@ class _UserDetailsState extends State<UserDetails> {
                                           ,
 
                                         lan_status=="English"?
-                                        Text("\$"+teams2[index].amount.toString()):
+                                        Text("\$"+teams2[index].amount.toString()
+                                        
+                                        
+                                        
+                                        
+                                        ):
 
                                         Text( "৳"+getString(teams2[index].amount.toString()))
                                           

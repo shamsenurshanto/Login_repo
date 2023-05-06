@@ -2,6 +2,7 @@ import 'dart:convert';
 // import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -15,10 +16,34 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 
-class dash3 extends StatelessWidget {
+class dash3 extends StatefulWidget {
+  const dash3({Key? key}) : super(key: key);
+
+  @override
+  _dash3State createState() => _dash3State();
+}
+
+
+class _dash3State extends State<dash3> {
+  
+  String _displayText = "";
+  var Lang_val;
+  
+  var arr =["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
+  @override
+        void initState() {
+    super.initState();
+     var box =  Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+  
+           Lang_val= _box2.get("Lang_val");
+          //  Lang_val
+  }
       String passFromTheclassmail = "";
     String passFromTheclassid = "";
+    
   List<Team> teams = [];
+  var amountOfUser;
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
   Future getTeams() async {
@@ -260,19 +285,43 @@ print(tokenString2);
     print(teams.length);
   }
 
+     String getString(String number){
+      amountOfUser="";
+         for (var i = 0; i < number.length; i++) {
+ 
+  
+  
+    //  //print("hhhhhhhhhhhhhhhhhhhhhhllllllllllllllllll");
+    //  //print(inputString);
+     amountOfUser+=arr[int.parse(number[i])];
+     
+
+        
+
+   
+    print("vaaaaaaaaaaaaaalaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    // print(valAmount);
+
+  }
+    return amountOfUser;
+   }
+
   @override
   Widget build(BuildContext context) {
     var height_safearea = MediaQuery.of(context).size.height -
               MediaQuery.of(context).padding.top;
               var width_safearea = MediaQuery.of(context).size.
               width ;
+
+               
+
     return Scaffold(
      
     
 
 
 
-      appBar: AppBar(title: Text("Dashboard",style: TextStyle(color: Colors.black),),
+      appBar: AppBar(title: Text("My Initiated",style: TextStyle(color: Colors.black),),
       elevation: 4,
       backgroundColor: Colors.white,
       leading: IconButton(
@@ -338,6 +387,13 @@ print(tokenString2);
                     itemCount: teams.length,
                     padding: EdgeInsets.all(10),
                     itemBuilder: (context, index) {
+
+                          
+
+                          
+
+
+
                       return GestureDetector(
                         onTap: () {
                            Navigator.push(context,MaterialPageRoute(
@@ -371,37 +427,114 @@ print(tokenString2);
                        ),
                           
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
                         children: [
-                           Padding(
+                        
+                      // 2nd row for the 
+                      //loan given -> dhar dewa 
+                          Lang_val=="English"?
+
+                                Padding(
                          padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
                             child:     Text(
-                              teams[index].type,style: TextStyle(fontSize: 25 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w300,color: Colors.black),
+                              teams[index].type,style: TextStyle(fontSize: 17 ,fontStyle: FontStyle.normal,fontWeight: FontWeight.w700,color: Colors.black),
                             ),
                             
-                      ),
-                      // 2nd row for the 
-                        Row(
-                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                          children: [
-                           Icon(
-                    Icons.circle_rounded, // set the icon to the heart icon
-                    size: 12.0, // set the size of the icon to 32.0 pixels
-                    color: Colors.blue, // set the color of the icon to red
-                  ),
+                      )
+                      :
+                          teams[index].type=="Loan Given"?
+                         Padding(
+                         padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+                            child:  
+                           Text(
+                            
+                           "ধার দিয়েছি",
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                         )
+                            :
 
-                              TextButton(
-                  onPressed: () {
-                    // add your onPressed logic here
+                             Padding(
+                         padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+                            child:  
+                              Text(
+                            
+                           "ধার নিয়েছি",
+                     style:GoogleFonts.mina(
+                       fontSize: width_safearea * 0.05020408,
+                       
+        shadows: [
+            Shadow(
+                color: Colors.black.withOpacity(0.3),
+                offset: const Offset(7, 7),
+                blurRadius: 15),
+          ],fontWeight:FontWeight.w700,color: Colors.black ,
+          
+                     ), textAlign: TextAlign.center,
+                     
+        //                       
+                            )
+                             )
+                      //  //loan given -> dhar dewa 
+                      
+                      ,
+
+
+
+                       Padding(padding: const EdgeInsets.fromLTRB(12, 4, 16, 8),
+                       
+                         child:   // if pending 
+                                teams[index].Transaction_status=="PENDING"?
+                       GestureDetector(
+                  onTap: () {
                     print("hello");
+                    // do something when icon is clicked
                   },
-                  child: Text(
-                    teams[index].Transaction_status,
-                    style: TextStyle(fontSize: width_safearea * 0.0459),
-                                      ),
-                    ),
-                          ],
-                        )
+                  child:          Icon(
+                    Icons.hourglass_bottom_rounded, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.blue.shade300, // set the color of the icon to red
+                  ),
+                )
+
+                        
+                       
+
+                         ///else complete
+                         ///:Widget
+                         :
+
+                      
+                      GestureDetector(
+                  onTap: () {
+                    print("hello");
+                    // do something when icon is clicked
+                  },
+                  child:          Icon(
+                    Icons.done_sharp, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.green.shade700, // set the color of the icon to red
+                  ),
+                )
+
+                       )
+                         
+                      
+                       
+                          
+                        
                         ],
                       )
                       ,
@@ -411,22 +544,52 @@ print(tokenString2);
                       
                         Padding(
                         padding: const EdgeInsets.fromLTRB(12, 1, 6, 8),
-                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+                            child:     Text(teams[index].name.toUpperCase(),style: TextStyle(fontSize: 10,fontWeight: FontWeight.w900,color: Colors.black),
                             ),
                       ),
                        SizedBox(
                         width: width_safearea * 0.051020408,
                        ),
-                        
+                        //   Good Row
+
+                      
                         Row(
                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
                           children: [
-                             Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 8),
+
+                              // money -> taka 
+                         
+                         Lang_val=="English"?
+
+                                Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
                             child:     Text(
-                              "\$"+teams[index].amount.toString(),style: TextStyle(fontSize: width_safearea * 0.051020408,fontWeight:FontWeight.w700 ),
+                              "\$"+teams[index].amount.toString(),
+                              style:
+                               TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
                             ),
-                      ),
+                      )
+                      : 
+
+                      //banglka
+                         Padding(
+                      padding: const EdgeInsets.fromLTRB(12, 8, 6, 4),
+                            child:  
+                       Text(
+                              "৳"+getString(teams[index].amount.toString()),
+                              style:
+                               TextStyle(fontSize: width_safearea * 0.06020408,fontWeight:FontWeight.w900,color: Colors.black ),
+                            )
+
+                         ),
+
+                      
+
+
+
+
+
+
                                                   TextButton(
                               onPressed: () {
                                 // add your onPressed logic here
@@ -446,14 +609,9 @@ print(tokenString2);
                   ,
                 );
                               },
-                              child: Text(
-                                'View More',
-                                style: TextStyle(
-                                  fontSize: width_safearea * 0.04,
-                                  color: Colors.blue, // set the color of the text to blue
-                                  decoration: TextDecoration.underline, // underline the text
-                                ),
-                              ),
+                              child:    Icon(
+                                    Icons.newspaper
+                                  ),
                             )
 
                            

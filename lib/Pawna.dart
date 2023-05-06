@@ -14,18 +14,18 @@ import 'dart:convert';
 import 'Team_new.dart';
 import 'models/team.dart';
 
-class UserDetails_New extends StatefulWidget {
+class UserDetails_New_pawna extends StatefulWidget {
   //  Team teams;
   //  String namee="";
   
 
-  UserDetails_New();
+  UserDetails_New_pawna();
 
   @override
-  _UserDetails_NewState createState() => _UserDetails_NewState();
+  _UserDetails_New_pawnaState createState() => _UserDetails_New_pawnaState();
 }
 
-class _UserDetails_NewState extends State<UserDetails_New> {
+class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
 
   ///function for bangla 
    String valAmount = "";
@@ -80,8 +80,8 @@ class _UserDetails_NewState extends State<UserDetails_New> {
   String tokenString2 = "";
   var lan_status ="English" ;
   var loan_status = "";
-    var arrayForLoanEng =["Sender: ","Receiver : ",];
-  var arrayForLoanBangla =["প্রেরক :","প্রাপক : ",];
+    var arrayForLoanEng =["Receiver : ","Sender: "];
+  var arrayForLoanBangla =["প্রাপক : ","প্রেরক :",];
  var jsonData2 ;
 
 
@@ -325,7 +325,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
       appBar: AppBar(
         
         
-        title: Text("Loans",style: TextStyle(color: Colors.black),
+        title: Text("Received",style: TextStyle(color: Colors.black),
         
         ),
       elevation: 4,
@@ -399,7 +399,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
                                       lan_status=="English"?Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                  "Total Loan Amounts",
+                                  "Total Amounts Received",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -412,7 +412,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
                                       ):Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                  "মোট লোন নেওয়া হয়েছে",
+                                  "মোট প্রাপ্ত টাকা",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
