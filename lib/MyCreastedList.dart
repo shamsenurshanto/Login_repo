@@ -138,6 +138,7 @@ print(tokenString2);
 
 
 
+                         
                  team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -149,7 +150,9 @@ print(tokenString2);
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
         
@@ -179,7 +182,9 @@ print(tokenString2);
         name: eachTeam['sender']['senderId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -221,7 +226,9 @@ print(tokenString2);
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -250,11 +257,12 @@ print(tokenString2);
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
       );
-
 
 
           }

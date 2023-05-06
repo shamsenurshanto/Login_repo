@@ -9,6 +9,8 @@ class Team {
  final String name;
  final String Transaction_id;
  final String Transaction_status;
+ final String Sender_status;
+ final String Receiver_status;
 
   Team({
     required this.id,
@@ -19,7 +21,9 @@ class Team {
        required this.mainMail,
        required this.name,
         required this.Transaction_id,
-         required this.Transaction_status
+         required this.Transaction_status,
+        required this.Sender_status,
+      required this.Receiver_status
          
   }
   

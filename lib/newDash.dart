@@ -138,6 +138,7 @@ print(tokenString2);
 
 
 
+            
                  team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -149,7 +150,9 @@ print(tokenString2);
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
         
@@ -179,7 +182,9 @@ print(tokenString2);
         name: eachTeam['sender']['senderId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -221,7 +226,9 @@ print(tokenString2);
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -250,10 +257,14 @@ print(tokenString2);
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
       );
+
+
 
 
 
@@ -497,20 +508,20 @@ print(tokenString2);
                        
                          child:   // if pending 
                         
-                                teams[index].Transaction_status=="PENDING"?
+                                teams[index].Sender_status=="Denied" || teams[index].Receiver_status=="Denied"?
                        GestureDetector(
                   onTap: () {
                     print("hello");
                     // do something when icon is clicked
                   },
-                  child:          Icon(
-                    Icons.hourglass_bottom_rounded, // set the icon to the heart icon
+                  child:        Icon(
+                    Icons.cancel, // set the icon to the heart icon
                     size: 30.0, // set the size of the icon to 32.0 pixels
-                    color: Colors.blue.shade300, // set the color of the icon to red
+                    color: Colors.red.shade400, // set the color of the icon to red
                   ),
                 ) ://else complete
                          ///:Widget
-                      teams[index].Transaction_status=="COMPLETE"?
+                       teams[index].Transaction_status=="COMPLETE"?
 
                       
                       GestureDetector(
@@ -531,10 +542,10 @@ print(tokenString2);
                     print("hello");
                     // do something when icon is clicked
                   },
-                  child:          Icon(
-                    Icons.cancel, // set the icon to the heart icon
+                  child:         Icon(
+                    Icons.hourglass_bottom_rounded, // set the icon to the heart icon
                     size: 30.0, // set the size of the icon to 32.0 pixels
-                    color: Colors.red.shade700, // set the color of the icon to red
+                    color: Colors.blue.shade300, // set the color of the icon to red
                   ),
                 )
                 

@@ -19,7 +19,7 @@ class MyBottomNavigationBar extends StatefulWidget {
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [  homeGrid(),  dash2(),   ProfilePage(), NotificationPage(), dash3() ];
+  final List<Widget> _pages = [  homeGrid(),  dash3(),   ProfilePage(), NotificationPage(), dash3() ];
 
   void _onItemTapped(int index) {
     setState(() {

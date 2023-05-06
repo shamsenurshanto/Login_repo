@@ -40,7 +40,7 @@ class _dash4State extends State<dash4> {
   
   String _displayText = "";
   var Lang_val;
-  
+  var _idLoggedIn;
   var arr =["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
   var dialog_box_eng ='If You Acknowledge or Denied User will get a short notification.Once You change status can not change it later';
   var dialog_box_bangla ='যদি আপনি স্বীকার করেন বা অস্বীকার করেন তবে ব্যবহারকারী একটি সংক্ষিপ্ত বিজ্ঞপ্তি পাবেন৷ একবার আপনি স্থিতি পরিবর্তন করলে পরে এটি পরিবর্তন করতে পারবেন না।';
@@ -71,7 +71,7 @@ class _dash4State extends State<dash4> {
      teams.clear();
   var box = await Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
-   var _idLoggedIn= _box2.get("User_id");//my user id 
+    _idLoggedIn= _box2.get("User_id");//my user id 
           var email= _box2.get("User_email");
   
 
@@ -155,8 +155,7 @@ print(tokenString2);
             print(email);
              
 
-
-
+            
                  team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -168,7 +167,9 @@ print(tokenString2);
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
         
@@ -198,7 +199,9 @@ print(tokenString2);
         name: eachTeam['sender']['senderId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -240,7 +243,9 @@ print(tokenString2);
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -269,7 +274,9 @@ print(tokenString2);
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
       );
@@ -293,7 +300,7 @@ print(tokenString2);
            print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
       print(mainName);
       
-      teams.add(team);
+                      teams.add(team);
       
       print(teams[teams.length-1].name);
      }

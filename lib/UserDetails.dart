@@ -75,7 +75,7 @@ class _UserDetailsState extends State<UserDetails> {
   var loan_status = "";
     var arrayForLoanEng =["Received","Sent",];
   var arrayForLoanBangla =["ধার নিয়েছি","ধার দিয়েছি",];
-
+   var selfEmail;
 
 
 
@@ -87,7 +87,7 @@ class _UserDetailsState extends State<UserDetails> {
   final _box2 = Hive.box("mybox");
 
     // _idLoggedIn= _box2.get("User_id");//my user id 
-    //        email= _box2.get("User_email");
+           selfEmail= _box2.get("User_email");
            lan_status= _box2.get("Lang_val");
         
     //        Lang_val
@@ -113,17 +113,18 @@ class _UserDetailsState extends State<UserDetails> {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
-    //print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
-    //print(id);
-    //print(widget.teams.name);
-    //print(widget.teams.id);
-    //print(widget.teams.amount);
-    //print(widget.teams.Transaction_status);
+    print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
+    print(id);
+    print(widget.teams.name);
+    print(widget.teams.id);
+    print(widget.teams.amount);
+    print(widget.teams.Transaction_status);
     String Bname = "";
     String Bmail = "";
     String Bamount = "";
 
     id = widget.teams.id;
+    
     var response = await http.get(
       Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
       headers: {'Cookie': 'jwt_token=$gh'},
@@ -266,6 +267,8 @@ class _UserDetailsState extends State<UserDetails> {
 
 
 
+          
+                       
                  team = Team(
 
         id: eachTeam['sender']['senderId']['_id'].toString(),
@@ -277,7 +280,9 @@ class _UserDetailsState extends State<UserDetails> {
      
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
         
@@ -290,9 +295,9 @@ class _UserDetailsState extends State<UserDetails> {
 
           }
           else{
-            //print("lole");
-             //print(_idgh);
-              //print(email);
+            print("lole");
+             print(_idgh);
+              print(email);
 
 
                team = Team(
@@ -307,7 +312,9 @@ class _UserDetailsState extends State<UserDetails> {
         name: eachTeam['sender']['senderId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
@@ -315,7 +322,7 @@ class _UserDetailsState extends State<UserDetails> {
 
           }
             
-          //print(mainName);
+          print(mainName);
          
            
            
@@ -330,9 +337,9 @@ class _UserDetailsState extends State<UserDetails> {
           var email= _box2.get("User_email");
           if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
           {
-            //print("ole");
-            //print(_idgh);
-            //print(email);
+            print("ole");
+            print(_idgh);
+            print(email);
              
 
 
@@ -349,20 +356,22 @@ class _UserDetailsState extends State<UserDetails> {
         name: eachTeam['receiver']['receiverId']['userName'].toString(),
         
          Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
       );
 
 
 
 
-               
+
 
           }
           else{
-            //print("lole");
-             //print(_idgh);
-              //print(email);
+            print("lole");
+             print(_idgh);
+              print(email);
 
 
                team = Team(
@@ -378,7 +387,9 @@ class _UserDetailsState extends State<UserDetails> {
      
         name: eachTeam['sender']['senderId']['userName'].toString(),
          Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString()
+         Transaction_id:  eachTeam['_id'].toString(),
+          Sender_status:  eachTeam['senderStatus'],  
+                  Receiver_status:  eachTeam['receiverStatus']
         
         
       );
@@ -400,11 +411,11 @@ class _UserDetailsState extends State<UserDetails> {
       if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
      {
 
-      if(widget.teams.name==team.name)
+      if(widget.teams.mainMail==team.mainMail)
            {
             print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
-      print(team.name);
-      
+      print(team.id);
+      //selfEmail
        teams2.add(team);
            }
        
