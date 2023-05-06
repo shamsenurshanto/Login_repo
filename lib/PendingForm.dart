@@ -134,6 +134,11 @@ print(tokenString2);
     // print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
+
+       if(eachTeam['createdBy']['_id']==_idLoggedIn)
+        {
+          continue;
+        }
       // print(eachTeam['sender']['senderId']);
       String mainMail2="";
        String mainName="";
