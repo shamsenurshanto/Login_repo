@@ -13,7 +13,7 @@ class _ProfilePageState extends State<ProfilePage> {
   var _idLoggedIn;
   var email;
   var name;
-   String _selectedLanguage = 'Bangla';
+   String _selectedLanguage = 'English';
  var  name_;
   void initState() {
     super.initState();

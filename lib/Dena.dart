@@ -30,6 +30,8 @@ class _UserDetails_NewState extends State<UserDetails_New> {
   ///function for bangla 
    String valAmount = "";
     var loanStaus = "";
+    var amoutUser=0;
+    var loanTopay =0;
      List<dynamic> items = [];
 
      var Lang_val ="English";
@@ -86,14 +88,23 @@ class _UserDetails_NewState extends State<UserDetails_New> {
 
 
 
-   void initState() {
+   void initState()  {
 
    
     super.initState();
 
-        
+                 
      var box =  Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
+              
+
+
+             
+    
+     
+
+
+    // _idLoggedIn= _box2.get("User_id");//my user id 
 
     // _idLoggedIn= _box2.get("User_id");//my user id 
     //        email= _box2.get("User_email");
@@ -103,51 +114,29 @@ class _UserDetails_NewState extends State<UserDetails_New> {
     print(lan_status);
     print("giiiiiiiiiiiiiiiiga");
 
-    getTeams();
+   
      
 
            lan_status= _box2.get("Lang_val");
           
   }
 
-  Future<void> getTeams2() async {
-    var box = await Hive.openBox("mybox");
-    final _box2 = Hive.box("mybox");
-    var gh = _box2.get("toki");
-    //print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
-    //print(id);
-    //print(widget.teams.name);
-    //print(widget.teams.id);
-    //print(widget.teams.amount);
-    //print(widget.teams.Transaction_status);
-    String Bname = "";
-    String Bmail = "";
-    String Bamount = "";
-
-    // id = widget.teams.id;
-    // var response = await http.get(
-    //   Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
-    //   headers: {'Cookie': 'jwt_token=$gh'},
-    // );
-    // //print(response.body);
-    // jsonData = jsonDecode(response.body);
-    // //print(jsonData);
-
-
-      var response2 = await http.get(Uri.https('personalrec.onrender.com', 'api/user/loansummery'),
-     headers: {'Cookie': 'jwt_token=$gh'}
-     
-     );
-     jsonData = jsonDecode(response2.body);
-    //print("2nd apiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-    //print(jsonData2);
-  }
+  
 
    List<Team_new> teams2 = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
 
-   
+   int trackerLoancount=0;
+    void apicall(int x,int length)
+    {
+      if(trackerLoancount<length)
+      setState(() {
+        loanTopay += x;
+        trackerLoancount++;
+      });
+    }
+
 
     String getString(String number){
       amountOfUser="";
@@ -228,6 +217,9 @@ class _UserDetails_NewState extends State<UserDetails_New> {
   final _box = Hive.box("mybox");
   _box.put("toki", tokenString2);
 
+     
+
+
 //print(tokenString2);
    //print(tokenString2.runtimeType);
 
@@ -236,8 +228,43 @@ class _UserDetails_NewState extends State<UserDetails_New> {
      
      );
     var jsonData = jsonDecode(response.body);
-    //print(response.body);
-    print(jsonData['data']);
+    print(response.body);
+
+    // for (var item in jsonData['data']) {
+     
+    // String id = item['id'];
+    // String userName = item['userName'];
+    // int totalSent = item['total_sent'];
+    // int totalReceived = item['total_received'];
+    //  amoutUser+=(totalSent-totalReceived);
+
+    // print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
+
+    //  }
+
+    //  if(amoutUser<0)
+    //  {
+    //   amoutUser=0;
+    //  }
+     
+    
+    // var jsonData
+
+    /**
+     * 
+     * 
+     * 
+     *   for (var item in jsonData['data']) {
+    String id = item['id'];
+    String userName = item['userName'];
+    int totalSent = item['total_sent'];
+    int totalReceived = item['total_received'];
+
+    print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
+  }
+     * 
+     */
+    print(jsonData['data'][0]['total_sent']);
   teams2.clear();
     for (var eachTeam in jsonData['data']) {
 
@@ -246,22 +273,25 @@ class _UserDetails_NewState extends State<UserDetails_New> {
       String mainMail2="";
        String mainName="";
        print("------------ edhaaaaaa");
+       print(jsonData['data'].length);
 
        print(eachTeam['total_received']);
+     
      
         //  //print(eachTeam['type']['en_typeName']);
          final team;
             team = Team_new(
 
         
-        amount: eachTeam['total_received'],
+        amount: eachTeam['total_received']-eachTeam['total_sent'],
 
      
         name: eachTeam['userName'].toString(),
-        
+       
        
         
       );
+       apicall( eachTeam['total_received']-eachTeam['total_sent'],jsonData['data'].length);
        
    
       
@@ -430,7 +460,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
                                       Padding(
                                         padding:EdgeInsets.fromLTRB(0, 1, 0, 1),
                                         child: lan_status=="English"? Text(
-                                    '\$'+"3400",
+                                    '\$'+loanTopay.toString(),
                                     style: TextStyle(
                                       fontSize: 35,
                                       fontWeight: FontWeight.bold,
@@ -439,7 +469,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
                                      
                                     ),
                                   ):Text(
-                                     '\৳'+"৩৪০০",
+                                     '\৳'+getString(loanTopay.toString()),
                                     style: TextStyle(
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold,

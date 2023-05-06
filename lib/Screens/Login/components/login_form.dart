@@ -38,8 +38,17 @@ var name,email,_selectedLanguage="English" ;
 
 //after changes 
   void initState() {
-    super.initState();
 
+    /// here the val_sum = 0 
+    //  final _box = Hive.box("mybox");
+    super.initState();
+    print("----------ppppppppppppppppppp");
+    // print(_box.get("val_sum"));
+   
+    // if( _box.get("val_sum").toString()==null)
+    //   {
+    //     _box.put("val_sum", 0);
+    //   }
       
 
   }

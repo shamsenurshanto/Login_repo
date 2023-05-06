@@ -103,45 +103,14 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
     print(lan_status);
     print("giiiiiiiiiiiiiiiiga");
 
-    getTeams();
+   
      
 
            lan_status= _box2.get("Lang_val");
           
   }
 
-  Future<void> getTeams2() async {
-    var box = await Hive.openBox("mybox");
-    final _box2 = Hive.box("mybox");
-    var gh = _box2.get("toki");
-    //print("Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
-    //print(id);
-    //print(widget.teams.name);
-    //print(widget.teams.id);
-    //print(widget.teams.amount);
-    //print(widget.teams.Transaction_status);
-    String Bname = "";
-    String Bmail = "";
-    String Bamount = "";
-
-    // id = widget.teams.id;
-    // var response = await http.get(
-    //   Uri.https('personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
-    //   headers: {'Cookie': 'jwt_token=$gh'},
-    // );
-    // //print(response.body);
-    // jsonData = jsonDecode(response.body);
-    // //print(jsonData);
-
-
-      var response2 = await http.get(Uri.https('personalrec.onrender.com', 'api/user/loansummery'),
-     headers: {'Cookie': 'jwt_token=$gh'}
-     
-     );
-     jsonData = jsonDecode(response2.body);
-    //print("2nd apiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-    //print(jsonData2);
-  }
+  
 
    List<Team_new> teams2 = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -247,14 +216,14 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
        String mainName="";
        print("------------ edhaaaaaa");
 
-       print(eachTeam['total_received']);
+       print(eachTeam['total_sent']);
      
         //  //print(eachTeam['type']['en_typeName']);
          final team;
             team = Team_new(
 
         
-        amount: eachTeam['total_received'],
+        amount: eachTeam['total_sent'],
 
      
         name: eachTeam['userName'].toString(),
@@ -530,7 +499,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                       SizedBox(
                         //width: 20,
                         child:        IconButton(
-                      icon: Icon(FontAwesomeIcons.circleMinus ,color: Colors.grey.shade300,),
+                      icon: Icon(FontAwesomeIcons.circlePlus ,color: Colors.green.shade300,),
                       onPressed: () {
                         // Do something when the icon is pressed
                         print("hello add");
@@ -559,7 +528,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                          
                                           Text(teams2[index].name.toString(),
                                          
-                     style:GoogleFonts.mina(
+                      style:GoogleFonts.mina(
                         fontSize: width_safearea * 0.03820408,
                        
         shadows: [
@@ -583,7 +552,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                          Text(
                             
                            teams2[index].name.toString(),
-                     style:GoogleFonts.mina(
+                      style:GoogleFonts.mina(
                         fontSize: width_safearea * 0.03820408,
                        
         shadows: [

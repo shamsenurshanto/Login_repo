@@ -104,3 +104,9 @@ Card(
           "সঠিক পরিমাণ দেন"
           "যোগ করুন"
 
+
+           await Hive.initFlutter();
+  var box = await Hive.openBox("mybox");
+  final _box = Hive.box("mybox");
+  _box.put("tokens", cookie);
+

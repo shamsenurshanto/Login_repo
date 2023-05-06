@@ -496,6 +496,7 @@ print(tokenString2);
                        Padding(padding: const EdgeInsets.fromLTRB(12, 4, 16, 8),
                        
                          child:   // if pending 
+                        
                                 teams[index].Transaction_status=="PENDING"?
                        GestureDetector(
                   onTap: () {
@@ -507,14 +508,9 @@ print(tokenString2);
                     size: 30.0, // set the size of the icon to 32.0 pixels
                     color: Colors.blue.shade300, // set the color of the icon to red
                   ),
-                )
-
-                        
-                       
-
-                         ///else complete
+                ) ://else complete
                          ///:Widget
-                         :
+                      teams[index].Transaction_status=="COMPLETE"?
 
                       
                       GestureDetector(
@@ -529,7 +525,21 @@ print(tokenString2);
                   ),
                 )
 
-                       )
+                :
+                    GestureDetector(
+                  onTap: () {
+                    print("hello");
+                    // do something when icon is clicked
+                  },
+                  child:          Icon(
+                    Icons.cancel, // set the icon to the heart icon
+                    size: 30.0, // set the size of the icon to 32.0 pixels
+                    color: Colors.red.shade700, // set the color of the icon to red
+                  ),
+                )
+                
+
+                       )  
                          
                       
                        

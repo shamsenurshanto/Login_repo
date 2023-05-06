@@ -371,6 +371,61 @@ print(tokenString2);
  
   }
 
+     Denied(int index) async {
+   
+     var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+     var gh = _box2.get("toki");
+     var response;
+  teams[index].type=="Loan Taken"?
+       
+  response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+     
+    headers: {
+      
+      //  'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'
+      },
+
+ 
+  body: {
+    "id":teams[index].Transaction_id,
+      "receiverStatus":"Denied"
+},
+      
+       )
+  :
+
+  response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+     
+    headers: {
+      
+      //  'Content-Type': 'application/json; charset=UTF-8',
+      
+      'Cookie': 'jwt_token=$gh'
+      },
+
+ 
+  body: {
+    "id":teams[index].Transaction_id,
+   "senderStatus":"Denied"
+},
+      
+  )
+
+  
+
+
+
+;
+       print(teams[0].Transaction_id);
+    //  jsonData = jsonDecode(response.body);
+    // print(jsonData);
+    //  print("sent");
+ 
+  }
+
        alertFunction (int index){
         print("alert");
         showDialog(
@@ -403,10 +458,11 @@ print(tokenString2);
             ),
              TextButton(
               onPressed: () {
+                Denied(index);
                 Navigator.of(context).pop();
                 print("deni koresen");
               },
-              child: Lang_val=="English"?Text('ACKNOWLEDGED',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),):
+              child: Lang_val=="English"?Text('Denied',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),):
               Text('অস্বীকার করলাম',style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),)
             ),
            
