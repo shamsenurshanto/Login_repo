@@ -30,6 +30,8 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   ///function for bangla 
    String valAmount = "";
     var loanStaus = "";
+    var amoutUser=0;
+    var loanTopay =0;
      List<dynamic> items = [];
 
      var Lang_val ="English";
@@ -80,20 +82,29 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   String tokenString2 = "";
   var lan_status ="English" ;
   var loan_status = "";
-    var arrayForLoanEng =["Receiver : ","Sender: "];
-  var arrayForLoanBangla =["প্রাপক : ","প্রেরক :",];
+    var arrayForLoanEng =["Sender: ","Receiver : ",];
+  var arrayForLoanBangla =["প্রেরক :","প্রাপক : ",];
  var jsonData2 ;
 
 
 
-   void initState() {
+   void initState()  {
 
    
     super.initState();
 
-        
+                 
      var box =  Hive.openBox("mybox");
   final _box2 = Hive.box("mybox");
+              
+
+
+             
+    
+     
+
+
+    // _idLoggedIn= _box2.get("User_id");//my user id 
 
     // _idLoggedIn= _box2.get("User_id");//my user id 
     //        email= _box2.get("User_email");
@@ -116,7 +127,17 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
 
-   
+   int trackerLoancount=0;
+    void apicall(int x,int length)
+    {
+      if(trackerLoancount<length)
+      setState(() {
+        loanTopay += x;
+      
+        trackerLoancount++;
+      });
+    }
+
 
     String getString(String number){
       amountOfUser="";
@@ -197,6 +218,9 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   final _box = Hive.box("mybox");
   _box.put("toki", tokenString2);
 
+     
+
+
 //print(tokenString2);
    //print(tokenString2.runtimeType);
 
@@ -205,8 +229,43 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
      
      );
     var jsonData = jsonDecode(response.body);
-    //print(response.body);
-    print(jsonData['data']);
+    print(response.body);
+
+    // for (var item in jsonData['data']) {
+     
+    // String id = item['id'];
+    // String userName = item['userName'];
+    // int totalSent = item['total_sent'];
+    // int totalReceived = item['total_received'];
+    //  amoutUser+=(totalSent-totalReceived);
+
+    // print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
+
+    //  }
+
+    //  if(amoutUser<0)
+    //  {
+    //   amoutUser=0;
+    //  }
+     
+    
+    // var jsonData
+
+    /**
+     * 
+     * 
+     * 
+     *   for (var item in jsonData['data']) {
+    String id = item['id'];
+    String userName = item['userName'];
+    int totalSent = item['total_sent'];
+    int totalReceived = item['total_received'];
+
+    print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
+  }
+     * 
+     */
+    print(jsonData['data'][0]['total_sent']);
   teams2.clear();
     for (var eachTeam in jsonData['data']) {
 
@@ -215,22 +274,25 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
       String mainMail2="";
        String mainName="";
        print("------------ edhaaaaaa");
+       print(jsonData['data'].length);
 
-       print(eachTeam['total_sent']);
+       print(eachTeam['total_received']);
+     
      
         //  //print(eachTeam['type']['en_typeName']);
          final team;
             team = Team_new(
 
         
-        amount: eachTeam['total_sent'],
+        amount: (eachTeam['total_received']-eachTeam['total_sent']).abs(),
 
      
         name: eachTeam['userName'].toString(),
-        
+       
        
         
       );
+       apicall((eachTeam['total_received']-eachTeam['total_sent']).abs(),jsonData['data'].length);
        
    
       
@@ -368,7 +430,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                       lan_status=="English"?Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                  "Total Amounts Received",
+                                  "Total Received Amounts",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -381,7 +443,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                       ):Padding(
                                         padding: EdgeInsets.fromLTRB(0, 5, 0, 2),
                                         child:  Text(
-                                  "মোট প্রাপ্ত টাকা",
+                                  "মোট গ্রহণ করা হয়েছে",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.w600,
@@ -399,7 +461,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                       Padding(
                                         padding:EdgeInsets.fromLTRB(0, 1, 0, 1),
                                         child: lan_status=="English"? Text(
-                                    '\$'+"3400",
+                                    '\$'+loanTopay.toString(),
                                     style: TextStyle(
                                       fontSize: 35,
                                       fontWeight: FontWeight.bold,
@@ -408,7 +470,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                      
                                     ),
                                   ):Text(
-                                     '\৳'+"৩৪০০",
+                                     '\৳'+getString(loanTopay.toString()),
                                     style: TextStyle(
                                       fontSize: 40,
                                       fontWeight: FontWeight.bold,
@@ -499,7 +561,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                       SizedBox(
                         //width: 20,
                         child:        IconButton(
-                      icon: Icon(FontAwesomeIcons.circlePlus ,color: Colors.green.shade300,),
+                      icon: Icon(FontAwesomeIcons.circlePlus ,color: Colors.green.shade500,),
                       onPressed: () {
                         // Do something when the icon is pressed
                         print("hello add");
@@ -528,7 +590,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                          
                                           Text(teams2[index].name.toString(),
                                          
-                      style:GoogleFonts.mina(
+                     style:GoogleFonts.mina(
                         fontSize: width_safearea * 0.03820408,
                        
         shadows: [
@@ -552,7 +614,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                          Text(
                             
                            teams2[index].name.toString(),
-                      style:GoogleFonts.mina(
+                     style:GoogleFonts.mina(
                         fontSize: width_safearea * 0.03820408,
                        
         shadows: [

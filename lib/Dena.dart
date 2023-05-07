@@ -133,6 +133,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
       if(trackerLoancount<length)
       setState(() {
         loanTopay += x;
+      
         trackerLoancount++;
       });
     }
@@ -283,7 +284,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
             team = Team_new(
 
         
-        amount: eachTeam['total_received']-eachTeam['total_sent'],
+        amount: (eachTeam['total_received']-eachTeam['total_sent']).abs(),
 
      
         name: eachTeam['userName'].toString(),
@@ -291,7 +292,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
        
         
       );
-       apicall( eachTeam['total_received']-eachTeam['total_sent'],jsonData['data'].length);
+       apicall((eachTeam['total_received']-eachTeam['total_sent']).abs(),jsonData['data'].length);
        
    
       
