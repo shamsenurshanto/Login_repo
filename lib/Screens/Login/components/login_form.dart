@@ -27,109 +27,95 @@ import 'package:hive/hive.dart';
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
 
-  
-
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-var name,email,_selectedLanguage="English" ;
+  var name, email, _selectedLanguage = "English";
 
-//after changes 
+//after changes
   void initState() {
-
-    /// here the val_sum = 0 
+    /// here the val_sum = 0
     //  final _box = Hive.box("mybox");
     super.initState();
     print("----------ppppppppppppppppppp");
     // print(_box.get("val_sum"));
-   
+
     // if( _box.get("val_sum").toString()==null)
     //   {
     //     _box.put("val_sum", 0);
     //   }
-      
-
   }
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
-postDate(context) async {
-  
-    
-   
-        String  username = "g";
-          username = emailController.text;
-           var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login");
+  postDate(context) async {
+    String username = "g";
+    username = emailController.text;
+    var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login");
 //  final responsew = await http.get(Uri.parse('http://your-nodejs-server.com/get-jwt-token'));
 
-   // Make a request to the Node.js server to get a JWT token
-   if(username==null)
-   {
-       username = "ab03@gmail.com";
-   }
-   
-  final response = await http.post(
-    Uri.parse("https://personalrec.onrender.com/api/auth/login"),
-    body: {
-      'userEmailPhone': username, 
-      'userPass': '12345678'
-      
-      },
-  );
-  print(response.body);
+    // Make a request to the Node.js server to get a JWT token
+    if (username == null) {
+      username = "ab03@gmail.com";
+    }
 
- // Extract the cookie from the response headers
-  String cookie = response.headers['set-cookie']!;
+    final response = await http.post(
+      Uri.parse("https://personalrec.onrender.com/api/auth/login"),
+      body: {'userEmailPhone': username, 'userPass': '12345678'},
+    );
+    print(response.body);
 
-  // Print the cookie
-  print("in Login ------------------------------------");
-  print(cookie);
-  print(username.toString());
-  await Hive.initFlutter();
-  var box = await Hive.openBox("mybox");
-  final _box = Hive.box("mybox");
-  _box.put("tokens", cookie);
+    // Extract the cookie from the response headers
+    String cookie = response.headers['set-cookie']!;
 
-   print("in Login222 ------------------------------------");
-  print(_box.put("tokens", cookie));
+    // Print the cookie
+    print("in Login ------------------------------------");
+    print(cookie);
+    print(username.toString());
+    await Hive.initFlutter();
+    var box = await Hive.openBox("mybox");
+    final _box = Hive.box("mybox");
+    _box.put("tokens", cookie);
+
+    print("in Login222 ------------------------------------");
+    print(_box.put("tokens", cookie));
 
     var gh = response.body;
     print("hoise *****************************************");
     print(response.body);
     // print("token from main login " + jwtToken);
     var jh = json.decode(response.body);
-  print(jh['data']['_id']);
+    print(jh['data']['_id']);
     // print(username.toString());
-    if(jsonDecode(gh)["success"])
-    {
+    if (jsonDecode(gh)["success"]) {
       print("hoise");
       print(jwtToken);
 
-      _box.put("User_id",jh['data']['_id'] );
-        _box.put("User_email",username );
-          _box.put("User_id",jh['data']['_id'] );
-      _box.put("User_name2",jh['data']['userName'] );
-        _box.put("User_email",username );
-        _box.put("Lang_val", "English");
-         final _box2 = Hive.box("mybox");
-        var  name_= _box2.get("User_name2");
-              print("ooooooooooooooooooooooooooooooooooo");
-              print(name_);
-       Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    // return MyBottomNavigationBar();
-                    
-                    return dash_newMyBottomNavigationBar_new();
-                  },
-                ),
-              );
+      _box.put("User_id", jh['data']['_id']);
+      _box.put("User_email", username);
+      _box.put("User_id", jh['data']['_id']);
+      _box.put("User_name2", jh['data']['userName']);
+      _box.put("User_email", username);
+      _box.put("Lang_val", "English");
+      final _box2 = Hive.box("mybox");
+      var name_ = _box2.get("User_name2");
+      print("ooooooooooooooooooooooooooooooooooo");
+      print(name_);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            // return MyBottomNavigationBar();
+
+            return dash_newMyBottomNavigationBar_new();
+          },
+        ),
+      );
     }
-   }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +139,7 @@ postDate(context) async {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
-               controller: passwordController,
+              controller: passwordController,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
@@ -172,9 +158,8 @@ postDate(context) async {
             child: ElevatedButton(
               //it is the button for login here  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
               onPressed: () {
-                  print("login_form");
-                       postDate(context);
-
+                print("login_form");
+                postDate(context);
               },
               child: Text(
                 "Login".toUpperCase(),
@@ -198,5 +183,4 @@ postDate(context) async {
       ),
     );
   }
-  
 }

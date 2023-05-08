@@ -27,7 +27,7 @@ class UserDetails_New_pawna extends StatefulWidget {
 
 class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
 
-  ///function for bangla 
+ ///function for bangla 
    String valAmount = "";
     var loanStaus = "";
     var amoutUser=0;
@@ -123,13 +123,14 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
 
   
 
-   List<Team_new> teams2 = [];
+   List<Team> teams2 = [];
    //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
 
    int trackerLoancount=0;
     void apicall(int x,int length)
     {
+      // print("apiii");
       if(trackerLoancount<length)
       setState(() {
         loanTopay += x;
@@ -229,45 +230,14 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
      
      );
     var jsonData = jsonDecode(response.body);
+     print("response body ---------- ::::::::::::::::::::");
     print(response.body);
 
-    // for (var item in jsonData['data']) {
-     
-    // String id = item['id'];
-    // String userName = item['userName'];
-    // int totalSent = item['total_sent'];
-    // int totalReceived = item['total_received'];
-    //  amoutUser+=(totalSent-totalReceived);
-
-    // print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
-
-    //  }
-
-    //  if(amoutUser<0)
-    //  {
-    //   amoutUser=0;
-    //  }
-     
-    
-    // var jsonData
-
-    /**
-     * 
-     * 
-     * 
-     *   for (var item in jsonData['data']) {
-    String id = item['id'];
-    String userName = item['userName'];
-    int totalSent = item['total_sent'];
-    int totalReceived = item['total_received'];
-
-    print('id: $id, userName: $userName, totalSent: $totalSent, totalReceived: $totalReceived');
-  }
-     * 
-     */
+  
     print(jsonData['data'][0]['total_sent']);
   teams2.clear();
-    for (var eachTeam in jsonData['data']) {
+    for (var eachTeam in jsonData['data'])
+     {
 
       // loooooppppo lol 
       // //print(eachTeam['sender']['senderId']);
@@ -281,23 +251,36 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
      
         //  //print(eachTeam['type']['en_typeName']);
          final team;
-            team = Team_new(
 
-        
-        amount: (eachTeam['total_received']-eachTeam['total_sent']).abs(),
 
+      team = Team(
+
+      
+       amount: (eachTeam['total_sent']-eachTeam['total_received']).abs(),
+         name: eachTeam['userName'].toString(),
+
+
+           id: "",
+        sender_email: "",
+        receiver_email: "",
+        type: "Loan Taken",
+
+         mainMail:"eachTeam['sender']['senderId']['_id'].toString()",
      
-        name: eachTeam['userName'].toString(),
        
-       
+         Transaction_status: "eachTeam['transactionStatus']",
+         Transaction_id: " eachTeam['_id'].toString()",
+          Sender_status:  "eachTeam['senderStatus']",  
+                  Receiver_status:  "eachTeam['receiverStatus']"
+        
         
       );
+      print("this is for id");
+      print(team.id);
        apicall((eachTeam['total_received']-eachTeam['total_sent']).abs(),jsonData['data'].length);
        
    
-      
-    //   //print(teams[teams.length-1].name);
-    //  }
+
 
      teams2.add(team);
       
@@ -348,7 +331,6 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   }
     return amountOfUser;
    }
-
       
 
     return Scaffold(
@@ -404,7 +386,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
         // Handle onLongPress event
       },
       child: Padding(padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-      child: 
+           child: 
       Icon(FontAwesomeIcons.gear,color: Colors.green.shade500 ,),)
     )
                                   ],
@@ -548,105 +530,108 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
    
 
   
-
-                        return  Expanded(
-                              child: Card(
+            //expanded 
+                      return Container(
+                              width: 200,
+                                child: Card(
                               ///rkjs2
                               ///
                               elevation: 3,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   ///colum1 icon
-                      SizedBox(
-                        //width: 20,
-                        child:        IconButton(
-                      icon: Icon(FontAwesomeIcons.circlePlus ,color: Colors.green.shade500,),
-                      onPressed: () {
-                        // Do something when the icon is pressed
-                        print("hello add");
-                      },
-                    ),
-                      )
-                                  ///sizebox width 
+                                  SizedBox(
+                                    //width: 20,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        FontAwesomeIcons.circleMinus,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      onPressed: () {
+                                        // Do something when the icon is pressed
+                                        print("hello add");
+                                      },
+                                    ),
+                                  )
+
+                                  ///sizebox width
                                   ///
-                                //    ,
-                                // SizedBox(
-                                //   width: 70,
-                                // )
+                                  //    ,
+                                  // SizedBox(
+                                  //   width: 70,
+                                  // )
                                   ,
+
                                   ///colum2
                                   //////Loan status
                                   ///amount
                                   ///
                                   ///rkjs2
-                                 SizedBox(
-                                
-                                child:  Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    lan_status=="English"?
-                                         
-                                          Text(teams2[index].name.toString(),
-                                         
-                     style:GoogleFonts.mina(
-                        fontSize: width_safearea * 0.03820408,
-                       
-        shadows: [
-            Shadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(7, 7),
-                blurRadius: 15),
-          ],fontWeight:FontWeight.w400,color: Colors.black ,
-          
-                     ), textAlign: TextAlign.center,
-                     
-        //                       
-                            )
-                                        
+                                  SizedBox(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      lan_status == "English"
+                                          ? Text(
+                                              teams2[index].name.toString(),
 
+                                              style: GoogleFonts.mina(
+                                                fontSize:
+                                                    width_safearea * 0.03820408,
+                                                shadows: [
+                                                  Shadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      offset:
+                                                          const Offset(7, 7),
+                                                      blurRadius: 15),
+                                                ],
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+
+                                              //
+                                            )
                                           :
-                                        
-
 
                                           //bng start
-                                         Text(
-                            
-                           teams2[index].name.toString(),
-                     style:GoogleFonts.mina(
-                        fontSize: width_safearea * 0.03820408,
-                       
-        shadows: [
-            Shadow(
-                color: Colors.black.withOpacity(0.3),
-                offset: const Offset(7, 7),
-                blurRadius: 15),
-          ],fontWeight:FontWeight.w400,color: Colors.black ,
-          
-                     ), textAlign: TextAlign.center,
-                     
-        //                       
-                            ),
-                                  ],
-                                )
+                                          Text(
+                                              teams2[index].name.toString(),
+                                              style: GoogleFonts.mina(
+                                                fontSize:
+                                                    width_safearea * 0.03820408,
+                                                shadows: [
+                                                  Shadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      offset:
+                                                          const Offset(7, 7),
+                                                      blurRadius: 15),
+                                                ],
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
 
-                          
+                                              //
+                                            ),
+                                    ],
+                                  )),
 
-                                 )
-                                 ,
-
-                                 SizedBox(
-                                  
-                                  width: 60,
-                                 
-                                 child:   lan_status=="English"?
-                                        Text("\$"+teams2[index].amount.toString()):
-
-                                        Text( "৳"+getString(teams2[index].amount.toString())),)
-                                 
-                                
-                                   
+                                  SizedBox(
+                                    width: 60,
+                                    child: lan_status == "English"
+                                        ? Text("\$" +
+                                            teams2[index].amount.toString())
+                                        : Text("৳" +
+                                            getString(teams2[index]
+                                                .amount
+                                                .toString())),
+                                  )
 
                                   ///
                                   ///
@@ -656,9 +641,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
                                 ],
                               ),
                             )
-                            
-
-                        );
+                            );
                       },
                     ),
                      )
