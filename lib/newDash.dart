@@ -240,25 +240,8 @@ class _dash_newState extends State<dash_new> {
     var width_safearea = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Dashboard",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 4,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            // Navigate back when the back button is pressed
-            Navigator.of(context).pop();
-          },
-        ),
-        automaticallyImplyLeading: false,
-      ),
+   
+     
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("hello");
@@ -279,7 +262,9 @@ class _dash_newState extends State<dash_new> {
         ),
       ),
       body: SafeArea(
+
         child: Container(
+          
           child: FutureBuilder(
             future: getTeams(),
             builder: (context, snapshot) {

@@ -32,6 +32,70 @@ class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+        appBar: AppBar(
+        title: _selectedIndex==0?Text(
+          "Home",
+          style: TextStyle(color: Colors.black),
+        )
+        :
+        _selectedIndex==1?Text(
+          "Transactions",
+          style: TextStyle(color: Colors.black),
+        ):
+
+        _selectedIndex==2?
+        Text(
+          "Profile",
+          style: TextStyle(color: Colors.black),
+        ):
+        _selectedIndex==3?
+        Text(
+          "Notifications",
+          style: TextStyle(color: Colors.black),
+        ):
+        _selectedIndex==4?
+        Text(
+          "Loans",
+          style: TextStyle(color: Colors.black),
+        ):
+        
+        Text(
+          "Received",
+          style: TextStyle(color: Colors.black),
+        ),
+        elevation: 4,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.deepPurple),
+       
+        
+        // automaticallyImplyLeading: false,
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.black,
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+                   children: [
+                    DrawerHeader(
+                      
+                      child: 
+                            
+                     
+                      Center(
+                        child:  Text("L O G O",style: TextStyle(fontSize: 40)
+                      ,
+                      )
+                     )   
+                    ),
+                   ],
+          ),
+        ),
+      ),
+
+      /** 
+      */
+      
       // backgroundColor: Colors.deepPurple,
       body: _pages[_selectedIndex],
         bottomNavigationBar: new Theme(

@@ -8,6 +8,7 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
 import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
+import 'package:my_app/userDetailsTesting.dart';
 
 void main() => runApp(const MyApp());
 
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       home: const WelcomeScreen(),
       // home: const homeGrid(),
       // home: const transactionWithPending(),
-      // home: testingAPK(),
+      // home: userdetails_new_with_sidebar(),
 
     );
   }

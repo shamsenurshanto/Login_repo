@@ -48,15 +48,7 @@ class _homeGridState extends State<homeGrid> {
 
     return Scaffold(
       
-      appBar: AppBar(title: Text("Home",style: TextStyle(color: Colors.black),),
-      elevation: 4,
-      backgroundColor: Colors.white,
       
-      automaticallyImplyLeading: false,
-      
-        
-      ),
-      backgroundColor: Colors.white,
       
    body:Container(
     margin: EdgeInsets.only(top: 20.0),
