@@ -36,48 +36,25 @@ class _pendingListBottomState extends State<pendingListBottom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        title: _selectedIndex==0?Text(
-          "Home",
-          style: TextStyle(color: Colors.black),
-        )
-        :
-        _selectedIndex==1?Text(
-          "Transactions",
-          style: TextStyle(color: Colors.black),
-        ):
+      drawer: ClipRRect(
+            borderRadius: BorderRadius.only(
+          topRight: Radius.circular(25), 
+          bottomRight: Radius.circular(25)
+          
+          ),
 
-        _selectedIndex==2?
-        Text(
-          "Profile",
-          style: TextStyle(color: Colors.black),
-        ):
-        _selectedIndex==3?
-        Text(
-          "Notifications",
-          style: TextStyle(color: Colors.black),
-        ):
-        _selectedIndex==4?
-        Text(
-          "Loans",
-          style: TextStyle(color: Colors.black),
-        ):
-        
-        Text(
-          "Received",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 4,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.deepPurple),
+
+        child: Drawer(
        
-        
-        // automaticallyImplyLeading: false,
-      ),
-      drawer: Drawer(
-        backgroundColor: Colors.black,
         child: Container(
-          color: Colors.white,
+          height: 300,
+           decoration: BoxDecoration(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30.0),
+        bottomRight: Radius.circular(30.0),
+      ),
+      color: Colors.white, ),
+          width: 10,
           child: ListView(
                    children: [
                     DrawerHeader(
@@ -91,9 +68,220 @@ class _pendingListBottomState extends State<pendingListBottom> {
                       )
                      )   
                     ),
+
+                  Container(
+                    width: 10,
+                    
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                              Icon(
+                            Icons.dashboard_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Dashboard",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
+                  Container(
+                    width: 10,
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                          //https://fontawesome.com/icons/wallet?f=classic&s=thin  wallet
+                              Icon(
+                            Icons.wallet_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Transaction",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
+                  Container(
+                    width: 10,
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                              Icon(
+                            Icons.dashboard_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Dashboard",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      ),
+                    ),
+                    
+                  ),
+                  Container(
+                    width: 10,
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                              Icon(
+                            Icons.dashboard_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Dashboard",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
+                  Container(
+                    width: 10,
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                              Icon(
+                            Icons.dashboard_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Dashboard",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      )
+                    ),
+                  ),
+                  Container(
+                    width: 10,
+
+                    child:   
+                     ListTile(
+                            
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 20,
+                          ),
+                              Icon(
+                            Icons.dashboard_outlined,
+                            size: 24,
+                            color: Colors.black38, //<-- SEE HERE
+                          ),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          Text("Dashboard",
+                             style: TextStyle(
+                              fontWeight: FontWeight.w400
+                             ),
+                          )
+                        ],
+                      )
+                    ),
+                  )
                    ],
           ),
         ),
+      ),
+      ),
+       appBar: AppBar(
+        title: _selectedIndex==0?Text(
+          "Home",
+          style: TextStyle(color: Colors.black38),
+        )
+        :
+        _selectedIndex==1?Text(
+          "Transactions",
+          style: TextStyle(color: Colors.black38),
+        ):
+
+        _selectedIndex==2?
+        Text(
+          "Profile",
+          style: TextStyle(color: Colors.black38),
+        ):
+        _selectedIndex==3?
+        Text(
+          "Notifications",
+          style: TextStyle(color: Colors.black38),
+        ):
+        _selectedIndex==4?
+        Text(
+          "Loans",
+          style: TextStyle(color: Colors.black38),
+        ):
+        
+        Text(
+          "Received",
+          style: TextStyle(color: Colors.black38),
+        ),
+        elevation: 4,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.deepPurple),
+       
+        
+        // automaticallyImplyLeading: false,
       ),
       // backgroundColor: Colors.deepPurple,
       body:_isVisible==true?_pages2[_selectedIndex]: _pages[_selectedIndex],
