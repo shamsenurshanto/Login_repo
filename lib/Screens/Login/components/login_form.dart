@@ -8,6 +8,8 @@ import 'package:my_app/constants.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 // import '../../../constants.dart';
+import '../../../testUserdetails.dart';
+import '../../../userDetailsTesting.dart';
 import '../../Signup/signup_screen.dart';
 import 'dart:convert';
 // import 'package:flutter_auth/tbb.dart';
@@ -112,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
           builder: (context) {
             // return MyBottomNavigationBar();
 
-            return dash_newMyBottomNavigationBar_new();
+            return MyListView_();
             // return userdetails_new_with_sidebar();
 
             //userdetails_new_with_sidebar
@@ -179,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return SignUpScreen();
+                    return userdetails_new_with_sidebar();
                   },
                 ),
               );

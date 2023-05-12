@@ -110,3 +110,285 @@ Card(
   final _box = Hive.box("mybox");
   _box.put("tokens", cookie);
 
+
+
+// eije      
+
+
+
+Column(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                //color's container
+                Container(
+                  width: 500,
+                  height: 410,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 202, 212, 253),
+                        Color.fromARGB(255, 248, 243, 253),
+                        Color.fromARGB(255, 202, 212, 253),
+                        Color.fromARGB(255, 248, 243, 253)
+                      ], //#D3DCFE  #ECEEFE
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(43),
+                      bottomRight: Radius.circular(43),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Gradient Container',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                //money container
+                Positioned(
+                    top: height_safearea / 7,
+                    right: width_safearea / 18,
+                    left: 21 / width_safearea * width_safearea,
+                    child: Column(
+                      children: [
+                        Container(
+                          /// change it here for responsiveness 
+                          width: 450 / width_safearea * width_safearea,
+                          height: 300 / height_safearea * height_safearea,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              colors: [
+                                Color.fromARGB(255, 202, 212, 253),
+                                Color.fromARGB(255, 248, 243, 253),
+                                Color.fromARGB(255, 202, 212, 253),
+                                Color.fromARGB(255, 248, 243, 253)
+                              ], //#D3DCFE  #ECEEFE
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                            ),
+                            // shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2.0,
+                            ),
+                          ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: height_safearea / 8,
+                                ),
+                                Text("Total Debt",
+                                    style: GoogleFonts.mina(
+                                        color: Color.fromARGB(255, 33, 25, 77),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15)),
+                                Text("\$13300",
+                                    style: GoogleFonts.mina(
+                                        color: Color.fromARGB(255, 33, 25, 77),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30)
+                                        
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                     SizedBox(
+                          height: 50.0,
+                          width: 90.0,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary:
+                                   Color.fromARGB(255, 203, 202, 253), // Change the background color
+                              onPrimary: Colors.white, // Change the text color
+                            ),
+                            onPressed: () {},
+                            child: Text('Dredit'),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        SizedBox(
+                           /// change it here for responsiveness 
+                          height: 50.0,
+                          width: 90.0,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary:
+                                   Color.fromARGB(255, 203, 202, 253), // Change the background color
+                              onPrimary: Colors.white, // Change the text color
+                            ),
+                            onPressed: () {},
+                            child: Text('Credit'),
+                          ),
+                        ),
+                      ],
+                    )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                    
+                    ),
+
+                //icon
+
+                //here start
+
+                Positioned(
+                   /// change it here for responsiveness 
+                    top: 370,
+                    right: 40,
+                    left: 50,
+                    child: Container(
+                       /// change it here for responsiveness 
+                      width: 300,
+                      //for the icons
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                             /// change it here for responsiveness 
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(60)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade300.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  // color: const Color.fromARGB(255, 116, 68, 199),
+                                  color: Color.fromARGB(140, 40, 40, 205),
+                                ),
+                                Text(
+                                  "Add",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(140, 40, 40, 205),
+                                      fontWeight: FontWeight.w800),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                             /// change it here for responsiveness 
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(60)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade300.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.send,
+                                  // color: const Color.fromARGB(255, 116, 68, 199),
+                                  color: Color.fromARGB(140, 40, 40, 205),
+                                ),
+                                Text(
+                                  "Send",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(140, 40, 40, 205),
+                                      fontWeight: FontWeight.w800),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                             /// change it here for responsiveness 
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(60)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.shade300.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 17,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.wallet,
+                                  // color: const Color.fromARGB(255, 116, 68, 199),
+                                  color: Color.fromARGB(140, 40, 40, 205),
+                                ),
+                                Text(
+                                  "Wallet",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(140, 40, 40, 205),
+                                      fontWeight: FontWeight.w800),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                //here en,d
+                Positioned(
+                    top: 50 / height_safearea * height_safearea,
+                    right: 20 / width_safearea * width_safearea,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(60.0),
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/profile.jpg'),
+                            fit: BoxFit.cover),
+                        color: Color.fromARGB(255, 202, 212, 253),
+                      ),
+                      width: 40.0,
+                      height: 40.0,
+                    )),
+
+                
+              ],
+            ),
+
+          ],
+          ),

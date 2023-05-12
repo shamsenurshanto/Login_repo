@@ -45,10 +45,10 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      // home: const WelcomeScreen(),
+      home: const WelcomeScreen(),
       // home: const homeGrid(),
       // home: const transactionWithPending(),
-      home: userdetails_new_with_sidebar(),
+      // home: userdetails_new_with_sidebar(),
 
     );
   }

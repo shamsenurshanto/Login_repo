@@ -86,12 +86,14 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   var arrayForLoanBangla =["প্রেরক :","প্রাপক : ",];
  var jsonData2 ;
 
-
+ late final Future myFuture;
 
    void initState()  {
 
    
     super.initState();
+
+   myFuture = getTeams();
 
                  
      var box =  Hive.openBox("mybox");
@@ -350,7 +352,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
       // backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: FutureBuilder(
-          future: getTeams(),
+          future: myFuture,
           builder: (context, snapshot) {
 
                      
