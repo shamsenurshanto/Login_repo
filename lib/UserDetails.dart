@@ -90,40 +90,7 @@ class _UserDetailsState extends State<UserDetails> {
     }
   }
 
-  Future<void> getTeams2() async {
-    var box = await Hive.openBox("mybox");
-    final _box2 = Hive.box("mybox");
-    var gh = _box2.get("toki");
-    print(
-        "Useeeeeeeeeeeeeeer detaaaaails --------------------------------------");
-    print(id);
-    print(widget.teams.name);
-    print(widget.teams.id);
-    print(widget.teams.amount);
-    print(widget.teams.Transaction_status);
-    String Bname = "";
-    String Bmail = "";
-    String Bamount = "";
-
-    id = widget.teams.id;
-
-    var response = await http.get(
-      Uri.https(
-          'personalrec.onrender.com', 'api/transaction/getsumofusers/$id'),
-      headers: {'Cookie': 'jwt_token=$gh'},
-    );
-    //print(response.body);
-    jsonData = jsonDecode(response.body);
-    //print(jsonData);
-
-    var response2 = await http.get(
-        Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
-        headers: {'Cookie': 'jwt_token=$gh'});
-    var jsonData2 = jsonDecode(response2.body);
-    //print("2nd apiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-    //print(jsonData2);
-  }
+ 
 
   List<Team> teams2 = [];
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -303,21 +270,28 @@ class _UserDetailsState extends State<UserDetails> {
       }
 
       // //print(mainName);
-      if (eachTeam['_id'] != null &&
-          eachTeam['sender']['senderId'] != null &&
-          eachTeam['receiver']['receiverId'] != null &&
-          eachTeam['type'] != null &&
-          eachTeam['amount'] != null &&
-          mainMail2 != null) {
+      // if (eachTeam['_id'] != null &&
+      //     eachTeam['sender']['senderId'] != null &&
+      //     eachTeam['receiver']['receiverId'] != null &&
+      //     eachTeam['type'] != null &&
+      //     eachTeam['amount'] != null &&
+      //     mainMail2 != null) {
         if (widget.teams.mainMail == team.mainMail) {
           print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
           print(team.id);
           //selfEmail
           teams2.add(team);
+             print("-----------Test");
+        print(widget.teams.mainMail);
+        print(team.mainMail);
         }
+       
+
+        // teams2.add(team);
 
         //print(teams[teams.length-1].name);
-      }
+      
+     
     }
     //print("---------------------------------------");
     //print(teams.length);
@@ -372,8 +346,9 @@ class _UserDetailsState extends State<UserDetails> {
       // backgroundColor: Colors.deepPurple,
       body: SafeArea(
         child: FutureBuilder(
-            future: getTeams2(),
+            future: getTeams(),
             builder: (context, snapshot) {
+              print(teams2.length+4);
               if (snapshot.connectionState == ConnectionState.done) {
                 //print("done");
                 return Scaffold(
@@ -535,8 +510,9 @@ class _UserDetailsState extends State<UserDetails> {
                       ///
                       ///
                       ///
-                      ///,conta
-                      Container(
+                      ///,contn
+                      GestureDetector(
+                        child: Container(
                         width: 340,
                         height: 380,
                         child: ListView.builder(
@@ -839,6 +815,7 @@ class _UserDetailsState extends State<UserDetails> {
                               ],
                             );
                           },
+                        ),
                         ),
                       )
 

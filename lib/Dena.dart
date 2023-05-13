@@ -82,10 +82,7 @@ class _UserDetails_NewState extends State<UserDetails_New> {
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     getTeams();
-    // _idLoggedIn= _box2.get("User_id");//my user id
-
-    // _idLoggedIn= _box2.get("User_id");//my user id
-    //        email= _box2.get("User_email");
+  
     lan_status = _box2.get("Lang_val");
 
     //        Lang_val
