@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:my_app/Screens/Login/login_screen.dart';
+import 'package:my_app/homegrid2.dart';
 import 'package:my_app/newTbb.dart';
 import 'package:my_app/tbb.dart';
+
+import 'homeGrid.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -66,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return MyBottomNavigationBar();
+                  return homeGrid2();
                   // return userDetails("email");
                 },
               ),
@@ -225,16 +228,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                   print(_selectedLanguage);
                                   final _box = Hive.box("mybox");
                                   _box.put("Lang_val", _selectedLanguage);
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        // return MyBottomNavigationBar();
+                                  // Navigator.pushReplacement(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) {
+                                  //       // return MyBottomNavigationBar();
 
-                                        return dash_newMyBottomNavigationBar_new();
-                                      },
-                                    ),
-                                  );
+                                  //       return homeGrid();
+                                  //     },
+                                  //   ),
+                                  // );
                                 },
                               );
                             },

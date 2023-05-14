@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:another_flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,29 +11,41 @@ import 'package:my_app/MyCreastedList.dart';
 import 'package:my_app/Pawna.dart';
 import 'package:my_app/PendingForm.dart';
 import 'package:my_app/PendingListBottom.dart';
-import 'package:my_app/Screens/Login/components/login_form.dart';
 import 'package:my_app/TransactionBottom.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
-import 'package:my_app/homegrid2.dart';
 import 'package:my_app/myStickyBottomNavbar.dart';
-import 'package:my_app/profilePages.dart';
 import 'package:my_app/tbb.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_app/testUserdetails.dart';
-import 'package:my_app/userDetailsTesting.dart';
+import 'newDash.dart';
 import 'newTbb.dart';
 
-class homeGrid extends StatefulWidget {
-  const homeGrid({Key? key}) : super(key: key);
+class homeGrid2 extends StatefulWidget {
+  const homeGrid2({Key? key}) : super(key: key);
 
   @override
-  _homeGridState createState() => _homeGridState();
+  _homeGrid2State createState() => _homeGrid2State();
 }
-
-class _homeGridState extends State<homeGrid> {
+void fetchapi(){
+  print("hello");
+  
      var Lang_val;
+   var box =  Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+    // _idLoggedIn= _box2.get("User_id");//my user id 
+        var email= _box2.get("User_email");
+          Lang_val= _box2.get("Lang_val");
+          print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+         print(Lang_val);
+         setState(){
+    Lang_val=_box2.get("Lang_val");
+  }
+   
+}
+class _homeGrid2State extends State<homeGrid2> {
+     var Lang_val;
+     var timer;
       void initState() {
     super.initState();
          var box =  Hive.openBox("mybox");
@@ -42,6 +55,7 @@ class _homeGridState extends State<homeGrid> {
           Lang_val= _box2.get("Lang_val");
           print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
          print(Lang_val);
+        //  timer = Timer.periodic(Duration(seconds: 1), (Timer t) => fetchapi());
 
 
       }
@@ -52,82 +66,41 @@ class _homeGridState extends State<homeGrid> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
 
-     return CupertinoTabScaffold(
+   return Scaffold(
+      backgroundColor: Colors.white, // Set background color to deep purple
+      appBar: AppBar(
+        title: Text(
+          "Profile",
+          style: TextStyle(color: Colors.black),
+        ),
+
+       backgroundColor: Colors.white,
+        // textDirection: TextDirection.rtl, // Set text direction to right-to-left
       
-      tabBar: CupertinoTabBar(
+      ),
+       
+      drawer: Drawer(
+        backgroundColor: Colors.greenAccent,
         
-        items: <BottomNavigationBarItem>[
-
-             BottomNavigationBarItem(
-              
-              icon: Icon(Icons.home),
-              label: "Home",
-
-             
-             ),
-
-             BottomNavigationBarItem(
-              
-              icon: Icon(Icons.dashboard),
-              label: "Dashboard",
-              
-             
-             ),
-             BottomNavigationBarItem(
-              
-              icon: Icon(Icons.person),
-              label: "profile",
-              
-             
-             )
-
-
-        ]
-      
-      
-      )
-     
-     
-     , 
-     
-     tabBuilder: (context,index){
-      
-
-      if(index==0)
-      {
-        return CupertinoTabView(
-          builder: (context){
-            return CupertinoPageScaffold(child: 
-                 homeGrid2()
-            );
-          },
-        );
-      }
-      else  if(index==1)
-      {
-        return CupertinoTabView(
-          builder: (context){
-            return CupertinoPageScaffold(child: 
-                 MyListView_()
-            );
-          },
-        );
-      }
-      else  if(index==2)
-      {
-        return CupertinoTabView(
-          builder: (context){
-            return CupertinoPageScaffold(child: 
-                 ProfilePage()
-            );
-          },
-        );
-      }
-
-          
-  return Scaffold(
-      
-      
+        child: Container(
+          color: Colors.white,
+          child: ListView(
+                   children: [
+                    DrawerHeader(
+                      
+                      child: 
+                            
+                     
+                      Center(
+                        child:  Text("L O G O",style: TextStyle(fontSize: 40)
+                      ,
+                      )
+                     )   
+                    ),
+                   ],
+          ),
+        ),
+      ),
       
    body:Container(
     margin: EdgeInsets.only(top: 20.0),
@@ -140,13 +113,6 @@ class _homeGridState extends State<homeGrid> {
    
 
     );
-     
-     
-     }
-     
-     );
-
-    
   }
   Widget masonaryLayout(BuildContext context)
   {
@@ -258,7 +224,7 @@ class _homeGridState extends State<homeGrid> {
             //add transactiomn
              Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return transactionBottom();
+                      return addTrans();
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -339,10 +305,10 @@ class _homeGridState extends State<homeGrid> {
                           //(foo==1)? something1():(foo==2)? something2(): something3();
                           ),
                           
-                          Lang_val=="Bangla"?
+                          Lang_val=="English"?
                           Text(
                             
-                            arr1[index],
+                            arr[index],
                      style:GoogleFonts.mina(
                        fontSize: width_safearea * 0.05020408,
                        
@@ -358,7 +324,7 @@ class _homeGridState extends State<homeGrid> {
         //                       
                             ): Text(
                             
-                            arr[index],
+                            arr1[index],
                      style:GoogleFonts.mina(
                        fontSize: width_safearea * 0.05020408,
                        

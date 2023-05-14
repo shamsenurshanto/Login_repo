@@ -10,6 +10,8 @@ import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
 import 'package:my_app/userDetailsTesting.dart';
 
+import 'newTbb.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
             ),
           )),
       home: const WelcomeScreen(),
+        //  home : dash_newMyBottomNavigationBar_new(),
       // home: const homeGrid(),
       // home: const transactionWithPending(),
       // home: userdetails_new_with_sidebar(),

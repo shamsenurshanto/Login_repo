@@ -31,6 +31,10 @@ class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavi
 
   @override
   Widget build(BuildContext context) {
+
+     
+
+
     return Scaffold(
 
         appBar: AppBar(
@@ -67,31 +71,23 @@ class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavi
         elevation: 4,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Colors.deepPurple),
+
+          leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            // Navigate back when the back button is pressed
+            Navigator.of(context).pop();
+          },
+        ),
        
         
         // automaticallyImplyLeading: false,
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.black,
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-                   children: [
-                    DrawerHeader(
-                      
-                      child: 
-                            
-                     
-                      Center(
-                        child:  Text("L O G O",style: TextStyle(fontSize: 40)
-                      ,
-                      )
-                     )   
-                    ),
-                   ],
-          ),
-        ),
-      ),
+      
+     
 
       /** 
       */

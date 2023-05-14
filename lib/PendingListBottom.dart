@@ -217,54 +217,11 @@ class _pendingListBottomState extends State<pendingListBottom> {
           ),
         ),
       ),
-      appBar: _selectedIndex != 1
-          ? AppBar(
-              title: _selectedIndex == 0
-                  ? Text(
-                      "Home",
-                      style: TextStyle(color: Colors.black38),
-                    )
-                  : _selectedIndex == 1
-                      ? Text(
-                          "Transactions",
-                          style: TextStyle(color: Colors.black38),
-                        )
-                      : _selectedIndex == 2
-                          ? Text(
-                              "Profile",
-                              style: TextStyle(color: Colors.black38),
-                            )
-                          : _selectedIndex == 3
-                              ? Text(
-                                  "Notifications",
-                                  style: TextStyle(color: Colors.black38),
-                                )
-                              : _selectedIndex == 4
-                                  ? Text(
-                                      "Loans",
-                                      style: TextStyle(color: Colors.black38),
-                                    )
-                                  : Text(
-                                      "Received",
-                                      style: TextStyle(color: Colors.black38),
-                                    ),
-              elevation: 1,
-              backgroundColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.deepPurple),
-
-              // automaticallyImplyLeading: false,
-            )
-          : AppBar(
-              elevation: 0.0,
-            
-              backgroundColor: Colors.transparent,
+      
               
-              )
-              
-              ,
       // backgroundColor: Colors.deepPurple,
       body:
-          _isVisible == true ? _pages2[_selectedIndex] : _pages[_selectedIndex],
+          _isVisible == true ? _pages[_selectedIndex] : _pages[_selectedIndex],
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
             // sets the background color of the `BottomNavigationBar`
