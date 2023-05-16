@@ -76,7 +76,7 @@ class _homeGridState extends State<homeGrid> {
              BottomNavigationBarItem(
               
               icon: Icon(Icons.person),
-              label: "profile",
+              label: "Profile",
               
              
              )
@@ -97,6 +97,8 @@ class _homeGridState extends State<homeGrid> {
       {
         return CupertinoTabView(
           builder: (context){
+            print("--------------))))");
+            print(index);
             return CupertinoPageScaffold(child: 
                  homeGrid2()
             );
@@ -134,7 +136,7 @@ class _homeGridState extends State<homeGrid> {
     child: 
     Container(
       margin: EdgeInsets.all(10.0),
-      child: masonaryLayout(context)
+      // child: masonaryLayout(context)
       ),
     )
    

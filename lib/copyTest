@@ -392,3 +392,111 @@ Column(
 
           ],
           ),
+
+/////
+Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ///colum1 icon
+                                  SizedBox(
+                                    //width: 20,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        FontAwesomeIcons.circleMinus,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      onPressed: () {
+                                        // Do something when the icon is pressed
+                                        print("hello add");
+                                      },
+                                    ),
+                                  )
+
+                                  ///sizebox width
+                                  ///
+                                  //    ,
+                                  // SizedBox(
+                                  //   width: 70,
+                                  // )
+                                  ,
+
+                                  ///colum2
+                                  //////Loan status
+                                  ///amount
+                                  ///
+                                  ///rkjs2
+                                  SizedBox(
+                                      child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      lan_status == "English"
+                                          ? Text(
+                                              teams2[index].name.toString(),
+
+                                              style: GoogleFonts.mina(
+                                                fontSize:
+                                                    width_safearea * 0.03820408,
+                                                shadows: [
+                                                  Shadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      offset:
+                                                          const Offset(7, 7),
+                                                      blurRadius: 15),
+                                                ],
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+
+                                              //
+                                            )
+                                          :
+
+                                          //bng start
+                                          Text(
+                                              teams2[index].name.toString(),
+                                              style: GoogleFonts.mina(
+                                                fontSize:
+                                                    width_safearea * 0.03820408,
+                                                shadows: [
+                                                  Shadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      offset:
+                                                          const Offset(7, 7),
+                                                      blurRadius: 15),
+                                                ],
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+
+                                              //
+                                            ),
+                                    ],
+                                  )),
+
+                                  SizedBox(
+                                    width: 60,
+                                    child: lan_status == "English"
+                                        ? Text("\$" +
+                                            teams2[index].amount.toString())
+                                        : Text("৳" +
+                                            getString(teams2[index]
+                                                .amount
+                                                .toString())),
+                                  )
+
+                                  ///
+                                  ///
+                                  /// 
+                                  ///colum3
+                                  ///date
+                                ],
+                              ),
+
+
+                              /////

@@ -26,22 +26,20 @@ class MyListView_ extends StatefulWidget {
 }
 
 class _MyListView_State extends State<MyListView_> {
-  
-  
-
   String valAmount = "";
   var loanStaus = "";
   var amoutUser = 0;
   var loanTopay = 0;
+  var lonTest = "4550";
   List<Team> teams2 = [];
-    var lan_status = "English";
+  var lan_status = "English";
 
   Future<List> fetchData() async {
     // Make API request
     var response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-  print(response.body);
-  print("seccuess");
+    print(response.body);
+    print("seccuess");
     // Decode JSON response
     List data = json.decode(response.body);
     getTeams();
@@ -49,6 +47,7 @@ class _MyListView_State extends State<MyListView_> {
     // Return data
     return teams2;
   }
+
   List<dynamic> items = [];
 
   var Lang_val = "English";
@@ -101,7 +100,7 @@ class _MyListView_State extends State<MyListView_> {
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     getTeams();
-  
+
     lan_status = _box2.get("Lang_val");
 
     //        Lang_val
@@ -138,6 +137,7 @@ class _MyListView_State extends State<MyListView_> {
     }
     return amountOfUser;
   }
+
   Future getTeams() async {
     //print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
 
@@ -208,22 +208,18 @@ class _MyListView_State extends State<MyListView_> {
       //  //print(eachTeam['type']['en_typeName']);
       final team;
 
-      team = 
-      Team(
+      team = Team(
           amount: (eachTeam['total_sent'] - eachTeam['total_received']).abs(),
-            mainMail: eachTeam['id'].toString(),
+          mainMail: eachTeam['id'].toString(),
           name: eachTeam['userName'].toString(),
           id: "",
           sender_email: "",
           receiver_email: "",
-          type: "Total Loan Due",
-        
+          type: "pending",
           Transaction_status: "eachTeam['transactionStatus']",
           Transaction_id: " eachTeam['_id'].toString()",
           Sender_status: "eachTeam['senderStatus']",
-          Receiver_status: "eachTeam['receiverStatus']"
-          
-          );
+          Receiver_status: "eachTeam['receiverStatus']");
       print("this is for id");
       print(team.id);
       apicall((eachTeam['total_received'] - eachTeam['total_sent']).abs(),
@@ -241,7 +237,6 @@ class _MyListView_State extends State<MyListView_> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
     return Scaffold(
-     
       body: FutureBuilder<List>(
         future: fetchData(),
         builder: (context, snapshot) {
@@ -326,7 +321,7 @@ class _MyListView_State extends State<MyListView_> {
                                                     255, 33, 25, 77),
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 15)),
-                                        Text("\$13300",
+                                        Text("\$$lonTest",
                                             style: GoogleFonts.mina(
                                                 color: Color.fromARGB(
                                                     255, 33, 25, 77),
@@ -370,7 +365,12 @@ class _MyListView_State extends State<MyListView_> {
                                                   onPrimary: Colors
                                                       .white, // Change the text color
                                                 ),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  print("hello");
+                                                  setState(() {
+                                                    lonTest = "67800";
+                                                  });
+                                                },
                                                 child: Text('Credit'),
                                               ),
                                             ),
@@ -535,8 +535,7 @@ class _MyListView_State extends State<MyListView_> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(60.0),
                                 image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/profile.jpg'),
+                                    image: AssetImage('assets/images/cat.jpg'),
                                     fit: BoxFit.cover),
                                 color: Color.fromARGB(255, 202, 212, 253),
                               ),
@@ -548,152 +547,127 @@ class _MyListView_State extends State<MyListView_> {
                   ],
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 70,
                 ),
                 //conta
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     print("hello");
-                    
-
                   },
                   child: Container(
-                        width: 350,
-                        height: 200,
-                       
-                        child: ListView.builder(
-                          itemCount: teams2.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            //  _incrementCounter(teams2[index].amount);
+                    margin: EdgeInsets.all(1),
+                    width: 350,
+                    height: 250,
+                    child: ListView.builder(
+                      itemCount: teams2.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        //  _incrementCounter(teams2[index].amount);
 
-                            return Container(
-                              width: 200,
-                                child: GestureDetector(
-                                  onTap: (){
-                                     Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return UserDetails(teams2[index]);
+                        return Container(
+                            width: 200,
+                            height: 70,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return UserDetails(teams2[index]);
 
-                                  // return userDetails(teams[index].mainMail);
-                                },
-                              ),
-                            );
-                                  },
-                                  child: Card(
-                              ///rkjs2
-                              ///
-                              elevation: 3,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ///colum1 icon
-                                  SizedBox(
-                                    //width: 20,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        FontAwesomeIcons.circleMinus,
-                                        color: Colors.grey.shade300,
-                                      ),
-                                      onPressed: () {
-                                        // Do something when the icon is pressed
-                                        print("hello add");
-                                      },
-                                    ),
-                                  )
-
-                                  ///sizebox width
-                                  ///
-                                  //    ,
-                                  // SizedBox(
-                                  //   width: 70,
-                                  // )
-                                  ,
-
-                                  ///colum2
-                                  //////Loan status
-                                  ///amount
-                                  ///
-                                  ///rkjs2
-                                  SizedBox(
-                                      child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      lan_status == "English"
-                                          ? Text(
-                                              teams2[index].name.toString(),
-
-                                              style: GoogleFonts.mina(
-                                                fontSize:
-                                                    width_safearea * 0.03820408,
-                                                shadows: [
-                                                  Shadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      offset:
-                                                          const Offset(7, 7),
-                                                      blurRadius: 15),
-                                                ],
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black,
-                                              ),
-                                              textAlign: TextAlign.center,
-
-                                              //
-                                            )
-                                          :
-
-                                          //bng start
-                                          Text(
-                                              teams2[index].name.toString(),
-                                              style: GoogleFonts.mina(
-                                                fontSize:
-                                                    width_safearea * 0.03820408,
-                                                shadows: [
-                                                  Shadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      offset:
-                                                          const Offset(7, 7),
-                                                      blurRadius: 15),
-                                                ],
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black,
-                                              ),
-                                              textAlign: TextAlign.center,
-
-                                              //
-                                            ),
-                                    ],
-                                  )),
-
-                                  SizedBox(
-                                    width: 60,
-                                    child: lan_status == "English"
-                                        ? Text("\$" +
-                                            teams2[index].amount.toString())
-                                        : Text("৳" +
-                                            getString(teams2[index]
-                                                .amount
-                                                .toString())),
-                                  )
-
-                                  ///
-                                  ///
-                                  ///
-                                  ///colum3
-                                  ///date
-                                ],
-                              ),
+                                      // return userDetails(teams[index].mainMail);
+                                    },
                                   ),
-                                )
-                            
-                            );
-                          },
-                        ),
+                                );
+                              },
+                              child: Padding(padding: EdgeInsets.all(0),
+                              child: Card(
+
+                                  ///rkjs2
+                                  ///
+                                  elevation: 3,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: Colors.grey,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              child: Image.network(
+                                                'https://t3.ftcdn.net/jpg/03/05/77/64/360_F_305776453_t7SUl48g63zLsyODxd60aj6EcWR9avVK.jpg',
+                                                width: 50,
+                                                height: 50,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                              top: 35,
+                                              right: 5,
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.green,
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.arrow_upward,
+                                                    color: Colors.white,
+                                                    size: 17,
+                                                  )))
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 30,
+                                      )
+                                      ,
+                                      Column(
+                                       crossAxisAlignment: CrossAxisAlignment.center,
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                         
+                                          Text(
+                                            teams2[index].name
+                                          ),
+                                          SizedBox(
+                                            height: 1,
+                                          ),
+                                           Text(
+                                            teams2[index].type,style: TextStyle(fontWeight: FontWeight.w200,fontSize: 10),
+                                          ),
+
+                                          
+
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                      ),
+                                      Text(
+                                        "\$"+teams2[index].amount.toString()
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                    ],
+                                  )
+                              )
+                                  
+                                  ),
+                            ));
+                      },
+                    ),
                   ),
                 )
               ],

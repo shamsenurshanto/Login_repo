@@ -69,12 +69,13 @@ class _homeGrid2State extends State<homeGrid2> {
    return Scaffold(
       backgroundColor: Colors.white, // Set background color to deep purple
       appBar: AppBar(
+        
         title: Text(
-          "Profile",
+          "Home",
           style: TextStyle(color: Colors.black),
         ),
 
-       backgroundColor: Colors.white,
+       backgroundColor: Colors.greenAccent.shade100,
         // textDirection: TextDirection.rtl, // Set text direction to right-to-left
       
       ),
