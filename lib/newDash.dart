@@ -293,243 +293,77 @@ class _dash_newState extends State<dash_new> {
                               color: Colors.grey[100],
                               margin: EdgeInsets.all(10),
                               child: SizedBox(
-                                height: height_safearea * 0.173,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                height: height_safearea * 0.108,
+                                child: Row(
+                                  
+                                  
                                   children: [
-                                    SizedBox(
-                                      width: width_safearea * 0.051020408,
-                                    ),
 
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // 2nd row for the
-                                        //loan given -> dhar dewa
-                                        Lang_val == "English"
-                                            ? Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        12, 8, 6, 8),
-                                                child: Text(
-                                                  teams[index].type,
-                                                  style: TextStyle(
-                                                      fontSize: 17,
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.black),
-                                                ),
-                                              )
-                                            : teams[index].type == "Loan Given"
-                                                ? Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(12, 8, 6, 8),
-                                                    child: Text(
-                                                      "ধার দিয়েছি",
-                                                      style: GoogleFonts.mina(
-                                                        fontSize:
-                                                            width_safearea *
-                                                                0.05020408,
-                                                        shadows: [
-                                                          Shadow(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              offset:
-                                                                  const Offset(
-                                                                      7, 7),
-                                                              blurRadius: 15),
-                                                        ],
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-
-                                                      //
-                                                    ))
-                                                : Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(12, 8, 6, 8),
-                                                    child: Text(
-                                                      "ধার নিয়েছি",
-                                                      style: GoogleFonts.mina(
-                                                        fontSize:
-                                                            width_safearea *
-                                                                0.05020408,
-                                                        shadows: [
-                                                          Shadow(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              offset:
-                                                                  const Offset(
-                                                                      7, 7),
-                                                              blurRadius: 15),
-                                                        ],
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.black,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-
-                                                      //
-                                                    ))
-                                        //  //loan given -> dhar dewa
-
-                                        ,
-
-                                        Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                12, 4, 16, 8),
-                                            child: // if pending
-
-                                                teams[index].Sender_status ==
-                                                            "Denied" ||
-                                                        teams[index]
-                                                                .Receiver_status ==
-                                                            "Denied"
-                                                    ? GestureDetector(
-                                                        onTap: () {
-                                                          print("hello");
-                                                          // do something when icon is clicked
-                                                        },
-                                                        child: Icon(
-                                                          Icons
-                                                              .cancel, // set the icon to the heart icon
-                                                          size:
-                                                              30.0, // set the size of the icon to 32.0 pixels
-                                                          color: Colors.red
-                                                              .shade400, // set the color of the icon to red
-                                                        ),
-                                                      )
-                                                    : //else complete
-                                                    ///:Widget
-                                                    teams[index].Transaction_status ==
-                                                            "COMPLETE"
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              print("hello");
-                                                              // do something when icon is clicked
-                                                            },
-                                                            child: Icon(
-                                                              Icons
-                                                                  .done_sharp, // set the icon to the heart icon
-                                                              size:
-                                                                  30.0, // set the size of the icon to 32.0 pixels
-                                                              color: Colors
-                                                                  .green
-                                                                  .shade700, // set the color of the icon to red
-                                                            ),
-                                                          )
-                                                        : GestureDetector(
-                                                            onTap: () {
-                                                              print("hello");
-                                                              // do something when icon is clicked
-                                                            },
-                                                            child: Icon(
-                                                              Icons
-                                                                  .hourglass_bottom_rounded, // set the icon to the heart icon
-                                                              size:
-                                                                  30.0, // set the size of the icon to 32.0 pixels
-                                                              color: Colors.blue
-                                                                  .shade300, // set the color of the icon to red
-                                                            ),
-                                                          ))
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: width_safearea * 0.051020408,
-                                    ),
-
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          12, 1, 6, 8),
-                                      child: Text(
-                                        teams[index].name.toUpperCase(),
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w900,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: width_safearea * 0.051020408,
-                                    ),
-                                    //   Good Row
-
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        // money -> taka
-
-                                        Lang_val == "English"
-                                            ? Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        12, 8, 6, 4),
-                                                child: Text(
-                                                  "\$" +
-                                                      teams[index]
-                                                          .amount
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: width_safearea *
-                                                          0.06020408,
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      color: Colors.black),
-                                                ),
-                                              )
-                                            :
-
-                                            //banglka
-                                            Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        12, 8, 6, 4),
-                                                child: Text(
-                                                  "৳" +
-                                                      getString(teams[index]
-                                                          .amount
-                                                          .toString()),
-                                                  style: TextStyle(
-                                                      fontSize: width_safearea *
-                                                          0.06020408,
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      color: Colors.black),
-                                                )),
-
-                                        TextButton(
-                                          onPressed: () {
-                                            // add your onPressed logic here
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) {
-                                                  return UserDetails(
-                                                      teams[index]);
-
-                                                  // return userDetails(teams[index].mainMail);
-                                                },
+                                 Padding(
+                                  padding: EdgeInsets.all(10),
+                                 child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              child: Image.network(
+                                                'https://t3.ftcdn.net/jpg/03/05/77/64/360_F_305776453_t7SUl48g63zLsyODxd60aj6EcWR9avVK.jpg',
+                                                width: 60,
+                                                height: 60,
+                                                fit: BoxFit.cover,
                                               ),
-                                            );
-                                          },
-                                          child: Icon(Icons.newspaper),
-                                        )
-                                      ],
+                                            ),
+                                 ),
+                                 teams[index].type=="Loan Given"?
+
+                                 //up arrow 
+                                     
+                                    Icon(
+                                      Icons.arrow_upward_outlined
+                                      ,
+                                      color: Colors.deepPurple,
                                     )
-                                  ],
-                                ),
+
+                                    :
+
+                                     Icon(
+                                      Icons.arrow_downward_outlined
+                                      ,
+                                      color: Colors.green,
+                                    ),
+
+
+                                    teams[index].Transaction_status=="PENDING"?
+                                     Icon(
+                                      Icons.hourglass_bottom_outlined
+                                      ,
+                                      color: Colors.grey,
+                                    )
+                                    :
+
+                                     Icon(
+                                      Icons.done
+                                      ,
+                                      color: Colors.green,
+                                    ),
+
+
+
+                                   SizedBox(
+                                    width: 130,
+                                   ),
+                                     Padding(padding: EdgeInsets.all(10),
+                                     child:  Text(
+                                      "\$ "+teams[index].amount.toString(),style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 17
+                                      ),
+                                    ),)
+                                   
+                                 
+
+
+
+
+                                ],)
                               )),
                         );
                       },
@@ -550,7 +384,7 @@ class _dash_newState extends State<dash_new> {
                             children: [
                               Container(
                                 width: width_safearea * 0.903061224,
-                                height: height_safearea * 0.1633,
+                                height: height_safearea * 0.1033,
                                 margin: const EdgeInsets.only(
                                     top: 8.0, bottom: 8.0),
                                 decoration: BoxDecoration(

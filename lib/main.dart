@@ -6,6 +6,7 @@ import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
+import 'package:my_app/homePage2.dart';
 import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
 import 'package:my_app/userDetailsTesting.dart';
@@ -47,11 +48,12 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
+      // home: const WelcomeScreen(),
         //  home : dash_newMyBottomNavigationBar_new(),
       // home: const homeGrid(),
       // home: const transactionWithPending(),
       // home: userdetails_new_with_sidebar(),
+      home: homepage2()
 
     );
   }

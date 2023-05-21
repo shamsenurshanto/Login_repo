@@ -75,33 +75,69 @@ class _homeGrid2State extends State<homeGrid2> {
           style: TextStyle(color: Colors.black),
         ),
 
-       backgroundColor: Colors.greenAccent.shade100,
+       backgroundColor: Color.fromARGB(255, 149, 162, 188),
         // textDirection: TextDirection.rtl, // Set text direction to right-to-left
       
       ),
        
       drawer: Drawer(
-        backgroundColor: Colors.greenAccent,
-        
-        child: Container(
-          color: Colors.white,
-          child: ListView(
-                   children: [
-                    DrawerHeader(
-                      
-                      child: 
-                            
-                     
-                      Center(
-                        child:  Text("L O G O",style: TextStyle(fontSize: 40)
-                      ,
-                      )
-                     )   
-                    ),
-                   ],
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text(
+              'দেনা পাওনা',
+              style: TextStyle(color: Colors.white, fontSize: 0),
+            ),
+            decoration: BoxDecoration(
+                color:  Color.fromARGB(255, 78, 90, 118),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/icons/icon.png'))),
           ),
-        ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home',style: TextStyle(fontWeight: FontWeight.bold),),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.approval),
+            title: Text('Approvals',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('My Initiated',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.add),
+            title: Text('Add New',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.send),
+            title: Text('Loans',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.receipt),
+            title: Text('Received',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+            ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('List Of All Loans Given',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.currency_exchange_outlined),
+            title: Text('List Of All Loans Taken',style: TextStyle(fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+        ],
       ),
+    ),
       
    body:Container(
     margin: EdgeInsets.only(top: 20.0),
