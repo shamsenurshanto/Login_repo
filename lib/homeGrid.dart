@@ -14,6 +14,7 @@ import 'package:my_app/Screens/Login/components/login_form.dart';
 import 'package:my_app/TransactionBottom.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
+import 'package:my_app/homePage2.dart';
 import 'package:my_app/homegrid2.dart';
 import 'package:my_app/myStickyBottomNavbar.dart';
 import 'package:my_app/profilePages.dart';
@@ -60,7 +61,7 @@ class _homeGridState extends State<homeGrid> {
 
              BottomNavigationBarItem(
               
-              icon: Icon(Icons.home),
+              icon: Icon(CupertinoIcons.home),
               label: "Home",
 
              
@@ -68,14 +69,14 @@ class _homeGridState extends State<homeGrid> {
 
              BottomNavigationBarItem(
               
-              icon: Icon(Icons.dashboard),
+              icon: Icon(CupertinoIcons.list_dash),
               label: "Dashboard",
               
              
              ),
              BottomNavigationBarItem(
               
-              icon: Icon(Icons.person),
+              icon: Icon(CupertinoIcons.person),
               label: "Profile",
               
              
@@ -100,7 +101,7 @@ class _homeGridState extends State<homeGrid> {
             print("--------------))))");
             print(index);
             return CupertinoPageScaffold(child: 
-                 homeGrid2()
+                 homepage2()
             );
           },
         );

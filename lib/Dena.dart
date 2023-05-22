@@ -563,7 +563,9 @@ class _UserDetails_NewState extends State<UserDetails_New> {
                           ),
                         )));
               }
-            }),
+            }
+            
+            ),
       ),
     );
   }
