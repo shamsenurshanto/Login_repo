@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
+import 'package:my_app/homePage2.dart';
 import 'package:my_app/tbb.dart';
 import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
@@ -240,7 +241,30 @@ class _dash_newState extends State<dash_new> {
     var width_safearea = MediaQuery.of(context).size.width;
 
     return Scaffold(
-   
+    appBar: AppBar(
+      foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,color: Colors.black,),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return homepage2();
+                  },
+                ),
+              ); // Go back to the previous page
+          },
+        ),
+        title: Text(
+          "Transaction",
+          style: TextStyle(color: Colors.black),
+        ),
+
+       backgroundColor: Color.fromARGB(184, 255, 255, 255),
+        // textDirection: TextDirection.rtl, // Set text direction to right-to-left
+      
+      ),
      
       floatingActionButton: FloatingActionButton(
         onPressed: () {

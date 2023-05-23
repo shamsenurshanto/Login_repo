@@ -14,14 +14,22 @@ import 'notificationPages.dart';
 
 class dash_newMyBottomNavigationBar_new extends StatefulWidget {
   @override
-  _dash_newMyBottomNavigationBar_newState createState() => _dash_newMyBottomNavigationBar_newState();
+  _dash_newMyBottomNavigationBar_newState createState() =>
+      _dash_newMyBottomNavigationBar_newState();
 }
 
-class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavigationBar_new> {
+class _dash_newMyBottomNavigationBar_newState
+    extends State<dash_newMyBottomNavigationBar_new> {
   int _selectedIndex = 1;
   bool _isVisible = false;
 
-  final List<Widget> _pages = [  homeGrid(),  dash_new(),   ProfilePage(), NotificationPage(), dash3() ];
+  final List<Widget> _pages = [
+    homeGrid(),
+    dash_new(),
+    ProfilePage(),
+    NotificationPage(),
+    dash3()
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -31,79 +39,21 @@ class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavi
 
   @override
   Widget build(BuildContext context) {
-
-     
-
-
     return Scaffold(
-
-        appBar: AppBar(
-        title: _selectedIndex==0?Text(
-          "Home",
-          style: TextStyle(color: Colors.black),
-        )
-        :
-        _selectedIndex==1?Text(
-          "Transactions",
-          style: TextStyle(color: Colors.black),
-        ):
-
-        _selectedIndex==2?
-        Text(
-          "Profile",
-          style: TextStyle(color: Colors.black),
-        ):
-        _selectedIndex==3?
-        Text(
-          "Notifications",
-          style: TextStyle(color: Colors.black),
-        ):
-        _selectedIndex==4?
-        Text(
-          "Loans",
-          style: TextStyle(color: Colors.black),
-        ):
-        
-        Text(
-          "Received",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 4,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.deepPurple),
-
-          leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            // Navigate back when the back button is pressed
-            Navigator.of(context).pop();
-          },
-        ),
-       
-        
-        // automaticallyImplyLeading: false,
-      ),
-      
-     
-
       /** 
       */
-      
+
       // backgroundColor: Colors.deepPurple,
       body: _pages[_selectedIndex],
-        bottomNavigationBar: new Theme(
-    data: Theme.of(context).copyWith(
-        // sets the background color of the `BottomNavigationBar`
-        canvasColor: Colors.white,
-        // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-        primaryColor: Colors.red,
-        textTheme: Theme
-            .of(context)
-            .textTheme
-            .copyWith(caption: new TextStyle(color: Colors.yellow))),
+      bottomNavigationBar: new Theme(
+        data: Theme.of(context).copyWith(
+            // sets the background color of the `BottomNavigationBar`
+            canvasColor: Colors.white,
+            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+            primaryColor: Colors.red,
+            textTheme: Theme.of(context)
+                .textTheme
+                .copyWith(caption: new TextStyle(color: Colors.yellow))),
         child: BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -111,40 +61,35 @@ class _dash_newMyBottomNavigationBar_newState extends State<dash_newMyBottomNavi
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blueGrey,
           iconSize: 30,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-           BottomNavigationBarItem(
-            icon: notificationsButton(
-              counter : 20,
-              child: Icon(Icons.notifications),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-            label: 'Notification')
-          /**BottomNavigationBarItem(
+            BottomNavigationBarItem(
+              icon: Icon(Icons.dashboard),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+                icon: notificationsButton(
+                  counter: 20,
+                  child: Icon(Icons.notifications),
+                ),
+                label: 'Notification')
+            /**BottomNavigationBarItem(
             icon: notificationsButton(
               counter : 4,
               child: Icon(Icons.notifications),
             ),
             label: 'Notification',
           ), */
-          
-          
-          
-        
-         
-        ],
+          ],
+        ),
       ),
-    ),
     );
   }
 }

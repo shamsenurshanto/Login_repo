@@ -30,7 +30,8 @@ class _MyListView_State extends State<MyListView_> {
   var loanStaus = "";
   var amoutUser = 0;
   var loanTopay = 0;
-  var lonTest = "4550";
+  var lonTest = "0";
+  var statusName="debit";
   List<Team> teams2 = [];
   var lan_status = "English";
 
@@ -230,6 +231,36 @@ class _MyListView_State extends State<MyListView_> {
     //print("---------------------------------------");
     //print(teams.length);
   }
+  void creditCountFunction(){
+    int lontestInt=0;
+   
+      for(var product in teams2  )
+      {
+        print(product.amount);
+        lontestInt+=product.amount-100;
+
+      }
+      setState(() {
+        lonTest = lontestInt.toString();
+        statusName=" Credit";
+      });
+  }
+  void debitCountFunction()
+  {
+     int lontestInt=0;
+   
+      for(var product in teams2  )
+      {
+        print(product.amount);
+        lontestInt+=product.amount;
+
+      }
+      setState(() {
+        lonTest = lontestInt.toString();
+        statusName=" Debit";
+      });
+ 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +272,7 @@ class _MyListView_State extends State<MyListView_> {
         future: fetchData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            
             return Column(
               children: [
                 Column(
@@ -315,7 +347,7 @@ class _MyListView_State extends State<MyListView_> {
                                         SizedBox(
                                           height: height_safearea / 8,
                                         ),
-                                        Text("Total Debt",
+                                        Text("Total"+statusName,
                                             style: GoogleFonts.mina(
                                                 color: Color.fromARGB(
                                                     255, 33, 25, 77),
@@ -344,7 +376,11 @@ class _MyListView_State extends State<MyListView_> {
                                                   onPrimary: Colors
                                                       .white, // Change the text color
                                                 ),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                      print("hello");
+                                                       creditCountFunction();
+
+                                                },
                                                 child: Text('Dredit'),
                                               ),
                                             ),
@@ -367,9 +403,7 @@ class _MyListView_State extends State<MyListView_> {
                                                 ),
                                                 onPressed: () {
                                                   print("hello");
-                                                  setState(() {
-                                                    lonTest = "67800";
-                                                  });
+                                                   debitCountFunction();
                                                 },
                                                 child: Text('Credit'),
                                               ),
@@ -562,6 +596,10 @@ class _MyListView_State extends State<MyListView_> {
                       itemCount: teams2.length,
                       itemBuilder: (BuildContext context, int index) {
                         //  _incrementCounter(teams2[index].amount);
+
+                        print(teams2[index].amount);
+                        //calling function for adding the debot amount
+                       
 
                         return Container(
                             width: 200,

@@ -17,6 +17,7 @@ import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homePage2.dart';
 import 'package:my_app/homegrid2.dart';
 import 'package:my_app/myStickyBottomNavbar.dart';
+import 'package:my_app/notificationPages.dart';
 import 'package:my_app/profilePages.dart';
 import 'package:my_app/tbb.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,7 +81,14 @@ class _homeGridState extends State<homeGrid> {
               label: "Profile",
               
              
-             )
+             ),
+              BottomNavigationBarItem(
+              
+              icon: Icon(Icons.notifications_none),
+              label: "Notification",
+              
+             
+             ),
 
 
         ]
@@ -122,6 +130,16 @@ class _homeGridState extends State<homeGrid> {
           builder: (context){
             return CupertinoPageScaffold(child: 
                  ProfilePage()
+            );
+          },
+        );
+      }
+      else
+      {
+        return CupertinoTabView(
+          builder: (context){
+            return CupertinoPageScaffold(child: 
+                 NotificationPage()
             );
           },
         );
