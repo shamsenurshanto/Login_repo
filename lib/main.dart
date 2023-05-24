@@ -11,6 +11,7 @@ import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
 import 'package:my_app/userDetailsTesting.dart';
 
+import 'demoBottombar.dart';
 import 'newTbb.dart';
 
 void main() => runApp(const MyApp());
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
       // home: const transactionWithPending(),
       // home: userdetails_new_with_sidebar(),
       // home: homepage2()
+      // home: CupertinoNavigationDemo(),
 
     );
   }

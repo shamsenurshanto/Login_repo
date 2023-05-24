@@ -75,9 +75,10 @@ class _homeGrid2State extends State<homeGrid2> {
           style: TextStyle(color: Colors.black),
         ),
 
-       backgroundColor: Color.fromARGB(255, 149, 162, 188),
+       backgroundColor: Colors.white,
         // textDirection: TextDirection.rtl, // Set text direction to right-to-left
-      
+         elevation: 0.0,
+          iconTheme: IconThemeData(color: Colors.red),
       ),
        
       drawer: Drawer(

@@ -16,6 +16,8 @@ import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import 'newTbb.dart';
+
 class dash_new extends StatefulWidget {
   const dash_new({Key? key}) : super(key: key);
 
@@ -250,7 +252,7 @@ class _dash_newState extends State<dash_new> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return homepage2();
+                    return dash_newMyBottomNavigationBar_new();
                   },
                 ),
               ); // Go back to the previous page

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/MainLogin.dart';
 import 'package:my_app/MyCreastedList.dart';
@@ -6,6 +7,7 @@ import 'package:my_app/aboutUs.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/homeGrid.dart';
+import 'package:my_app/homePage2.dart';
 import 'package:my_app/profilePages.dart';
 
 import 'NotificationWidget.dart';
@@ -20,11 +22,11 @@ class dash_newMyBottomNavigationBar_new extends StatefulWidget {
 
 class _dash_newMyBottomNavigationBar_newState
     extends State<dash_newMyBottomNavigationBar_new> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   bool _isVisible = false;
 
   final List<Widget> _pages = [
-    homeGrid(),
+    homepage2(),
     dash_new(),
     ProfilePage(),
     NotificationPage(),
@@ -63,7 +65,7 @@ class _dash_newMyBottomNavigationBar_newState
           iconSize: 30,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(CupertinoIcons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -71,13 +73,13 @@ class _dash_newMyBottomNavigationBar_newState
               label: 'Dashboard',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(CupertinoIcons.person),
               label: 'Profile',
             ),
             BottomNavigationBarItem(
                 icon: notificationsButton(
                   counter: 20,
-                  child: Icon(Icons.notifications),
+                  child: Icon(Icons.notifications_none_outlined),
                 ),
                 label: 'Notification')
             /**BottomNavigationBarItem(

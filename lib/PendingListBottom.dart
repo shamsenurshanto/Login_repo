@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/MainLogin.dart';
 import 'package:my_app/MyCreastedList.dart';
@@ -11,6 +12,7 @@ import 'package:my_app/profilePages.dart';
 import 'package:my_app/userDetailsTesting.dart';
 
 import 'NotificationWidget.dart';
+import 'homePage2.dart';
 import 'newDash.dart';
 import 'notificationPages.dart';
 
@@ -48,252 +50,105 @@ class _pendingListBottomState extends State<pendingListBottom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      drawer: ClipRRect(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(25), bottomRight: Radius.circular(25)
-            ),
-        child: Drawer(
-          child: Container(
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30.0),
-                bottomRight: Radius.circular(30.0),
-              ),
-              color: Colors.white,
-            ),
-            width: 10,
-            child: ListView(
-              children: [
-                DrawerHeader(
-                    child: Center(
-                        child: Text(
-                  "L O G O",
-                  style: TextStyle(fontSize: 40),
-                ))),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                      title: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.dashboard_outlined,
-                        size: 24,
-                        color: Colors.black38, //<-- SEE HERE
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        "Dashboard",
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  )),
-                ),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                      title: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      //https://fontawesome.com/icons/wallet?f=classic&s=thin  wallet
-                      Icon(
-                        Icons.wallet_outlined,
-                        size: 24,
-                        color: Colors.black38, //<-- SEE HERE
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        "Transaction",
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  )),
-                ),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                    title: Row(
-                      children: [
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Icon(
-                          Icons.dashboard_outlined,
-                          size: 24,
-                          color: Colors.black38, //<-- SEE HERE
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Text(
-                          "Dashboard",
-                          style: TextStyle(fontWeight: FontWeight.w400),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                      title: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.dashboard_outlined,
-                        size: 24,
-                        color: Colors.black38, //<-- SEE HERE
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        "Dashboard",
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  )),
-                ),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                      title: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.dashboard_outlined,
-                        size: 24,
-                        color: Colors.black38, //<-- SEE HERE
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        "Dashboard",
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  )),
-                ),
-                Container(
-                  width: 10,
-                  child: ListTile(
-                      title: Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Icon(
-                        Icons.dashboard_outlined,
-                        size: 24,
-                        color: Colors.black38, //<-- SEE HERE
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        "Dashboard",
-                        style: TextStyle(fontWeight: FontWeight.w400),
-                      )
-                    ],
-                  )),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: CupertinoTabScaffold(
       
-              
-      // backgroundColor: Colors.deepPurple,
-      body:
-          _isVisible == true ? _pages[_selectedIndex] : _pages[_selectedIndex],
-      bottomNavigationBar: new Theme(
-        data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.white,
-            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            primaryColor: Colors.red,
-            textTheme: Theme.of(context)
-                .textTheme
-                .copyWith(caption: new TextStyle(color: Colors.yellow))),
-        child: 
-        //if it is true 
-        _isVisible?
-        BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          backgroundColor: Colors.deepOrange,
-          selectedItemColor: Colors.blueGrey,
-          unselectedItemColor: Colors.blueGrey,
-          iconSize: 30,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: 'Transactions',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-                icon: notificationsButton(
-                  counter: 20,
-                  child: Icon(Icons.notifications),
-                ),
-                label: 'Notification')
-          ],
-        )
+      tabBar: CupertinoTabBar(
         
-        : // false
+        items: <BottomNavigationBarItem>[
 
-        BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          backgroundColor: Colors.deepOrange,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.blueGrey,
-          iconSize: 30,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: 'Transactions',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-                icon: notificationsButton(
-                  counter: 20,
-                  child: Icon(Icons.notifications),
-                ),
-                label: 'Notification')
-          ],
-        ),
-      ),
+             BottomNavigationBarItem(
+              
+              icon: Icon(CupertinoIcons.home),
+              label: "Home",
+
+             
+             ),
+
+             BottomNavigationBarItem(
+              
+              icon: Icon(CupertinoIcons.list_dash),
+              label: "Dashboard",
+              
+             
+             ),
+             BottomNavigationBarItem(
+              
+              icon: Icon(CupertinoIcons.person),
+              label: "Profile",
+              
+             
+             ),
+              BottomNavigationBarItem(
+              
+              icon: Icon(Icons.notifications_none),
+              label: "Notification",
+              
+             
+             ),
+
+
+        ]
+      
+      
+      )
+     
+     
+     , 
+     
+     tabBuilder: (context,index){
+      
+
+      if(index==0)
+      {
+        return CupertinoTabView(
+          builder: (context){
+            print("--------------))))");
+            print(index);
+            return CupertinoPageScaffold(child: 
+                 homepage2()
+            );
+          },
+        );
+      }
+      else  if(index==1)
+      {
+        return CupertinoTabView(
+          builder: (context){
+            return CupertinoPageScaffold(child: 
+                 dash4()
+            );
+          },
+        );
+      }
+      else  if(index==2)
+      {
+        return CupertinoTabView(
+          builder: (context){
+            return CupertinoPageScaffold(child: 
+                 ProfilePage()
+            );
+          },
+        );
+      }
+      else
+      {
+        return CupertinoTabView(
+          builder: (context){
+            return CupertinoPageScaffold(child: 
+                 NotificationPage()
+            );
+          },
+        );
+      }
+
+     }
+  
+
+      )
     );
+
   }
 }
+  
+
+    

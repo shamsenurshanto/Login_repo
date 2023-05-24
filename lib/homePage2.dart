@@ -11,11 +11,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_app/PendingForm.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/newDash.dart';
+import 'package:my_app/testUserdetails.dart';
+import 'package:my_app/userDetailsTesting.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 
+import 'PendingListBottom.dart';
 import 'Team_new.dart';
 import 'models/team.dart';
 import 'newTbb.dart';
@@ -229,7 +233,7 @@ class _homepage2State extends State<homepage2> {
     }
 
     return Scaffold(
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white10,
         body: SafeArea(
             child: SingleChildScrollView(
           child:
@@ -374,7 +378,7 @@ class _homepage2State extends State<homepage2> {
               ),
 
               SizedBox(
-                height: 35,
+                height: 0/2,
               ),
 
               Container(
@@ -389,7 +393,7 @@ class _homepage2State extends State<homepage2> {
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Card(
-                          elevation: 14,
+                          elevation: 20,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -457,16 +461,18 @@ class _homepage2State extends State<homepage2> {
                                          GestureDetector(
                                           onTap: (){
                                             print("hello");
-                                             Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            // return MyBottomNavigationBar();
-                            return dash_newMyBottomNavigationBar_new();
-                          },
-                        ),
+                        //                      Navigator.pushReplacement(
+                        // context,
+                        // MaterialPageRoute(
+                        //   builder: (context) {
+                        //     // return MyBottomNavigationBar();
+                        //     return dash_newMyBottomNavigationBar_new();
+                        //   },
+                        // ),
                       
-                                         );
+                        //                  );
+
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyListView_()));
                                           },
                                           child:  Icon(
                                             Icons.dashboard,
@@ -507,13 +513,29 @@ class _homepage2State extends State<homepage2> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                        GestureDetector(
+                                          onTap: (){
+                                            print("hello");
+                                              Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) {
+                                                          return dash4();
+
+                                                          // return userDetails(teams[index].mainMail);
+                                                        },
+                                                      ),
+                                                    );
+                                          },
+                                          child: 
+                                            Icon(
                                             Icons.pending_actions_outlined,
                                             //#E9ECFA
                                             color: Color.fromARGB(
                                                 255, 17, 200, 216),
                                             size: 22,
                                           ),
+                                        )
                                         ],
                                       )),
                                   //text
@@ -611,18 +633,29 @@ class _homepage2State extends State<homepage2> {
               ),
 
               SizedBox(
-                height: 30,
+                height: 70,
               ),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(22),
-                    topRight: Radius.circular(22),
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                     bottomLeft: Radius.circular(0),
                     bottomRight: Radius.circular(0),
                   ),
+                  boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 35,
+                                offset: Offset(10,
+                                    18), // Specifies the position of the shadow
+                              ),
+                            ],
                   color: Colors.white,
                 ),
+
+                
                 width: 392,
                 height: 420,
                 child: Column(
@@ -704,7 +737,7 @@ class _homepage2State extends State<homepage2> {
                                                     );
                                                   },
                                                   child: Card(
-                                                      elevation: 14.0,
+                                                      elevation: 10.0,
                                                       color: Colors.grey[100],
                                                       margin:
                                                           EdgeInsets.all(10),
