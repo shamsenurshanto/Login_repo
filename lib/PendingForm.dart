@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
+import 'package:my_app/homePage2.dart';
 import 'package:my_app/tbb.dart';
 import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
@@ -26,6 +27,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'models/team.dart';
+import 'newTbb.dart';
 
 class dash4 extends StatefulWidget {
   const dash4({Key? key}) : super(key: key);
@@ -458,13 +460,15 @@ class _dash4State extends State<dash4> {
         automaticallyImplyLeading: false,
       ),
       floatingActionButton: FloatingActionButton(
+          
+        backgroundColor:  Color.fromARGB(180, 20, 71, 214),
         onPressed: () {
           print("hello");
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) {
-                return addTrans();
+                return dash_newMyBottomNavigationBar_new();
 
                 // return userDetails(teams[index].mainMail);
               },
@@ -472,8 +476,9 @@ class _dash4State extends State<dash4> {
           );
         },
         child: const Icon(
-          Icons.add,
-          color: Colors.white,
+          Icons.home_outlined,
+           color:Color.fromARGB(200, 255, 255, 255),
+          size:40,
         ),
       ),
       body: SafeArea(

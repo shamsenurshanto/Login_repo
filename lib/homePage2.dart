@@ -292,7 +292,7 @@ class _homepage2State extends State<homepage2> {
                                         height: 40,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Colors.black87,
+                                          color: Color.fromARGB(248, 9, 9, 9),
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
@@ -329,13 +329,24 @@ class _homepage2State extends State<homepage2> {
                                       ),
                                       Container(
                                         width: 200,
-                                        child: Text(
+                                        child: Row(
+                                          children: [
+                                           Container(
+                                            color: Colors.white,
+                                            child:  Icon(
+                                              Icons.keyboard_double_arrow_up_sharp,color: Colors.green,
+                                              size: 26,
+                                            ),
+                                           ),
+                                            Text(
                                           "\$7809.54",
                                           style: TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.w600,
-                                            color: Colors.black87,
+                                            color: Colors.green,
                                           ),
+                                        )
+                                          ],
                                         ),
                                       ),
                                       SizedBox(
