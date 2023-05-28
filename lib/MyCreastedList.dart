@@ -156,6 +156,8 @@ print(tokenString2);
          Transaction_id:  eachTeam['_id'].toString(),
           Sender_status:  eachTeam['senderStatus'],  
                   Receiver_status:  eachTeam['receiverStatus']
+                  ,
+          //  img_link: eachTeam['userPic']
         
         
         
@@ -187,7 +189,8 @@ print(tokenString2);
          Transaction_status: eachTeam['transactionStatus'],
          Transaction_id:  eachTeam['_id'].toString(),
           Sender_status:  eachTeam['senderStatus'],  
-                  Receiver_status:  eachTeam['receiverStatus']
+                  Receiver_status:  eachTeam['receiverStatus'],
+          //  img_link: eachTeam['userPic']
         
       );
 
@@ -232,6 +235,8 @@ print(tokenString2);
          Transaction_id:  eachTeam['_id'].toString(),
           Sender_status:  eachTeam['senderStatus'],  
                   Receiver_status:  eachTeam['receiverStatus']
+                  ,
+          //  img_link: eachTeam['userPic']
         
       );
 
@@ -263,6 +268,8 @@ print(tokenString2);
          Transaction_id:  eachTeam['_id'].toString(),
           Sender_status:  eachTeam['senderStatus'],  
                   Receiver_status:  eachTeam['receiverStatus']
+                  ,
+          //  img_link: eachTeam['userPic']
         
         
       );

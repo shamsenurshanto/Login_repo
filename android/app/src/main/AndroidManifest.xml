@@ -8,6 +8,7 @@
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
+            android:requestLegacyExternalStorage="true"
             android:exported="true"
             android:usesCleartextTraffic="true"
             android:launchMode="singleTop"

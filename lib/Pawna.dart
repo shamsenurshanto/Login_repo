@@ -274,6 +274,8 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
          Transaction_id: " eachTeam['_id'].toString()",
           Sender_status:  "eachTeam['senderStatus']",  
                   Receiver_status:  "eachTeam['receiverStatus']"
+                  ,
+          //  img_link: eachTeam['userPic']
         
         
       );

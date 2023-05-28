@@ -75,8 +75,8 @@ class _addTransState extends State<addTrans> {
       }, 
       
        );
-    //  jsonData = jsonDecode(response.body);
-    // print(jsonData);
+  //  var  jsonData = jsonDecode(response.body);
+  //   print(jsonData);
     var resp = json.decode(response.body);
     TextFormEmail = resp["data"]["_id"];
     print(resp["data"]["_id"]);

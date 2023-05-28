@@ -153,7 +153,12 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'
+              ]
+                ,
+          //  img_link: eachTeam['userPic']
+              
+              );
         } else {
           print("lole");
           print(_idgh);
@@ -171,7 +176,10 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus']
+              ,
+          //  img_link: eachTeam['userPic']
+              );
         }
 
         print(mainName);
@@ -199,7 +207,10 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'].toString(),
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus']
+              ,
+          //  img_link: eachTeam['userPic']
+              );
         } else {
           print("lole");
           print(_idgh);
@@ -217,7 +228,10 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus']
+               ,
+          //  img_link: eachTeam['userPic']
+              );
         }
       } else {
         team = "";

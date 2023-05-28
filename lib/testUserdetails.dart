@@ -220,7 +220,9 @@ class _MyListView_State extends State<MyListView_> {
           Transaction_status: "eachTeam['transactionStatus']",
           Transaction_id: " eachTeam['_id'].toString()",
           Sender_status: "eachTeam['senderStatus']",
-          Receiver_status: "eachTeam['receiverStatus']");
+          Receiver_status: "eachTeam['receiverStatus']",
+          // img_link: " eachTeam['receiverStatus']"
+          );
       print("this is for id");
       print(team.id);
       apicall((eachTeam['total_received'] - eachTeam['total_sent']).abs(),

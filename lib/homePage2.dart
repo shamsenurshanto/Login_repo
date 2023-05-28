@@ -18,6 +18,10 @@ import 'package:my_app/testUserdetails.dart';
 import 'package:my_app/userDetailsTesting.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
 
 import 'PendingListBottom.dart';
 import 'Team_new.dart';
@@ -36,9 +40,11 @@ class _homepage2State extends State<homepage2> {
 
   ///function for bangla
   List<Team> teams = [];
+  List<String> pictureofUsers = []; 
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
+
   Future getTeams() async {
     teams.clear();
     var box = await Hive.openBox("mybox");
@@ -88,14 +94,27 @@ class _homepage2State extends State<homepage2> {
 
     var response = await http.get(
         Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+            'personalrec.onrender.com', 'api/transaction/usersalltransactions')
+            ,
         headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
-      // print(eachTeam['sender']['senderId']);
+      
+    print(eachTeam['receiver']['receiverId']['userPic']);
+      // if(_idLoggedIn==eachTeam['sender']['senderId'])
+      //  {
+      //   pictureofUsers.add(eachTeam['receiver']['receiverId']['userPic']);
+      //     print(eachTeam['receiver']['receiverId']['userPic']);
+      //  }
+      //  else if(_idLoggedIn==eachTeam['receiver']['receiverId'])
+      //  {
+      //      pictureofUsers.add(eachTeam['sender']['senderId']['userPic']);
+      //      print(eachTeam['sender']['senderId']['userPic']);
+      //  }
+       
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -126,7 +145,9 @@ class _homepage2State extends State<homepage2> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'],
+              //  img_link: eachTeam['userPic']
+               );
         } else {
           print("lole");
           print(_idgh);
@@ -144,7 +165,9 @@ class _homepage2State extends State<homepage2> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'],
+              // img_link: eachTeam['userPic']
+          );
         }
 
         print(mainName);
@@ -172,7 +195,9 @@ class _homepage2State extends State<homepage2> {
               Transaction_status: eachTeam['transactionStatus'].toString(),
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'],
+              //  img_link: eachTeam['userPic']
+               );
         } else {
           print("lole");
           print(_idgh);
@@ -190,7 +215,9 @@ class _homepage2State extends State<homepage2> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'],
+              //  img_link: eachTeam['userPic']
+               );
         }
       } else {
         team = "";
@@ -771,7 +798,7 @@ class _homepage2State extends State<homepage2> {
                                                                               30.0),
                                                                   child: Image
                                                                       .network(
-                                                                    'https://t3.ftcdn.net/jpg/03/05/77/64/360_F_305776453_t7SUl48g63zLsyODxd60aj6EcWR9avVK.jpg',
+                                                                        "https://i.ytimg.com/vi/x77Ijv0kCJc/maxresdefault.jpg",
                                                                     width: 30,
                                                                     height:
                                                                         60 / 2,

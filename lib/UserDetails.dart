@@ -200,7 +200,8 @@ class _UserDetailsState extends State<UserDetails> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus']
+              );
         } else {
           print("lole");
           print(_idgh);

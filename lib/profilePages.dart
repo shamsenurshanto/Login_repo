@@ -1,9 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_app/Screens/Login/login_screen.dart';
 import 'package:my_app/homegrid2.dart';
 import 'package:my_app/newTbb.dart';
 import 'package:my_app/tbb.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:io';
+
 
 import 'homeGrid.dart';
 
@@ -13,11 +20,38 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  var picLink ='https://i.ytimg.com/vi/x77Ijv0kCJc/maxresdefault.jpg';
   var _idLoggedIn;
   var email;
   var name;
   String _selectedLanguage = 'English';
   var name_;
+   Future<void> setProfilePic() async
+  {
+
+        var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+     var gh = _box2.get("toki");
+     var email_Logged_user =_box2.get("User_email");
+     var response = await http.post(Uri.https('personalrec.onrender.com', 'api/user/getuser'),
+ 
+    headers: {      
+      //  'Content-Type': 'application/json; charset=UTF-8',      
+      'Cookie': 'jwt_token=$gh'
+      }, 
+  body: {
+      'userEmailPhone': email_Logged_user  
+      },      
+       );
+   var  jsonData = jsonDecode(response.body);
+   print("iiiiiiiiidddddddddddddddddddddddd");
+    print(jsonData['data']['userPic']);
+    setState(() {
+         picLink="https://personalrecordback-production.up.railway.app/amendmentDoc/"+jsonData['data']['userPic'].toString();
+       });
+
+     print(response.body);
+  }
   void initState() {
     super.initState();
     var box = Hive.openBox("mybox");
@@ -25,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
     _idLoggedIn = _box2.get("User_id"); //my user id
     email = _box2.get("User_email");
     name = _box2.get("User_name");
+    setProfilePic();
 
     //put
     //  _box2.put("User_id",jh['data']['_id'] );
@@ -32,22 +67,99 @@ class _ProfilePageState extends State<ProfilePage> {
     //     _box2.put("User_id",jh['data']['_id'] );
     // _box2.put("User_name2",jh['data']['userName'] );
     _box2.put("Lang_val", _selectedLanguage);
-
+          /**
+           * added the profic 
+           */
     print("gofun");
     print(name);
     //name
     name_ = _box2.get("User_name2");
     print("ooooooooooooooooooooooooooooooooooo");
     print(name_);
-    GoFunction();
+    
+    
   }
 
-  GoFunction() async {}
+ Future<void> GoFunction() async {
+  final picker = ImagePicker();
+  PickedFile? pickedImage;
+
+  try {
+    pickedImage = await picker.getImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      // Convert PickedFile to File
+      File imageFile = File(pickedImage.path);
+
+      // Use the imageFile for further processing or upload
+      // ...
+      if (imageFile != null) {
+          var box = await Hive.openBox("mybox");
+  final _box2 = Hive.box("mybox");
+     var gh = _box2.get("toki");
+     var email_Logged_user =_box2.get("User_email"); //User_email
+  var request = http.MultipartRequest('POST', 
+  Uri.parse('https://personalrecordback-production.up.railway.app/api/user/profile',
+  
+  ));
+    request.headers['Content-Type'] = 'multipart/form-data';
+    request.headers['Cookie']='jwt_token=$gh';
+
+  request.files.add(http.MultipartFile(
+    'image',
+    imageFile!.readAsBytes().asStream(),
+    imageFile!.lengthSync(),
+    filename: imageFile!.path.split('/').last,
+  ));
+  
+  var response = await request.send();
+  print(request);
+if (response.statusCode == 200) {
+  print(imageFile.path.toString());
+  // Image uploaded successfully
+  print('Image uploaded');
+       setProfilePic();
+//  var response = await http.post(Uri.https('personalrec.onrender.com', 'api/user/getuser'),
+ 
+//     headers: {      
+//       //  'Content-Type': 'application/json; charset=UTF-8',      
+//       'Cookie': 'jwt_token=$gh'
+//       }, 
+//   body: {
+//       'userEmailPhone': email_Logged_user  
+//       },      
+//        );
+//    var  jsonData = jsonDecode(response.body);
+//     print(jsonData['data']['userPic']);
+//        setState(() {
+//          picLink="https://personalrecordback-production.up.railway.app/amendmentDoc/"+jsonData['data']['userPic'].toString();
+//        });
+      //  print(response.body);
+} else {
+  // Error occurred while uploading image
+  print('Image upload failed');
+}
+
+  
+
+      }
+      
+
+      
+    } else {
+      // No image selected
+      // Handle accordingly
+    }
+  } catch (e) {
+    // Handle any exceptions that occur during image selection
+    print('Error selecting image: $e');
+  }
+}
+  
   Widget build(BuildContext context) {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-    GoFunction();
+    // GoFunction();
     return Scaffold(
       backgroundColor: Colors.white, // Set background color to deep purple
       appBar: AppBar(
@@ -78,17 +190,51 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: Column(
+   
         mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CircleAvatar(
-            radius: 70,
-            backgroundColor: Colors.deepPurple.shade100,
-            // Set profile picture here
-            // You can use Image.asset or NetworkImage to load an image
-            backgroundImage: AssetImage('assets/images/cat.jpg'),
-          ),
+         CircleAvatar(
+  radius: 50,
+  backgroundImage: NetworkImage(picLink),
+),
 
           SizedBox(height: 8),
+               
+               GestureDetector(
+                onTap: () {
+                  print("hello");
+              GoFunction();
+                },
+                child: Container(
+                width: 240,
+                height: 50,
+                child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                     Card(
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Upload Your profile picture",style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                      ),),
+                       Icon(
+                    Icons.camera_alt_outlined,
+                    size: 30,
+                  ),
+
+                    ],
+                  )
+                ),
+                  ],
+                )
+               ),
+               ),
+                SizedBox(height: 8),
+
           Text(
             'Software Developer', // Set profile title here
             style: TextStyle(

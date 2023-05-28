@@ -54,7 +54,7 @@ dependencies:
   readmore: ^2.2.0
   font_awesome_flutter: ^10.4.0
   flutter_launcher_icons: ^0.13.1
-
+  image_picker: ^0.8.7+5
   
 
   
