@@ -14,12 +14,12 @@ import 'dart:io';
 
 import 'homeGrid.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage2 extends StatefulWidget {
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _ProfilePage2State createState() => _ProfilePage2State();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePage2State extends State<ProfilePage2> {
   var picLink ='https://i.ytimg.com/vi/x77Ijv0kCJc/maxresdefault.jpg';
   var _idLoggedIn;
   var email;
@@ -161,16 +161,15 @@ if (response.statusCode == 200) {
     var width_safearea = MediaQuery.of(context).size.width;
     // GoFunction();
     return Scaffold(
-      backgroundColor: Color.fromARGB(70, 190, 238, 238), // Set background color to deep purple
+      backgroundColor: Colors.white, // Set background color to deep purple
       appBar: AppBar(
         title: Text(
           "Profile",
           style: TextStyle(color: Colors.black),
         ),
 
-        backgroundColor:  Color.fromARGB(25, 190, 238, 238), 
+        backgroundColor: Colors.white,
         // textDirection: TextDirection.rtl, // Set text direction to right-to-left
-        elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -207,38 +206,49 @@ if (response.statusCode == 200) {
                   print("hello");
               GoFunction();
                 },
-                child:SizedBox(
-                  width: 140,
-                  height: 35,
-                  child:  ElevatedButton(
-                  
-                  onPressed: 
-                (){
-                  GoFunction();
+                child: Container(
+                width: 240,
+                height: 50,
+                child: Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                     Card(
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Upload Your profile picture",style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                      ),),
+                       Icon(
+                    Icons.camera_alt_outlined,
+                    size: 30,
+                  ),
 
-                }, child: 
-                
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Upload Pic"
-                        ),
-                        Icon(
-                          Icons.camera
-                        )
-                      ],
-                     )
+                    ],
+                  )
                 ),
+                  ],
                 )
                ),
-               
+               ),
+                SizedBox(height: 8),
+
+          Text(
+            'Software Developer', // Set profile title here
+            style: TextStyle(
+              fontSize: width_safearea * 0.045918367,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
           SizedBox(height: 8),
           Text(
             email.toString(), // Set profile title here
             style: TextStyle(
               fontSize: width_safearea * 0.045918367,
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
@@ -248,146 +258,142 @@ if (response.statusCode == 200) {
               width: width_safearea * 0.997,
               child: Padding(
                 padding: EdgeInsets.all(20),
-                   child: Column(
-                    children: [
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  //  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Name",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Phone number",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Language",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: width_safearea * 0.032),
+                    Column(
+                      children: [
+                        Text(
+                          ":",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          ":",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          ":",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: width_safearea * 0.032),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name_.toString(),
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          "Phone number",
+                          style: TextStyle(
+                            fontSize: width_safearea * 0.045918367,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        //container as the dropdown
+
                         Container(
-                         
-                          width: 330,
-                          child: Card(
-                        
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 45,
-                              color: const Color.fromARGB(84, 33, 149, 243),
-                              child:
-                                 Icon(
-                                Icons.settings,
-                                color: Colors.blue,
-                                size: 34,
-                              ),
-                             
-                            ),
-                             Row(
-                                children: [
-                                
-                             
-                               Text("Settings",style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                            
-                            ),),
-                                ],
-                              ),
-                           
-
-                         
-                            Icon(
-                                Icons.keyboard_double_arrow_right_rounded,
+                          height: height_safearea * 0.0333,
+                          width: width_safearea * 0.376,
+                          child: DropdownButton(
+                            hint: _selectedLanguage == null
+                                ? Text('Dropdown')
+                                : Text(
+                                    _selectedLanguage,
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                            isExpanded: true,
+                            iconSize: 30.0,
+                            style: TextStyle(
                                 color: Colors.black,
-                                size: 30,
-                              ),
-                          ],
-                        ),
-                       ),
-                        ),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                            items: ['Bangla', 'English'].map(
+                              (val) {
+                                return DropdownMenuItem<String>(
+                                  value: val,
+                                  child: Text(val),
+                                );
+                              },
+                            ).toList(),
+                            onChanged: (val) {
+                              setState(
+                                () {
+                                  _selectedLanguage = val!;
+                                  print("onstate");
+                                  print(_selectedLanguage);
+                                  final _box = Hive.box("mybox");
+                                  _box.put("Lang_val", _selectedLanguage);
+                                  // Navigator.pushReplacement(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) {
+                                  //       // return MyBottomNavigationBar();
 
-                        Container(
-                         
-                          width: 330,
-                          child: Card(
-                        
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 45,
-                              color:const Color.fromARGB(85, 33, 37, 243),
-                              child:
-                                 Icon(
-                                Icons.info_outline,
-                                color: const Color.fromARGB(255, 33, 37, 243),
-                                size: 34,
-                              ),
-                             
-                            ),
-                             Row(
-                                children: [
-                                
-                             
-                               Text("Information",style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                            
-                            ),),
-                                ],
-                              ),
-                           
-
-                         
-                            Icon(
-                                Icons.keyboard_double_arrow_right_rounded,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                          ],
+                                  //       return homeGrid();
+                                  //     },
+                                  //   ),
+                                  // );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                       ),
-                        ),
-
-                       
-                      
-                        Container(
-                         
-                         width: 330,
-                          child: Card(
-                        
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 45,
-                              width: 45,
-                              color: Color.fromARGB(55, 33, 243, 208),
-                              child:
-                                 Icon(
-                                Icons.translate_outlined,
-                                color: Color.fromARGB(255, 33, 243, 208),
-                                size: 34,
-                              ),
-                             
-                            ),
-                             Row(
-                                children: [
-                                
-                             
-                               Text("Language",style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                            
-                            ),),
-                                ],
-                              ),
-                           
-
-                         
-                            Icon(
-                                Icons.keyboard_double_arrow_right_rounded,
-                                color: Colors.black,
-                                size: 30,
-                              ),
-                          ],
-                        ),
-                       ),
-                        )
-                    ],
-                   )
-              )
-              
-              ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
           // Add any other profile details here, such as email, phone number, etc.
 
           // Logout button

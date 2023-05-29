@@ -184,7 +184,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return userdetails_new_with_sidebar();
+                    return SignUpScreen();
                   },
                 ),
               );

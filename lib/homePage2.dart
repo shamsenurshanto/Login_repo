@@ -100,20 +100,24 @@ class _homepage2State extends State<homepage2> {
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
-
+  var i=0;
     for (var eachTeam in jsonData['data']) {
-      
+      // pictureofUsers.add(eachTeam[]);
     print(eachTeam['receiver']['receiverId']['userPic']);
-      // if(_idLoggedIn==eachTeam['sender']['senderId'])
+    pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      // if(_idLoggedIn==eachTeam['sender']['senderId'].toString())
       //  {
-      //   pictureofUsers.add(eachTeam['receiver']['receiverId']['userPic']);
-      //     print(eachTeam['receiver']['receiverId']['userPic']);
+      //   pictureofUsers.add(eachTeam['receiver']['receiverId']['userPic'].toString());
+      //     print(eachTeam['receiver']['receiverId']['userPic'].toString());
       //  }
-      //  else if(_idLoggedIn==eachTeam['receiver']['receiverId'])
+      //  else if(_idLoggedIn==eachTeam['receiver']['receiverId'].toString())
       //  {
-      //      pictureofUsers.add(eachTeam['sender']['senderId']['userPic']);
-      //      print(eachTeam['sender']['senderId']['userPic']);
+      //      pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      //      print(eachTeam['sender']['senderId']['userPic'].toString());
       //  }
+      //  print("------------ added number "+i.toString());
+      //  print(pictureofUsers[i]);
+      //  i++;
        
       String mainMail2 = "";
       String mainName = "";
@@ -796,15 +800,27 @@ class _homepage2State extends State<homepage2> {
                                                                       BorderRadius
                                                                           .circular(
                                                                               30.0),
-                                                                  child: Image
+                                                                  child: 
+                                                                  // pictureofUsers[index]?
+                                                                  // Image
+                                                                  //     .network(
+                                                                  //       "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[0],
+                                                                  //   width: 30,
+                                                                  //   height:
+                                                                  //       60 / 2,
+                                                                  //   fit: BoxFit
+                                                                  //       .cover,
+                                                                  // ):
+                                                                  Image
                                                                       .network(
-                                                                        "https://i.ytimg.com/vi/x77Ijv0kCJc/maxresdefault.jpg",
+                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[index],
                                                                     width: 30,
                                                                     height:
                                                                         60 / 2,
                                                                     fit: BoxFit
                                                                         .cover,
-                                                                  ),
+                                                                  )
+
                                                                 ),
                                                               ),
                                                               teams[index].type ==

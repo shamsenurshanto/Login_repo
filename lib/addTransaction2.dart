@@ -18,6 +18,8 @@ import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import 'newTbb.dart';
+
 
 class addTrans extends StatefulWidget {
   const addTrans({super.key});
@@ -418,11 +420,11 @@ class _addTransState extends State<addTrans> {
 
                              
 
-                           Navigator.push(
+                           Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return MyBottomNavigationBar();
+                    return dash_newMyBottomNavigationBar_new();
                     // return userDetails("email");
                   },
                 ),
