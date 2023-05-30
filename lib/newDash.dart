@@ -27,6 +27,8 @@ class dash_new extends StatefulWidget {
 
 class _dash_newState extends State<dash_new> {
   String _displayText = "";
+
+  List<String> pictureofUsers = []; 
   var Lang_val;
 
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
@@ -104,6 +106,8 @@ class _dash_newState extends State<dash_new> {
 
     for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
+        print(eachTeam['receiver']['receiverId']['userPic']);
+    pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -258,6 +262,7 @@ class _dash_newState extends State<dash_new> {
     return Scaffold(
     appBar: AppBar(
       foregroundColor: Colors.white,
+      
         leading: IconButton(
           icon: Icon(Icons.arrow_back,color: Colors.black,),
           onPressed: () {
@@ -343,12 +348,14 @@ class _dash_newState extends State<dash_new> {
                                  child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
-                                              child: Image.network(
-                                                'https://t3.ftcdn.net/jpg/03/05/77/64/360_F_305776453_t7SUl48g63zLsyODxd60aj6EcWR9avVK.jpg',
-                                                width: 60,
-                                                height: 60,
-                                                fit: BoxFit.cover,
-                                              ),
+                                              child:  Image.network(
+                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[index],
+                                                                    width: 30,
+                                                                    height:
+                                                                        60 / 2,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  )
                                             ),
                                  ),
                                  teams[index].type=="Loan Given"?
@@ -375,14 +382,22 @@ class _dash_newState extends State<dash_new> {
                                       Icons.hourglass_bottom_outlined
                                       ,
                                       color: Colors.grey,
-                                    )
-                                    :
-
+                                    ):
+                                     teams[index].Transaction_status=="DENI"?
+                                      Icon(
+                                      Icons.cancel_outlined
+                                      ,
+                                      color: Colors.red,
+                                    ):
                                      Icon(
-                                      Icons.done
+                                      Icons.done_all_outlined
                                       ,
                                       color: Colors.green,
                                     ),
+
+
+                                  
+
 
 
 

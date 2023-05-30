@@ -96,7 +96,11 @@ class _homepage2State extends State<homepage2> {
         Uri.https(
             'personalrec.onrender.com', 'api/transaction/usersalltransactions')
             ,
-        headers: {'Cookie': 'jwt_token=$tokenString2'});
+          headers: {'Cookie': 'jwt_token=$tokenString2'
+          
+          }
+        
+        );
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
@@ -264,7 +268,124 @@ class _homepage2State extends State<homepage2> {
     }
 
     return Scaffold(
+      
         backgroundColor: Colors.white10,
+         appBar: AppBar(
+        
+        title: Text(
+          "Home",
+          style: TextStyle(color: Colors.black),
+        ),
+
+       backgroundColor: Colors.white,
+        // textDirection: TextDirection.rtl, // Set text direction to right-to-left
+         elevation: 0.0,
+         
+          iconTheme: IconThemeData(color: Colors.green),
+      ),
+       
+      drawer: SafeArea(
+        child:  
+      
+        Stack(
+          children: [
+            Positioned(
+               
+            
+              child:
+            Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text(
+              'দেনা পাওনা',
+              style: TextStyle(color: Colors.white, fontSize: 0),
+            ),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 38, 7, 91),
+                image: DecorationImage(
+                    fit: BoxFit.scaleDown,
+                    image: AssetImage('assets/icons/icon.png',
+                    
+                     
+                    )
+                    )
+                    ),
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home',style: TextStyle(
+               color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold),),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.approval),
+            title: Text('Approvals',style: TextStyle(
+                 color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('My Initiated',style: TextStyle(
+                 color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.add),
+            title: Text('Add New',style: TextStyle(
+                color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.send),
+            title: Text('Loans',style: TextStyle(
+                color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.receipt),
+            title: Text('Received',style: TextStyle(
+                color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+            ListTile(
+            leading: Icon(Icons.exit_to_app
+            ,
+           color:const Color.fromARGB(255, 38, 7, 91),
+            ),
+            title: Text('List Of All Loans Given',style: TextStyle(
+                color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+          ListTile(
+            leading: Icon(Icons.currency_exchange_outlined),
+            title: Text('List Of All Loans Taken',style: TextStyle(
+                color:const Color.fromARGB(255, 38, 7, 91),
+              fontWeight: FontWeight.bold)),
+            onTap: () => {Navigator.of(context).pop()},
+          ),
+        ],
+      ),
+    ),
+            
+            )
+          ],
+        )
+      
+      
+      
+      )
+      ,
+      
+    
         body: SafeArea(
             child: SingleChildScrollView(
           child:
@@ -272,7 +393,7 @@ class _homepage2State extends State<homepage2> {
               Column(
             children: [
               SizedBox(
-                height: 1,
+                height: 0,
               ),
 
               //icon and text(total ) upper
@@ -282,7 +403,7 @@ class _homepage2State extends State<homepage2> {
                 children: [
                   Container(
                     width: 392.2,
-                    height: 300,
+                    height: 270,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(0),
