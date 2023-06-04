@@ -106,23 +106,9 @@ class _homepage2State extends State<homepage2> {
     // print(jsonData['data']);
   var i=0;
     for (var eachTeam in jsonData['data']) {
-      // pictureofUsers.add(eachTeam[]);
-    print(eachTeam['receiver']['receiverId']['userPic']);
+      // print(eachTeam['sender']['senderId']);
+        print(eachTeam['receiver']['receiverId']['userPic']);
     pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
-      // if(_idLoggedIn==eachTeam['sender']['senderId'].toString())
-      //  {
-      //   pictureofUsers.add(eachTeam['receiver']['receiverId']['userPic'].toString());
-      //     print(eachTeam['receiver']['receiverId']['userPic'].toString());
-      //  }
-      //  else if(_idLoggedIn==eachTeam['receiver']['receiverId'].toString())
-      //  {
-      //      pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
-      //      print(eachTeam['sender']['senderId']['userPic'].toString());
-      //  }
-      //  print("------------ added number "+i.toString());
-      //  print(pictureofUsers[i]);
-      //  i++;
-       
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -140,7 +126,7 @@ class _homepage2State extends State<homepage2> {
           print("ole");
           print(_idgh);
           print(email);
-
+             // loan given + mainmail 
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
@@ -154,8 +140,10 @@ class _homepage2State extends State<homepage2> {
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
-              //  img_link: eachTeam['userPic']
-               );
+              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
+           
+              );
         } else {
           print("lole");
           print(_idgh);
@@ -164,8 +152,7 @@ class _homepage2State extends State<homepage2> {
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
               type: "Loan Taken",
               amount: eachTeam['amount'],
               mainMail: eachTeam['sender']['senderId']['_id'].toString(),
@@ -174,8 +161,11 @@ class _homepage2State extends State<homepage2> {
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
-              // img_link: eachTeam['userPic']
-          );
+              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
+          
+          //  img_link: eachTeam['userPic']
+              );
         }
 
         print(mainName);
@@ -204,8 +194,10 @@ class _homepage2State extends State<homepage2> {
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
-              //  img_link: eachTeam['userPic']
-               );
+                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
+          //  img_link: eachTeam['userPic']
+              );
         } else {
           print("lole");
           print(_idgh);
@@ -224,8 +216,9 @@ class _homepage2State extends State<homepage2> {
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
-              //  img_link: eachTeam['userPic']
-               );
+                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
+              );
         }
       } else {
         team = "";

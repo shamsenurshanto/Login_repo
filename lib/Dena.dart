@@ -202,6 +202,8 @@ class _UserDetails_NewState extends State<UserDetails_New> {
           Transaction_id: " eachTeam['_id'].toString()",
           Sender_status: "eachTeam['senderStatus']",
           Receiver_status: "eachTeam['receiverStatus']",
+          img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+          dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
           //  img_link: eachTeam['userPic']
                
           

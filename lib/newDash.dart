@@ -1,11 +1,13 @@
 import 'dart:convert';
 // import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/addTransaction2.dart';
@@ -105,6 +107,15 @@ class _dash_newState extends State<dash_new> {
     // print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
+      String dateString = eachTeam['sender']['senderId']['createdAt'].toString();
+      dateString="2023-02-06T10:36:26.420Z";
+    DateTime dateTime = DateTime.parse(dateString);
+    String month = DateFormat('MMM').format(dateTime); // e.g., "May"
+String date = DateFormat('dd').format(dateTime); // e.g., "06"
+
+     print("dateTime  ---------- ::::::::::::::::::::");
+    print(date+" "+month);
+
       // print(eachTeam['sender']['senderId']);
         print(eachTeam['receiver']['receiverId']['userPic']);
     pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
@@ -125,7 +136,7 @@ class _dash_newState extends State<dash_new> {
           print("ole");
           print(_idgh);
           print(email);
-
+             // loan given + mainmail 
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
@@ -138,10 +149,10 @@ class _dash_newState extends State<dash_new> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-              
-              ,
-          //  img_link: eachTeam['userPic']
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
+           
               );
         } else {
           print("lole");
@@ -151,8 +162,7 @@ class _dash_newState extends State<dash_new> {
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
               type: "Loan Taken",
               amount: eachTeam['amount'],
               mainMail: eachTeam['sender']['senderId']['_id'].toString(),
@@ -160,8 +170,10 @@ class _dash_newState extends State<dash_new> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-                ,
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
+          
           //  img_link: eachTeam['userPic']
               );
         }
@@ -191,8 +203,9 @@ class _dash_newState extends State<dash_new> {
               Transaction_status: eachTeam['transactionStatus'].toString(),
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-              ,
+              Receiver_status: eachTeam['receiverStatus'],
+                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
           //  img_link: eachTeam['userPic']
               );
         } else {
@@ -212,9 +225,9 @@ class _dash_newState extends State<dash_new> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-              ,
-          //  img_link: eachTeam['userPic']
+              Receiver_status: eachTeam['receiverStatus'],
+                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
               );
         }
       } else {
@@ -306,7 +319,7 @@ class _dash_newState extends State<dash_new> {
         ),
       ),
       body: SafeArea(
-
+  
         child: Container(
           
           child: FutureBuilder(
@@ -319,7 +332,24 @@ class _dash_newState extends State<dash_new> {
                       itemCount: teams.length,
                       padding: EdgeInsets.all(10),
                       itemBuilder: (context, index) {
-                        return GestureDetector(
+                        return 
+                        
+                        
+                        Container(
+                          child: Column(
+                            children: [
+                                  SizedBox(
+                                    width: 100,
+                                    height: 100,
+                                    
+                                                                child: SvgPicture.asset(
+                                    'assets/images/6904887.svg', // Replace with your SVG file path or string
+                                  // Adjust the height as needed
+                                  ),
+                                                              ),
+
+
+                               GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
@@ -349,7 +379,7 @@ class _dash_newState extends State<dash_new> {
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
                                               child:  Image.network(
-                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[index],
+                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+teams[index].img_link,
                                                                     width: 30,
                                                                     height:
                                                                         60 / 2,
@@ -419,7 +449,11 @@ class _dash_newState extends State<dash_new> {
 
                                 ],)
                               )),
-                        );
+                        )
+                            ],
+                          )
+
+                    );
                       },
                     )
                     

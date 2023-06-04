@@ -11,7 +11,8 @@ class Team {
  final String Transaction_status;
  final String Sender_status;
  final String Receiver_status;
-//  final String img_link;
+ final String img_link;
+ final String dateOfTransactions;
 
   Team({
     required this.id,
@@ -25,6 +26,8 @@ class Team {
          required this.Transaction_status,
         required this.Sender_status,
       required this.Receiver_status,
+      required this.img_link,
+      required this.dateOfTransactions
       // required this.img_link
          
   }

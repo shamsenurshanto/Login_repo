@@ -119,10 +119,9 @@ class _dash4State extends State<dash4> {
     // print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
-      if (eachTeam['createdBy']['_id'] == _idLoggedIn) {
-        continue;
-      }
       // print(eachTeam['sender']['senderId']);
+        print(eachTeam['receiver']['receiverId']['userPic']);
+    // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -140,7 +139,7 @@ class _dash4State extends State<dash4> {
           print("ole");
           print(_idgh);
           print(email);
-
+             // loan given + mainmail 
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
@@ -153,11 +152,10 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'
-              ]
-                ,
-          //  img_link: eachTeam['userPic']
-              
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
+           
               );
         } else {
           print("lole");
@@ -167,8 +165,7 @@ class _dash4State extends State<dash4> {
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
               type: "Loan Taken",
               amount: eachTeam['amount'],
               mainMail: eachTeam['sender']['senderId']['_id'].toString(),
@@ -176,8 +173,10 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-              ,
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
+          
           //  img_link: eachTeam['userPic']
               );
         }
@@ -207,8 +206,9 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'].toString(),
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-              ,
+              Receiver_status: eachTeam['receiverStatus'],
+                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
           //  img_link: eachTeam['userPic']
               );
         } else {
@@ -228,9 +228,9 @@ class _dash4State extends State<dash4> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
-               ,
-          //  img_link: eachTeam['userPic']
+              Receiver_status: eachTeam['receiverStatus'],
+                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
               );
         }
       } else {

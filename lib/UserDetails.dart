@@ -167,15 +167,15 @@ class _UserDetailsState extends State<UserDetails> {
     // //print(jsonData['data']);
 
     for (var eachTeam in jsonData['data']) {
-      // loooooppppo lol
-      // //print(eachTeam['sender']['senderId']);
+      // print(eachTeam['sender']['senderId']);
+        print(eachTeam['receiver']['receiverId']['userPic']);
+    // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
-      print("------------ edhaaaaaa");
-
-      //  //print(eachTeam['type']['en_typeName']);
+      print(eachTeam['type']['en_typeName']);
       final team;
-      //print("___________________________________________________--------------");
+      print(
+          "___________________________________________________--------------");
       if (eachTeam['type']['en_typeName'] == "LoanTaken") {
         //  mainMail2 = eachTeam['sender']['senderId']['_id'];
         //     mainName = eachTeam['sender']['senderId']['userName'];
@@ -184,10 +184,10 @@ class _UserDetailsState extends State<UserDetails> {
         var _idgh = _box2.get("User_id"); //my user id
         var email = _box2.get("User_email");
         if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
-          //print("ole");
-          //print(_idgh);
-          //print(email);
-
+          print("ole");
+          print(_idgh);
+          print(email);
+             // loan given + mainmail 
           team = Team(
               id: eachTeam['sender']['senderId']['_id'].toString(),
               sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
@@ -200,7 +200,64 @@ class _UserDetailsState extends State<UserDetails> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
+           
+              );
+        } else {
+          print("lole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Taken",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+              name: eachTeam['sender']['senderId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'],
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
+          
+          //  img_link: eachTeam['userPic']
+              );
+        }
+
+        print(mainName);
+      } else if (eachTeam['type']['en_typeName'] == "LoanGiven") {
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
+
+        //here it is gone for change    TO SEE EACH OTHER
+        var _idgh = _box2.get("User_id"); //my user id
+        var email = _box2.get("User_email");
+        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
+          print("ole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:
+                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Given",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+              name: eachTeam['receiver']['receiverId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'].toString(),
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
+          //  img_link: eachTeam['userPic']
               );
         } else {
           print("lole");
@@ -219,52 +276,10 @@ class _UserDetailsState extends State<UserDetails> {
               Transaction_status: eachTeam['transactionStatus'],
               Transaction_id: eachTeam['_id'].toString(),
               Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
-        }
-
-        print(mainName);
-      } else if (eachTeam['type']['en_typeName'] == "LoanGiven") {
-        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
-        //     mainName = eachTeam['sender']['senderId']['userName'];
-
-        //here it is gone for change    TO SEE EACH OTHER
-        var _idgh = _box2.get("User_id"); //my user id
-        var email = _box2.get("User_email");
-        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
-          print("ole");
-          print(_idgh);
-          print(email);
-          team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Given",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
-              name: eachTeam['receiver']['receiverId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'].toString(),
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
-        } else {
-          print("lole");
-          print(_idgh);
-          print(email);
-
-          team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Taken",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-              name: eachTeam['sender']['senderId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus']);
+              Receiver_status: eachTeam['receiverStatus'],
+                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
+              );
         }
       } else {
         team = "";
@@ -277,6 +292,10 @@ class _UserDetailsState extends State<UserDetails> {
       //     eachTeam['type'] != null &&
       //     eachTeam['amount'] != null &&
       //     mainMail2 != null) {
+
+
+
+
         if (widget.teams.mainMail == team.mainMail) {
           print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
           print(team.id);

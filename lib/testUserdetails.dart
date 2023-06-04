@@ -22,6 +22,7 @@ import 'models/team.dart';
 
 class MyListView_ extends StatefulWidget {
   @override
+  
   _MyListView_State createState() => _MyListView_State();
 }
 
@@ -221,6 +222,8 @@ class _MyListView_State extends State<MyListView_> {
           Transaction_id: " eachTeam['_id'].toString()",
           Sender_status: "eachTeam['senderStatus']",
           Receiver_status: "eachTeam['receiverStatus']",
+            img_link:" eachTeam['sender']['senderId']['userPic'].toString()",
+              dateOfTransactions: "eachTeam['sender']['senderId']['createdAt'].toString()",
           // img_link: " eachTeam['receiverStatus']"
           );
       print("this is for id");

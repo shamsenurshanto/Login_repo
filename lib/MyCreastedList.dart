@@ -115,189 +115,138 @@ print(tokenString2);
     // print(jsonData['data']);
          
     for (var eachTeam in jsonData['data']) {
-
-       
-
       // print(eachTeam['sender']['senderId']);
-      String mainMail2="";
-       String mainName="";
-         print(eachTeam['type']['en_typeName']);
-         final team;
-         print("___________________________________________________--------------");
-      if(eachTeam['type']['en_typeName']=="LoanTaken")
-      {
+        print(eachTeam['receiver']['receiverId']['userPic']);
+    // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      String mainMail2 = "";
+      String mainName = "";
+      print(eachTeam['type']['en_typeName']);
+      final team;
+      print(
+          "___________________________________________________--------------");
+      if (eachTeam['type']['en_typeName'] == "LoanTaken") {
         //  mainMail2 = eachTeam['sender']['senderId']['_id'];
         //     mainName = eachTeam['sender']['senderId']['userName'];
 
         //here it is gone for change    TO SEE EACH OTHER
-         var _idgh = _box2.get("User_id");//my user id 
-          var email= _box2.get("User_email");
-          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
-          {
-            print("ole");
-            print(_idgh);
-            print(email);
-             
-
-
-
-                         
-                 team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Given",
-        amount: eachTeam['amount'],
-         mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
-     
-        name: eachTeam['receiver']['receiverId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString(),
-          Sender_status:  eachTeam['senderStatus'],  
-                  Receiver_status:  eachTeam['receiverStatus']
-                  ,
-          //  img_link: eachTeam['userPic']
-        
-        
-        
-      );
-
-
-
-
-
-
-          }
-          else{
-            print("lole");
-             print(_idgh);
-              print(email);
-
-
-               team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Taken",
-        amount: eachTeam['amount'],
-         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
-     
-        name: eachTeam['sender']['senderId']['userName'].toString(),
-        
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString(),
-          Sender_status:  eachTeam['senderStatus'],  
-                  Receiver_status:  eachTeam['receiverStatus'],
-          //  img_link: eachTeam['userPic']
-        
-      );
-
-
-
-          }
-            
-          print(mainName);
-         
+        var _idgh = _box2.get("User_id"); //my user id
+        var email = _box2.get("User_email");
+        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
+          print("ole");
+          print(_idgh);
+          print(email);
+             // loan given + mainmail 
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:
+                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Given",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+              name: eachTeam['receiver']['receiverId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'],
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
            
-           
-      }
-      else if(eachTeam['type']['en_typeName']=="LoanGiven")
-      {
-        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
-        //     mainName = eachTeam['sender']['senderId']['userName'];
+              );
+        } else {
+          print("lole");
+          print(_idgh);
+          print(email);
 
-        //here it is gone for change    TO SEE EACH OTHER
-         var _idgh = _box2.get("User_id");//my user id 
-          var email= _box2.get("User_email");
-          if(_idgh==eachTeam['sender']['senderId']['_id'].toString())
-          {
-            print("ole");
-            print(_idgh);
-            print(email);
-             
-
-
-
-                 team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Given",
-        amount: eachTeam['amount'],
-        mainMail:eachTeam['receiver']['receiverId']['_id'].toString(),
-     
-        name: eachTeam['receiver']['receiverId']['userName'].toString(),
-        
-         Transaction_status: eachTeam['transactionStatus'].toString(),
-         Transaction_id:  eachTeam['_id'].toString(),
-          Sender_status:  eachTeam['senderStatus'],  
-                  Receiver_status:  eachTeam['receiverStatus']
-                  ,
-          //  img_link: eachTeam['userPic']
-        
-      );
-
-
-
-
-
-
-          }
-          else{
-            print("lole");
-             print(_idgh);
-              print(email);
-
-
-               team = Team(
-
-        id: eachTeam['sender']['senderId']['_id'].toString(),
-        sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-        receiver_email: eachTeam['receiver']['receiverEmailPhone'].toString(),
-        type: "Loan Taken",
-        amount: eachTeam['amount'],
-        
-
-         mainMail:eachTeam['sender']['senderId']['_id'].toString(),
-     
-        name: eachTeam['sender']['senderId']['userName'].toString(),
-         Transaction_status: eachTeam['transactionStatus'],
-         Transaction_id:  eachTeam['_id'].toString(),
-          Sender_status:  eachTeam['senderStatus'],  
-                  Receiver_status:  eachTeam['receiverStatus']
-                  ,
-          //  img_link: eachTeam['userPic']
-        
-        
-      );
-
-
-          }
-            
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Taken",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+              name: eachTeam['sender']['senderId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'],
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
           
-         
-           
-           
+          //  img_link: eachTeam['userPic']
+              );
+        }
+
+        print(mainName);
+      } else if (eachTeam['type']['en_typeName'] == "LoanGiven") {
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
+
+        //here it is gone for change    TO SEE EACH OTHER
+        var _idgh = _box2.get("User_id"); //my user id
+        var email = _box2.get("User_email");
+        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
+          print("ole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:
+                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Given",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+              name: eachTeam['receiver']['receiverId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'].toString(),
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
+          //  img_link: eachTeam['userPic']
+              );
+        } else {
+          print("lole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+              id: eachTeam['sender']['senderId']['_id'].toString(),
+              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+              receiver_email:
+                  eachTeam['receiver']['receiverEmailPhone'].toString(),
+              type: "Loan Taken",
+              amount: eachTeam['amount'],
+              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+              name: eachTeam['sender']['senderId']['userName'].toString(),
+              Transaction_status: eachTeam['transactionStatus'],
+              Transaction_id: eachTeam['_id'].toString(),
+              Sender_status: eachTeam['senderStatus'],
+              Receiver_status: eachTeam['receiverStatus'],
+                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
+              );
+        }
+      } else {
+        team = "";
       }
-      else{
-        team="";
-      }
- 
+
       // print(mainName);
-      if(eachTeam['_id']!=null && eachTeam['sender']['senderId']!=null &&  eachTeam['receiver']['receiverId'] !=null && eachTeam['type']  !=null && eachTeam['amount']!=null && mainMail2!=null)
-     {
-           print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      print(mainName);
-      
-      teams.add(team);
-      
-      print(teams[teams.length-1].name);
-     }
-      
-      
+      if (eachTeam['_id'] != null &&
+          eachTeam['sender']['senderId'] != null &&
+          eachTeam['receiver']['receiverId'] != null &&
+          eachTeam['type'] != null &&
+          eachTeam['amount'] != null &&
+          mainMail2 != null) {
+        print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+        print(mainName);
+
+        teams.add(team);
+
+        print(teams[teams.length - 1].name);
+      }
     }
      print("---------------------------------------");
     print(teams.length);
