@@ -1,6 +1,7 @@
 import 'dart:convert';
 // import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,11 +33,15 @@ class _dash_newState extends State<dash_new> {
 
   List<String> pictureofUsers = []; 
   var Lang_val;
+  var bannerChangeValue=39.0;
+  var totalOwnbyme=0.0;
+  var totalOwnFromMebyOthers=0.0;
 
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   @override
   void initState() {
     super.initState();
+    getTeams();
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -101,7 +106,10 @@ class _dash_newState extends State<dash_new> {
     var response = await http.get(
         Uri.https(
             'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
-        headers: {'Cookie': 'jwt_token=$tokenString2'});
+        headers: {'Cookie': 'jwt_token=$tokenString2'}
+        
+        
+        );
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
@@ -115,9 +123,10 @@ String date = DateFormat('dd').format(dateTime); // e.g., "06"
 
      print("dateTime  ---------- ::::::::::::::::::::");
     print(date+" "+month);
+     print(eachTeam['receiver']['receiverId']['userPic']);
 
       // print(eachTeam['sender']['senderId']);
-        print(eachTeam['receiver']['receiverId']['userPic']);
+       
     pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
@@ -233,6 +242,24 @@ String date = DateFormat('dd').format(dateTime); // e.g., "06"
       } else {
         team = "";
       }
+            if(team.type=="Loan Taken")
+            {
+               print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+            
+              print(totalOwnFromMebyOthers);
+              setState(() {
+                  totalOwnFromMebyOthers+=team.amount;
+              });
+            }
+            else
+            {
+               print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+                  setState(() {
+                  totalOwnbyme+=team.amount;
+              });
+             
+              print(totalOwnbyme);
+            }
 
       // print(mainName);
       if (eachTeam['_id'] != null &&
@@ -241,10 +268,11 @@ String date = DateFormat('dd').format(dateTime); // e.g., "06"
           eachTeam['type'] != null &&
           eachTeam['amount'] != null &&
           mainMail2 != null) {
-        print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-        print(mainName);
+       
+
 
         teams.add(team);
+       
 
         print(teams[teams.length - 1].name);
       }
@@ -273,26 +301,24 @@ String date = DateFormat('dd').format(dateTime); // e.g., "06"
     var width_safearea = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Colors.white,
     appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // <-- SEE HERE
+    statusBarIconBrightness: Brightness.dark, //<-- For Android SEE HERE (dark icons)
+    statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+  ),
       foregroundColor: Colors.white,
+      elevation: 0,
       
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return dash_newMyBottomNavigationBar_new();
-                  },
-                ),
-              ); // Go back to the previous page
-          },
-        ),
-        title: Text(
-          "Transaction",
-          style: TextStyle(color: Colors.black),
-        ),
+        // leading: Text(
+        //   "Transaction",
+        //   style: TextStyle(  color: Color.fromARGB(255, 155, 155, 176),),
+        // ),
+        // title: Text(
+        //   "Transaction",
+        //   style: TextStyle(  color: Color.fromARGB(255, 155, 155, 176),),
+        // ),
 
        backgroundColor: Color.fromARGB(184, 255, 255, 255),
         // textDirection: TextDirection.rtl, // Set text direction to right-to-left
@@ -320,179 +346,210 @@ String date = DateFormat('dd').format(dateTime); // e.g., "06"
       ),
       body: SafeArea(
   
-        child: Container(
+        child:    Container(
+          child: Column(
+            
+
+            children: [
+               
+              Padding(padding: EdgeInsets.all(10),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                   Text(
+                "Transaction",style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22
+                ),
+              ),
+                ],
+              ),
+              
+              ),
+
+         
+      //banner post where there is dart profile + row 
+      Padding(padding: EdgeInsets.all(14)
+      ,
+      child:  Stack(
+        children: [
+             SvgPicture.asset(
+  'assets/images/geometricbg.svg',
+  width: 160, // Specify the width
+  height: 150, // Specify the height
+),
+            Container(
+  height: 120,
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(20),
+    color: const Color.fromARGB(255, 230, 230, 238),
+  ),
+  child: Row(
+    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+
+         //image
+              Padding(padding: 
+              EdgeInsets.fromLTRB(20,7, 0, 0),
+              
+              child: Container(
+  width: 140/2+12,
+  height: 140/2+12,
+  decoration: BoxDecoration(
+    shape: BoxShape.circle,
+    border: Border.all(  color: Color.fromARGB(255, 101, 101, 230), width: 4),
+  ),
+  child: 
+  
+
+  CircleAvatar(
+  radius: 100,
+  backgroundImage: NetworkImage( 'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
+  
+  ),
+),
+
+ 
+),
+              ),
+
+         // column 
+         SizedBox(
+          width: 20,
+         ),
+
+
+         Padding(padding: 
+         EdgeInsets.fromLTRB(0, 19,0 , 0),
+         
+         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+           
+
+             Text("Total Balance:",
+            style: GoogleFonts.lato(
+                color: Color.fromARGB(255, 43, 54, 80),
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+
+             Text("You Owe : \$"+totalOwnbyme.toString(),      style: GoogleFonts.lato(
+              color: Color.fromARGB(255, 217, 104, 23),
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  ),),
+              SizedBox(
+              height: 10,
+            ),
           
-          child: FutureBuilder(
-            future: getTeams(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Card(
-                    color: Colors.white,
-                    child: ListView.builder(
-                      itemCount: teams.length,
-                      padding: EdgeInsets.all(10),
-                      itemBuilder: (context, index) {
-                        return 
-                        
-                        
-                        Container(
-                          child: Column(
-                            children: [
-                                  SizedBox(
-                                    width: 100,
-                                    height: 100,
-                                    
-                                                                child: SvgPicture.asset(
-                                    'assets/images/6904887.svg', // Replace with your SVG file path or string
-                                  // Adjust the height as needed
-                                  ),
-                                                              ),
-
-
-                               GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return UserDetails(teams[index]);
-
-                                  // return userDetails(teams[index].mainMail);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                              elevation: 14.0,
-                              color: Colors.grey[100],
-                              margin: EdgeInsets.all(10),
-                              child: SizedBox(
-                                height: height_safearea * 0.108,
-                                child: Row(
-                                  
-                                  
-                                  children: [
-
-                                 Padding(
-                                  padding: EdgeInsets.all(10),
-                                 child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              child:  Image.network(
-                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+teams[index].img_link,
-                                                                    width: 30,
-                                                                    height:
-                                                                        60 / 2,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  )
-                                            ),
-                                 ),
-                                 teams[index].type=="Loan Given"?
-
-                                 //up arrow 
-                                     
-                                    Icon(
-                                      Icons.arrow_upward_outlined
-                                      ,
-                                      color: Colors.deepPurple,
-                                    )
-
-                                    :
-
-                                     Icon(
-                                      Icons.arrow_downward_outlined
-                                      ,
-                                      color: Colors.green,
-                                    ),
-
-
-                                    teams[index].Transaction_status=="PENDING"?
-                                     Icon(
-                                      Icons.hourglass_bottom_outlined
-                                      ,
-                                      color: Colors.grey,
-                                    ):
-                                     teams[index].Transaction_status=="DENI"?
-                                      Icon(
-                                      Icons.cancel_outlined
-                                      ,
-                                      color: Colors.red,
-                                    ):
-                                     Icon(
-                                      Icons.done_all_outlined
-                                      ,
-                                      color: Colors.green,
-                                    ),
-
-
-                                  
+             Text("You are Owed : \$"+totalOwnFromMebyOthers.toString(),    
+               style: GoogleFonts.lato(
+                color: Color.fromARGB(255, 65, 201, 185), //rgb(172, 213, 208)
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  ),),
+              SizedBox(
+              height: 10,
+            ),
 
 
 
+          ],
+         ),
+         )
 
-                                   SizedBox(
-                                    width: 130,
-                                   ),
-                                     Padding(padding: EdgeInsets.all(10),
-                                     child:  Text(
-                                      "\$ "+teams[index].amount.toString(),style: TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        fontSize: 17
-                                      ),
-                                    ),)
-                                   
-                                 
+    ],
+  ),
+),
+        ],
+      )
+      
+      ),
 
+          SizedBox(
+            width: width_safearea,
+            height: 500-90,
+            child: SizedBox(
+        width: 200,
+            child: ListView.builder(
+              itemCount: teams.length,
+              itemBuilder: (context, index) {
+                final item = teams[index];
+                return Row(
+                   children: [
+                 
+                      Row(
+                        children: [
+                           Padding(padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
+                     
+                     
+                      child:  Container(
+  width: 140/4+12,
+  height: 140/4+12,
+  decoration: BoxDecoration(
+    shape: BoxShape.circle,
+    border: Border.all(  color: Color.fromARGB(255, 101, 101, 230), width: 4),
+  ),
+  child: 
+  
 
+  CircleAvatar(
+  radius: 100,
+  backgroundImage: NetworkImage( "https://personalrecordback-production.up.railway.app/amendmentDoc/"+item.img_link,
+  
+  ),
+),
 
+ 
+),
+                     ),
+                     SizedBox(
+                      width: 20,
+                     ),
+                     
+                         Text(item.name.toString(),
+            style: GoogleFonts.lato(
+                color: Color.fromARGB(255, 43, 54, 80),
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  ),
+            ),
 
-                                ],)
-                              )),
-                        )
-                            ],
-                          )
+                        ],
+                      ),
 
-                    );
-                      },
-                    )
-                    
-                    );
-              } else {
-                // return Center(child: CircularProgressIndicator());
-
-                return Shimmer.fromColors(
-                    child: Center(
-                      child: Container(
-                          child: ListView.builder(
-                        itemCount: 10,
-                        padding: EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: width_safearea * 0.903061224,
-                                height: height_safearea * 0.1033,
-                                margin: const EdgeInsets.only(
-                                    top: 8.0, bottom: 8.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      )),
-                    ),
-                    baseColor: Colors.grey.withOpacity(0.1),
-                    highlightColor: Colors.grey.shade300);
-              }
-            },
+                      Column(
+                        children: [
+                          item.Transaction_status=="LoanTaken"?
+                          Text("owes you"):Text(" you owe"),
+                          Text('\$'+item.amount.toString(),
+            style: GoogleFonts.lato(
+                color: Colors.amber,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  ),
+            ),
+                        ],
+                      )
+                   ],
+                );
+              },
+            ),
           ),
-        ),
+          )
+
+       
+
+            ],
+            
+          ),
+        )
       ),
     );
   }
