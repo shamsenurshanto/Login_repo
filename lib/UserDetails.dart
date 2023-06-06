@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -79,7 +80,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     //        Lang_val
 
-    getTeams();
+   
 
     lan_status = _box2.get("Lang_val");
     if (lan_status == "Bangla") {
@@ -169,6 +170,7 @@ class _UserDetailsState extends State<UserDetails> {
     for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
         print(eachTeam['receiver']['receiverId']['userPic']);
+        
     // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
@@ -294,11 +296,12 @@ class _UserDetailsState extends State<UserDetails> {
       //     mainMail2 != null) {
 
 
-
-
+             print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm2222222");
+            print(widget.teams.mainMail.toString());
+            print(team.mainMail.toString());
         if (widget.teams.mainMail == team.mainMail) {
-          print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm");
-          print(team.id);
+          print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm--------------------------------------------------------bep");
+          print(team.mainMail);
           //selfEmail
           teams2.add(team);
              print("-----------Test");
@@ -335,7 +338,7 @@ class _UserDetailsState extends State<UserDetails> {
             actions: [
               TextButton(
                 onPressed: () {
-                  // Navigator.of(context).pop();
+                  // teamsgator.of(context).pop();
                 },
                 child: Text('ACKNOWLEDGED'),
               ),
@@ -350,515 +353,12 @@ class _UserDetailsState extends State<UserDetails> {
         },
       );
     }
+    ///scafa 
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Transaction Details",
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 4,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-      ),
-      // backgroundColor: Colors.deepPurple,
-      body: SafeArea(
-        child: FutureBuilder(
-            future: getTeams(),
-            builder: (context, snapshot) {
-              print(teams2.length+4);
-              if (snapshot.connectionState == ConnectionState.done) {
-                //print("done");
-                return Scaffold(
-                  body: Column(
-                    children: [
-                      //transaction type
-                      SizedBox(
-                        height: height_safearea * 0.23,
-                        child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                            color: Colors.grey.shade200,
-                            margin: EdgeInsets.all(15),
-                            elevation: 22,
-                            child: Row(
-                              children: [
-                                //colum1 icon
-                                Column(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          // Handle onTap event
-                                          //print("hello settings");
-                                        },
-                                        onLongPress: () {
-                                          // Handle onLongPress event
-                                        },
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsets.fromLTRB(10, 10, 0, 0),
-                                          child: Icon(
-                                            FontAwesomeIcons.gear,
-                                            color: Colors.green.shade500,
-                                          ),
-                                        ))
-                                  ],
-                                ),
-
-                                SizedBox(
-                                  width: width_safearea * 0.205,
-                                )
-
-                                //sizebox width
-
-                                //column2
-                                //text1
-                                //text2
-                                //text3
-                                ,
-                                Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      lan_status == "English"
-                                          ? Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 5, 0, 2),
-                                              child: Text(
-                                                widget.teams.type.toString(),
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.grey,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            )
-                                          : Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 5, 0, 2),
-                                              child: Text(
-                                                loanStaus,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.grey,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                              ),
-                                            ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 1, 0, 1),
-                                        child: lan_status == "English"
-                                            ? Text(
-                                                '\$' +
-                                                    widget.teams.amount
-                                                        .toString(),
-                                                style: TextStyle(
-                                                    fontSize: 35,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color.fromRGBO(
-                                                        8, 139, 4, 1)
-                                                    // fontStyle: FontStyle.italic,
-
-                                                    ),
-                                              )
-                                            : Text(
-                                                '\৳' + valAmount,
-                                                style: TextStyle(
-                                                    fontSize: 40,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color.fromRGBO(
-                                                        8, 139, 4, 1)
-                                                    // fontStyle: FontStyle.italic,
-
-                                                    ),
-                                              ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.fromLTRB(0, 2, 0, 1),
-                                        child: Text(
-                                          widget.teams.name.toString(),
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.grey,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-
-                                //colum3 extra
-                              ],
-                            )),
-                      ),
-                      Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                  child: Padding(
-                                padding: EdgeInsets.fromLTRB(20, 20, 0, 10),
-                                child: Text(
-                                  "TRANSACTIONS",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey),
-                                ),
-                              ))
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(1),
-                          )
-                        ],
-                      ),
-
-                      ///transaction starts
-                      ///
-                      ///
-                      ///
-                      ///,contn
-                      GestureDetector(
-                        child: Container(
-                        width: 340,
-                        height: 380,
-                        child: ListView.builder(
-                          itemCount: teams2.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                teams2[index].type == "Loan Taken"
-                                    ? Card(
-                                        elevation: 1,
-                                        child: Row(
-                                          children: [
-                                            ///colum1 icon
-                                            IconButton(
-                                              icon: Icon(
-                                                FontAwesomeIcons.circlePlus,
-                                                color: Colors.green.shade300,
-                                              ),
-                                              onPressed: () {
-                                                // Do something when the icon is pressed
-                                                print("hello add");
-                                              },
-                                            )
-
-                                            ///sizebox width
-                                            ///
-                                            ,
-                                            SizedBox(
-                                              width: 70,
-                                            ),
-
-                                            ///colum2
-                                            //////Loan status
-                                            ///amount
-                                            ///
-                                            ///rkjs1
-                                            Container(
-                                              width: 200,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  lan_status == "English"
-                                                      ? teams2[index].type ==
-                                                              "Loan Taken"
-                                                          ? Text(
-                                                              arrayForLoanEng[0]
-                                                                  .toString())
-                                                          : Text(
-                                                              arrayForLoanEng[1]
-                                                                  .toString())
-                                                      : teams2[index].type ==
-                                                              "Loan Taken"
-                                                          ?
-
-                                                          //bng start
-                                                          Text(
-                                                              arrayForLoanBangla[
-                                                                  0],
-                                                              style: GoogleFonts
-                                                                  .mina(
-                                                                fontSize:
-                                                                    width_safearea *
-                                                                        0.03820408,
-                                                                shadows: [
-                                                                  Shadow(
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.3),
-                                                                      offset:
-                                                                          const Offset(
-                                                                              7,
-                                                                              7),
-                                                                      blurRadius:
-                                                                          15),
-                                                                ],
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-
-                                                              //
-                                                            )
-                                                          : Text(
-                                                              arrayForLoanBangla[
-                                                                  1],
-                                                              style: GoogleFonts
-                                                                  .mina(
-                                                                fontSize:
-                                                                    width_safearea *
-                                                                        0.03820408,
-                                                                shadows: [
-                                                                  Shadow(
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.3),
-                                                                      offset:
-                                                                          const Offset(
-                                                                              7,
-                                                                              7),
-                                                                      blurRadius:
-                                                                          15),
-                                                                ],
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-
-                                                              //
-                                                            )
-
-                                                  //bng end
-                                                  ,
-                                                  lan_status == "English"
-                                                      ? Text("\$" +
-                                                          teams2[index]
-                                                              .amount
-                                                              .toString())
-                                                      : Text("৳" +
-                                                          getString(
-                                                              teams2[index]
-                                                                  .amount
-                                                                  .toString()))
-                                                ],
-                                              ),
-                                            ),
-
-                                            SizedBox(),
-
-                                            ///
-                                            ///
-                                            ///
-                                            ///colum3
-                                            ///date
-                                          ],
-                                        ),
-                                      )
-                                    :
-                                    ////other wisssse adddd bangla >>>>>>>>>>>>>>
-                                    Card(
-                                        ///rkjs2
-                                        ///
-                                        elevation: 3,
-                                        child: Row(
-                                          children: [
-                                            ///colum1 icon
-                                            IconButton(
-                                              icon: Icon(
-                                                FontAwesomeIcons.circleMinus,
-                                                color: Colors.grey.shade300,
-                                              ),
-                                              onPressed: () {
-                                                // Do something when the icon is pressed
-                                                print("hello add");
-                                              },
-                                            )
-
-                                            ///sizebox width
-                                            ///
-                                            ,
-                                            SizedBox(
-                                              width: 70,
-                                            ),
-
-                                            ///colum2
-                                            //////Loan status
-                                            ///amount
-                                            ///
-                                            ///rkjs2
-                                            Container(
-                                              width: 200,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  lan_status == "English"
-                                                      ? teams2[index].type ==
-                                                              "Loan Taken"
-                                                          ? Text(
-                                                              arrayForLoanEng[0]
-                                                                  .toString())
-                                                          : Text(
-                                                              arrayForLoanEng[1]
-                                                                  .toString())
-                                                      : teams2[index].type ==
-                                                              "Loan Taken"
-                                                          ?
-
-                                                          //bng start
-                                                          Text(
-                                                              arrayForLoanBangla[
-                                                                  0],
-                                                              style: GoogleFonts
-                                                                  .mina(
-                                                                fontSize:
-                                                                    width_safearea *
-                                                                        0.03820408,
-                                                                shadows: [
-                                                                  Shadow(
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.3),
-                                                                      offset:
-                                                                          const Offset(
-                                                                              7,
-                                                                              7),
-                                                                      blurRadius:
-                                                                          15),
-                                                                ],
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-
-                                                              //
-                                                            )
-                                                          : Text(
-                                                              arrayForLoanBangla[
-                                                                  1],
-                                                              style: GoogleFonts
-                                                                  .mina(
-                                                                fontSize:
-                                                                    width_safearea *
-                                                                        0.03820408,
-                                                                shadows: [
-                                                                  Shadow(
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.3),
-                                                                      offset:
-                                                                          const Offset(
-                                                                              7,
-                                                                              7),
-                                                                      blurRadius:
-                                                                          15),
-                                                                ],
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-
-                                                              //
-                                                            )
-
-                                                  //bng end
-                                                  ,
-                                                  lan_status == "English"
-                                                      ? Text("\$" +
-                                                          teams2[index]
-                                                              .amount
-                                                              .toString())
-                                                      : Text("৳" +
-                                                          getString(
-                                                              teams2[index]
-                                                                  .amount
-                                                                  .toString()))
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(),
-
-                                            ///
-                                            ///
-                                            ///
-                                            ///colum3
-                                            ///date
-                                          ],
-                                        ),
-                                      )
-                              ],
-                            );
-                          },
-                        ),
-                        ),
-                      )
-
-                      // Text()
-                    ],
-                  ),
-                );
-              } else {
-                return Center(
-                    child: Container(
-                        width: width_safearea,
-                        height: height_safearea,
-                        color: Colors.white,
-                        child: Center(
-                          child: Container(
-                            width: width_safearea * 0.076530612,
-                            height: height_safearea * 0.04,
-                            child: CircularProgressIndicator(),
-                          ),
-                        )));
-              }
-            }),
-      ),
+     
+       
+       
     );
   }
 }
