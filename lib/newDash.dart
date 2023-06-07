@@ -303,7 +303,8 @@ class _dash_newState extends State<dash_new> {
           statusBarIconBrightness:
               Brightness.dark, //<-- For Android SEE HERE (dark icons)
           statusBarBrightness:
-              Brightness.light, //<-- For iOS SEE HERE (dark icons)
+              Brightness.light,
+               //<-- For iOS SEE HERE (dark icons)
         ),
         foregroundColor: Colors.white,
         elevation: 0,

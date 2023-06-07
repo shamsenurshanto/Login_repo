@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:my_app/newDash.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 import 'models/team.dart';
 
@@ -21,6 +22,7 @@ class UserDetails extends StatefulWidget {
   UserDetails(this.teams);
 
   @override
+  
   _UserDetailsState createState() => _UserDetailsState();
 }
 
@@ -69,8 +71,15 @@ class _UserDetailsState extends State<UserDetails> {
   var selfEmail;
 
   void initState() {
+ 
     super.initState();
+       getTeams();
+      SystemChrome.setEnabledSystemUIMode(
 
+       SystemUiMode.manual,
+       overlays: [SystemUiOverlay.bottom] ,  
+
+      );
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -110,8 +119,8 @@ class _UserDetailsState extends State<UserDetails> {
     return amountOfUser;
   }
 
-  Future getTeams() async {
-    //print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
+   getTeams() async {
+    print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
 
     teams2.clear();
     var box = await Hive.openBox("mybox");
@@ -325,6 +334,8 @@ class _UserDetailsState extends State<UserDetails> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
+  
+    
 
     alertFunction() {
       //print("alert");
@@ -355,10 +366,246 @@ class _UserDetailsState extends State<UserDetails> {
     }
     ///scafa 
 
+    
     return Scaffold(
+      
+      body: Column(
+        children: [
+          Container(
+            width: 390,
+            height: height_safearea-430,
+            child: Container(
+              child: Stack(
+                
+             
+                children: [
+               
+               Positioned(
+                 top: 0,
+                 
+                child: 
+               
+                   Container(
+                    width:392,
+                    height: 150,
+                    child: Image.asset(
+                                        "assets/images/fl-npreview.jpg",  fit: BoxFit.cover)
+                    ),
+                ),
+
+                Positioned(
+                  top: 150-57,
+                  left: 40,
+                  child: Container(
+                              width: 140 / 2 + 40,
+                              height: 140 / 2 + 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    width: 6),
+                              ),
+                              child: CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(
+                                   "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                        widget.teams.img_link,
+                                ),
+                              ),
+                            ),
+                           
+                
+                )   ,
+                Positioned(
+                  
+                  top: 230,
+                  left: 60,
+                  child:  Container(
+          child:  Column(
+            mainAxisAlignment:MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                 Text(
+          widget.teams.name.toUpperCase(),
+          style: GoogleFonts.mina(
+            fontSize: 23.0,
+            color: const Color.fromARGB(255, 48, 40, 40),
+            fontWeight: FontWeight.w500
+          ),
+        ),
+          
+        
+             
+           RichText(
+        text: TextSpan(
+          text:  widget.teams.name.toUpperCase()+" owes You ",
+          style: GoogleFonts.mina(
+            fontSize: 13.0,
+              color: const Color.fromARGB(255, 48, 40, 40),
+            fontWeight: FontWeight.w500
+          ),
+          children: <TextSpan>[
+            TextSpan(text: ' \$7999', style: GoogleFonts.mina(
+            fontSize: 18.0,
+            color:Color.fromARGB(189, 219, 18, 62),
+            fontWeight: FontWeight.w700
+          )
+          
+          ),
+          ],
+        ),
+      ),
+        RichText(
+        text: TextSpan(
+          text:  "You owes "+widget.teams.name.toUpperCase(),
+          style: GoogleFonts.mina(
+            fontSize: 13.0,
+              color: const Color.fromARGB(255, 48, 40, 40),
+            fontWeight: FontWeight.w500
+          ),
+          children: <TextSpan>[
+            TextSpan(text: ' \$7999', style: GoogleFonts.mina(
+            fontSize: 18.0,
+            color:Color.fromARGB(255, 81, 224, 179),
+            fontWeight: FontWeight.w700
+          )
+          
+          ),
+          ],
+        ),
+      )
+
+
+         
+            ],
+          )
+         )
+         ),
+
      
-       
-       
+     
+                  
+                ],
+              ),
+            ),
+
+            
+          ),
+
+         
+
+
+        SizedBox(
+              width: width_safearea,
+              height: 500 - 90,
+              child: SizedBox(
+                width: 200,
+                child: ListView.builder(
+                  itemCount: teams2.length,
+                  itemBuilder: (context, index) {
+                    final item = teams2[index];
+                    print("iteam count -------------0000000000000000000000000000000000   "+ teams2.length.toString());
+                    //main container which carries rtow 
+                    return  GestureDetector(
+                      onTap: () {
+                         Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                    
+                     
+                      return UserDetails(teams2[index]);
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
+                );
+                      },
+                      child: Container(
+                      width: 350,
+                     decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                   color: const Color.fromARGB(255, 240, 226, 226),
+                  width: 0.7,
+                ),
+              ),
+            ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
+                              child: Container(
+                                width: 140 / 4 + 12,
+                                height: 140 / 4 + 12,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 101, 101, 230),
+                                      width: 2.4+1),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundImage: NetworkImage(
+                                    "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                        item.img_link,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.Transaction_status == "LoanTaken"
+                                ? Text("owes you")
+                                : Text(" you owe"),
+                            Text(
+                              '\$' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.amber,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        )
+                      ],
+                    ),
+
+                    ),
+                    );
+                  },
+                ),
+              ),
+            )
+
+        
+        ],
+      ),
     );
   }
 }
