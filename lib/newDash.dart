@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 // import 'dart:html';
 import 'package:flutter/material.dart';
@@ -11,9 +12,11 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
+import 'package:my_app/UserDetailsForPendingList.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/homePage2.dart';
 import 'package:my_app/tbb.dart';
+import 'package:my_app/userDetails_last.dart';
 import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +39,13 @@ class _dash_newState extends State<dash_new> {
   var bannerChangeValue = 39.0;
   var totalOwnbyme = 0.0;
   var totalOwnFromMebyOthers = 0.0;
+   Timer? timer;
 
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   @override
   void initState() {
     super.initState();
+  
     getTeams();
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -56,7 +61,7 @@ class _dash_newState extends State<dash_new> {
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-  Future getTeams() async {
+   getTeams() async {
     teams.clear();
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -466,13 +471,14 @@ class _dash_newState extends State<dash_new> {
                   itemBuilder: (context, index) {
                     final item = teams[index];
                     //main container which carries rtow 
+                   
                     return  GestureDetector(
                       onTap: () {
-                         Navigator.push(context,MaterialPageRoute(
+                      Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                    
-                     
                       return UserDetails(teams[index]);
+                     
+                      // return userDetails(teams[index].mainMail);
                     }
                     
                     

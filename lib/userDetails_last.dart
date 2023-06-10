@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'dart:ffi';
 
@@ -15,19 +18,20 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'models/team.dart';
-
-class UserDetails extends StatefulWidget {
-  Team teams;
+class userdeatils_last extends StatefulWidget {
+  // const userdeatils_last({super.key});
+   late Team teams;
   String namee = "";
 
-  UserDetails(this.teams);
+  userdeatils_last(this.teams);
 
   @override
-  
-  _UserDetailsState createState() => _UserDetailsState();
+  State<userdeatils_last> createState() => _userdeatils_lastState();
 }
 
-class _UserDetailsState extends State<UserDetails> {
+class _userdeatils_lastState extends State<userdeatils_last> {
+  @override
+  
   ///function for bangla
   String valAmount = "";
   var loanStaus = "";
@@ -74,7 +78,8 @@ class _UserDetailsState extends State<UserDetails> {
   void initState() {
   super.initState();
  
-       getTeams2();
+      print("helllllllllllllllllllllllllllllllllllllllllo");
+           getTeams2();
 
      
     var box = Hive.openBox("mybox");
@@ -415,7 +420,6 @@ class _UserDetailsState extends State<UserDetails> {
       
       body:   SafeArea(
         child: Column(
-          
         children: [
           Container(
             width: 390,
@@ -546,16 +550,7 @@ class _UserDetailsState extends State<UserDetails> {
               height: 500 - 90,
               child: SizedBox(
                 width: 200,
-                child:   teams2.length==0?
-                Center(
-                  widthFactor: 12,
-                  child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 24, 60, 241)), // Change the color here
-    strokeWidth: 5.0, 
-                ),
-                ):
-                ListView.builder(
-                  shrinkWrap: true,
+                child: ListView.builder(
                   itemCount: teams2.length,
                   itemBuilder: (context, index) {
                     // final item = teams2[index];
@@ -565,7 +560,7 @@ class _UserDetailsState extends State<UserDetails> {
                       onTap: () {
                       Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
-                      return UserDetails(teams2[index]);
+                      return userdeatils_last(teams2[index]);
                      
                       // return userDetails(teams[index].mainMail);
                     }
@@ -579,7 +574,18 @@ class _UserDetailsState extends State<UserDetails> {
                   ,
                 );
                       },
-                      child: Container(
+                      child: SizedBox(
+              width: width_safearea,
+              height: 500 - 90,
+              child: SizedBox(
+                width: 200,
+                child: ListView.builder(
+                  itemCount: teams2.length,
+                  itemBuilder: (context, index) {
+                    final item = teams2[index];
+                    //main container which carries rtow 
+                   
+                    return  Container(
                       width: 350,
                      decoration: BoxDecoration(
               border: Border(
@@ -610,7 +616,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   radius: 100,
                                   backgroundImage: NetworkImage(
                                     "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                        teams2[index].img_link,
+                                        item.img_link,
                                   ),
                                 ),
                               ),
@@ -619,7 +625,7 @@ class _UserDetailsState extends State<UserDetails> {
                               width: 20,
                             ),
                             Text(
-                                teams2[index].name.toString(),
+                              item.name.toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 43, 54, 80),
                                 fontSize: 17,
@@ -634,11 +640,11 @@ class _UserDetailsState extends State<UserDetails> {
                         
                          child: Column(
                           children: [
-                               teams2[index].Transaction_status == "LoanTaken"
+                            item.Transaction_status == "LoanTaken"
                                 ? Text("owes you")
                                 : Text(" you owe"),
                             Text(
-                              '\$' +    teams2[index].amount.toString(),
+                              '\$' + item.amount.toString(),
                               style: GoogleFonts.lato(
                                 color: Colors.amber,
                                 fontSize: 16,
@@ -651,7 +657,11 @@ class _UserDetailsState extends State<UserDetails> {
                       ],
                     ),
 
-                    ),
+                    );
+                  },
+                ),
+              ),
+            )
                     );
                   },
                 ),
@@ -660,9 +670,7 @@ class _UserDetailsState extends State<UserDetails> {
 
         
         ],
-      ),
-      
-      )
+      ),)
     );
   }
 }

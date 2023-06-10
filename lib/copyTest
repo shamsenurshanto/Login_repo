@@ -500,3 +500,121 @@ Row(
 
 
                               /////
+
+
+
+
+
+
+
+
+
+
+
+                              sizebox(
+              width: width_safearea,
+              height: 500 - 90,
+              child: SizedBox(
+                width: 200,
+                child: ListView.builder(
+                  itemCount: teams2.length,
+                  itemBuilder: (context, index) {
+                    final item = teams2[index];
+                    //main container which carries rtow 
+                   
+                    return  GestureDetector(
+                      onTap: () {
+                      Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      return UserDetails(teams2[index]);
+                     
+                      // return userDetails(teams[index].mainMail);
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
+                );
+                      },
+                      child: Container(
+                      width: 350,
+                     decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                   color: const Color.fromARGB(255, 240, 226, 226),
+                  width: 0.7,
+                ),
+              ),
+            ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
+                              child: Container(
+                                width: 140 / 4 + 12,
+                                height: 140 / 4 + 12,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 101, 101, 230),
+                                      width: 2.4+1),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundImage: NetworkImage(
+                                    "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                        teams2[index].img_link,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.Transaction_status == "LoanTaken"
+                                ? Text("owes you")
+                                : Text(" you owe"),
+                            Text(
+                              '\$' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.amber,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        )
+                      ],
+                    ),
+
+                    ),
+                    );
+                  },
+                ),
+              ),
+            )

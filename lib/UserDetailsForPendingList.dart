@@ -98,7 +98,7 @@ class _UserDetails2State extends State<UserDetails2> {
     
  
     
- var response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+ var response = await http.post(Uri.https('personalrec.onrender.com', 'api/transaction/usersalltransactions'),
      
     headers: {
       
