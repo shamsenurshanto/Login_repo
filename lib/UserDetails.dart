@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'models/team.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 class UserDetails extends StatefulWidget {
   Team teams;
@@ -70,6 +74,11 @@ class _UserDetailsState extends State<UserDetails> {
     "ধার দিয়েছি",
   ];
   var selfEmail;
+
+  // date
+    var month="";
+                      var year="";
+                      var day = "";
 
   void initState() {
   super.initState();
@@ -216,7 +225,7 @@ class _UserDetailsState extends State<UserDetails> {
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
               img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
+              dateOfTransactions:  eachTeam['createdAt'].toString(),            
            
               );
         } else {
@@ -237,7 +246,7 @@ class _UserDetailsState extends State<UserDetails> {
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
               img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
+              dateOfTransactions: eachTeam['createdAt'].toString(),   
           
           //  img_link: eachTeam['userPic']
               );
@@ -270,7 +279,7 @@ class _UserDetailsState extends State<UserDetails> {
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
                      img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
+              dateOfTransactions:  eachTeam['createdAt'].toString(),   
           //  img_link: eachTeam['userPic']
               );
         } else {
@@ -292,7 +301,7 @@ class _UserDetailsState extends State<UserDetails> {
               Sender_status: eachTeam['senderStatus'],
               Receiver_status: eachTeam['receiverStatus'],
                 img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
+              dateOfTransactions:  eachTeam['createdAt'].toString(),   
               );
         }
       } else {
@@ -330,6 +339,9 @@ class _UserDetailsState extends State<UserDetails> {
     }
     //print("---------------------------------------");
     //print(teams.length);
+    setState(() {
+      items=teams2;
+    });
   }
 
   @override
@@ -337,36 +349,20 @@ class _UserDetailsState extends State<UserDetails> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-   
-    
+//  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack, overlays: SystemUiOverlay.values);
+//    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//     statusBarColor: Colors.transparent,
+//  ));
+    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.);
+    // FlutterStatusbarcolor.setStatusBarColor(Colors.green);
 
-    alertFunction() {
-      //print("alert");
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CupertinoAlertDialog(
-            title: Text('Change Status'),
-            content: Text(
-                'If You Acknowledge or Denied User will get a short notification'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  // teamsgator.of(context).pop();
-                },
-                child: Text('ACKNOWLEDGED'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Navigator.of(context).pop();
-                },
-                child: Text('DENIED'),
-              ),
-            ],
-          );
-        },
-      );
-    }
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.,
+    
+    //  overlays: []
+    // );
+
     ///scafa 
     ///
     ///take string return month 
@@ -376,7 +372,7 @@ class _UserDetailsState extends State<UserDetails> {
   final dateString = input;
   
   final dateTime = DateTime.parse(dateString);
-  final month = DateFormat('MMMM').format(dateTime);
+  final month = DateFormat('MMM').format(dateTime);
   
   print('Month: $month');
   
@@ -390,7 +386,7 @@ class _UserDetailsState extends State<UserDetails> {
     final dateString = input;
   
   final dateTime = DateTime.parse(dateString);
-  final year = DateFormat('MMMM').format(dateTime);
+  final year = DateFormat('y').format(dateTime);
   
   print('year: $year');
   
@@ -402,7 +398,7 @@ class _UserDetailsState extends State<UserDetails> {
   final dateString = input;
   
   final dateTime = DateTime.parse(dateString);
-  final day = DateFormat('MMMM').format(dateTime);
+  final day = DateFormat('d').format(dateTime);
   
   print('day: $day');
   
@@ -412,14 +408,15 @@ class _UserDetailsState extends State<UserDetails> {
 
     
     return Scaffold(
+       
       
       body:   SafeArea(
         child: Column(
           
         children: [
           Container(
-            width: 390,
-            height: height_safearea-430,
+            width: width_safearea,
+            height: 400-30,
             child: Container(
               child: Stack(
                 
@@ -427,20 +424,22 @@ class _UserDetailsState extends State<UserDetails> {
                 children: [
                
                Positioned(
-                 top: 0,
+
+               top: 0,
                  
                 child: 
                
                    Container(
-                    width:392,
-                    height: 150,
+                    width:width_safearea,
+                    height: 200-20,
                     child: Image.asset(
                                         "assets/images/fl-npreview.jpg",  fit: BoxFit.cover)
                     ),
                 ),
 
                 Positioned(
-                  top: 150-57,
+                  top: 200-95,
+              
                   left: 40,
                   child: Container(
                               width: 140 / 2 + 40,
@@ -527,6 +526,7 @@ class _UserDetailsState extends State<UserDetails> {
           )
          )
          ),
+         
 
      
      
@@ -537,47 +537,58 @@ class _UserDetailsState extends State<UserDetails> {
 
             
           ),
+          
 
+          /// the user dtls
+          items.length==0?
+      Container(
+        width: width_safearea,
+        height: 300,
+        child:        Center(
+          child:  CircularProgressIndicator(),
+        )
+      )
+          
+          :
          
-
-
-         SizedBox(
+          SizedBox(
               width: width_safearea,
               height: 500 - 90,
               child: SizedBox(
                 width: 200,
-                child:   teams2.length==0?
-                Center(
-                  widthFactor: 12,
-                  child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 24, 60, 241)), // Change the color here
-    strokeWidth: 5.0, 
-                ),
-                ):
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: teams2.length,
+                child: ListView.builder(
+                  itemCount: items.length,
                   itemBuilder: (context, index) {
-                    // final item = teams2[index];
+                  
+                    final item = items[index];
+
+                      var month2 = Return_month( item.dateOfTransactions);
+                      var year2 = Return_Year( item.dateOfTransactions);
+                      var day2 = Return_day( item.dateOfTransactions);
+                      print(month2.toString()+" "+year.toString()+" "+day2.toString());
+
+                    
+                      
+
                     //main container which carries rtow 
                    
                     return  GestureDetector(
                       onTap: () {
-                      Navigator.push(context,MaterialPageRoute(
-                    builder: (context) {
-                      return UserDetails(teams2[index]);
+                //       Navigator.push(context,MaterialPageRoute(
+                //     builder: (context) {
+                //       return UserDetails(items[index]);
                      
-                      // return userDetails(teams[index].mainMail);
-                    }
+                //       // return userDetails(teams[index].mainMail);
+                //     }
                     
                     
-                    ,
-                  )
+                //     ,
+                //   )
                   
                   
                   
-                  ,
-                );
+                //   ,
+                // );
                       },
                       child: Container(
                       width: 350,
@@ -595,6 +606,45 @@ class _UserDetailsState extends State<UserDetails> {
                         Row(
                           
                           children: [
+                           
+                           Padding(padding: EdgeInsets.fromLTRB(3,5,3,3),
+                           
+                           child:Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                           
+                           child:  Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+
+                              
+                              Padding(padding: EdgeInsets.all(2),
+                              child:  Text(month2,
+                              
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w200,
+                                    // color: Color.fromARGB(255, 25, 80, 189),
+                                    fontSize: 16
+                                  ),
+                              ),
+                              )
+                              ,
+                              Padding(padding: EdgeInsets.all(2),
+                              child:  Text(day2,
+                              
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w100,
+                                    fontSize: 23
+                                  ),
+                              ),
+                              )                     ],
+                           ),
+                           
+                           
+                           )
+                           ,),
+
+
                             Padding(
                               padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
                               child: Container(
@@ -610,7 +660,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   radius: 100,
                                   backgroundImage: NetworkImage(
                                     "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                        teams2[index].img_link,
+                                        item.img_link,
                                   ),
                                 ),
                               ),
@@ -619,7 +669,7 @@ class _UserDetailsState extends State<UserDetails> {
                               width: 20,
                             ),
                             Text(
-                                teams2[index].name.toString(),
+                              item.name.toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 43, 54, 80),
                                 fontSize: 17,
@@ -634,11 +684,11 @@ class _UserDetailsState extends State<UserDetails> {
                         
                          child: Column(
                           children: [
-                               teams2[index].Transaction_status == "LoanTaken"
+                            item.Transaction_status == "LoanTaken"
                                 ? Text("owes you")
                                 : Text(" you owe"),
                             Text(
-                              '\$' +    teams2[index].amount.toString(),
+                              '\$' + item.amount.toString(),
                               style: GoogleFonts.lato(
                                 color: Colors.amber,
                                 fontSize: 16,
@@ -657,6 +707,11 @@ class _UserDetailsState extends State<UserDetails> {
                 ),
               ),
             )
+
+         
+
+
+        
 
         
         ],

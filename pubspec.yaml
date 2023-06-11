@@ -59,6 +59,7 @@ dependencies:
   otp_text_field: ^1.1.1  
   intl: ^0.18.1
   flutter_svg: ^2.0.6
+  flutter_statusbarcolor_ns: ^0.5.0
 
   
 dev_dependencies:

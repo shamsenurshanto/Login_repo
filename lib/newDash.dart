@@ -347,6 +347,7 @@ class _dash_newState extends State<dash_new> {
       ),
       body: SafeArea(
           child: Container(
+            height: height_safearea,
         child: Column(
           children: [
             Padding(
@@ -365,7 +366,7 @@ class _dash_newState extends State<dash_new> {
 
             //banner post where there is dart profile + row
             Padding(
-                padding: EdgeInsets.all(14),
+                padding: EdgeInsets.all(8),
                 child: Stack(
                   children: [
                     SvgPicture.asset(
@@ -374,7 +375,7 @@ class _dash_newState extends State<dash_new> {
                       height: 150, // Specify the height
                     ),
                     Container(
-                      height: 120,
+                      height: 120-11,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 230, 230, 238),
@@ -463,7 +464,7 @@ class _dash_newState extends State<dash_new> {
 
             SizedBox(
               width: width_safearea,
-              height: 500 - 90,
+              height: 500-50,
               child: SizedBox(
                 width: 200,
                 child: ListView.builder(
@@ -545,17 +546,33 @@ class _dash_newState extends State<dash_new> {
                         
                          child: Column(
                           children: [
-                            item.Transaction_status == "LoanTaken"
-                                ? Text("owes you")
-                                : Text(" you owe"),
-                            Text(
+                            item.type == "Loan Taken"
+                                ? Text("owes you",style: GoogleFonts.lato(
+                               color: Color.fromARGB(255, 236, 8, 16),
+                               
+                                fontWeight: FontWeight.bold,
+                              ))
+                                : Text(" you owe",style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                         item.type == "Loan Taken"
+                                ?     Text(
                               '\$' + item.amount.toString(),
                               style: GoogleFonts.lato(
-                                color: Colors.amber,
+                                color: Color.fromARGB(255, 236, 8, 16),
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
-                            ),
+                            ):
+                              Text(
+                              '\$' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 3, 113, 12),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
                           ],
                         ),
                         )
