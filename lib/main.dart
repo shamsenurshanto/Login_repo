@@ -15,11 +15,14 @@ import 'package:my_app/transactionWithPending.dart';
 import 'package:my_app/userDetailsTesting.dart';
 
 import 'demoBottombar.dart';
+import 'local_notifications.dart';
 import 'newTbb.dart';
 
 Future<void> main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
 await Firebase.initializeApp();
 
   runApp(
@@ -39,7 +42,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
+  
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Auth',

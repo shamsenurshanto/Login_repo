@@ -299,18 +299,19 @@ class _dash_newState extends State<dash_new> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.white, // <-- SEE HERE
-          statusBarIconBrightness:
-              Brightness.dark, //<-- For Android SEE HERE (dark icons)
-          statusBarBrightness:
-              Brightness.light,
-               //<-- For iOS SEE HERE (dark icons)
-        ),
+        // systemOverlayStyle: SystemUiOverlayStyle(
+        //   statusBarColor: Colors.white, // <-- SEE HERE
+        //   statusBarIconBrightness:
+        //       Brightness.dark, //<-- For Android SEE HERE (dark icons)
+        //   statusBarBrightness:
+        //       Brightness.light,
+        //        //<-- For iOS SEE HERE (dark icons)
+        // ),
         foregroundColor: Colors.white,
         elevation: 0,
 

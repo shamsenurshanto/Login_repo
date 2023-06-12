@@ -60,6 +60,7 @@ dependencies:
   intl: ^0.18.1
   flutter_svg: ^2.0.6
   flutter_statusbarcolor_ns: ^0.5.0
+  flutter_local_notifications: ^14.1.1
 
   
 dev_dependencies:

@@ -25,6 +25,7 @@ import 'dart:io';
 
 import 'PendingListBottom.dart';
 import 'Team_new.dart';
+import 'local_notifications.dart';
 import 'models/team.dart';
 import 'newTbb.dart';
 
@@ -743,7 +744,13 @@ class _homepage2State extends State<homepage2> {
                               SizedBox(
                                 width: 10,
                               ),
-                              Column(
+                              GestureDetector(
+                                onTap: (){
+                                  print("hello");
+                                                     NotificationService()
+              .showNotification(title: 'Sample title', body: 'ItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItdddddddddddddddddddddddddddddddddddddddddddddddddddddItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsdddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds!');
+                                },
+                                child: Column(
                                 //  crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -779,6 +786,7 @@ class _homepage2State extends State<homepage2> {
                                         TextStyle(fontWeight: FontWeight.w900),
                                   )
                                 ],
+                              ),
                               ),
                               SizedBox(
                                 width: 10,
