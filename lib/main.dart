@@ -13,15 +13,26 @@ import 'package:my_app/profilePages.dart';
 import 'package:my_app/testing.dart';
 import 'package:my_app/transactionWithPending.dart';
 import 'package:my_app/userDetailsTesting.dart';
+import 'package:workmanager/workmanager.dart';
 
 import 'demoBottombar.dart';
 import 'local_notifications.dart';
 import 'newTbb.dart';
 
+
+void callbackDispatcher() {
+  Workmanager().executeTask((taskName, inputData) {
+    print("Task executing :" + taskName);
+    return Future.value(true);
+  });
+}
 Future<void> main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
    WidgetsFlutterBinding.ensureInitialized();
+      WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(callbackDispatcher);
+   
   NotificationService().initNotification();
 await Firebase.initializeApp();
 

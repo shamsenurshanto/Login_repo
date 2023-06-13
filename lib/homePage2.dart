@@ -20,6 +20,7 @@ import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:workmanager/workmanager.dart';
 import 'dart:io';
 
 
@@ -38,6 +39,16 @@ class homepage2 extends StatefulWidget {
 
 class _homepage2State extends State<homepage2> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   
+    // Workmanager().registerOneOffTask(
+    //   "taskTwo",
+    //   "backUp",
+    //     initialDelay: Duration(seconds: 5),
+    // );
+  }
 
   ///function for bangla
   List<Team> teams = [];
@@ -45,6 +56,13 @@ class _homepage2State extends State<homepage2> {
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
+  void callbackDispatcher() {
+  Workmanager().executeTask((taskName, inputData) {
+    print("Task executing :" + taskName);
+    return Future.value(true);
+  });
+}
+
 
   Future getTeams() async {
     teams.clear();
@@ -747,8 +765,24 @@ class _homepage2State extends State<homepage2> {
                               GestureDetector(
                                 onTap: (){
                                   print("hello");
+                       try{
+                  //                  Workmanager().registerOneOffTask(
+                  //   "taskOne",
+                  //   "backUp",
+                  //   initialDelay: Duration(seconds: 1),
+                  // );
+                    Workmanager().registerPeriodicTask(
+      "taskTwo",
+      "backUp",
+      frequency: Duration(minutes: 15),
+    );
+                       }
+                       catch(e){
+                        print(e);
+                       }
+
                                                      NotificationService()
-              .showNotification(title: 'Sample title', body: 'ItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItdddddddddddddddddddddddddddddddddddddddddddddddddddddItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsdddddddddddddddddddddddddddddddddddddddsItddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsItdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds!');
+              .showNotification(title: 'Sample title', body: 'Itddddddddddddddddddddddds!');
                                 },
                                 child: Column(
                                 //  crossAxisAlignment: CrossAxisAlignment.center,

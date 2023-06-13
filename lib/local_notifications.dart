@@ -20,13 +20,18 @@ class NotificationService {
     await notificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse:
             (NotificationResponse notificationResponse) async {});
+            
+            
   }
 
   notificationDetails() {
     return const NotificationDetails(
         android: AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max),
-        iOS: DarwinNotificationDetails());
+        iOS: DarwinNotificationDetails()
+        
+        
+        );
   }
 
   Future showNotification(
@@ -34,4 +39,6 @@ class NotificationService {
     return notificationsPlugin.show(
         id, title, body, await notificationDetails());
   }
+
+  
 }
