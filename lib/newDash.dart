@@ -300,6 +300,7 @@ class _dash_newState extends State<dash_new> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
+    
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -465,7 +466,7 @@ class _dash_newState extends State<dash_new> {
 
             SizedBox(
               width: width_safearea,
-              height: 500-50,
+              height: 500,
               child: SizedBox(
                 width: 200,
                 child: ListView.builder(

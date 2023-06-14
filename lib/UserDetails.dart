@@ -4,7 +4,6 @@ import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -350,11 +349,11 @@ class _UserDetailsState extends State<UserDetails> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack, overlays: SystemUiOverlay.values);
+  //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: SystemUiOverlay.top);
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
 //     statusBarColor: Colors.transparent,
 //  ));
-    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.);
     // FlutterStatusbarcolor.setStatusBarColor(Colors.green);
 
@@ -408,7 +407,9 @@ class _UserDetailsState extends State<UserDetails> {
 
     
     return Scaffold(
-       
+  
+      extendBodyBehindAppBar: true,
+   
       
       body:   SafeArea(
         child: Column(
@@ -553,7 +554,7 @@ class _UserDetailsState extends State<UserDetails> {
          
           SizedBox(
               width: width_safearea,
-              height: 500 - 90,
+              height: 500-42 ,
               child: SizedBox(
                 width: 200,
                 child: ListView.builder(

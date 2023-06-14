@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:ffi';
 
@@ -23,7 +24,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:workmanager/workmanager.dart';
 import 'dart:io';
 
-
 import 'PendingListBottom.dart';
 import 'Team_new.dart';
 import 'local_notifications.dart';
@@ -42,7 +42,7 @@ class _homepage2State extends State<homepage2> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   
+
     // Workmanager().registerOneOffTask(
     //   "taskTwo",
     //   "backUp",
@@ -52,17 +52,16 @@ class _homepage2State extends State<homepage2> {
 
   ///function for bangla
   List<Team> teams = [];
-  List<String> pictureofUsers = []; 
+  List<String> pictureofUsers = [];
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
   void callbackDispatcher() {
-  Workmanager().executeTask((taskName, inputData) {
-    print("Task executing :" + taskName);
-    return Future.value(true);
-  });
-}
-
+    Workmanager().executeTask((taskName, inputData) {
+      print("Task executing :" + taskName);
+      return Future.value(true);
+    });
+  }
 
   Future getTeams() async {
     teams.clear();
@@ -113,21 +112,16 @@ class _homepage2State extends State<homepage2> {
 
     var response = await http.get(
         Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions')
-            ,
-          headers: {'Cookie': 'jwt_token=$tokenString2'
-          
-          }
-        
-        );
+            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+        headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);
     // print(jsonData['data']);
-  var i=0;
+    var i = 0;
     for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
-        print(eachTeam['receiver']['receiverId']['userPic']);
-    pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      print(eachTeam['receiver']['receiverId']['userPic']);
+      pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -145,46 +139,48 @@ class _homepage2State extends State<homepage2> {
           print("ole");
           print(_idgh);
           print(email);
-             // loan given + mainmail 
+          // loan given + mainmail
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Given",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
-              name: eachTeam['receiver']['receiverId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),            
-           
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions:
+                eachTeam['receiver']['receiverId']['createdAt'].toString(),
+          );
         } else {
           print("lole");
           print(_idgh);
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Taken",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-              name: eachTeam['sender']['senderId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),   
-          
-          //  img_link: eachTeam['userPic']
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions:
+                eachTeam['sender']['senderId']['createdAt'].toString(),
+
+            //  img_link: eachTeam['userPic']
+          );
         }
 
         print(mainName);
@@ -201,43 +197,45 @@ class _homepage2State extends State<homepage2> {
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Given",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
-              name: eachTeam['receiver']['receiverId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'].toString(),
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['receiver']['receiverId']['createdAt'].toString(),   
-          //  img_link: eachTeam['userPic']
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'].toString(),
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions:
+                eachTeam['receiver']['receiverId']['createdAt'].toString(),
+            //  img_link: eachTeam['userPic']
+          );
         } else {
           print("lole");
           print(_idgh);
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Taken",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-              name: eachTeam['sender']['senderId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions: eachTeam['sender']['senderId']['createdAt'].toString(),
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions:
+                eachTeam['sender']['senderId']['createdAt'].toString(),
+          );
         }
       } else {
         team = "";
@@ -268,6 +266,10 @@ class _homepage2State extends State<homepage2> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
     int _counter = 0;
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
+  SystemUiOverlay.top
+]);
+
 
     void _incrementCounter(int amount) {
       var box = Hive.openBox("mybox");
@@ -280,124 +282,115 @@ class _homepage2State extends State<homepage2> {
     }
 
     return Scaffold(
-      
         backgroundColor: Colors.white10,
-         appBar: AppBar(
-        
-        title: Text(
-          "Home",
-          style: TextStyle(color: Colors.black),
-        ),
+        appBar: AppBar(
+          title: Text(
+            "Home",
+            style: TextStyle(color: Colors.black),
+          ),
 
-       backgroundColor: Colors.white,
-        // textDirection: TextDirection.rtl, // Set text direction to right-to-left
-         elevation: 0.0,
-         
+          backgroundColor: Colors.white,
+          // textDirection: TextDirection.rtl, // Set text direction to right-to-left
+          elevation: 0.0,
+
           iconTheme: IconThemeData(color: Colors.green),
-      ),
-       
-      drawer: SafeArea(
-        child:  
-      
-        Stack(
+        ),
+        drawer: SafeArea(
+            child: Stack(
           children: [
             Positioned(
-               
-            
-              child:
-            Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          DrawerHeader(
-            child: Text(
-              'দেনা পাওনা',
-              style: TextStyle(color: Colors.white, fontSize: 0),
-            ),
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 38, 7, 91),
-                image: DecorationImage(
-                    fit: BoxFit.scaleDown,
-                    image: AssetImage('assets/icons/icon.png',
-                    
-                     
-                    )
-                    )
+              child: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      child: Text(
+                        'দেনা পাওনা',
+                        style: TextStyle(color: Colors.white, fontSize: 0),
+                      ),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 38, 7, 91),
+                          image: DecorationImage(
+                              fit: BoxFit.scaleDown,
+                              image: AssetImage(
+                                'assets/icons/icon.png',
+                              ))),
                     ),
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home',style: TextStyle(
-               color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold),),
-            onTap: () => {},
-          ),
-          ListTile(
-            leading: Icon(Icons.approval),
-            title: Text('Approvals',style: TextStyle(
-                 color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('My Initiated',style: TextStyle(
-                 color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.add),
-            title: Text('Add New',style: TextStyle(
-                color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.send),
-            title: Text('Loans',style: TextStyle(
-                color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.receipt),
-            title: Text('Received',style: TextStyle(
-                color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-            ListTile(
-            leading: Icon(Icons.exit_to_app
-            ,
-           color:const Color.fromARGB(255, 38, 7, 91),
-            ),
-            title: Text('List Of All Loans Given',style: TextStyle(
-                color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
-            leading: Icon(Icons.currency_exchange_outlined),
-            title: Text('List Of All Loans Taken',style: TextStyle(
-                color:const Color.fromARGB(255, 38, 7, 91),
-              fontWeight: FontWeight.bold)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-        ],
-      ),
-    ),
-            
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 38, 7, 91),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () => {},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.approval),
+                      title: Text('Approvals',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.settings),
+                      title: Text('My Initiated',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text('Add New',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.send),
+                      title: Text('Loans',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.receipt),
+                      title: Text('Received',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.exit_to_app,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('List Of All Loans Given',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.currency_exchange_outlined),
+                      title: Text('List Of All Loans Taken',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
-        )
-      
-      
-      
-      )
-      ,
-      
-    
+        )),
         body: SafeArea(
             child: SingleChildScrollView(
           child:
@@ -495,21 +488,23 @@ class _homepage2State extends State<homepage2> {
                                         width: 200,
                                         child: Row(
                                           children: [
-                                           Container(
-                                            color: Colors.white,
-                                            child:  Icon(
-                                              Icons.keyboard_double_arrow_up_sharp,color: Colors.green,
-                                              size: 26,
+                                            Container(
+                                              color: Colors.white,
+                                              child: Icon(
+                                                Icons
+                                                    .keyboard_double_arrow_up_sharp,
+                                                color: Colors.green,
+                                                size: 26,
+                                              ),
                                             ),
-                                           ),
                                             Text(
-                                          "\$7809.54",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.green,
-                                          ),
-                                        )
+                                              "\$7809.54",
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.green,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -553,7 +548,7 @@ class _homepage2State extends State<homepage2> {
               ),
 
               SizedBox(
-                height: 0/2,
+                height: 0 / 2,
               ),
 
               Container(
@@ -633,30 +628,33 @@ class _homepage2State extends State<homepage2> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                         GestureDetector(
-                                          onTap: (){
-                                            print("hello");
-                        //                      Navigator.pushReplacement(
-                        // context,
-                        // MaterialPageRoute(
-                        //   builder: (context) {
-                        //     // return MyBottomNavigationBar();
-                        //     return dash_newMyBottomNavigationBar_new();
-                        //   },
-                        // ),
-                      
-                        //                  );
+                                          GestureDetector(
+                                            onTap: () {
+                                              print("hello");
+                                              //                      Navigator.pushReplacement(
+                                              // context,
+                                              // MaterialPageRoute(
+                                              //   builder: (context) {
+                                              //     // return MyBottomNavigationBar();
+                                              //     return dash_newMyBottomNavigationBar_new();
+                                              //   },
+                                              // ),
 
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyListView_()));
-                                          },
-                                          child:  Icon(
-                                            Icons.dashboard,
-                                            //#E9ECFA
-                                            color: Color.fromARGB(
-                                                255, 166, 63, 197),
-                                            size: 22,
-                                          ),
-                                         )
+                                              //                  );
+
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MyListView_()));
+                                            },
+                                            child: Icon(
+                                              Icons.dashboard,
+                                              //#E9ECFA
+                                              color: Color.fromARGB(
+                                                  255, 166, 63, 197),
+                                              size: 22,
+                                            ),
+                                          )
                                         ],
                                       )),
                                   //text
@@ -688,29 +686,28 @@ class _homepage2State extends State<homepage2> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                        GestureDetector(
-                                          onTap: (){
-                                            print("hello");
+                                          GestureDetector(
+                                            onTap: () {
+                                              print("hello");
                                               Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) {
-                                                          return dash4();
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return dash4();
 
-                                                          // return userDetails(teams[index].mainMail);
-                                                        },
-                                                      ),
-                                                    );
-                                          },
-                                          child: 
-                                            Icon(
-                                            Icons.pending_actions_outlined,
-                                            //#E9ECFA
-                                            color: Color.fromARGB(
-                                                255, 17, 200, 216),
-                                            size: 22,
-                                          ),
-                                        )
+                                                    // return userDetails(teams[index].mainMail);
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.pending_actions_outlined,
+                                              //#E9ECFA
+                                              color: Color.fromARGB(
+                                                  255, 17, 200, 216),
+                                              size: 22,
+                                            ),
+                                          )
                                         ],
                                       )),
                                   //text
@@ -763,64 +760,64 @@ class _homepage2State extends State<homepage2> {
                                 width: 10,
                               ),
                               GestureDetector(
-                                onTap: (){
+                                onTap: () {
                                   print("hello");
-                       try{
-                  //                  Workmanager().registerOneOffTask(
-                  //   "taskOne",
-                  //   "backUp",
-                  //   initialDelay: Duration(seconds: 1),
-                  // );
-                    Workmanager().registerPeriodicTask(
-      "taskTwo",
-      "backUp",
-      frequency: Duration(minutes: 15),
-    );
-                       }
-                       catch(e){
-                        print(e);
-                       }
+                                  try {
+                                    //                  Workmanager().registerOneOffTask(
+                                    //   "taskOne",
+                                    //   "backUp",
+                                    //   initialDelay: Duration(seconds: 1),
+                                    // );
+                                    Workmanager().registerPeriodicTask(
+                                      "taskTwo",
+                                      "backUp",
+                                      frequency: Duration(minutes: 15),
+                                    );
+                                  } catch (e) {
+                                    print(e);
+                                  }
 
-                                                     NotificationService()
-              .showNotification(title: 'Sample title', body: 'Itddddddddddddddddddddddds!');
+                                  // NotificationService().showNotification(
+                                  //     title: 'Sample title',
+                                  //     body: 'Itddddddddddddddddddddddds!');
                                 },
                                 child: Column(
-                                //  crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color:
-                                              Color.fromARGB(24, 50, 221, 237)
-                                          //rgb(249, 245, 246) rgb(242, 190, 209) rgb(210, 233, 233)
+                                  //  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        width: 40,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color:
+                                                Color.fromARGB(24, 50, 221, 237)
+                                            //rgb(249, 245, 246) rgb(242, 190, 209) rgb(210, 233, 233)
 
-                                          ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.approval_outlined,
-                                            //#E9ECFA
-                                            color: Color.fromARGB(
-                                                255, 60, 219, 139),
-                                            size: 22,
-                                          ),
-                                        ],
-                                      )),
-                                  //text
-                                  Text(
-                                    "Approval",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w900),
-                                  )
-                                ],
-                              ),
+                                            ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.approval_outlined,
+                                              //#E9ECFA
+                                              color: Color.fromARGB(
+                                                  255, 60, 219, 139),
+                                              size: 22,
+                                            ),
+                                          ],
+                                        )),
+                                    //text
+                                    Text(
+                                      "Approval",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900),
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 width: 10,
@@ -842,18 +839,16 @@ class _homepage2State extends State<homepage2> {
                     bottomRight: Radius.circular(0),
                   ),
                   boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                                blurRadius: 35,
-                                offset: Offset(10,
-                                    18), // Specifies the position of the shadow
-                              ),
-                            ],
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 35,
+                      offset: Offset(
+                          10, 18), // Specifies the position of the shadow
+                    ),
+                  ],
                   color: Colors.white,
                 ),
-
-                
                 width: 392,
                 height: 420,
                 child: Column(
@@ -950,34 +945,30 @@ class _homepage2State extends State<homepage2> {
                                                                     EdgeInsets
                                                                         .all(10 /
                                                                             2),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30.0),
-                                                                  child: 
-                                                                  // pictureofUsers[index]?
-                                                                  // Image
-                                                                  //     .network(
-                                                                  //       "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[0],
-                                                                  //   width: 30,
-                                                                  //   height:
-                                                                  //       60 / 2,
-                                                                  //   fit: BoxFit
-                                                                  //       .cover,
-                                                                  // ):
-                                                                  Image
-                                                                      .network(
-                                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[index],
-                                                                    width: 30,
-                                                                    height:
-                                                                        60 / 2,
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  )
-
-                                                                ),
+                                                                child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(30.0),
+                                                                    child:
+                                                                        // pictureofUsers[index]?
+                                                                        // Image
+                                                                        //     .network(
+                                                                        //       "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[0],
+                                                                        //   width: 30,
+                                                                        //   height:
+                                                                        //       60 / 2,
+                                                                        //   fit: BoxFit
+                                                                        //       .cover,
+                                                                        // ):
+                                                                        Image.network(
+                                                                      "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                                                          pictureofUsers[
+                                                                              index],
+                                                                      width: 30,
+                                                                      height:
+                                                                          60 /
+                                                                              2,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    )),
                                                               ),
                                                               teams[index].type ==
                                                                       "Loan Given"
