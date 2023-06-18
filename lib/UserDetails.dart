@@ -18,7 +18,6 @@ import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class UserDetails extends StatefulWidget {
   Team teams;
   String namee = "";
@@ -26,7 +25,6 @@ class UserDetails extends StatefulWidget {
   UserDetails(this.teams);
 
   @override
-  
   _UserDetailsState createState() => _UserDetailsState();
 }
 
@@ -75,16 +73,15 @@ class _UserDetailsState extends State<UserDetails> {
   var selfEmail;
 
   // date
-    var month="";
-                      var year="";
-                      var day = "";
+  var month = "";
+  var year = "";
+  var day = "";
 
   void initState() {
-  super.initState();
- 
-       getTeams2();
+    super.initState();
 
-     
+    getTeams2();
+
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -94,8 +91,6 @@ class _UserDetailsState extends State<UserDetails> {
 
     //        Lang_val
 
-   
-
     lan_status = _box2.get("Lang_val");
     if (lan_status == "Bangla") {
       //print(lan_status);
@@ -104,12 +99,11 @@ class _UserDetailsState extends State<UserDetails> {
       print(lan_status);
     }
   }
-  void getGame()
-  {
+
+  void getGame() {
     print("heeellllollllllllllllllo");
-        getTeams2();
+    getTeams2();
   }
- 
 
   List<Team> teams2 = [];
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -128,9 +122,9 @@ class _UserDetailsState extends State<UserDetails> {
     return amountOfUser;
   }
 
-   getTeams2() async {
+  getTeams2() async {
     print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
-        
+
     teams2.clear();
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -187,11 +181,10 @@ class _UserDetailsState extends State<UserDetails> {
 
     for (var eachTeam in jsonData['data']) {
       // print(eachTeam['sender']['senderId']);
-      /// time 
-        print(eachTeam['receiver']['receiverId']['userPic']);
-         
-        
-    // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      /// time
+      print(eachTeam['receiver']['receiverId']['userPic']);
+
+      // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
       print(eachTeam['type']['en_typeName']);
@@ -209,46 +202,46 @@ class _UserDetailsState extends State<UserDetails> {
           print("ole");
           print(_idgh);
           print(email);
-             // loan given + mainmail 
+          // loan given + mainmail
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Given",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
-              name: eachTeam['receiver']['receiverId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-              img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['createdAt'].toString(),            
-           
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+          );
         } else {
           print("lole");
           print(_idgh);
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Taken",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-              name: eachTeam['sender']['senderId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-              img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions: eachTeam['createdAt'].toString(),   
-          
-          //  img_link: eachTeam['userPic']
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+
+            //  img_link: eachTeam['userPic']
+          );
         }
 
         print(mainName);
@@ -265,43 +258,43 @@ class _UserDetailsState extends State<UserDetails> {
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Given",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
-              name: eachTeam['receiver']['receiverId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'].toString(),
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-                     img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['createdAt'].toString(),   
-          //  img_link: eachTeam['userPic']
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'].toString(),
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+            //  img_link: eachTeam['userPic']
+          );
         } else {
           print("lole");
           print(_idgh);
           print(email);
 
           team = Team(
-              id: eachTeam['sender']['senderId']['_id'].toString(),
-              sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
-              receiver_email:
-                  eachTeam['receiver']['receiverEmailPhone'].toString(),
-              type: "Loan Taken",
-              amount: eachTeam['amount'],
-              mainMail: eachTeam['sender']['senderId']['_id'].toString(),
-              name: eachTeam['sender']['senderId']['userName'].toString(),
-              Transaction_status: eachTeam['transactionStatus'],
-              Transaction_id: eachTeam['_id'].toString(),
-              Sender_status: eachTeam['senderStatus'],
-              Receiver_status: eachTeam['receiverStatus'],
-                img_link: eachTeam['sender']['senderId']['userPic'].toString(),
-              dateOfTransactions:  eachTeam['createdAt'].toString(),   
-              );
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+          );
         }
       } else {
         team = "";
@@ -315,31 +308,30 @@ class _UserDetailsState extends State<UserDetails> {
       //     eachTeam['amount'] != null &&
       //     mainMail2 != null) {
 
-
-             print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm2222222");
-            print(widget.teams.mainMail.toString());
-            print(team.mainMail.toString());
-        if (widget.teams.mainMail == team.mainMail) {
-          print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm--------------------------------------------------------bep");
-          print(team.mainMail);
-          //selfEmail
-          teams2.add(team);
-             print("-----------Test");
+      print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm2222222");
+      print(widget.teams.mainMail.toString());
+      print(team.mainMail.toString());
+      if (widget.teams.mainMail == team.mainMail) {
+        print(
+            "mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm--------------------------------------------------------bep");
+        print(team.mainMail);
+        //selfEmail
+        teams2.add(team);
+        print("-----------Test");
         print(widget.teams.mainMail);
         print(team.mainMail);
-        }
-       
-          print("iteam count -------------0000000000000000000000000000000000   "+ teams2.length.toString());
-        // teams2.add(team);
+      }
 
-        //print(teams[teams.length-1].name);
-      
-     
+      print("iteam count -------------0000000000000000000000000000000000   " +
+          teams2.length.toString());
+      // teams2.add(team);
+
+      //print(teams[teams.length-1].name);
     }
     //print("---------------------------------------");
     //print(teams.length);
     setState(() {
-      items=teams2;
+      items = teams2;
     });
   }
 
@@ -349,7 +341,7 @@ class _UserDetailsState extends State<UserDetails> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-  //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: SystemUiOverlay.top);
+    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: SystemUiOverlay.top);
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
 //     statusBarColor: Colors.transparent,
 //  ));
@@ -358,367 +350,634 @@ class _UserDetailsState extends State<UserDetails> {
     // FlutterStatusbarcolor.setStatusBarColor(Colors.green);
 
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.,
-    
+
     //  overlays: []
     // );
 
-    ///scafa 
+    ///scafa
     ///
-    ///take string return month 
-     String Return_month(String input) {
-  // Perform some modifications to the input string
-  String modifiedString = input.toUpperCase() + " (Modified)";
-  final dateString = input;
-  
-  final dateTime = DateTime.parse(dateString);
-  final month = DateFormat('MMM').format(dateTime);
-  
-  print('Month: $month');
-  
-  return month;
-}
+    ///take string return month
+    String Return_month(String input) {
+      // Perform some modifications to the input string
+      String modifiedString = input.toUpperCase() + " (Modified)";
+      final dateString = input;
 
-   String Return_Year(String input) {
-  // Perform some modifications to the input string
-  String modifiedString = input.toUpperCase() + " (Modified)";
-  
-    final dateString = input;
-  
-  final dateTime = DateTime.parse(dateString);
-  final year = DateFormat('y').format(dateTime);
-  
-  print('year: $year');
-  
-  return year;
-}
+      final dateTime = DateTime.parse(dateString);
+      final month = DateFormat('MMM').format(dateTime);
 
-   String Return_day(String input) {
-  // Perform some modifications to the input string
-  final dateString = input;
-  
-  final dateTime = DateTime.parse(dateString);
-  final day = DateFormat('d').format(dateTime);
-  
-  print('day: $day');
-  
-  return day;
-}
+      print('Month: $month');
 
+      return month;
+    }
 
-    
+    String Return_Year(String input) {
+      // Perform some modifications to the input string
+      String modifiedString = input.toUpperCase() + " (Modified)";
+
+      final dateString = input;
+
+      final dateTime = DateTime.parse(dateString);
+      final year = DateFormat('y').format(dateTime);
+
+      print('year: $year');
+
+      return year;
+    }
+
+    String Return_day(String input) {
+      // Perform some modifications to the input string
+      final dateString = input;
+
+      final dateTime = DateTime.parse(dateString);
+      final day = DateFormat('d').format(dateTime);
+
+      print('day: $day');
+
+      return day;
+    }
+
     return Scaffold(
-  
-      extendBodyBehindAppBar: true,
-   
-      
-      body:   SafeArea(
-        child: Column(
-          
-        children: [
-          Container(
-            width: width_safearea,
-            height: 400-30,
-            child: Container(
-              child: Stack(
-                
-             
-                children: [
-               
-               Positioned(
-
-               top: 0,
-                 
-                child: 
-               
-                   Container(
-                    width:width_safearea,
-                    height: 200-20,
-                    child: Image.asset(
-                                        "assets/images/fl-npreview.jpg",  fit: BoxFit.cover)
-                    ),
-                ),
-
-                Positioned(
-                  top: 200-95,
-              
-                  left: 40,
-                  child: Container(
-                              width: 140 / 2 + 40,
-                              height: 140 / 2 + 50,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 255, 255, 255),
-                                    width: 6),
-                              ),
-                              child: CircleAvatar(
-                                radius: 100,
-                                backgroundImage: NetworkImage(
-                                   "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                        widget.teams.img_link,
-                                ),
-                              ),
-                            ),
-                           
-                
-                )   ,
-                Positioned(
-                  
-                  top: 230,
-                  left: 60,
-                  child:  Container(
-          child:  Column(
-            mainAxisAlignment:MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        extendBodyBehindAppBar: true,
+        body: SafeArea(
+          child: Column(
             children: [
-                 Text(
-          widget.teams.name.toUpperCase(),
-          style: GoogleFonts.mina(
-            fontSize: 23.0,
-            color: const Color.fromARGB(255, 48, 40, 40),
-            fontWeight: FontWeight.w500
-          ),
-        ),
-          
-        
-             
-           RichText(
-        text: TextSpan(
-          text:  widget.teams.name.toUpperCase()+" owes You ",
-          style: GoogleFonts.mina(
-            fontSize: 13.0,
-              color: const Color.fromARGB(255, 48, 40, 40),
-            fontWeight: FontWeight.w500
-          ),
-          children: <TextSpan>[
-            TextSpan(text: ' \$7999', style: GoogleFonts.mina(
-            fontSize: 18.0,
-            color:Color.fromARGB(189, 219, 18, 62),
-            fontWeight: FontWeight.w700
-          )
-          
-          ),
-          ],
-        ),
-      ),
-        RichText(
-        text: TextSpan(
-          text:  "You owes "+widget.teams.name.toUpperCase(),
-          style: GoogleFonts.mina(
-            fontSize: 13.0,
-              color: const Color.fromARGB(255, 48, 40, 40),
-            fontWeight: FontWeight.w500
-          ),
-          children: <TextSpan>[
-            TextSpan(text: ' \$7999', style: GoogleFonts.mina(
-            fontSize: 18.0,
-            color:Color.fromARGB(255, 81, 224, 179),
-            fontWeight: FontWeight.w700
-          )
-          
-          ),
-          ],
-        ),
-      )
-
-
-         
-            ],
-          )
-         )
-         ),
-         
-
-     
-     
-                  
-                ],
-              ),
-            ),
-
-            
-          ),
-          
-
-          /// the user dtls
-          items.length==0?
-      Container(
-        width: width_safearea,
-        height: 300,
-        child:        Center(
-          child:  CircularProgressIndicator(),
-        )
-      )
-          
-          :
-         
-          SizedBox(
-              width: width_safearea,
-              height: 500-42 ,
-              child: SizedBox(
-                width: 200,
-                child: ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                  
-                    final item = items[index];
-
-                      var month2 = Return_month( item.dateOfTransactions);
-                      var year2 = Return_Year( item.dateOfTransactions);
-                      var day2 = Return_day( item.dateOfTransactions);
-                      print(month2.toString()+" "+year.toString()+" "+day2.toString());
-
-                    
-                      
-
-                    //main container which carries rtow 
-                   
-                    return  GestureDetector(
-                      onTap: () {
-                //       Navigator.push(context,MaterialPageRoute(
-                //     builder: (context) {
-                //       return UserDetails(items[index]);
-                     
-                //       // return userDetails(teams[index].mainMail);
-                //     }
-                    
-                    
-                //     ,
-                //   )
-                  
-                  
-                  
-                //   ,
-                // );
-                      },
-                      child: Container(
-                      width: 350,
-                     decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                   color: const Color.fromARGB(255, 240, 226, 226),
-                  width: 0.7,
-                ),
-              ),
-            ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          
-                          children: [
-                           
-                           Padding(padding: EdgeInsets.fromLTRB(3,5,3,3),
-                           
-                           child:Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                           
-                           child:  Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+              Container(
+                width: width_safearea,
+                height: 400 - 30,
+                child: Container(
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 0,
+                        child: Container(
+                            width: width_safearea,
+                            height: 200 - 20,
+                            child: Image.asset("assets/images/fl-npreview.jpg",
+                                fit: BoxFit.cover)),
+                      ),
+                      Positioned(
+                        top: 200 - 95,
+                        left: 40,
+                        child: Container(
+                          width: 140 / 2 + 40,
+                          height: 140 / 2 + 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                width: 6),
+                          ),
+                          child: CircleAvatar(
+                            radius: 100,
+                            backgroundImage: NetworkImage(
+                              "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                  widget.teams.img_link,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                          top: 230,
+                          left: 60,
+                          child: Container(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-
-
-                              
-                              Padding(padding: EdgeInsets.all(2),
-                              child:  Text(month2,
-                              
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    // color: Color.fromARGB(255, 25, 80, 189),
-                                    fontSize: 16
-                                  ),
+                              Text(
+                                widget.teams.name.toUpperCase(),
+                                style: GoogleFonts.mina(
+                                    fontSize: 23.0,
+                                    color:
+                                        const Color.fromARGB(255, 48, 40, 40),
+                                    fontWeight: FontWeight.w500),
                               ),
+                              RichText(
+                                text: TextSpan(
+                                  text: widget.teams.name.toUpperCase() +
+                                      " owes You ",
+                                  style: GoogleFonts.mina(
+                                      fontSize: 13.0,
+                                      color:
+                                          const Color.fromARGB(255, 48, 40, 40),
+                                      fontWeight: FontWeight.w500),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: ' \$7999',
+                                        style: GoogleFonts.mina(
+                                            fontSize: 18.0,
+                                            color: Color.fromARGB(
+                                                189, 219, 18, 62),
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  text: "You owes " +
+                                      widget.teams.name.toUpperCase(),
+                                  style: GoogleFonts.mina(
+                                      fontSize: 13.0,
+                                      color:
+                                          const Color.fromARGB(255, 48, 40, 40),
+                                      fontWeight: FontWeight.w500),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: ' \$7999',
+                                        style: GoogleFonts.mina(
+                                            fontSize: 18.0,
+                                            color: Color.fromARGB(
+                                                255, 81, 224, 179),
+                                            fontWeight: FontWeight.w700)),
+                                  ],
+                                ),
                               )
-                              ,
-                              Padding(padding: EdgeInsets.all(2),
-                              child:  Text(day2,
-                              
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: 23
-                                  ),
-                              ),
-                              )                     ],
-                           ),
-                           
-                           
-                           )
-                           ,),
-
-
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
-                              child: Container(
-                                width: 140 / 4 + 12,
-                                height: 140 / 4 + 12,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 101, 101, 230),
-                                      width: 2.4+1),
-                                ),
-                                child: CircleAvatar(
-                                  radius: 100,
-                                  backgroundImage: NetworkImage(
-                                    "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                        item.img_link,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Text(
-                              item.name.toString(),
-                              style: GoogleFonts.lato(
-                                color: Color.fromARGB(255, 43, 54, 80),
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(padding: 
-                        EdgeInsets.fromLTRB(0,2,25,0),
-                        
-                        
-                         child: Column(
-                          children: [
-                            item.Transaction_status == "LoanTaken"
-                                ? Text("owes you")
-                                : Text(" you owe"),
-                            Text(
-                              '\$' + item.amount.toString(),
-                              style: GoogleFonts.lato(
-                                color: Colors.amber,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        )
-                      ],
-                    ),
-
-                    ),
-                    );
-                  },
+                            ],
+                          ))),
+                    ],
+                  ),
                 ),
               ),
-            )
 
-         
-   //push 1
+              /// the user dtls
+              items.length == 0
+                  ? Container(
+                      width: width_safearea,
+                      height: 300,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ))
+                  : SizedBox(
+                      width: width_safearea,
+                      height: 500 - 89,
+                      child: SizedBox(
+                        width: 200,
+                        child: ListView.builder(
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            final item = items[index];
 
-        
+                            var month2 = Return_month(item.dateOfTransactions);
+                            var year2 = Return_Year(item.dateOfTransactions);
+                            var day2 = Return_day(item.dateOfTransactions);
+                            print(month2.toString() +
+                                " " +
+                                year.toString() +
+                                " " +
+                                day2.toString());
 
-        
-        ],
-      ),
-      
-      )
-    );
+                            //main container which carries rtow
+
+                            return GestureDetector(
+                              onTap: () {
+                                //       Navigator.push(context,MaterialPageRoute(
+                                //     builder: (context) {
+                                //       return UserDetails(items[index]);
+
+                                //       // return userDetails(teams[index].mainMail);
+                                //     }
+
+                                //     ,
+                                //   )
+
+                                //   ,
+                                // );
+                              },
+                              child: Container(
+                                width: 350,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 240, 226, 226),
+                                      width: 0.7,
+                                    ),
+                                  ),
+                                ),
+                                child: index == 0
+                                    ? Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(20),
+                                            child: Text(
+                                              month2 + " " + year2,
+                                              style: TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            3, 5, 3, 3),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              month2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                  // color: Color.fromARGB(255, 25, 80, 189),
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              day2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w100,
+                                                                  fontSize: 23),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10, 2, 0, 9),
+                                                    child: Container(
+                                                      width: 140 / 4 + 12,
+                                                      height: 140 / 4 + 12,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    101,
+                                                                    101,
+                                                                    230),
+                                                            width: 2.4 + 1),
+                                                      ),
+                                                      child: CircleAvatar(
+                                                        radius: 100,
+                                                        backgroundImage:
+                                                            NetworkImage(
+                                                          "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                                              item.img_link,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    item.name.toString(),
+                                                    style: GoogleFonts.lato(
+                                                      color: Color.fromARGB(
+                                                          255, 43, 54, 80),
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0, 2, 25, 0),
+                                                child: Column(
+                                                  children: [
+                                                    item.Transaction_status ==
+                                                            "LoanTaken"
+                                                        ? Text("owes you")
+                                                        : Text(" you owe"),
+                                                    Text(
+                                                      '\$' +
+                                                          item.amount
+                                                              .toString(),
+                                                      style: GoogleFonts.lato(
+                                                        color: Colors.amber,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    : 
+                                    
+                                    //if index is not 0 
+                                      Return_month(teams2[index - 1]
+                                                      .dateOfTransactions) !=
+                                                  month2
+                                              ?  Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.all(20),
+                                            child: Text(
+                                              month2 + " " + year2,
+                                              style: TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.w200,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                           Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                 mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            3, 5, 3, 3),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              month2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                  // color: Color.fromARGB(255, 25, 80, 189),
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              day2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w100,
+                                                                  fontSize: 23),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10, 2, 0, 9),
+                                                    child: Container(
+                                                      width: 140 / 4 + 12,
+                                                      height: 140 / 4 + 12,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    101,
+                                                                    101,
+                                                                    230),
+                                                            width: 2.4 + 1),
+                                                      ),
+                                                      child: CircleAvatar(
+                                                        radius: 100,
+                                                        backgroundImage:
+                                                            NetworkImage(
+                                                          "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                                              item.img_link,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    item.name.toString(),
+                                                    style: GoogleFonts.lato(
+                                                      color: Color.fromARGB(
+                                                          255, 43, 54, 80),
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0, 2, 25, 0),
+                                                child: Column(
+                                                  children: [
+                                                    item.Transaction_status ==
+                                                            "LoanTaken"
+                                                        ? Text("owes you")
+                                                        : Text(" you owe"),
+                                                    Text(
+                                                      '\$' +
+                                                          item.amount
+                                                              .toString(),
+                                                      style: GoogleFonts.lato(
+                                                        color: Colors.amber,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ):
+
+                                   Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                 mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            3, 5, 3, 3),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              10, 0, 0, 0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              month2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                  // color: Color.fromARGB(255, 25, 80, 189),
+                                                                  fontSize: 16),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    2),
+                                                            child: Text(
+                                                              day2,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w100,
+                                                                  fontSize: 23),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10, 2, 0, 9),
+                                                    child: Container(
+                                                      width: 140 / 4 + 12,
+                                                      height: 140 / 4 + 12,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        border: Border.all(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    101,
+                                                                    101,
+                                                                    230),
+                                                            width: 2.4 + 1),
+                                                      ),
+                                                      child: CircleAvatar(
+                                                        radius: 100,
+                                                        backgroundImage:
+                                                            NetworkImage(
+                                                          "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                                              item.img_link,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  Text(
+                                                    item.name.toString(),
+                                                    style: GoogleFonts.lato(
+                                                      color: Color.fromARGB(
+                                                          255, 43, 54, 80),
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0, 2, 25, 0),
+                                                child: Column(
+                                                  children: [
+                                                    item.Transaction_status ==
+                                                            "LoanTaken"
+                                                        ? Text("owes you")
+                                                        : Text(" you owe"),
+                                                    Text(
+                                                      '\$' +
+                                                          item.amount
+                                                              .toString(),
+                                                      style: GoogleFonts.lato(
+                                                        color: Colors.amber,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                      
+                                      
+                                      
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+
+              //push 1
+            ],
+          ),
+        ));
   }
 }
