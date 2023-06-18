@@ -18,6 +18,7 @@ import 'package:workmanager/workmanager.dart';
 import 'demoBottombar.dart';
 import 'local_notifications.dart';
 import 'newTbb.dart';
+import 'otpPhoneCode.dart';
 import 'otpTester.dart';
 
 
@@ -93,6 +94,7 @@ class MyApp extends StatelessWidget {
             // home: ProfilePage2()
             // home: CupertinoNavigationDemo(),
                home: otpTester(),
+              // home:otpPhone()
 
 
     );

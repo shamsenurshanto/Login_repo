@@ -463,7 +463,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       fontWeight: FontWeight.w500),
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: ' \$7999',
+                                        text: ' ৳7999',
                                         style: GoogleFonts.mina(
                                             fontSize: 18.0,
                                             color: Color.fromARGB(
@@ -483,7 +483,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       fontWeight: FontWeight.w500),
                                   children: <TextSpan>[
                                     TextSpan(
-                                        text: ' \$7999',
+                                        text: ' ৳7999',
                                         style: GoogleFonts.mina(
                                             fontSize: 18.0,
                                             color: Color.fromARGB(
@@ -655,16 +655,41 @@ class _UserDetailsState extends State<UserDetails> {
                                                   SizedBox(
                                                     width: 20,
                                                   ),
-                                                  Text(
-                                                    item.name.toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 43, 54, 80),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
+                                                  Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          Padding(padding: EdgeInsets.all(2),
+                          
+                          
+                          child: item.Transaction_status=="PENDING"?
+                            Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ):
+                              Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                              ],
+                            )
                                                 ],
                                               ),
                                               Padding(
@@ -677,7 +702,7 @@ class _UserDetailsState extends State<UserDetails> {
                                                         ? Text("owes you")
                                                         : Text(" you owe"),
                                                     Text(
-                                                      '\$' +
+                                                      '৳' +
                                                           item.amount
                                                               .toString(),
                                                       style: GoogleFonts.lato(
@@ -802,16 +827,41 @@ class _UserDetailsState extends State<UserDetails> {
                                                   SizedBox(
                                                     width: 20,
                                                   ),
-                                                  Text(
-                                                    item.name.toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 43, 54, 80),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
+                                                 Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          Padding(padding: EdgeInsets.all(2),
+                          
+                          
+                          child: item.Transaction_status=="PENDING"?
+                            Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ):
+                              Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                              ],
+                            )
                                                 ],
                                               ),
                                               Padding(
@@ -824,7 +874,7 @@ class _UserDetailsState extends State<UserDetails> {
                                                         ? Text("owes you")
                                                         : Text(" you owe"),
                                                     Text(
-                                                      '\$' +
+                                                      '৳' +
                                                           item.amount
                                                               .toString(),
                                                       style: GoogleFonts.lato(
@@ -928,16 +978,41 @@ class _UserDetailsState extends State<UserDetails> {
                                                   SizedBox(
                                                     width: 20,
                                                   ),
-                                                  Text(
-                                                    item.name.toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 43, 54, 80),
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
+                                                 Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          Padding(padding: EdgeInsets.all(2),
+                          
+                          
+                          child: item.Transaction_status=="PENDING"?
+                            Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ):
+                              Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                              ],
+                            )
                                                 ],
                                               ),
                                               Padding(
@@ -950,7 +1025,7 @@ class _UserDetailsState extends State<UserDetails> {
                                                         ? Text("owes you")
                                                         : Text(" you owe"),
                                                     Text(
-                                                      '\$' +
+                                                      '৳' +
                                                           item.amount
                                                               .toString(),
                                                       style: GoogleFonts.lato(

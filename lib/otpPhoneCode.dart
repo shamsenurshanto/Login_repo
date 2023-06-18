@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/abc.dart';
 import 'package:my_app/otpTester.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -49,6 +50,21 @@ class _otpPhoneState extends State<otpPhone> {
     // Sign the user in (or link) with the credential
     await auth.signInWithCredential(credential);
     print(emailController.text);
+
+                 Navigator.push(context,MaterialPageRoute(
+                                    builder: (context) {
+                                      return abc();
+
+                                      // return userDetails(teams[index].mainMail);
+                                    }
+
+                                    ,
+                                  )
+
+                                  ,
+                                );
+               
+        
          }
          catch(e){
           print(e);

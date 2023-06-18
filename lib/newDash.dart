@@ -428,7 +428,7 @@ class _dash_newState extends State<dash_new> {
                                   height: 10,
                                 ),
                                 Text(
-                                  "You Owe : \$" + totalOwnbyme.toString(),
+                                  "You Owe : \ ৳" + totalOwnbyme.toString(),
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(255, 217, 104, 23),
                                     fontSize: 17,
@@ -439,7 +439,7 @@ class _dash_newState extends State<dash_new> {
                                   height: 10,
                                 ),
                                 Text(
-                                  "You are Owed : \$" +
+                                  "You are Owed : \ ৳" +
                                       totalOwnFromMebyOthers.toString(),
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(
@@ -448,9 +448,7 @@ class _dash_newState extends State<dash_new> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                              
                               ],
                             ),
                           )
@@ -532,7 +530,11 @@ class _dash_newState extends State<dash_new> {
                             SizedBox(
                               width: 20,
                             ),
-                            Text(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
                               item.name.toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 43, 54, 80),
@@ -540,6 +542,29 @@ class _dash_newState extends State<dash_new> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                          Padding(padding: EdgeInsets.all(2),
+                          
+                          
+                          child: item.Transaction_status=="PENDING"?
+                            Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ):
+                              Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                              ],
+                            )
                           ],
                         ),
                         Padding(padding: 
@@ -560,7 +585,7 @@ class _dash_newState extends State<dash_new> {
                                 ),),
                          item.type == "Loan Taken"
                                 ?     Text(
-                              '\$' + item.amount.toString(),
+                              '\ ৳' + item.amount.toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 236, 8, 16),
                                 fontSize: 16,
@@ -568,7 +593,7 @@ class _dash_newState extends State<dash_new> {
                               ),
                             ):
                               Text(
-                              '\$' + item.amount.toString(),
+                              '\ ৳' + item.amount.toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 3, 113, 12),
                                 fontSize: 16,
