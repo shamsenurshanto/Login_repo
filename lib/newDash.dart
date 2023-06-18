@@ -466,7 +466,7 @@ class _dash_newState extends State<dash_new> {
 
             SizedBox(
               width: width_safearea,
-              height: 500,
+              height: 500-50,
               child: SizedBox(
                 width: 200,
                 child: ListView.builder(
