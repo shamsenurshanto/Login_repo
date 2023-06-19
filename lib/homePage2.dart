@@ -17,6 +17,7 @@ import 'package:my_app/UserDetails.dart';
 import 'package:my_app/newDash.dart';
 import 'package:my_app/testUserdetails.dart';
 import 'package:my_app/userDetailsTesting.dart';
+import 'package:my_app/userDetails_last.dart';
 import 'package:shimmer/shimmer.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -280,26 +281,76 @@ class _homepage2State extends State<homepage2> {
       //        name= _box2.get("User_name");
       _box2.put("valu_sum", _counter.toString());
     }
+       
 
     return Scaffold(
         backgroundColor: Colors.white10,
         appBar: AppBar(
-          title: Text(
+            title: Text(
             "Home",
             style: TextStyle(color: Colors.black),
           ),
+    leading: Builder(
+      builder: (BuildContext context) {
+        
+        return Container(
+          height: 50,
+          child: Stack(
+          children: [
+            IconButton(
+          icon: const Icon(
+            Icons.menu_outlined,
+            
+          ),
+          
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+        ),
+        Positioned(
+          top: 10,
+          left: 25,
+          
+                                child: Container(
+                    width: 14,
+                    height: 14,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                     child: Center(
+                                child: Text(
+                                  "2",style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10
+                                  ),
+                                ),
+                              ),
+                  )
+                  ) 
 
-          backgroundColor: Colors.white,
+          ],
+        ),
+        )
+        
+        ;
+      },
+    ),
+     backgroundColor: Colors.white,
           // textDirection: TextDirection.rtl, // Set text direction to right-to-left
           elevation: 0.0,
 
-          iconTheme: IconThemeData(color: Colors.green),
-        ),
+          iconTheme: IconThemeData(color: const Color.fromARGB(255, 130, 83, 211)),
+  ),
         drawer: SafeArea(
             child: Stack(
           children: [
             Positioned(
+              
               child: Drawer(
+                
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: <Widget>[
@@ -328,58 +379,110 @@ class _homepage2State extends State<homepage2> {
                     ),
                     ListTile(
                       leading: Icon(Icons.approval),
-                      title: Text('Approvals',
+                      title: Text('Acknowledgement Pending',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
                               fontWeight: FontWeight.bold)),
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.settings),
-                      title: Text('My Initiated',
+                      leading: Icon(Icons.arrow_circle_up_rounded,
+                      
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                        ),
+                      title: Text('My Debits',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
                               fontWeight: FontWeight.bold)),
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.add),
-                      title: Text('Add New',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 38, 7, 91),
-                              fontWeight: FontWeight.bold)),
-                      onTap: () => {Navigator.of(context).pop()},
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.send),
-                      title: Text('Loans',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 38, 7, 91),
-                              fontWeight: FontWeight.bold)),
-                      onTap: () => {Navigator.of(context).pop()},
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.receipt),
-                      title: Text('Received',
-                          style: TextStyle(
-                              color: const Color.fromARGB(255, 38, 7, 91),
-                              fontWeight: FontWeight.bold)),
-                      onTap: () => {Navigator.of(context).pop()},
-                    ),
-                    ListTile(
-                      leading: Icon(
-                        Icons.exit_to_app,
+                      leading: Icon(Icons.arrow_circle_down,
                         color: const Color.fromARGB(255, 38, 7, 91),
                       ),
-                      title: Text('List Of All Loans Given',
+                      title: Text('My Credits',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
                               fontWeight: FontWeight.bold)),
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.currency_exchange_outlined),
-                      title: Text('List Of All Loans Taken',
+                      leading: Icon(Icons.send,
+                      
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('Request a Debt (Pro)',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.receipt,
+                      
+                         color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('Request a Payment (Pro)',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [Icon(
+                        Icons.timelapse,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),],
+                      ),
+                      title: Text('Recent Dates',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)
+                              ),
+                              trailing: Padding(padding: 
+                              EdgeInsets.fromLTRB(0, 0, 10, 0),
+
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                           Container(
+                              width: 20,
+                              height: 15+5,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "2",style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                            )
+
+                            ],
+                              ),
+
+                              ),
+                      onTap: () => {
+
+                        Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          tabBarForRecentDates()))
+                      
+                      },
+                      
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Logout',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
                               fontWeight: FontWeight.bold)),
@@ -388,9 +491,11 @@ class _homepage2State extends State<homepage2> {
                   ],
                 ),
               ),
-            )
+            ),
+                          
           ],
-        )),
+        )
+        ),
         body: SafeArea(
             child: SingleChildScrollView(
           child:

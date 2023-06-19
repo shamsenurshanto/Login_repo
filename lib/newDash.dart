@@ -300,6 +300,7 @@ class _dash_newState extends State<dash_new> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
+    print(height_safearea);
     
 
     return Scaffold(
@@ -374,10 +375,10 @@ class _dash_newState extends State<dash_new> {
                     SvgPicture.asset(
                       'assets/images/geometricbg.svg',
                       width: 160, // Specify the width
-                      height: 150, // Specify the height
+                      height: .17921147* height_safearea, // Specify the height
                     ),
                     Container(
-                      height: 120-11,
+                      height: 0.130071599*height_safearea,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 230, 230, 238),
@@ -387,10 +388,10 @@ class _dash_newState extends State<dash_new> {
                         children: [
                           //image
                           Padding(
-                            padding: EdgeInsets.fromLTRB(20, 7, 0, 0),
+                            padding: EdgeInsets.fromLTRB(20, 0.008353222 *height_safearea, 0, 0),
                             child: Container(
                               width: 140 / 2 + 12,
-                              height: 140 / 2 + 12,
+                              height: 0.097852029 * height_safearea,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -412,7 +413,7 @@ class _dash_newState extends State<dash_new> {
                           ),
 
                           Padding(
-                            padding: EdgeInsets.fromLTRB(0, 19, 0, 0),
+                            padding: EdgeInsets.fromLTRB(0, 0.022673031 *height_safearea, 0, 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -425,18 +426,18 @@ class _dash_newState extends State<dash_new> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height:0.0090000000 * height_safearea,
                                 ),
                                 Text(
                                   "You Owe : \ ৳" + totalOwnbyme.toString(),
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(255, 217, 104, 23),
-                                    fontSize: 17,
+                                   fontSize: 0.020286396 *height_safearea ,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                height:0.0090000000 * height_safearea,
                                 ),
                                 Text(
                                   "You are Owed : \ ৳" +
@@ -444,7 +445,7 @@ class _dash_newState extends State<dash_new> {
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(
                                         255, 65, 201, 185), //rgb(172, 213, 208)
-                                    fontSize: 17,
+                                    fontSize: 0.020286396 *height_safearea ,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -52,8 +53,9 @@ class _addTransState extends State<addTrans> {
     String user_name = _textController_For_EmailSearch.text;
 
     //  print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
-
-    var response = await http.post(
+  var response;
+   try{
+        response = await http.post(
       Uri.https('personalrec.onrender.com', 'api/user/getuser'),
       headers: {
         //  'Content-Type': 'application/json; charset=UTF-8',
@@ -62,19 +64,32 @@ class _addTransState extends State<addTrans> {
       },
       body: {'userEmailPhone': user_name},
     );
-    //  var  jsonData = jsonDecode(response.body);
+     //  var  jsonData = jsonDecode(response.body);
     //   print(jsonData);
     var resp = json.decode(response.body);
     TextFormEmail = resp["data"]["_id"];
     print(resp["data"]["_id"]);
-    if (response.statusCode != 200) {
-      // data = "Oye !! Thare pass Internet naahi hn !!";
-    }
-    print(response.body);
+   
+print(response.statusCode);
     setState(() {
       // data = resp['slip']['advice'];
       _isLoading = false;
+      Fluttertoast.showToast(msg: _textController_For_EmailSearch.text+" Found");
     });
+    }
+    
+   
+   catch(e){
+    print(e);
+    // Fluttertoast.showToast(msg: "User Not exit ");
+      setState(() {
+      // data = resp['slip']['advice'];
+      _isLoading = false;
+      Fluttertoast.showToast(msg: _textController_For_EmailSearch.text+" NOT Found");
+    });
+
+   }
+   
   }
 
   postTrans() async {
@@ -150,6 +165,7 @@ class _addTransState extends State<addTrans> {
           "receiverEmailPhone": receiver_mail.toString(),
           "receiverId": recv_id.toString()
         },
+        "returnDate":PickedDate,
         "receiverStatus": ""
       }),
     );
