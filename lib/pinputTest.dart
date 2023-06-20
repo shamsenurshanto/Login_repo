@@ -1,90 +1,28 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:my_app/abc.dart';
-import 'package:my_app/otpTester.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class otpPhone extends StatefulWidget {
-  
-  const otpPhone({super.key});
-
+class VerificationCodePage extends StatefulWidget {
   @override
-  State<otpPhone> createState() => _otpPhoneState();
+  _VerificationCodePageState createState() => _VerificationCodePageState();
 }
 
-class _otpPhoneState extends State<otpPhone> {
-  var pin ="";
-  final FirebaseAuth auth = FirebaseAuth.instance;
-   final TextEditingController emailController = TextEditingController();
+class _VerificationCodePageState extends State<VerificationCodePage> {
+  String pin = '';
+
   void onPinChanged(String value) {
     setState(() {
       pin += value;
       print(pin);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 33, 7, 79),
-      body:  SafeArea(
-        child: 
-         Column(
-          children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                     Padding(padding: EdgeInsets.fromLTRB(20,40,0,30),
-                     
-                     
-                     child:   Text(
-                        "Verification Code",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                     )
-                    ],
-                  ),
-                   SizedBox(
-                    height: 60,
-                   ),
-
-                    Padding(padding: EdgeInsets.fromLTRB(20,0,0,0),
-                    
-                    child:Container(
-                
-                      child:  Icon(
-                      Icons.lock_open_outlined,size: 150,
-                      color: Colors.white,
-                    ),
-                    )
-                    
-                    ),
-                      Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                        Padding(padding: EdgeInsets.all(20),
-                    
-                    child:  Text(
-                        "OTP CODE ",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                    
-                    ),
-                    ],
-                   ),
-
-           Center(
+      appBar: AppBar(
+        title: Text('Verification Code'),
+      ),
+      body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -196,61 +134,16 @@ class _otpPhoneState extends State<otpPhone> {
                 ],
 
               ),
-            ),
-           
+            )
           ],
         ),
       ),
-       SizedBox(
-              height: 90,
-            ),
-          
-          
-          SizedBox(
-        child: ElevatedButton(onPressed: () async {
-
-         try{
-           // Create a PhoneAuthCredential with the code
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: otpTester.verify, smsCode: pin.toString());
-
-    // Sign the user in (or link) with the credential
-    await auth.signInWithCredential(credential);
-    print(emailController.text);
-
-                 Navigator.push(context,MaterialPageRoute(
-                                    builder: (context) {
-                                      return abc();
-
-                                      // return userDetails(teams[index].mainMail);
-                                    }
-
-                                    ,
-                                  )
-
-                                  ,
-                                );
-               
-        
-         }
-         catch(e){
-          print(e);
-          
-         }
-
-
-        }, child: Text(
-          "Ok"
-        )
-        
-        ),
-      ),
-          ],
-       
-          
-          
-           
-         )
-      )
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: VerificationCodePage(),
+  ));
 }

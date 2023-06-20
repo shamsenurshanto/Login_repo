@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'otpPhoneCode.dart';
 
@@ -12,10 +14,49 @@ class otpTester extends StatefulWidget {
   @override
   State<otpTester> createState() => _otpTesterState();
 }
+var mobile_num2 ="90000000009";
 
+void initState() async {
+    // super.initState();
+    // await Hive.initFlutter();
+    var box = await Hive.openBox("mybox");
+     
+    //  setState(){
+    //   mobile_num2=_box.get("phone_number").toString();
+    //   print(mobile_num2);
+    //  }
+    //  mobile_num2=_box.get("phone_number");
+   }
+   String manipulateString(String input) {
+  // Perform string manipulation logic here
+  // For example, you can convert the input to uppercase
+  var stringMob="";
+   for (int i = 0; i < input.length; i++) {
+   {
+    if(i>2&&i<=9)
+    {
+      stringMob+="*";
+    }
+    else{
+      stringMob+=input[i];
+    }
+    print(stringMob);
+   }
+  }
+
+  // Return the manipulated string
+  return stringMob;
+}
 class _otpTesterState extends State<otpTester> {
   @override
+  
   Widget build(BuildContext context) {
+     final _box = Hive.box("mybox");
+     print(_box.get("phone_number"));
+     
+    var  mobile_num3 =manipulateString(_box.get("phone_number").toString());
+      print(mobile_num2);
+   
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 41, 10, 93),
         body: SafeArea(
@@ -67,7 +108,7 @@ class _otpTesterState extends State<otpTester> {
                         Padding(padding: EdgeInsets.all(20),
                     
                     child:  Text(
-                        "019******73",
+                      mobile_num3.toString(),
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -89,7 +130,7 @@ class _otpTesterState extends State<otpTester> {
                         print("hello");
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber:
-                              '+8801964613773', //01850134450  01886144124 735228 01964613773
+                              '+88'+mobile_num3.toString(), //01850134450  01886144124 735228 01964613773
                               timeout: Duration(seconds: 90),
                           verificationCompleted:
                               (PhoneAuthCredential credential) {},

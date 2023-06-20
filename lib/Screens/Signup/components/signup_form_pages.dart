@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/Screens/Login/login_screen.dart';
 import 'package:my_app/components/already_have_an_account_acheck.dart';
+import 'package:my_app/otpPhoneCode.dart';
+import 'package:my_app/otpTester.dart';
 
 import '../../../constants.dart';
 import 'dart:convert';
@@ -28,9 +30,18 @@ var _textControllerForPhoneNumber = TextEditingController();
 var _textControllerForEmail = TextEditingController();
 var _textControllerForPassword = TextEditingController();
 
+   
+    Future<void> initState() async {
+  
+ await Hive.initFlutter();
+    var box = await Hive.openBox("mybox");
+   
+    }
+
    postDate(context) async {
   
-    
+     await Hive.initFlutter();
+    var box = await Hive.openBox("mybox");
 
         String  username = "g";
         String  PhoneNumber = "g";
@@ -87,16 +98,22 @@ var _textControllerForPassword = TextEditingController();
 
       // _box.put("User_id",jh['data']['_id'] );
       //   _box.put("User_email",username );
-     
+      final _box = Hive.box("mybox");
+    _box.put("phone_number", _textControllerForPhoneNumber.text);
+    print(_box.get("phone_number"));
        Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
                     // return MyBottomNavigationBar();
-                    return LoginScreen();
+                    return otpTester();
                   },
                 ),
               );
+    }
+    else
+    {
+      // give a toast here 
     }
    }
 class _signupScreens_State extends State<signupScreens_> {

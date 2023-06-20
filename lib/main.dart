@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
+      // home: const WelcomeScreen(),
             // home : dash_newMyBottomNavigationBar_new(),
             // home: const homeGrid(),
             // home: const transactionWithPending(),
@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
             // home: ProfilePage2()
             // home: CupertinoNavigationDemo(),
               //  home: otpTester(),
-              // home:otpPhone()
+              home:otpPhone()
 
 
     );
