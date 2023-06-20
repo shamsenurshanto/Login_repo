@@ -43,6 +43,7 @@ class _homepage2State extends State<homepage2> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    fetchData();
 
     // Workmanager().registerOneOffTask(
     //   "taskTwo",
@@ -53,6 +54,7 @@ class _homepage2State extends State<homepage2> {
 
   ///function for bangla
   List<Team> teams = [];
+  var Notification_number=0;
   List<String> pictureofUsers = [];
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -62,6 +64,31 @@ class _homepage2State extends State<homepage2> {
       print("Task executing :" + taskName);
       return Future.value(true);
     });
+  }
+
+
+  Future<void> fetchData() async {
+    var box = await Hive.openBox("mybox");
+    final _box2 = Hive.box("mybox");
+    var gh = _box2.get("toki");
+   var response = await http.get(
+      Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
+      headers: {'Cookie': 'jwt_token=$gh'},
+    );
+    // print(response.body);
+   var jsonData = jsonDecode(response.body);
+   
+    print(jsonData['data']);
+   
+     var  _data = json.decode(response.body);
+       print("----------------------pop");
+      print( _data['data'].length,);
+      setState(() {
+        Notification_number= _data['data'].length;
+      });
+  
+    // print(jsonData['data'][0]['notifications'][0]);
+    // print(jsonData['data'][0]['notifications'][0]['body']);//notification pages data
   }
 
   Future getTeams() async {
@@ -259,6 +286,7 @@ class _homepage2State extends State<homepage2> {
     }
     print("---------------------------------------");
     print(teams.length);
+    
   }
 
   @override
@@ -308,7 +336,8 @@ class _homepage2State extends State<homepage2> {
           },
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         ),
-        Positioned(
+       Notification_number!=0?
+             Positioned(
           top: 10,
           left: 25,
           
@@ -321,7 +350,7 @@ class _homepage2State extends State<homepage2> {
                     ),
                      child: Center(
                                 child: Text(
-                                  "2",style: TextStyle(
+                                  Notification_number.toString(),style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 10
@@ -329,7 +358,11 @@ class _homepage2State extends State<homepage2> {
                                 ),
                               ),
                   )
-                  ) 
+                  ) :
+                  SizedBox(
+                    width: 0,
+                    height: 0,
+                  )
 
           ],
         ),
@@ -458,7 +491,7 @@ class _homepage2State extends State<homepage2> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "2",style: TextStyle(
+                                  Notification_number.toString(),style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold
                                   ),
@@ -750,7 +783,13 @@ class _homepage2State extends State<homepage2> {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          MyListView_()));
+                                                          dash_new()
+                                                          
+                                                          
+                                                          )
+                                                          
+                                                          
+                                                          );
                                             },
                                             child: Icon(
                                               Icons.dashboard,
