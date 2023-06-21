@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_app/PendingForm.dart';
@@ -44,6 +45,7 @@ class _homepage2State extends State<homepage2> {
     // TODO: implement initState
     super.initState();
     fetchData();
+    // fetchData();
 
     // Workmanager().registerOneOffTask(
     //   "taskTwo",
@@ -54,7 +56,8 @@ class _homepage2State extends State<homepage2> {
 
   ///function for bangla
   List<Team> teams = [];
-  var Notification_number=0;
+  List<Team> iteam_team = [];
+  var Notification_number = 0;
   List<String> pictureofUsers = [];
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -65,28 +68,57 @@ class _homepage2State extends State<homepage2> {
       return Future.value(true);
     });
   }
+  // add mob ad banner
 
+  // late BannerAd bannerAd;
+  bool isAdloaded = false;
+  // initBannerAd(){
+  //   bannerAd = BannerAd(
+  //     size: AdSize.banner, 
+  //     adUnitId: '', 
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (ad){
+  //         setState(() {
+  //           isAdloaded=true;
+            
+  //         });
+  //       }
+  //       ,
+  //       onAdFailedToLoad: (ad,error ){
+  //         ad.dispose();
+  //         print(error);
+
+  //       }
+  //     ), 
+  //     request: const AdRequest(),
+      
+      
+  //     );
+  //     bannerAd.load();
+  // }
 
   Future<void> fetchData() async {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
-   var response = await http.get(
+    var response = await http.get(
       Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
       headers: {'Cookie': 'jwt_token=$gh'},
     );
     // print(response.body);
-   var jsonData = jsonDecode(response.body);
-   
+    var jsonData = jsonDecode(response.body);
+
     print(jsonData['data']);
-   
-     var  _data = json.decode(response.body);
-       print("----------------------pop");
-      print( _data['data'].length,);
-      setState(() {
-        Notification_number= _data['data'].length;
-      });
-  
+
+    var _data = json.decode(response.body);
+    print("----------------------pop");
+    print(
+      _data['data'].length,
+    );
+    setState(() {
+      Notification_number = _data['data'].length;
+    });
+
     // print(jsonData['data'][0]['notifications'][0]);
     // print(jsonData['data'][0]['notifications'][0]['body']);//notification pages data
   }
@@ -286,7 +318,7 @@ class _homepage2State extends State<homepage2> {
     }
     print("---------------------------------------");
     print(teams.length);
-    
+    iteam_team=teams;
   }
 
   @override
@@ -295,10 +327,8 @@ class _homepage2State extends State<homepage2> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
     int _counter = 0;
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [
-  SystemUiOverlay.top
-]);
-
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack,
+    //     overlays: [SystemUiOverlay.bottom]);
 
     void _incrementCounter(int amount) {
       var box = Hive.openBox("mybox");
@@ -309,81 +339,72 @@ class _homepage2State extends State<homepage2> {
       //        name= _box2.get("User_name");
       _box2.put("valu_sum", _counter.toString());
     }
-       
 
     return Scaffold(
         backgroundColor: Colors.white10,
         appBar: AppBar(
-            title: Text(
+          title: Text(
             "Home",
             style: TextStyle(color: Colors.black),
           ),
-    leading: Builder(
-      builder: (BuildContext context) {
-        
-        return Container(
-          height: 50,
-          child: Stack(
-          children: [
-            IconButton(
-          icon: const Icon(
-            Icons.menu_outlined,
-            
-          ),
-          
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-        ),
-       Notification_number!=0?
-             Positioned(
-          top: 10,
-          left: 25,
-          
-                                child: Container(
-                    width: 14,
-                    height: 14,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.red,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return Container(
+                height: 50,
+                child: Stack(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.menu_outlined,
+                      ),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
                     ),
-                     child: Center(
+                    Notification_number != 0
+                        ? Positioned(
+                            top: 10,
+                            left: 25,
+                            child: Container(
+                              width: 14,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: Center(
                                 child: Text(
-                                  Notification_number.toString(),style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10
-                                  ),
+                                  Notification_number.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10),
                                 ),
                               ),
-                  )
-                  ) :
-                  SizedBox(
-                    width: 0,
-                    height: 0,
-                  )
-
-          ],
-        ),
-        )
-        
-        ;
-      },
-    ),
-     backgroundColor: Colors.white,
+                            ))
+                        : SizedBox(
+                            width: 0,
+                            height: 0,
+                          )
+                  ],
+                ),
+              );
+            },
+          ),
+          backgroundColor: Colors.white,
           // textDirection: TextDirection.rtl, // Set text direction to right-to-left
           elevation: 0.0,
 
-          iconTheme: IconThemeData(color: const Color.fromARGB(255, 130, 83, 211)),
-  ),
+          iconTheme:
+              IconThemeData(color: const Color.fromARGB(255, 130, 83, 211)),
+        ),
         drawer: SafeArea(
             child: Stack(
           children: [
             Positioned(
-              
               child: Drawer(
-                
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: <Widget>[
@@ -419,10 +440,10 @@ class _homepage2State extends State<homepage2> {
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.arrow_circle_up_rounded,
-                      
+                      leading: Icon(
+                        Icons.arrow_circle_up_rounded,
                         color: const Color.fromARGB(255, 38, 7, 91),
-                        ),
+                      ),
                       title: Text('My Debits',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
@@ -430,7 +451,8 @@ class _homepage2State extends State<homepage2> {
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.arrow_circle_down,
+                      leading: Icon(
+                        Icons.arrow_circle_down,
                         color: const Color.fromARGB(255, 38, 7, 91),
                       ),
                       title: Text('My Credits',
@@ -440,8 +462,8 @@ class _homepage2State extends State<homepage2> {
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.send,
-                      
+                      leading: Icon(
+                        Icons.send,
                         color: const Color.fromARGB(255, 38, 7, 91),
                       ),
                       title: Text('Request a Debt (Pro)',
@@ -451,9 +473,9 @@ class _homepage2State extends State<homepage2> {
                       onTap: () => {Navigator.of(context).pop()},
                     ),
                     ListTile(
-                      leading: Icon(Icons.receipt,
-                      
-                         color: const Color.fromARGB(255, 38, 7, 91),
+                      leading: Icon(
+                        Icons.receipt,
+                        color: const Color.fromARGB(255, 38, 7, 91),
                       ),
                       title: Text('Request a Payment (Pro)',
                           style: TextStyle(
@@ -465,53 +487,46 @@ class _homepage2State extends State<homepage2> {
                       leading: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [Icon(
-                        Icons.timelapse,
-                        color: const Color.fromARGB(255, 38, 7, 91),
-                      ),],
+                        children: [
+                          Icon(
+                            Icons.timelapse,
+                            color: const Color.fromARGB(255, 38, 7, 91),
+                          ),
+                        ],
                       ),
                       title: Text('Recent Dates',
                           style: TextStyle(
                               color: const Color.fromARGB(255, 38, 7, 91),
-                              fontWeight: FontWeight.bold)
-                              ),
-                              trailing: Padding(padding: 
-                              EdgeInsets.fromLTRB(0, 0, 10, 0),
-
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                           Container(
+                              fontWeight: FontWeight.bold)),
+                      trailing: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
                               width: 20,
-                              height: 15+5,
+                              height: 15 + 5,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.red,
                               ),
                               child: Center(
                                 child: Text(
-                                  Notification_number.toString(),style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold
-                                  ),
+                                  Notification_number.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             )
-
-                            ],
-                              ),
-
-                              ),
+                          ],
+                        ),
+                      ),
                       onTap: () => {
-
-                        Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          tabBarForRecentDates()))
-                      
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => tabBarForRecentDates()))
                       },
-                      
                     ),
                     ListTile(
                       leading: Icon(Icons.exit_to_app),
@@ -525,10 +540,8 @@ class _homepage2State extends State<homepage2> {
                 ),
               ),
             ),
-                          
           ],
-        )
-        ),
+        )),
         body: SafeArea(
             child: SingleChildScrollView(
           child:
@@ -583,8 +596,8 @@ class _homepage2State extends State<homepage2> {
                                 child: Row(
                                   children: [
                                     Container(
-                                        width: 40,
-                                        height: 40,
+                                        width: (40/width_safearea ) * width_safearea,
+                                        height: (40/height_safearea) * height_safearea,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Color.fromARGB(248, 9, 9, 9),
@@ -598,17 +611,17 @@ class _homepage2State extends State<homepage2> {
                                             FaIcon(
                                               FontAwesomeIcons.wallet,
                                               color: Colors.white,
-                                              size: 22,
+                                              size: (22/width_safearea ) * width_safearea,
                                             ),
                                           ],
                                         )),
                                     SizedBox(
-                                      width: 50,
+                                      width: (50/width_safearea) * width_safearea,
                                     ),
                                     Text(
                                       "Total wallet balance",
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: (20/width_safearea ) * width_safearea,
                                           fontWeight: FontWeight.w700),
                                     )
                                   ],
@@ -620,10 +633,10 @@ class _homepage2State extends State<homepage2> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 4,
+                                        width: (4/width_safearea ) * width_safearea,
                                       ),
                                       Container(
-                                        width: 200,
+                                        width: (200/width_safearea ) * width_safearea,
                                         child: Row(
                                           children: [
                                             Container(
@@ -636,9 +649,9 @@ class _homepage2State extends State<homepage2> {
                                               ),
                                             ),
                                             Text(
-                                              "\$7809.54",
+                                              "৳7809.54",
                                               style: TextStyle(
-                                                fontSize: 30,
+                                                fontSize: (30/width_safearea ) * width_safearea,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.green,
                                               ),
@@ -647,14 +660,14 @@ class _homepage2State extends State<homepage2> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 20,
+                                        width: (20/width_safearea ) * width_safearea,
                                       ),
                                       Padding(
                                         padding: EdgeInsets.all(8),
                                         child: Center(
                                           child: Container(
-                                              width: 80,
-                                              height: 30,
+                                              width: (80/width_safearea ) * width_safearea,
+                                              height: (30/height_safearea ) * height_safearea,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.elliptical(10, 10)),
@@ -662,12 +675,12 @@ class _homepage2State extends State<homepage2> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  "+ \$3.566",
+                                                  "+ ৳3.566",
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: 16),
+                                                      fontSize: (16/width_safearea ) * width_safearea),
                                                 ),
                                               )),
                                         ),
@@ -783,13 +796,7 @@ class _homepage2State extends State<homepage2> {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          dash_new()
-                                                          
-                                                          
-                                                          )
-                                                          
-                                                          
-                                                          );
+                                                          dash_new()));
                                             },
                                             child: Icon(
                                               Icons.dashboard,
@@ -866,7 +873,21 @@ class _homepage2State extends State<homepage2> {
                                 width: 10,
                               ),
 
-                              Column(
+                              GestureDetector(
+                                onTap: (){
+                                     Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) {
+                                                          return tabBarForRecentDates();
+
+                                                          // return userDetails(teams[index].mainMail);
+                                                        },
+                                                      ),
+                                                    );
+
+                                },
+                                child: Column(
                                 //  crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -899,6 +920,7 @@ class _homepage2State extends State<homepage2> {
                                         TextStyle(fontWeight: FontWeight.w900),
                                   )
                                 ],
+                              ),
                               ),
                               SizedBox(
                                 width: 10,
@@ -1099,20 +1121,36 @@ class _homepage2State extends State<homepage2> {
                                                                         //   width: 30,
                                                                         //   height:
                                                                         //       60 / 2,
-                                                                        //   fit: BoxFit
+                                                                        //   fit: BoxFit1
                                                                         //       .cover,
                                                                         // ):
+                                                                        teams[index].img_link!=""?
                                                                         Image.network(
                                                                       "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                                                          pictureofUsers[
-                                                                              index],
+                                                                        teams[index].img_link,
                                                                       width: 30,
                                                                       height:
                                                                           60 /
                                                                               2,
                                                                       fit: BoxFit
                                                                           .cover,
-                                                                    )),
+                                                                    ):
+
+                                                                    
+
+                                                                      Image.asset('assets/images/bluebackg.jpg',
+                                                                      width: 30,
+                                                                      height:
+                                                                          60 /
+                                                                              2,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    )
+
+
+                                                                    
+                                                                    
+                                                                    ),
                                                               ),
                                                               teams[index].type ==
                                                                       "Loan Given"
@@ -1155,7 +1193,7 @@ class _homepage2State extends State<homepage2> {
                                                                         .all(
                                                                             10),
                                                                 child: Text(
-                                                                  "\$ " +
+                                                                  "৳ " +
                                                                       teams[index]
                                                                           .amount
                                                                           .toString(),

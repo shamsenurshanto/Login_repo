@@ -53,6 +53,7 @@ class _otpTesterState extends State<otpTester> {
   Widget build(BuildContext context) {
      final _box = Hive.box("mybox");
      print(_box.get("phone_number"));
+     var mobile_num33=_box.get("phone_number").toString();
      
     var  mobile_num3 =manipulateString(_box.get("phone_number").toString());
       print(mobile_num2);
@@ -130,7 +131,7 @@ class _otpTesterState extends State<otpTester> {
                         print("hello");
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber:
-                              '+88'+mobile_num3.toString(), //01850134450  01886144124 735228 01964613773
+                              '+88'+mobile_num33.toString(), //01850134450  01886144124 735228 01964613773
                               timeout: Duration(seconds: 90),
                           verificationCompleted:
                               (PhoneAuthCredential credential) {},

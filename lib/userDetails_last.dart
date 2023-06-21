@@ -14,7 +14,13 @@ class tabBarForRecentDates extends StatefulWidget {
 
 class _tabBarForRecentDatesState extends State<tabBarForRecentDates> {
   @override
+  
   Widget build(BuildContext context) {
+    var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
+    print(height_safearea);
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -53,8 +59,8 @@ class _tabBarForRecentDatesState extends State<tabBarForRecentDates> {
                     ],
                   ),
                   SizedBox(
-                      width: 380,
-                      height: 700,
+                      width: (380/width_safearea) * width_safearea,
+                      height: (680/height_safearea) * height_safearea,
                       child: TabBarView(children: [ LoanTakenPages(),LoanGivenPages()]))
                 ],
               ),

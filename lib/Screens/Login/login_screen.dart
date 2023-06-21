@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Background(
+      body: SafeArea(
       child: SingleChildScrollView(
         child: Responsive(
           mobile: const MobileLoginScreen(),
@@ -48,7 +48,7 @@ class MobileLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Expanded(child: SingleChildScrollView(
       child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -65,6 +65,6 @@ class MobileLoginScreen extends StatelessWidget {
         ),
       ],
     ),
-    );
+    ));
   }
 }

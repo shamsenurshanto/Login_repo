@@ -40,13 +40,29 @@ class _dash_newState extends State<dash_new> {
   var totalOwnbyme = 0.0;
   var totalOwnFromMebyOthers = 0.0;
    Timer? timer;
+   var CircularProgressIndicator_var =0;
 
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   @override
+  Future<void> callFunctionAfterDelay() async {
+  await Future.delayed(Duration(seconds: 4));
+  setState(() {
+    CircularProgressIndicator_var=1;
+  });
+ 
+}
+
   void initState() {
     super.initState();
+   setState(() {
+      CircularProgressIndicator_var=0;
   
-    getTeams();
+   });
+   Iteams.clear();
+   teams.clear();
+    getTeams2();
+    callFunctionAfterDelay();
+    
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -58,10 +74,11 @@ class _dash_newState extends State<dash_new> {
   String passFromTheclassid = "";
 
   List<Team> teams = [];
+  List<Team> Iteams = [];
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-   getTeams() async {
+   getTeams2() async {
     teams.clear();
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -279,6 +296,15 @@ class _dash_newState extends State<dash_new> {
     }
     print("---------------------------------------");
     print(teams.length);
+    setState(() {
+      Iteams=teams;
+       
+      CircularProgressIndicator_var=0;
+  
+ 
+
+    });
+   
   }
 
   String getString(String number) {
@@ -437,7 +463,7 @@ class _dash_newState extends State<dash_new> {
                                   ),
                                 ),
                                 SizedBox(
-                                height:0.0090000000 * height_safearea,
+                                height:0.0070000000 * height_safearea,
                                 ),
                                 Text(
                                   "You are Owed : \ ৳" +
@@ -465,7 +491,7 @@ class _dash_newState extends State<dash_new> {
 
             SizedBox(
               width: width_safearea,
-              height: 500-50,
+              height:0.589073171* height_safearea ,
               child: SizedBox(
                 width: 200,
                 child: ListView.builder(
@@ -473,8 +499,10 @@ class _dash_newState extends State<dash_new> {
                   itemBuilder: (context, index) {
                     final item = teams[index];
                     //main container which carries rtow 
+                    print("---"+item.amount.toString());
                    
-                    return  GestureDetector(
+                    return  CircularProgressIndicator_var==1?
+                    GestureDetector(
                       onTap: () {
                       Navigator.push(context,MaterialPageRoute(
                     builder: (context) {
@@ -608,7 +636,20 @@ class _dash_newState extends State<dash_new> {
                     ),
 
                     ),
-                    );
+                    ):
+
+                    Container(
+                      width: 350,
+                      height: 600,
+                      child: Center(
+                        child:  CircularProgressIndicator(
+                        
+                      ),
+                      ),
+                    )
+                    
+                    
+                    ;
                   },
                 ),
               ),

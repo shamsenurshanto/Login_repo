@@ -63,6 +63,7 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   workmanager: ^0.5.1
   fluttertoast: ^8.2.2
+  
 
   
 dev_dependencies:

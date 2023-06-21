@@ -79,6 +79,7 @@ class _UserDetailsState extends State<UserDetails> {
 
   void initState() {
     super.initState();
+   
 
     getTeams2();
 
@@ -341,7 +342,7 @@ class _UserDetailsState extends State<UserDetails> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: SystemUiOverlay.top);
+    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [SystemUiOverlay.top]);
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
 //     statusBarColor: Colors.transparent,
 //  ));
@@ -692,29 +693,42 @@ class _UserDetailsState extends State<UserDetails> {
                             )
                                                 ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0, 2, 25, 0),
-                                                child: Column(
-                                                  children: [
-                                                    item.Transaction_status ==
-                                                            "LoanTaken"
-                                                        ? Text("owes you")
-                                                        : Text(" you owe"),
-                                                    Text(
-                                                      '৳' +
-                                                          item.amount
-                                                              .toString(),
-                                                      style: GoogleFonts.lato(
-                                                        color: Colors.amber,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                              Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.type == "Loan Taken"
+                                ? Text("owes you",style: GoogleFonts.lato(
+                               color: Color.fromARGB(255, 236, 8, 16),
+                               
+                                fontWeight: FontWeight.bold,
+                              ))
+                                : Text(" you owe",style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                         item.type == "Loan Taken"
+                                ?     Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 236, 8, 16),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ):
+                              Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 3, 113, 12),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        )
                                             ],
                                           ),
                                         ],
@@ -864,29 +878,42 @@ class _UserDetailsState extends State<UserDetails> {
                             )
                                                 ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0, 2, 25, 0),
-                                                child: Column(
-                                                  children: [
-                                                    item.Transaction_status ==
-                                                            "LoanTaken"
-                                                        ? Text("owes you")
-                                                        : Text(" you owe"),
-                                                    Text(
-                                                      '৳' +
-                                                          item.amount
-                                                              .toString(),
-                                                      style: GoogleFonts.lato(
-                                                        color: Colors.amber,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                              Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.type == "Loan Taken"
+                                ? Text("owes you",style: GoogleFonts.lato(
+                               color: Color.fromARGB(255, 236, 8, 16),
+                               
+                                fontWeight: FontWeight.bold,
+                              ))
+                                : Text(" you owe",style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                         item.type == "Loan Taken"
+                                ?     Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 236, 8, 16),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ):
+                              Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 3, 113, 12),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        )
                                             ],
                                           ),
                                         ],
@@ -1015,29 +1042,42 @@ class _UserDetailsState extends State<UserDetails> {
                             )
                                                 ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.fromLTRB(
-                                                    0, 2, 25, 0),
-                                                child: Column(
-                                                  children: [
-                                                    item.Transaction_status ==
-                                                            "LoanTaken"
-                                                        ? Text("owes you")
-                                                        : Text(" you owe"),
-                                                    Text(
-                                                      '৳' +
-                                                          item.amount
-                                                              .toString(),
-                                                      style: GoogleFonts.lato(
-                                                        color: Colors.amber,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                              Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.type == "Loan Taken"
+                                ? Text("owes you",style: GoogleFonts.lato(
+                               color: Color.fromARGB(255, 236, 8, 16),
+                               
+                                fontWeight: FontWeight.bold,
+                              ))
+                                : Text(" you owe",style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                         item.type == "Loan Taken"
+                                ?     Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 236, 8, 16),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ):
+                              Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 3, 113, 12),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        )
                                             ],
                                           ),
                                       

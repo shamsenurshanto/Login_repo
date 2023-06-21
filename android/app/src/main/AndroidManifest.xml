@@ -5,7 +5,6 @@
    <application
         android:label="দেনা-পাওনা"
         android:name="${applicationName}"
-        
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

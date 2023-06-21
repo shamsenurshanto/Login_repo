@@ -618,3 +618,10 @@ Row(
                 ),
               ),
             )
+
+
+             var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
+    print(height_safearea);
