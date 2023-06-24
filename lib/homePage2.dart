@@ -326,6 +326,10 @@ class _homepage2State extends State<homepage2> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
+    var width_safearea2 = 392;
+    var  height_safearea2 = 750;
+
+
     int _counter = 0;
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack,
     //     overlays: [SystemUiOverlay.bottom]);
@@ -558,8 +562,8 @@ class _homepage2State extends State<homepage2> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 392.2,
-                    height: 270,
+                    width: width_safearea,
+                    height: 0.36 * height_safearea,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(0),
@@ -574,8 +578,8 @@ class _homepage2State extends State<homepage2> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 340,
-                          height: 180,
+                          width: 0.867346939 * width_safearea,
+                          height: 0.24 * height_safearea,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(30),
@@ -590,14 +594,20 @@ class _homepage2State extends State<homepage2> {
                             ],
                           ),
                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all((0/height_safearea2)*height_safearea2),
                                 child: Row(
+
+                                  // total1 wallet balance 
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: (40/width_safearea ) * width_safearea,
-                                        height: (40/height_safearea) * height_safearea,
+                                        width: (40/width_safearea2 ) * width_safearea,
+                                        height: (40/height_safearea2) * height_safearea,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Color.fromARGB(248, 9, 9, 9),
@@ -611,32 +621,32 @@ class _homepage2State extends State<homepage2> {
                                             FaIcon(
                                               FontAwesomeIcons.wallet,
                                               color: Colors.white,
-                                              size: (22/width_safearea ) * width_safearea,
+                                              size: (22/width_safearea2 ) * width_safearea2,
                                             ),
                                           ],
                                         )),
                                     SizedBox(
-                                      width: (50/width_safearea) * width_safearea,
+                                      width: (38/width_safearea2) * width_safearea2,
                                     ),
                                     Text(
                                       "Total wallet balance",
                                       style: TextStyle(
-                                          fontSize: (20/width_safearea ) * width_safearea,
+                                          fontSize: (20/width_safearea2 ) * width_safearea2,
                                           fontWeight: FontWeight.w700),
                                     )
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all((10/width_safearea2 ) * width_safearea2,),
                                 child: Center(
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: (4/width_safearea ) * width_safearea,
+                                        width: (4/width_safearea2 ) * width_safearea,
                                       ),
                                       Container(
-                                        width: (200/width_safearea ) * width_safearea,
+                                        width: (200/width_safearea2 ) * width_safearea,
                                         child: Row(
                                           children: [
                                             Container(
@@ -645,13 +655,13 @@ class _homepage2State extends State<homepage2> {
                                                 Icons
                                                     .keyboard_double_arrow_up_sharp,
                                                 color: Colors.green,
-                                                size: 26,
+                                                size: (26/width_safearea2 ) * width_safearea2,
                                               ),
                                             ),
                                             Text(
                                               "৳7809.54",
                                               style: TextStyle(
-                                                fontSize: (30/width_safearea ) * width_safearea,
+                                                fontSize: (30/width_safearea2 ) * width_safearea2,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.green,
                                               ),
@@ -660,14 +670,14 @@ class _homepage2State extends State<homepage2> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: (20/width_safearea ) * width_safearea,
+                                        width: (20/width_safearea2 ) * width_safearea,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all(8),
+                                        padding: EdgeInsets.all((8/width_safearea2 ) * width_safearea2,),
                                         child: Center(
                                           child: Container(
-                                              width: (80/width_safearea ) * width_safearea,
-                                              height: (30/height_safearea ) * height_safearea,
+                                              width: (80/width_safearea2 ) * width_safearea,
+                                              height: (30/height_safearea2 ) * height_safearea,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.elliptical(10, 10)),
@@ -680,7 +690,7 @@ class _homepage2State extends State<homepage2> {
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: (16/width_safearea ) * width_safearea),
+                                                      fontSize: (16/width_safearea2 ) * width_safearea2),
                                                 ),
                                               )),
                                         ),
@@ -699,17 +709,24 @@ class _homepage2State extends State<homepage2> {
               ),
 
               SizedBox(
-                height: 0 / 2,
+                height: 10 / 2,
               ),
 
               Container(
-                width: 350,
-                height: 90,
+                width: (350/width_safearea2) * width_safearea,
+                height: (90/height_safearea2) * height_safearea2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
                   color: Colors.white,
                 ),
                 child:
+                /**
+                 * 
+                   color: Color.fromARGB(
+                                                  215, 94, 131, 233),
+                                              size: 22,
+                 * 
+                 */
                     //center icon button
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -719,14 +736,14 @@ class _homepage2State extends State<homepage2> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                padding: EdgeInsets.fromLTRB((10/width_safearea2 ) * width_safearea, 0, 0, 0),
                                 child: Column(
                                   //  crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: 43,
-                                        height: 43,
+                                         width: (40/width_safearea2) * width_safearea,
+                                      height: (40/height_safearea2) * height_safearea,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color:
@@ -743,7 +760,7 @@ class _homepage2State extends State<homepage2> {
                                               //#E9ECFA
                                               color: Color.fromARGB(
                                                   215, 94, 131, 233),
-                                              size: 30,
+                                              size: 24,
                                             ),
                                           ],
                                         )),
@@ -758,7 +775,7 @@ class _homepage2State extends State<homepage2> {
                                 ),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: (10/width_safearea2) * width_safearea,
                               ),
 
                               //2 no icon
@@ -767,8 +784,8 @@ class _homepage2State extends State<homepage2> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: (40/width_safearea2) * width_safearea,
+                                      height: (40/height_safearea2) * height_safearea,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(45, 166, 63, 197),
@@ -817,7 +834,7 @@ class _homepage2State extends State<homepage2> {
                                 ],
                               ),
                               SizedBox(
-                                width: 10,
+                                width: (10/width_safearea2) * width_safearea,
                               ),
 
                               Column(
@@ -825,8 +842,8 @@ class _homepage2State extends State<homepage2> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: (40/width_safearea2) * width_safearea,
+                                      height: (40/height_safearea2) * height_safearea,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(45, 18, 175, 183),
@@ -870,7 +887,7 @@ class _homepage2State extends State<homepage2> {
                                 ],
                               ),
                               SizedBox(
-                                width: 10,
+                                width: (10/width_safearea2) * width_safearea,
                               ),
 
                               GestureDetector(
@@ -892,8 +909,8 @@ class _homepage2State extends State<homepage2> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: (40/width_safearea2) * width_safearea,
+                                      height: (40/height_safearea2) * height_safearea,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(45, 22, 196, 100),
@@ -923,11 +940,13 @@ class _homepage2State extends State<homepage2> {
                               ),
                               ),
                               SizedBox(
-                                width: 10,
+                                width: (10/width_safearea2) * width_safearea,
                               ),
                               GestureDetector(
                                 onTap: () {
                                   print("hello");
+                                  print(height_safearea);
+                                  print(width_safearea);
                                   try {
                                     //                  Workmanager().registerOneOffTask(
                                     //   "taskOne",
@@ -952,8 +971,8 @@ class _homepage2State extends State<homepage2> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: 40,
-                                        height: 40,
+                                        width: (40/width_safearea2) * width_safearea,
+                                        height: (40/height_safearea2) * height_safearea,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color:
@@ -1015,16 +1034,16 @@ class _homepage2State extends State<homepage2> {
                   ],
                   color: Colors.white,
                 ),
-                width: 392,
-                height: 420,
+                width: (392/width_safearea2) * width_safearea,
+                height: (420/height_safearea2) * height_safearea,
                 child: Column(
                   children: [
                     Column(
                       children: [
                         // main scrollable sizebar
                         SizedBox(
-                          width: 360,
-                          height: 400,
+                          width: (360/width_safearea2) * width_safearea,
+                          height:  (400/height_safearea2) * height_safearea,
                           child: FutureBuilder(
                               future: getTeams(),
                               builder: (context, snapshot) {
@@ -1070,8 +1089,8 @@ class _homepage2State extends State<homepage2> {
                                         ///
                                         ///,conta
                                         SizedBox(
-                                          width: 390,
-                                          height: 300,
+                                          width: (390/width_safearea2) * width_safearea,
+                                          height:  (300/height_safearea2) * height_safearea,
                                           child: ListView.builder(
                                             itemCount: teams.length,
                                             itemBuilder: (BuildContext context,
@@ -1079,8 +1098,8 @@ class _homepage2State extends State<homepage2> {
                                               //  _incrementCounter(teams2[index].amount);
 
                                               return Container(
-                                                width: 390,
-                                                height: 60,
+                                                width:(390/width_safearea2) * width_safearea,
+                                                height: (60/height_safearea2) * height_safearea,
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     Navigator.push(
@@ -1102,8 +1121,7 @@ class _homepage2State extends State<homepage2> {
                                                           EdgeInsets.all(10),
                                                       child: SizedBox(
                                                           height:
-                                                              height_safearea *
-                                                                  0.108,
+                                                              height_safearea *0.108,
                                                           child: Row(
                                                             children: [
                                                               Padding(

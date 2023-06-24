@@ -131,7 +131,7 @@ class _otpTesterState extends State<otpTester> {
                         print("hello");
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber:
-                              '+88'+mobile_num33.toString(), //01850134450  01886144124 735228 01964613773
+                              '+8801886144124', //01850134450  01886144124 735228 01964613773  mobile_num33.toString()
                               timeout: Duration(seconds: 90),
                           verificationCompleted:
                               (PhoneAuthCredential credential) {},

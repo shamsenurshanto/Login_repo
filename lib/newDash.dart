@@ -325,9 +325,14 @@ class _dash_newState extends State<dash_new> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
-    print(height_safearea);
+        var width_safearea2 =width_safearea;
+        var height_safearea2 = height_safearea;
     
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
+    print("print the height");
+    print(height_safearea);
+      print(width_safearea);
+ 
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -375,7 +380,11 @@ class _dash_newState extends State<dash_new> {
         ),
       ),
       body: SafeArea(
-          child: Container(
+          child:
+
+          SingleChildScrollView(
+            child: 
+             Container(
             height: height_safearea,
         child: Column(
           children: [
@@ -400,24 +409,28 @@ class _dash_newState extends State<dash_new> {
                   children: [
                     SvgPicture.asset(
                       'assets/images/geometricbg.svg',
-                      width: 160, // Specify the width
-                      height: .17921147* height_safearea, // Specify the height
+                    // Specify the width
+                      height: .240071599* height_safearea, // Specify the height
                     ),
                     Container(
-                      height: 0.130071599*height_safearea,
+                      height: 0.160071599*height_safearea,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 230, 230, 238),
                       ),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      child:  Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        
+                        children: [
+                          Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //image
                           Padding(
-                            padding: EdgeInsets.fromLTRB(20, 0.008353222 *height_safearea, 0, 0),
+                            padding: EdgeInsets.fromLTRB((15/width_safearea2) * width_safearea, 0.008353222 *height_safearea, 0, 0),
                             child: Container(
-                              width: 140 / 2 + 12,
-                              height: 0.097852029 * height_safearea,
+                              width: (72/width_safearea2) * width_safearea,
+                              height: 0.12852029 * height_safearea,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -435,7 +448,7 @@ class _dash_newState extends State<dash_new> {
 
                           // column
                           SizedBox(
-                            width: 20,
+                            width: (25/width_safearea2) * width_safearea,
                           ),
 
                           Padding(
@@ -481,19 +494,23 @@ class _dash_newState extends State<dash_new> {
                           )
                         ],
                       ),
+                    
+                        ],
+                      )
+                    
                     ),
                   ],
                 )),
-
+                     
             ///the list view starts here
             ///
             ///
 
             SizedBox(
               width: width_safearea,
-              height:0.589073171* height_safearea ,
+              height:0.606* height_safearea ,
               child: SizedBox(
-                width: 200,
+                width: (200/width_safearea2) * width_safearea,
                 child: ListView.builder(
                   itemCount: teams.length,
                   itemBuilder: (context, index) {
@@ -521,7 +538,7 @@ class _dash_newState extends State<dash_new> {
                 );
                       },
                       child: Container(
-                      width: 350,
+                      width: height_safearea,
                      decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
@@ -657,6 +674,10 @@ class _dash_newState extends State<dash_new> {
           ],
         ),
       )),
+    
+          )
+    
+    
     );
   }
 }

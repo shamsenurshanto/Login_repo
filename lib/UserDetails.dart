@@ -341,6 +341,7 @@ class _UserDetailsState extends State<UserDetails> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
+    var height_safearea2= height_safearea;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [SystemUiOverlay.top]);
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -400,7 +401,8 @@ class _UserDetailsState extends State<UserDetails> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         body: SafeArea(
-          child: Column(
+          child: SingleChildScrollView(
+            child:  Column(
             children: [
               Container(
                 width: width_safearea,
@@ -504,13 +506,13 @@ class _UserDetailsState extends State<UserDetails> {
               items.length == 0
                   ? Container(
                       width: width_safearea,
-                      height: 300,
+                      height: (300/height_safearea2) * height_safearea,
                       child: Center(
                         child: CircularProgressIndicator(),
                       ))
                   : SizedBox(
                       width: width_safearea,
-                      height: 500 - 89,
+                      height: (411/750) * height_safearea,
                       child: SizedBox(
                         width: 200,
                         child: ListView.builder(
@@ -1093,6 +1095,11 @@ class _UserDetailsState extends State<UserDetails> {
               //push 1
             ],
           ),
-        ));
+       
+          )
+       
+        )
+        
+        );
   }
 }

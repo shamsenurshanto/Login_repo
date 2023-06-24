@@ -210,12 +210,14 @@ class _otpPhoneState extends State<otpPhone> {
         child: ElevatedButton(onPressed: () async {
 
          try{
+           print("--++++++++--------");
+    print(pin.toString());
            // Create a PhoneAuthCredential with the code
     PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: otpTester.verify, smsCode: pin.toString());
 
     // Sign the user in (or link) with the credential
     await auth.signInWithCredential(credential);
-    print(emailController.text);
+   
 
                  Navigator.push(context,MaterialPageRoute(
                                     builder: (context) {
@@ -234,6 +236,8 @@ class _otpPhoneState extends State<otpPhone> {
          }
          catch(e){
           print(e);
+           print("------------------");
+    print(pin.toString());
           
          }
 
