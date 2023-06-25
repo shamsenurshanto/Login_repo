@@ -59,8 +59,8 @@ class _tabBarForRecentDatesState extends State<tabBarForRecentDates> {
                     ],
                   ),
                   SizedBox(
-                      width: (380/width_safearea) * width_safearea,
-                      height: (640/height_safearea) * height_safearea,
+                      width: width_safearea,
+                      height: height_safearea-115,
                       child: TabBarView(children: [ LoanTakenPages(),LoanGivenPages()]))
                 ],
               ),

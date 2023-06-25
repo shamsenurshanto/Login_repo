@@ -74,13 +74,13 @@ class _homepage2State extends State<homepage2> {
   bool isAdloaded = false;
   // initBannerAd(){
   //   bannerAd = BannerAd(
-  //     size: AdSize.banner, 
-  //     adUnitId: '', 
+  //     size: AdSize.banner,
+  //     adUnitId: '',
   //     listener: BannerAdListener(
   //       onAdLoaded: (ad){
   //         setState(() {
   //           isAdloaded=true;
-            
+
   //         });
   //       }
   //       ,
@@ -89,10 +89,9 @@ class _homepage2State extends State<homepage2> {
   //         print(error);
 
   //       }
-  //     ), 
+  //     ),
   //     request: const AdRequest(),
-      
-      
+
   //     );
   //     bannerAd.load();
   // }
@@ -318,7 +317,7 @@ class _homepage2State extends State<homepage2> {
     }
     print("---------------------------------------");
     print(teams.length);
-    iteam_team=teams;
+    iteam_team = teams;
   }
 
   @override
@@ -326,9 +325,15 @@ class _homepage2State extends State<homepage2> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-    var width_safearea2 = 392;
-    var  height_safearea2 = 750;
 
+    var temp = 0.0;
+    if (height_safearea < width_safearea) {
+      temp = height_safearea;
+      height_safearea = width_safearea;
+      width_safearea = temp;
+    }
+    var width_safearea2 = 392;
+    var height_safearea2 = 750;
 
     int _counter = 0;
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack,
@@ -594,20 +599,22 @@ class _homepage2State extends State<homepage2> {
                             ],
                           ),
                           child: Column(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all((0/height_safearea2)*height_safearea2),
+                                padding: EdgeInsets.all(
+                                    (12 / height_safearea2) * height_safearea2),
                                 child: Row(
-
-                                  // total1 wallet balance 
+                                  // total1 wallet balance
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: (40/width_safearea2 ) * width_safearea,
-                                        height: (40/height_safearea2) * height_safearea,
+                                        width: (40 / width_safearea2) *
+                                            width_safearea,
+                                        height: (40 / height_safearea2) *
+                                            height_safearea,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Color.fromARGB(248, 9, 9, 9),
@@ -621,32 +628,39 @@ class _homepage2State extends State<homepage2> {
                                             FaIcon(
                                               FontAwesomeIcons.wallet,
                                               color: Colors.white,
-                                              size: (22/width_safearea2 ) * width_safearea2,
+                                              size: (22 / height_safearea2) *
+                                                  height_safearea,
                                             ),
                                           ],
                                         )),
                                     SizedBox(
-                                      width: (38/width_safearea2) * width_safearea2,
+                                      width: (38 / width_safearea2) *
+                                          width_safearea2,
                                     ),
                                     Text(
                                       "Total wallet balance",
                                       style: TextStyle(
-                                          fontSize: (20/width_safearea2 ) * width_safearea2,
+                                          fontSize: (20 / width_safearea2) *
+                                              width_safearea2,
                                           fontWeight: FontWeight.w700),
                                     )
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.all((10/width_safearea2 ) * width_safearea2,),
+                                padding: EdgeInsets.all(
+                                  (10 / width_safearea2) * width_safearea2,
+                                ),
                                 child: Center(
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: (4/width_safearea2 ) * width_safearea,
+                                        width: (4 / width_safearea2) *
+                                            width_safearea,
                                       ),
                                       Container(
-                                        width: (200/width_safearea2 ) * width_safearea,
+                                        width: (200 / width_safearea2) *
+                                            width_safearea,
                                         child: Row(
                                           children: [
                                             Container(
@@ -655,13 +669,16 @@ class _homepage2State extends State<homepage2> {
                                                 Icons
                                                     .keyboard_double_arrow_up_sharp,
                                                 color: Colors.green,
-                                                size: (26/width_safearea2 ) * width_safearea2,
+                                                size: (26 / width_safearea2) *
+                                                    width_safearea2,
                                               ),
                                             ),
                                             Text(
                                               "৳7809.54",
                                               style: TextStyle(
-                                                fontSize: (30/width_safearea2 ) * width_safearea2,
+                                                fontSize:
+                                                    (30 / width_safearea2) *
+                                                        width_safearea2,
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.green,
                                               ),
@@ -670,14 +687,20 @@ class _homepage2State extends State<homepage2> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: (20/width_safearea2 ) * width_safearea,
+                                        width: (20 / width_safearea2) *
+                                            width_safearea,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all((8/width_safearea2 ) * width_safearea2,),
+                                        padding: EdgeInsets.all(
+                                          (8 / width_safearea2) *
+                                              width_safearea2,
+                                        ),
                                         child: Center(
                                           child: Container(
-                                              width: (80/width_safearea2 ) * width_safearea,
-                                              height: (30/height_safearea2 ) * height_safearea,
+                                              width: (80 / width_safearea2) *
+                                                  width_safearea,
+                                              height: (30 / height_safearea2) *
+                                                  height_safearea,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.elliptical(10, 10)),
@@ -690,7 +713,9 @@ class _homepage2State extends State<homepage2> {
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      fontSize: (16/width_safearea2 ) * width_safearea2),
+                                                      fontSize: (16 /
+                                                              width_safearea2) *
+                                                          width_safearea2),
                                                 ),
                                               )),
                                         ),
@@ -713,37 +738,43 @@ class _homepage2State extends State<homepage2> {
               ),
 
               Container(
-                width: (350/width_safearea2) * width_safearea,
-                height: (90/height_safearea2) * height_safearea2,
+                width: (350 / width_safearea2) * width_safearea,
+                height: (110 / height_safearea2) * height_safearea2,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),
                   color: Colors.white,
                 ),
                 child:
-                /**
+                    /**
                  * 
                    color: Color.fromARGB(
                                                   215, 94, 131, 233),
                                               size: 22,
                  * 
                  */
-                    //center icon button
+                    //center icon button iCenter
                     Padding(
                         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: Card(
-                          elevation: 20,
+                          elevation: (22 / height_safearea2) * height_safearea,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: EdgeInsets.fromLTRB((10/width_safearea2 ) * width_safearea, 0, 0, 0),
+                                padding: EdgeInsets.fromLTRB(
+                                    (10 / width_safearea2) * width_safearea,
+                                    0,
+                                    0,
+                                    0),
                                 child: Column(
                                   //  crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                         width: (40/width_safearea2) * width_safearea,
-                                      height: (40/height_safearea2) * height_safearea,
+                                        width: (40 / width_safearea2) *
+                                            width_safearea,
+                                        height: (40 / height_safearea2) *
+                                            height_safearea,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color:
@@ -760,7 +791,8 @@ class _homepage2State extends State<homepage2> {
                                               //#E9ECFA
                                               color: Color.fromARGB(
                                                   215, 94, 131, 233),
-                                              size: 24,
+                                              size: (23 / height_safearea2) *
+                                                  height_safearea,
                                             ),
                                           ],
                                         )),
@@ -775,7 +807,7 @@ class _homepage2State extends State<homepage2> {
                                 ),
                               ),
                               SizedBox(
-                                width: (10/width_safearea2) * width_safearea,
+                                width: (10 / width_safearea2) * width_safearea,
                               ),
 
                               //2 no icon
@@ -784,8 +816,10 @@ class _homepage2State extends State<homepage2> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      width: (40/width_safearea2) * width_safearea,
-                                      height: (40/height_safearea2) * height_safearea,
+                                      width: (40 / width_safearea2) *
+                                          width_safearea,
+                                      height: (40 / height_safearea2) *
+                                          height_safearea,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(45, 166, 63, 197),
@@ -820,7 +854,8 @@ class _homepage2State extends State<homepage2> {
                                               //#E9ECFA
                                               color: Color.fromARGB(
                                                   255, 166, 63, 197),
-                                              size: 22,
+                                              size: (22 / height_safearea2) *
+                                                  height_safearea,
                                             ),
                                           )
                                         ],
@@ -834,7 +869,7 @@ class _homepage2State extends State<homepage2> {
                                 ],
                               ),
                               SizedBox(
-                                width: (10/width_safearea2) * width_safearea,
+                                width: (10 / width_safearea2) * width_safearea,
                               ),
 
                               Column(
@@ -842,8 +877,10 @@ class _homepage2State extends State<homepage2> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                      width: (40/width_safearea2) * width_safearea,
-                                      height: (40/height_safearea2) * height_safearea,
+                                      width: (40 / width_safearea2) *
+                                          width_safearea,
+                                      height: (40 / height_safearea2) *
+                                          height_safearea,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color.fromARGB(45, 18, 175, 183),
@@ -873,7 +910,8 @@ class _homepage2State extends State<homepage2> {
                                               //#E9ECFA
                                               color: Color.fromARGB(
                                                   255, 17, 200, 216),
-                                              size: 22,
+                                              size: (22 / height_safearea2) *
+                                                  height_safearea,
                                             ),
                                           )
                                         ],
@@ -887,60 +925,63 @@ class _homepage2State extends State<homepage2> {
                                 ],
                               ),
                               SizedBox(
-                                width: (10/width_safearea2) * width_safearea,
+                                width: (10 / width_safearea2) * width_safearea,
                               ),
 
                               GestureDetector(
-                                onTap: (){
-                                     Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) {
-                                                          return tabBarForRecentDates();
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return tabBarForRecentDates();
 
-                                                          // return userDetails(teams[index].mainMail);
-                                                        },
-                                                      ),
-                                                    );
-
+                                        // return userDetails(teams[index].mainMail);
+                                      },
+                                    ),
+                                  );
                                 },
                                 child: Column(
-                                //  crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: (40/width_safearea2) * width_safearea,
-                                      height: (40/height_safearea2) * height_safearea,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color.fromARGB(45, 22, 196, 100),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.credit_card_outlined,
-                                            //#E9ECFA
-                                            color: Color.fromARGB(
-                                                205, 22, 196, 164),
-                                            size: 27,
-                                          ),
-                                        ],
-                                      )),
-                                  //text
-                                  Text(
-                                    "Credit",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w900),
-                                  )
-                                ],
-                              ),
+                                  //  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        width: (40 / width_safearea2) *
+                                            width_safearea,
+                                        height: (40 / height_safearea2) *
+                                            height_safearea,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                              Color.fromARGB(45, 22, 196, 100),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.credit_card_outlined,
+                                              //#E9ECFA
+                                              color: Color.fromARGB(
+                                                  205, 22, 196, 164),
+                                              size: (22 / height_safearea2) *
+                                                  height_safearea,
+                                            ),
+                                          ],
+                                        )),
+                                    //text
+                                    Text(
+                                      "Credit",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w900),
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(
-                                width: (10/width_safearea2) * width_safearea,
+                                width: (10 / width_safearea2) * width_safearea,
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -971,8 +1012,10 @@ class _homepage2State extends State<homepage2> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                        width: (40/width_safearea2) * width_safearea,
-                                        height: (40/height_safearea2) * height_safearea,
+                                        width: (40 / width_safearea2) *
+                                            width_safearea,
+                                        height: (40 / height_safearea2) *
+                                            height_safearea,
                                         decoration: BoxDecoration(
                                             shape: BoxShape.circle,
                                             color:
@@ -991,7 +1034,8 @@ class _homepage2State extends State<homepage2> {
                                               //#E9ECFA
                                               color: Color.fromARGB(
                                                   255, 60, 219, 139),
-                                              size: 22,
+                                              size: (22 / height_safearea2) *
+                                                  height_safearea,
                                             ),
                                           ],
                                         )),
@@ -1013,7 +1057,7 @@ class _homepage2State extends State<homepage2> {
               ),
 
               SizedBox(
-                height: 70,
+                height: (70 / height_safearea2) * height_safearea,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -1034,16 +1078,16 @@ class _homepage2State extends State<homepage2> {
                   ],
                   color: Colors.white,
                 ),
-                width: (392/width_safearea2) * width_safearea,
-                height: (420/height_safearea2) * height_safearea,
+                width: (392 / width_safearea2) * width_safearea,
+                height: (420 / height_safearea2) * height_safearea,
                 child: Column(
                   children: [
                     Column(
                       children: [
                         // main scrollable sizebar
                         SizedBox(
-                          width: (360/width_safearea2) * width_safearea,
-                          height:  (400/height_safearea2) * height_safearea,
+                          width: (360 / width_safearea2) * width_safearea,
+                          height: (400 / height_safearea2) * height_safearea,
                           child: FutureBuilder(
                               future: getTeams(),
                               builder: (context, snapshot) {
@@ -1089,8 +1133,10 @@ class _homepage2State extends State<homepage2> {
                                         ///
                                         ///,conta
                                         SizedBox(
-                                          width: (390/width_safearea2) * width_safearea,
-                                          height:  (300/height_safearea2) * height_safearea,
+                                          width: (390 / width_safearea2) *
+                                              width_safearea,
+                                          height: (300 / height_safearea2) *
+                                              height_safearea,
                                           child: ListView.builder(
                                             itemCount: teams.length,
                                             itemBuilder: (BuildContext context,
@@ -1098,8 +1144,11 @@ class _homepage2State extends State<homepage2> {
                                               //  _incrementCounter(teams2[index].amount);
 
                                               return Container(
-                                                width:(390/width_safearea2) * width_safearea,
-                                                height: (60/height_safearea2) * height_safearea,
+                                                width: (390 / width_safearea2) *
+                                                    width_safearea,
+                                                height:
+                                                    (60 / height_safearea2) *
+                                                        height_safearea,
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     Navigator.push(
@@ -1121,95 +1170,96 @@ class _homepage2State extends State<homepage2> {
                                                           EdgeInsets.all(10),
                                                       child: SizedBox(
                                                           height:
-                                                              height_safearea *0.108,
+                                                              height_safearea *
+                                                                  0.108,
                                                           child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
                                                             children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(10 /
-                                                                            2),
-                                                                child: ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(30.0),
-                                                                    child:
-                                                                        // pictureofUsers[index]?
-                                                                        // Image
-                                                                        //     .network(
-                                                                        //       "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[0],
-                                                                        //   width: 30,
-                                                                        //   height:
-                                                                        //       60 / 2,
-                                                                        //   fit: BoxFit1
-                                                                        //       .cover,
-                                                                        // ):
-                                                                        teams[index].img_link!=""?
-                                                                        Image.network(
-                                                                      "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                                                        teams[index].img_link,
-                                                                      width: 30,
-                                                                      height:
-                                                                          60 /
-                                                                              2,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ):
+                                                              Row(
+                                                                // Row for the icons
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(7),
+                                                                    child: ClipRRect(
+                                                                        borderRadius: BorderRadius.circular(30.0),
+                                                                        child:
+                                                                            // pictureofUsers[index]?
+                                                                            // Image
+                                                                            //     .network(
+                                                                            //       "https://personalrecordback-production.up.railway.app/amendmentDoc/"+pictureofUsers[0],
+                                                                            //   width: 30,
+                                                                            //   height:
+                                                                            //       60 / 2,
+                                                                            //   fit: BoxFit1
+                                                                            //       .cover,
+                                                                            // ):
+                                                                            teams[index].img_link != ""
+                                                                                ? Image.network(
+                                                                                    "https://personalrecordback-production.up.railway.app/amendmentDoc/" + teams[index].img_link,
+                                                                                    width: (30 / width_safearea2) * width_safearea,
+                                                                                    height: (30 / height_safearea2) * height_safearea,
+                                                                                    fit: BoxFit.cover,
+                                                                                  )
+                                                                                : Image.asset(
+                                                                                    'assets/images/bluebackg.jpg',
+                                                                                    width: (30 / width_safearea2) * width_safearea,
+                                                                                    height: (30 / height_safearea2) * height_safearea,
+                                                                                    fit: BoxFit.cover,
+                                                                                  )),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 30,
+                                                                  ),
+                                                                  teams[index].type ==
+                                                                          "Loan Given"
+                                                                      ?
 
-                                                                    
+                                                                      //up arrow
 
-                                                                      Image.asset('assets/images/bluebackg.jpg',
-                                                                      width: 30,
-                                                                      height:
-                                                                          60 /
-                                                                              2,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    )
-
-
-                                                                    
-                                                                    
-                                                                    ),
+                                                                      Icon(
+                                                                          Icons
+                                                                              .arrow_upward_outlined,
+                                                                          color:
+                                                                              Colors.deepPurple,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons
+                                                                              .arrow_downward_outlined,
+                                                                          color:
+                                                                              Colors.green,
+                                                                        ),
+                                                                  teams[index].Transaction_status ==
+                                                                          "PENDING"
+                                                                      ? Icon(
+                                                                          Icons
+                                                                              .hourglass_bottom_outlined,
+                                                                          color:
+                                                                              Colors.grey,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons
+                                                                              .done,
+                                                                          color:
+                                                                              Colors.green,
+                                                                        ),
+                                                                ],
                                                               ),
-                                                              teams[index].type ==
-                                                                      "Loan Given"
-                                                                  ?
-
-                                                                  //up arrow
-
-                                                                  Icon(
-                                                                      Icons
-                                                                          .arrow_upward_outlined,
-                                                                      color: Colors
-                                                                          .deepPurple,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons
-                                                                          .arrow_downward_outlined,
-                                                                      color: Colors
-                                                                          .green,
-                                                                    ),
-                                                              teams[index].Transaction_status ==
-                                                                      "PENDING"
-                                                                  ? Icon(
-                                                                      Icons
-                                                                          .hourglass_bottom_outlined,
-                                                                      color: Colors
-                                                                          .grey,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons
-                                                                          .done,
-                                                                      color: Colors
-                                                                          .green,
-                                                                    ),
                                                               SizedBox(
-                                                                width: 250 / 2,
-                                                              ),
+                                                                  width: (125 /
+                                                                          width_safearea2) *
+                                                                      width_safearea),
                                                               Padding(
                                                                 padding:
                                                                     EdgeInsets
                                                                         .all(
-                                                                            10),
+                                                                            20),
                                                                 child: Text(
                                                                   "৳ " +
                                                                       teams[index]
@@ -1242,12 +1292,39 @@ class _homepage2State extends State<homepage2> {
                                           height: height_safearea,
                                           color: Colors.white,
                                           child: Center(
+                                            
                                             child: Container(
                                               width:
-                                                  width_safearea * 0.076530612,
+                                                  width_safearea * 0.3,
                                               height: height_safearea * 0.04,
-                                              child:
-                                                  CircularProgressIndicator(),
+                                              child:  Container(
+                                                width: width_safearea,
+                                                height: height_safearea,
+                                                child: Stack(
+                                                
+                                                children: [
+                                                  Container(
+                                                 
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: const Color.fromARGB(255, 221, 212, 212),
+                                                    ),
+                                                  ),
+                                                  Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      strokeWidth: 3.0,
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                              Colors.white),
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              )
                                             ),
                                           )));
                                 }

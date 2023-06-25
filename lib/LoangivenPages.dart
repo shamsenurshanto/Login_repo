@@ -57,6 +57,20 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
   @override
   Widget build(BuildContext context) {
 
+    var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+    
+    var temp =0.0;
+    if(height_safearea<width_safearea)
+    {
+      temp = height_safearea;
+      height_safearea = width_safearea;
+      width_safearea = temp;
+    }
+    var width_safearea2 = 352;
+    var  height_safearea2 = 750;
+
     return Scaffold(
        appBar: AppBar(title: Text("Loan Receiving Dates",style: TextStyle(color: Colors.black),),
       elevation: 2,
@@ -97,7 +111,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                   EdgeInsets.all(12),
                   child:  Text(
                       dates2,style: TextStyle(
-                        fontSize: 17,
+                        fontSize: (17/width_safearea2) * width_safearea,
                         color: Colors.black,
                         fontWeight: FontWeight.w300
                       ),
@@ -112,7 +126,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                             
                 
                       Container(
-                        width: 330,
+                        width: (330/width_safearea2) * width_safearea,
                         child: 
                          Card(
                           child:   Row(
@@ -122,13 +136,13 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                               Padding(
                               padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
                               child: Container(
-                                width: 140 / 4 + 12,
-                                height: 140 / 4 + 12,
+                                width: ((140 / 4 + 12)/width_safearea2) * width_safearea,
+                                height: (140 / 4 + 12)/height_safearea2 * height_safearea,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                       color: Color.fromARGB(255, 101, 101, 230),
-                                      width: 2.4+1),
+                                      width: (3.4)/width_safearea2 * width_safearea),
                                 ),
                                 child: CircleAvatar(
                                   radius: 100,
@@ -141,13 +155,13 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                             ),
 
                                Container(
-                              width: 70,
+                              width: (70/width_safearea2) * width_safearea,
                               child: 
                                  Text(
                              _data['data'][index]['userName'],
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 43, 54, 80),
-                                fontSize: 17,
+                                fontSize: (17/height_safearea2) * height_safearea,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -155,7 +169,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                              
 
                              Container(
-                              width: 100,
+                              width: (100/width_safearea2) * width_safearea,
                               child: 
                                   Column(
                                     children: [
@@ -163,7 +177,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                             "Total Sent ",
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 223, 16, 88),
-                                fontSize: 15,
+                                fontSize:  (15/height_safearea2) * height_safearea,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -172,8 +186,9 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
                              _data['data'][index]['total_sent'].toString(),
                               style: GoogleFonts.lato(
                                 color: Color.fromARGB(255, 43, 54, 80),
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
+                                fontSize: (17/height_safearea2) * height_safearea,
+                                fontWeight: FontWeight.w400,
+                                
                               ),
                             ),
                                     ],

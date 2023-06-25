@@ -325,8 +325,8 @@ class _dash_newState extends State<dash_new> {
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-        var width_safearea2 =width_safearea;
-        var height_safearea2 = height_safearea;
+        var width_safearea2 =352;
+        var height_safearea2 = 750;
     
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
     print("print the height");
@@ -423,7 +423,7 @@ class _dash_newState extends State<dash_new> {
                         
                         children: [
                           Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           //image
                           Padding(
@@ -447,9 +447,7 @@ class _dash_newState extends State<dash_new> {
                           ),
 
                           // column
-                          SizedBox(
-                            width: (25/width_safearea2) * width_safearea,
-                          ),
+                         
 
                           Padding(
                             padding: EdgeInsets.fromLTRB(0, 0.022673031 *height_safearea, 0, 0),
@@ -491,7 +489,10 @@ class _dash_newState extends State<dash_new> {
                               
                               ],
                             ),
-                          )
+                          ),
+                           SizedBox(
+                            width: (30/width_safearea2) * width_safearea,
+                          ),
                         ],
                       ),
                     

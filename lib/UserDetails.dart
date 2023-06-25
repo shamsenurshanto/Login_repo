@@ -33,6 +33,7 @@ class _UserDetailsState extends State<UserDetails> {
   String valAmount = "";
   var loanStaus = "";
   List<dynamic> items = [];
+  
 
   var Lang_val = "English";
   var amountOfUser = "";
@@ -338,10 +339,19 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var height_safearea =
+ var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
-    var height_safearea2= height_safearea;
+    
+    var temp =0.0;
+    if(height_safearea<width_safearea)
+    {
+      temp = height_safearea;
+      height_safearea = width_safearea;
+      width_safearea = temp;
+    }
+    var width_safearea2 = 392;
+    var  height_safearea2 = 750;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky, overlays: [SystemUiOverlay.top]);
 //    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -406,7 +416,7 @@ class _UserDetailsState extends State<UserDetails> {
             children: [
               Container(
                 width: width_safearea,
-                height: 400 - 30,
+                height: (370/height_safearea2) * height_safearea,
                 child: Container(
                   child: Stack(
                     children: [
@@ -414,16 +424,16 @@ class _UserDetailsState extends State<UserDetails> {
                         top: 0,
                         child: Container(
                             width: width_safearea,
-                            height: 200 - 20,
+                            height: (180/height_safearea2) * height_safearea,
                             child: Image.asset("assets/images/fl-npreview.jpg",
                                 fit: BoxFit.cover)),
                       ),
                       Positioned(
-                        top: 200 - 95,
-                        left: 40,
+                        top: ((200-95)/height_safearea2) * height_safearea,
+                        left: (40/width_safearea2) * width_safearea,
                         child: Container(
-                          width: 140 / 2 + 40,
-                          height: 140 / 2 + 50,
+                          width:  (110/width_safearea2) * width_safearea,
+                          height:  (120/height_safearea2) * height_safearea,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -440,8 +450,8 @@ class _UserDetailsState extends State<UserDetails> {
                         ),
                       ),
                       Positioned(
-                          top: 230,
-                          left: 60,
+                          top:  (250/height_safearea2) * height_safearea,
+                          left: (70/width_safearea2) * width_safearea,
                           child: Container(
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -450,7 +460,7 @@ class _UserDetailsState extends State<UserDetails> {
                               Text(
                                 widget.teams.name.toUpperCase(),
                                 style: GoogleFonts.mina(
-                                    fontSize: 23.0,
+                                    fontSize:  (23/width_safearea2) * width_safearea,
                                     color:
                                         const Color.fromARGB(255, 48, 40, 40),
                                     fontWeight: FontWeight.w500),
@@ -460,7 +470,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   text: widget.teams.name.toUpperCase() +
                                       " owes You ",
                                   style: GoogleFonts.mina(
-                                      fontSize: 13.0,
+                                          fontSize:  (13/width_safearea2) * width_safearea,
                                       color:
                                           const Color.fromARGB(255, 48, 40, 40),
                                       fontWeight: FontWeight.w500),
@@ -468,7 +478,7 @@ class _UserDetailsState extends State<UserDetails> {
                                     TextSpan(
                                         text: ' ৳7999',
                                         style: GoogleFonts.mina(
-                                            fontSize: 18.0,
+                                              fontSize:  (13/width_safearea2) * width_safearea,
                                             color: Color.fromARGB(
                                                 189, 219, 18, 62),
                                             fontWeight: FontWeight.w700)),
@@ -480,7 +490,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   text: "You owes " +
                                       widget.teams.name.toUpperCase(),
                                   style: GoogleFonts.mina(
-                                      fontSize: 13.0,
+                                          fontSize:  (13/width_safearea2) * width_safearea,
                                       color:
                                           const Color.fromARGB(255, 48, 40, 40),
                                       fontWeight: FontWeight.w500),
@@ -488,7 +498,7 @@ class _UserDetailsState extends State<UserDetails> {
                                     TextSpan(
                                         text: ' ৳7999',
                                         style: GoogleFonts.mina(
-                                            fontSize: 18.0,
+                                              fontSize:  (13/width_safearea2) * width_safearea,
                                             color: Color.fromARGB(
                                                 255, 81, 224, 179),
                                             fontWeight: FontWeight.w700)),
@@ -514,7 +524,7 @@ class _UserDetailsState extends State<UserDetails> {
                       width: width_safearea,
                       height: (411/750) * height_safearea,
                       child: SizedBox(
-                        width: 200,
+                        width:      (203/width_safearea2) * width_safearea,
                         child: ListView.builder(
                           itemCount: items.length,
                           itemBuilder: (context, index) {
@@ -547,13 +557,13 @@ class _UserDetailsState extends State<UserDetails> {
                                 // );
                               },
                               child: Container(
-                                width: 350,
+                                width: (350/width_safearea2) * width_safearea,
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide(
                                       color: const Color.fromARGB(
                                           255, 240, 226, 226),
-                                      width: 0.7,
+                                      width: (0.7/width_safearea2) * width_safearea,
                                     ),
                                   ),
                                 ),
@@ -565,11 +575,11 @@ class _UserDetailsState extends State<UserDetails> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.all(20),
+                                            padding: EdgeInsets.all((20/width_safearea2) * width_safearea,),
                                             child: Text(
                                               month2 + " " + year2,
                                               style: TextStyle(
-                                                  fontSize: 22,
+                                                  fontSize: (20/width_safearea2) * width_safearea,
                                                   fontWeight: FontWeight.w200,
                                                   color: Colors.black),
                                             ),
