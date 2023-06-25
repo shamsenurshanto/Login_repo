@@ -44,6 +44,7 @@ class _homepage2State extends State<homepage2> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    
     fetchData();
     // fetchData();
 
@@ -327,13 +328,37 @@ class _homepage2State extends State<homepage2> {
     var width_safearea = MediaQuery.of(context).size.width;
 
     var temp = 0.0;
-    if (height_safearea < width_safearea) {
-      temp = height_safearea;
-      height_safearea = width_safearea;
-      width_safearea = temp;
-    }
+   
     var width_safearea2 = 392;
     var height_safearea2 = 750;
+
+      if (MediaQuery.of(context).orientation ==
+                                        Orientation.portrait) {
+                                          print("hello potra");
+                                      // is portrait
+                                    } else {
+                                      print("helo landa");
+                                       setState(() {
+                                      height_safearea = MediaQuery.of(context)
+                                              .size
+                                              .height -
+                                          MediaQuery.of(context).padding.top;
+                                      width_safearea =
+                                          MediaQuery.of(context).size.width;
+
+                                      var temp = 0.0;
+                                      // if (height_safearea < width_safearea) {
+                                      //   temp = height_safearea;
+                                      //   height_safearea = width_safearea;
+                                      //   width_safearea = temp;
+                                      // }
+                                      print(height_safearea);
+                                      print(width_safearea);
+                                    }
+                                    )
+                                    ;
+// is landscape
+                                    }
 
     int _counter = 0;
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack,
@@ -986,9 +1011,9 @@ class _homepage2State extends State<homepage2> {
                               GestureDetector(
                                 onTap: () {
                                   print("hello");
-                                  print(height_safearea);
-                                  print(width_safearea);
+
                                   try {
+                                   
                                     //                  Workmanager().registerOneOffTask(
                                     //   "taskOne",
                                     //   "backUp",
@@ -999,6 +1024,7 @@ class _homepage2State extends State<homepage2> {
                                       Notification_number.toString(),
                                       frequency: Duration(minutes: 15),
                                     );
+                                  
                                   } catch (e) {
                                     print(e);
                                   }
@@ -1292,40 +1318,40 @@ class _homepage2State extends State<homepage2> {
                                           height: height_safearea,
                                           color: Colors.white,
                                           child: Center(
-                                            
                                             child: Container(
-                                              width:
-                                                  width_safearea * 0.3,
-                                              height: height_safearea * 0.04,
-                                              child:  Container(
-                                                width: width_safearea,
-                                                height: height_safearea,
-                                                child: Stack(
-                                                
-                                                children: [
-                                                  Container(
-                                                 
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: const Color.fromARGB(255, 221, 212, 212),
-                                                    ),
+                                                width: width_safearea * 0.3,
+                                                height: height_safearea * 0.04,
+                                                child: Container(
+                                                  width: width_safearea,
+                                                  height: height_safearea,
+                                                  child: Stack(
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              221, 212, 212),
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          strokeWidth: 3.0,
+                                                          valueColor:
+                                                              AlwaysStoppedAnimation<
+                                                                      Color>(
+                                                                  Colors.white),
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
-                                                  Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeWidth: 3.0,
-                                                      valueColor:
-                                                          AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                              Colors.white),
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                              )
-                                            ),
+                                                )),
                                           )));
                                 }
                               }),
