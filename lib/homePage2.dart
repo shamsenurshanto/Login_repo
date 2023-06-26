@@ -1068,7 +1068,8 @@ class _homepage2State extends State<homepage2> {
                                     //text
                                     Text(
                                       "Approval",
-                                      style: TextStyle(
+                                      style: 
+                                      TextStyle(
                                           fontWeight: FontWeight.w900),
                                     )
                                   ],

@@ -379,13 +379,16 @@ class _dash_newState extends State<dash_new> {
           color: Colors.white,
         ),
       ),
-      body: SafeArea(
+      body: 
+        height_safearea>width_safearea?
+
+        SafeArea(
           child:
 
           SingleChildScrollView(
             child: 
              Container(
-            height: height_safearea,
+            height: height_safearea+200,
         child: Column(
           children: [
             Padding(
@@ -407,13 +410,25 @@ class _dash_newState extends State<dash_new> {
                 padding: EdgeInsets.all(8),
                 child: Stack(
                   children: [
-                    SvgPicture.asset(
+                    Center(
+                      child: 
+                        SizedBox(
+                          height: .240071599* height_safearea,
+                          width:.940071599* width_safearea,
+                         
+                        child:  SvgPicture.asset(
                       'assets/images/geometricbg.svg',
+                      fit: BoxFit.fill,
                     // Specify the width
-                      height: .240071599* height_safearea, // Specify the height
+                     // Specify the height
                     ),
-                    Container(
-                      height: 0.160071599*height_safearea,
+                      ),
+                    ),
+
+                    Center(
+                      child:  Container(
+                      height: 0.180071599*height_safearea,
+                       width:.940071599* width_safearea,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: const Color.fromARGB(255, 230, 230, 238),
@@ -429,8 +444,8 @@ class _dash_newState extends State<dash_new> {
                           Padding(
                             padding: EdgeInsets.fromLTRB((15/width_safearea2) * width_safearea, 0.008353222 *height_safearea, 0, 0),
                             child: Container(
-                              width: (72/width_safearea2) * width_safearea,
-                              height: 0.12852029 * height_safearea,
+                              width: (90/width_safearea2) * width_safearea,
+                              height: 0.10852029 * height_safearea,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
@@ -442,6 +457,7 @@ class _dash_newState extends State<dash_new> {
                                 backgroundImage: NetworkImage(
                                   'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
                                 ),
+                                
                               ),
                             ),
                           ),
@@ -458,7 +474,7 @@ class _dash_newState extends State<dash_new> {
                                   "Total Balance:",
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(255, 43, 54, 80),
-                                    fontSize: 17,
+                                    fontSize: 0.019286396 *height_safearea ,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -469,7 +485,7 @@ class _dash_newState extends State<dash_new> {
                                   "You Owe : \ ৳" + totalOwnbyme.toString(),
                                   style: GoogleFonts.lato(
                                     color: Color.fromARGB(255, 217, 104, 23),
-                                   fontSize: 0.020286396 *height_safearea ,
+                                  fontSize: 0.020286396 *height_safearea ,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -490,9 +506,10 @@ class _dash_newState extends State<dash_new> {
                               ],
                             ),
                           ),
-                           SizedBox(
-                            width: (30/width_safearea2) * width_safearea,
-                          ),
+                          height_safearea<width_safearea? SizedBox(
+                            width: (100/width_safearea2) * width_safearea,
+                          ):
+                          SizedBox()
                         ],
                       ),
                     
@@ -500,6 +517,9 @@ class _dash_newState extends State<dash_new> {
                       )
                     
                     ),
+                 
+                    )
+                 
                   ],
                 )),
                      
@@ -509,7 +529,325 @@ class _dash_newState extends State<dash_new> {
 
             SizedBox(
               width: width_safearea,
-              height:0.606* height_safearea ,
+              height:0.726* height_safearea ,
+              child: SizedBox(
+                width: (200/width_safearea2) * width_safearea,
+                child: ListView.builder(
+                  itemCount: teams.length,
+                  itemBuilder: (context, index) {
+                    final item = teams[index];
+                    //main container which carries rtow 
+                    print("---"+item.amount.toString());
+                   
+                    return  CircularProgressIndicator_var==1?
+                    GestureDetector(
+                      onTap: () {
+                      Navigator.push(context,MaterialPageRoute(
+                    builder: (context) {
+                      return UserDetails(teams[index]);
+                     
+                      // return userDetails(teams[index].mainMail);
+                    }
+                    
+                    
+                    ,
+                  )
+                  
+                  
+                  
+                  ,
+                );
+                      },
+                      child: Container(
+                      width: height_safearea,
+                     decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                   color: const Color.fromARGB(255, 240, 226, 226),
+                  width: 0.7,
+                ),
+              ),
+            ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 2, 0, 9),
+                              child: Container(
+                                width: 140 / 4 + 12,
+                                height: 140 / 4 + 12,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 101, 101, 230),
+                                      width: 2.4+1),
+                                ),
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundImage: NetworkImage(
+                                    "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                        item.img_link,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                              item.name.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 43, 54, 80),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          Padding(padding: EdgeInsets.all(2),
+                          
+                          
+                          child: item.Transaction_status=="PENDING"?
+                            Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.grey,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ):
+                              Text(
+                              item.Transaction_status.toString(),
+                              style: GoogleFonts.lato(
+                                color: Colors.green,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                              ],
+                            )
+                          ],
+                        ),
+                        Padding(padding: 
+                        EdgeInsets.fromLTRB(0,2,25,0),
+                        
+                        
+                         child: Column(
+                          children: [
+                            item.type == "Loan Taken"
+                                ? Text("owes you",style: GoogleFonts.lato(
+                               color: Color.fromARGB(255, 236, 8, 16),
+                               
+                                fontWeight: FontWeight.bold,
+                              ))
+                                : Text(" you owe",style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold
+                                ),),
+                         item.type == "Loan Taken"
+                                ?     Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 236, 8, 16),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ):
+                              Text(
+                              '\ ৳' + item.amount.toString(),
+                              style: GoogleFonts.lato(
+                                color: Color.fromARGB(255, 3, 113, 12),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        )
+                      ],
+                    ),
+
+                    ),
+                    ):
+
+                    Container(
+                      width: 350,
+                      height: 600,
+                      child: Center(
+                        child:  CircularProgressIndicator(
+                        
+                      ),
+                      ),
+                    )
+                    
+                    
+                    ;
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+      )),
+    
+          )
+    :
+
+    /// for landscape mode 
+    SafeArea(
+          child:
+
+          SingleChildScrollView(
+            child: 
+             Container(
+            height: height_safearea+200,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Transaction",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                  ),
+                ],
+              ),
+            ),
+
+            //banner post where there is dart profile + row
+            Padding(
+                padding: EdgeInsets.all(8),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: 
+                        SizedBox(
+                          height: .340071599* height_safearea,
+                          width:.940071599* width_safearea,
+                         
+                        child:  SvgPicture.asset(
+                      'assets/images/geometricbg.svg',
+                      fit: BoxFit.fill,
+                    // Specify the width
+                     // Specify the height
+                    ),
+                      ),
+                    ),
+
+                    Center(
+                      child:  Container(
+                      height: 0.260071599*height_safearea,
+                       width:.940071599* width_safearea,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color.fromARGB(255, 230, 230, 238),
+                      ),
+                      child:  Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        
+                        children: [
+                          Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          //image
+                          Padding(
+                            padding: EdgeInsets.fromLTRB((15/width_safearea2) * width_safearea, 0.008353222 *height_safearea, 0, 0),
+                            child: Container(
+                              width: (90/width_safearea2) * width_safearea,
+                              height: 0.22852029 * height_safearea,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 101, 101, 230),
+                                    width: 4),
+                              ),
+                              child: CircleAvatar(
+                                radius: 100,
+                                backgroundImage: NetworkImage(
+                                  'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
+                                ),
+                                
+                              ),
+                            ),
+                          ),
+
+                          // column
+                         
+
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0.022673031 *height_safearea, 0, 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Total Balance:",
+                                  style: GoogleFonts.lato(
+                                    color: Color.fromARGB(255, 43, 54, 80),
+                                    fontSize: 0.029286396 *height_safearea ,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:0.0090000000 * height_safearea,
+                                ),
+                                Text(
+                                  "You Owe : \ ৳" + totalOwnbyme.toString(),
+                                  style: GoogleFonts.lato(
+                                    color: Color.fromARGB(255, 217, 104, 23),
+                                  fontSize: 0.030286396 *height_safearea ,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                height:0.0070000000 * height_safearea,
+                                ),
+                                Text(
+                                  "You are Owed : \ ৳" +
+                                      totalOwnFromMebyOthers.toString(),
+                                  style: GoogleFonts.lato(
+                                    color: Color.fromARGB(
+                                        255, 65, 201, 185), //rgb(172, 213, 208)
+                                    fontSize: 0.030286396 *height_safearea ,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                          ),
+                          height_safearea<width_safearea? SizedBox(
+                            width: (100/width_safearea2) * width_safearea,
+                          ):
+                          SizedBox()
+                        ],
+                      ),
+                    
+                        ],
+                      )
+                    
+                    ),
+                 
+                    )
+                 
+                  ],
+                )),
+                     
+            ///the list view starts here
+            ///
+            ///
+
+            SizedBox(
+              width: width_safearea,
+              height:0.726* height_safearea ,
               child: SizedBox(
                 width: (200/width_safearea2) * width_safearea,
                 child: ListView.builder(
@@ -680,5 +1018,9 @@ class _dash_newState extends State<dash_new> {
     
     
     );
+  
+  
+  
+  
   }
 }
