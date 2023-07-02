@@ -183,22 +183,24 @@ class _signup_second_pagesState extends State<signup_second_pages> {
               obscureText: false,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
-                 prefix: GestureDetector(
-                onTap: () {
-                  print('tapped');
-                },
-                child: Text(
-                  '+880 ',
-                  style: TextStyle(
-                   
-                      color: const Color.fromARGB(255, 4, 24, 41), fontWeight: FontWeight.bold),
-                ),
-              ),
-                hintText: "Your Phone Number",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.phone),
-                ),
+                suffixText: "Your mobile Number",
+               
+                // hintText: "Your Phone Number",
+                 prefixIcon: Padding(padding: EdgeInsets.all(13),
+                 
+                 child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                          Icon(Icons.phone_android),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('+880',style: TextStyle(color: Colors.black),),
+                    ),
+                
+                  ],
+                  ),
+                 ),
+                
               ),
             ),
           ),
