@@ -13,6 +13,7 @@ class LoginScreenTopImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+          SizedBox(height: defaultPadding * 8),
         Text(
           "LOGIN",
           style: TextStyle(fontWeight: FontWeight.bold),

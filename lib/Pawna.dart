@@ -213,7 +213,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
   }
   
   
-
+    var apiName = "personalrec.onrender.com";
 
     //ab33@gmail.com
 
@@ -227,7 +227,7 @@ class _UserDetails_New_pawnaState extends State<UserDetails_New_pawna> {
 //print(tokenString2);
    //print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
+    var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
      headers: {'Cookie': 'jwt_token=$tokenString2'}
      
      );

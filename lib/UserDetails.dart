@@ -143,6 +143,7 @@ class _UserDetailsState extends State<UserDetails> {
     String token = "";
 
     String cookie = gh;
+    var apiName='personalrec.onrender.com';
 
     String str = gh, ghh, tokenString2 = "";
     // tokenString2 = cookie;
@@ -175,7 +176,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     var response = await http.get(
         Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+            apiName, 'api/transaction/usersalltransactions'),
         headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     //print(response.body);

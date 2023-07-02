@@ -56,6 +56,7 @@ class _LoginFormState extends State<LoginForm> {
     //     _box.put("val_sum", 0);
     //   }
   }
+  var apiName ="https://personalrec.onrender.com";
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -63,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
   postDate(context) async {
     String username = "g";
     username = emailController.text;
-    var url = Uri.parse("https://smoggy-toad-fedora.cyclic.app/api/auth/login");
+    var url = Uri.parse(apiName+"/api/auth/login");
 //  final responsew = await http.get(Uri.parse('http://your-nodejs-server.com/get-jwt-token'));
 
     // Make a request to the Node.js server to get a JWT token
@@ -73,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
     ////dev.aloitconsultants.com:4000
 
     final response = await http.post(
-      Uri.parse("https://personalrec.onrender.com/api/auth/login"),
+      Uri.parse(apiName+"/api/auth/login"),
       body: {'userEmailPhone': username, 'userPass': '12345678'},
     );
     print(response.body);

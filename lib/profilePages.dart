@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   var _idLoggedIn;
   var email;
   var name;
+  var apiName = 'personalrec.onrender.com';
   String _selectedLanguage = 'English';
   var name_;
    Future<void> setProfilePic() async
@@ -33,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final _box2 = Hive.box("mybox");
      var gh = _box2.get("toki");
      var email_Logged_user =_box2.get("User_email");
-     var response = await http.post(Uri.https('personalrec.onrender.com', 'api/user/getuser'),
+     var response = await http.post(Uri.https(apiName, 'api/user/getuser'),
  
     headers: {      
       //  'Content-Type': 'application/json; charset=UTF-8',      
@@ -47,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
    print("iiiiiiiiidddddddddddddddddddddddd");
     print(jsonData['data']['userPic']);
     setState(() {
-         picLink="https://personalrecordback-production.up.railway.app/amendmentDoc/"+jsonData['data']['userPic'].toString();
+         picLink=apiName+"/amendmentDoc/"+jsonData['data']['userPic'].toString();
        });
 
      print(response.body);
@@ -98,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
      var gh = _box2.get("toki");
      var email_Logged_user =_box2.get("User_email"); //User_email
   var request = http.MultipartRequest('POST', 
-  Uri.parse('https://personalrecordback-production.up.railway.app/api/user/profile',
+  Uri.parse(apiName.toString()+'/api/user/profile',
   
   ));
     request.headers['Content-Type'] = 'multipart/form-data';

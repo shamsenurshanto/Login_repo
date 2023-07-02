@@ -3,6 +3,7 @@ import 'package:my_app/MainLogin.dart';
 
 import '../../../constants.dart';
 import '../../../otpTester.dart';
+import '../../../signup_secondPages.dart';
 import '../../Login/login_screen.dart';
 import '../../Signup/signup_screen.dart';
 
@@ -41,7 +42,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return SignUpScreen();
+                  return signup_second_pages();
                 },
               ),
             );

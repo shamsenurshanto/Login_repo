@@ -38,6 +38,7 @@ class homepage2 extends StatefulWidget {
   @override
   State<homepage2> createState() => _homepage2State();
 }
+  var apiName = "personalrec.onrender.com";
 
 class _homepage2State extends State<homepage2> {
   @override
@@ -102,7 +103,7 @@ class _homepage2State extends State<homepage2> {
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
     var response = await http.get(
-      Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
+      Uri.https(apiName, 'api/user/loansummary'),
       headers: {'Cookie': 'jwt_token=$gh'},
     );
     // print(response.body);
@@ -172,7 +173,7 @@ class _homepage2State extends State<homepage2> {
 
     var response = await http.get(
         Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+            apiName, 'api/transaction/usersalltransactions'),
         headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);

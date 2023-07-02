@@ -19,13 +19,14 @@ class _NotificationPageState extends State<NotificationPage> {
     super.initState();
     fetchData();
   }
+   var apiName = "personalrec.onrender.com";
 
   Future<void> fetchData() async {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
    var response = await http.get(
-      Uri.https('personalrec.onrender.com', 'api/user/notifications'),
+      Uri.https(apiName, 'api/user/notifications'),
       headers: {'Cookie': 'jwt_token=$gh'},
     );
     // print(response.body);

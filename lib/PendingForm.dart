@@ -59,7 +59,7 @@ class _dash4State extends State<dash4> {
 
   String passFromTheclassmail = "";
   String passFromTheclassid = "";
-
+  var apiName = "personalrec.onrender.com";
   List<Team> teams = [];
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
@@ -112,7 +112,7 @@ class _dash4State extends State<dash4> {
     print(tokenString2.runtimeType);
 
     var response = await http.get(
-        Uri.https('personalrec.onrender.com', 'api/transaction/pending'),
+        Uri.https(apiName, 'api/transaction/pending'),
         headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);
@@ -265,7 +265,7 @@ class _dash4State extends State<dash4> {
     print("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
     var response = await http.post(
-      Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+      Uri.https(apiName, 'api/transaction/changestatus'),
       headers: {
         //  'Content-Type': 'application/json; charset=UTF-8',
 
@@ -285,7 +285,7 @@ class _dash4State extends State<dash4> {
     var gh = _box2.get("toki");
 
     var response = await http.post(
-      Uri.https('personalrec.onrender.com', 'api/transaction/changestatus'),
+      Uri.https(apiName, 'api/transaction/changestatus'),
       headers: {
         //  'Content-Type': 'application/json; charset=UTF-8',
 
@@ -307,7 +307,7 @@ class _dash4State extends State<dash4> {
     teams[index].type == "Loan Taken"
         ? response = await http.post(
             Uri.https(
-                'personalrec.onrender.com', 'api/transaction/changestatus'),
+               apiName, 'api/transaction/changestatus'),
             headers: {
               //  'Content-Type': 'application/json; charset=UTF-8',
 
@@ -320,7 +320,7 @@ class _dash4State extends State<dash4> {
           )
         : response = await http.post(
             Uri.https(
-                'personalrec.onrender.com', 'api/transaction/changestatus'),
+              apiName, 'api/transaction/changestatus'),
             headers: {
               //  'Content-Type': 'application/json; charset=UTF-8',
 

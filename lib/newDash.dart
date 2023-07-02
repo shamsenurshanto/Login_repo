@@ -84,6 +84,7 @@ class _dash_newState extends State<dash_new> {
     final _box2 = Hive.box("mybox");
     var _idLoggedIn = _box2.get("User_id"); //my user id
     var email = _box2.get("User_email");
+    var apiName = "personalrec.onrender.com";
 
     //hive initialization and get data
 
@@ -99,6 +100,10 @@ class _dash_newState extends State<dash_new> {
     String str = gh, ghh, tokenString2 = "";
     // tokenString2 = cookie;
     int flag = 0;
+    Map<String, int> hasUsedYet = {};
+    Map<String, int> total_send = {};
+    Map<String, int> total_received = {};
+
 
     //making the jwt_token
     for (int rune in str.runes) {
@@ -127,7 +132,7 @@ class _dash_newState extends State<dash_new> {
 
     var response = await http.get(
         Uri.https(
-            'personalrec.onrender.com', 'api/transaction/usersalltransactions'),
+            apiName, 'api/transaction/usersalltransactions'),
         headers: {'Cookie': 'jwt_token=$tokenString2'});
     var jsonData = jsonDecode(response.body);
     print(response.body);
@@ -292,6 +297,9 @@ class _dash_newState extends State<dash_new> {
         teams.add(team);
 
         print(teams[teams.length - 1].name);
+        hasUsedYet[team.mainMail]=0;
+        // total_send[team.mainMail]=
+
       }
     }
     print("---------------------------------------");
@@ -335,7 +343,7 @@ class _dash_newState extends State<dash_new> {
  
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
         // systemOverlayStyle: SystemUiOverlayStyle(
         //   statusBarColor: Colors.white, // <-- SEE HERE

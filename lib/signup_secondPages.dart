@@ -1,3 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'Screens/Signup/components/sign_up_top_image.dart';
+import 'Screens/Signup/components/signup_form_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/Screens/Login/login_screen.dart';
 import 'package:my_app/components/already_have_an_account_acheck.dart';
@@ -16,15 +21,16 @@ import 'package:my_app/addTransaction2.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
-import '../../Login/login_screen.dart';
+// import '../../Login/login_screen.dart';
 import 'package:http/http.dart' as http;
 
-class signupScreens_ extends StatefulWidget {
-  const signupScreens_({super.key});
+class signup_second_pages extends StatefulWidget {
+  const signup_second_pages({super.key});
 
   @override
-  State<signupScreens_> createState() => _signupScreens_State();
+  State<signup_second_pages> createState() => _signup_second_pagesState();
 }
+
 var _textControllerForName = TextEditingController();
 var _textControllerForPhoneNumber = TextEditingController();
 var _textControllerForEmail = TextEditingController();
@@ -116,12 +122,37 @@ var _textControllerForPassword = TextEditingController();
       // give a toast here 
     }
    }
-class _signupScreens_State extends State<signupScreens_> {
+
+class _signup_second_pagesState extends State<signup_second_pages> {
   @override
+  
   Widget build(BuildContext context) {
-     return
-      
-       Form(
+      var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+
+    var temp = 0.0;
+   
+    var width_safearea2 = 392;
+    var height_safearea2 = 750;
+    bool showpass = true;
+    return Scaffold(
+   body: SingleChildScrollView(child: 
+          Column(
+            children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                  SignUpScreenTopImage(),
+              ],
+            ),
+              SizedBox(
+                height: 30,
+              ),
+
+                SizedBox(
+                  width: width_safearea*.8,
+                  child: Form(
       
       child: Column(
         
@@ -152,10 +183,21 @@ class _signupScreens_State extends State<signupScreens_> {
               obscureText: false,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
+                 prefix: GestureDetector(
+                onTap: () {
+                  print('tapped');
+                },
+                child: Text(
+                  '+880 ',
+                  style: TextStyle(
+                   
+                      color: const Color.fromARGB(255, 4, 24, 41), fontWeight: FontWeight.bold),
+                ),
+              ),
                 hintText: "Your Phone Number",
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+                  child: Icon(Icons.phone),
                 ),
               ),
             ),
@@ -171,27 +213,39 @@ class _signupScreens_State extends State<signupScreens_> {
                 hintText: "Your Email",
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+                  child: Icon(Icons.email),
                 ),
               ),
             ),
           ),
-            Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: TextField(
               controller: _textControllerForPassword,
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
-                hintText: "Your password",
+                 suffix: GestureDetector(
+                onTap: () {
+                  print('tapped');
+                },
+                child: Text(
+                  'show Passwords',
+                  style: TextStyle(
+                   
+                      color:Colors.deepPurple, fontWeight: FontWeight.bold),
+                ),
+              ),
+                hintText: "Password",
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+                  child: Icon(Icons.phone),
                 ),
               ),
             ),
           ),
+          
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () {
@@ -218,8 +272,17 @@ class _signupScreens_State extends State<signupScreens_> {
           ),
         ],
       ),
-    );
+    )
        
-  
+          ,
+                )
+
+
+            ],
+          )
+   
+   ) 
+
+    );
   }
 }

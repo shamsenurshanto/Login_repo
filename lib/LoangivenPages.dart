@@ -23,6 +23,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
     super.initState();
     fetchData();
   }
+  var apiName = 'personalrec.onrender.com';
   String convertDateFormat(String date) {
   DateTime parsedDate = DateTime.parse(date);
   print(parsedDate);
@@ -38,7 +39,7 @@ class _LoanGivenPagesState extends State<LoanGivenPages> {
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
    var response = await http.get(
-      Uri.https('personalrec.onrender.com', 'api/user/loansummary'),
+      Uri.https(apiName, 'api/user/loansummary'),
       headers: {'Cookie': 'jwt_token=$gh'},
     );
     // print(response.body);

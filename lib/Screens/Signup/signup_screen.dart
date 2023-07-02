@@ -13,6 +13,14 @@ class SignUpScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+     var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+
+    var temp = 0.0;
+   
+    var width_safearea2 = 392;
+    var height_safearea2 = 750;
     return Scaffold(
       body: Background(
       child: SingleChildScrollView(
@@ -20,7 +28,9 @@ class SignUpScreen extends StatelessWidget {
           mobile: const MobileSignupScreen(),
           desktop: Row(
             children: [
-              const Expanded(
+            SizedBox(
+              width: width_safearea,
+              height: height_safearea/3,
                 child: SignUpScreenTopImage(),
               ),
               Expanded(
