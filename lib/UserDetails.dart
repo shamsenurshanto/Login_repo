@@ -126,6 +126,8 @@ class _UserDetailsState extends State<UserDetails> {
 
   getTeams2() async {
     print("get teaaaaaaaaaaaaaaaaaaaaaaaaamsssss");
+    print(widget.teams.name);
+    print(widget.teams.mainMail);
 
     teams2.clear();
     var box = await Hive.openBox("mybox");
@@ -317,7 +319,8 @@ class _UserDetailsState extends State<UserDetails> {
       if (widget.teams.mainMail == team.mainMail) {
         print(
             "mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm--------------------------------------------------------bep");
-        print(team.mainMail);
+        print(widget.teams.id);
+        print(team.type);
         //selfEmail
         teams2.add(team);
         print("-----------Test");
@@ -345,12 +348,12 @@ class _UserDetailsState extends State<UserDetails> {
     var width_safearea = MediaQuery.of(context).size.width;
     
     var temp =0.0;
-    if(height_safearea<width_safearea)
-    {
-      temp = height_safearea;
-      height_safearea = width_safearea;
-      width_safearea = temp;
-    }
+    // if(height_safearea<width_safearea)
+    // {
+    //   temp = height_safearea;
+    //   height_safearea = width_safearea;
+    //   width_safearea = temp;
+    // }
     var width_safearea2 = 392;
     var  height_safearea2 = 750;
 //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -717,11 +720,13 @@ class _UserDetailsState extends State<UserDetails> {
                                color: Color.fromARGB(255, 236, 8, 16),
                                
                                 fontWeight: FontWeight.bold,
-                              ))
+                              )
+                              )
                                 : Text(" you owe",style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold
-                                ),),
+                                ),
+                                ),
                          item.type == "Loan Taken"
                                 ?     Text(
                               '\ ৳' + item.amount.toString(),
