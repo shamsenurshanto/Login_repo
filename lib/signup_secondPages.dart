@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Screens/Signup/components/sign_up_top_image.dart';
 import 'Screens/Signup/components/signup_form_pages.dart';
@@ -36,15 +39,58 @@ var _textControllerForPhoneNumber = TextEditingController();
 var _textControllerForEmail = TextEditingController();
 var _textControllerForPassword = TextEditingController();
 
+
+class _signup_second_pagesState extends State<signup_second_pages> {
+  @override
+  
+  Widget build(BuildContext context) {
+
+      var height_safearea =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    var width_safearea = MediaQuery.of(context).size.width;
+
+    var temp = 0.0;
    
+    var width_safearea2 = 392;
+    var height_safearea2 = 750;
+    bool obsecure_text = false;
+    var passStatus ="show password";
+
+    void updatePass(){
+      setState(() {
+        obsecure_text=false;
+      });
+    }
+
+
+ Timer? timer;
+  var CircularProgressIndicator_var = 0;
+
+  var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+  @override
+  Future<void> callFunctionAfterDelay() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      CircularProgressIndicator_var = 1;
+      control_cricl=0;
+    });
+  }
+    
+  
     Future<void> initState() async {
+      
+      
+      control_cricl=0;
+       obsecure_text=true;
   
  await Hive.initFlutter();
     var box = await Hive.openBox("mybox");
+    super.initState();
    
     }
 
    postDate(context) async {
+    
   
      await Hive.initFlutter();
     var box = await Hive.openBox("mybox");
@@ -107,6 +153,7 @@ var _textControllerForPassword = TextEditingController();
       final _box = Hive.box("mybox");
     _box.put("phone_number", _textControllerForPhoneNumber.text);
     print(_box.get("phone_number"));
+     Fluttertoast.showToast(msg:jsonDecode(gh)["message"]);
        Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -120,22 +167,18 @@ var _textControllerForPassword = TextEditingController();
     else
     {
       // give a toast here 
+      print("toast");
+       Fluttertoast.showToast(msg:jsonDecode(gh)["message"]);
+     
+       
+      
+     
     }
+    
+    
    }
-
-class _signup_second_pagesState extends State<signup_second_pages> {
-  @override
-  
-  Widget build(BuildContext context) {
-      var height_safearea =
-        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    var width_safearea = MediaQuery.of(context).size.width;
-
-    var temp = 0.0;
-   
-    var width_safearea2 = 392;
-    var height_safearea2 = 750;
-    bool showpass = true;
+    
+ 
     return Scaffold(
    body: SingleChildScrollView(child: 
           Column(
@@ -183,7 +226,10 @@ class _signup_second_pagesState extends State<signup_second_pages> {
               obscureText: false,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
-                suffixText: "Your mobile Number",
+                suffixText: "Your mobile Number",suffixStyle: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold
+                ),
                
                 // hintText: "Your Phone Number",
                  prefixIcon: Padding(padding: EdgeInsets.all(13),
@@ -193,8 +239,8 @@ class _signup_second_pagesState extends State<signup_second_pages> {
                     children: [
                           Icon(Icons.phone_android),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('+880',style: TextStyle(color: Colors.black),),
+                      padding: EdgeInsets.symmetric(horizontal: 2),
+                      child: Text('+88',style: TextStyle(color: Colors.black),),
                     ),
                 
                   ],
@@ -225,20 +271,35 @@ class _signup_second_pagesState extends State<signup_second_pages> {
             child: TextField(
               controller: _textControllerForPassword,
               textInputAction: TextInputAction.done,
-              obscureText: true,
+              obscureText: obsecure_text,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
-                 suffix: GestureDetector(
-                onTap: () {
-                  print('tapped');
-                },
-                child: Text(
-                  'show Passwords',
+                 suffix: SizedBox(
+                  width: 0.28 * width_safearea,
+                  height: 30,
+                  child: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        obsecure_text=true;
+                      });
+                      print(obsecure_text);
+                    },
+             
+                child: 
+                obsecure_text?
+                Text(
+                 "show password",
                   style: TextStyle(
-                   
-                      color:Colors.deepPurple, fontWeight: FontWeight.bold),
+                        fontSize: 10,
+                      color:Color.fromARGB(255, 76, 26, 158), fontWeight: FontWeight.bold),
+                ):Text(
+                 "Hide password",
+                  style: TextStyle(
+                        fontSize: 10,
+                      color:Color.fromARGB(255, 63, 18, 136), fontWeight: FontWeight.bold),
                 ),
               ),
+                 ),
                 hintText: "Password",
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
@@ -251,12 +312,24 @@ class _signup_second_pagesState extends State<signup_second_pages> {
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () {
-               print("sign up");
+               setState(() {
+                
+                 control_cricl=1;
+                 print( control_cricl);
+                  print("sign up");
+              });
                postDate(context);
+               callFunctionAfterDelay();
 
 
             },
-            child: Text("Sign Up".toUpperCase()),
+            child: control_cricl==0? Text("Sign Up".toUpperCase())
+            :
+             Center(
+              child: CircularProgressIndicator(
+              
+            ),
+             )
           ),
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(

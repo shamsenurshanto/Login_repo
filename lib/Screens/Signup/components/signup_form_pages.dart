@@ -37,6 +37,7 @@ var _textControllerForPassword = TextEditingController();
     var box = await Hive.openBox("mybox");
    
     }
+    var control_cricl=0;
 
    postDate(context) async {
   
@@ -152,7 +153,9 @@ class _signupScreens_State extends State<signupScreens_> {
               obscureText: false,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
-                hintText: "Your Phone Number",
+                hintText: "Your Phone Number",hintStyle: TextStyle(
+                  fontSize: 2
+                ),
                 prefixIcon: Padding(
                   padding: const EdgeInsets.all(defaultPadding),
                   child: Icon(Icons.lock),
@@ -195,12 +198,19 @@ class _signupScreens_State extends State<signupScreens_> {
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
             onPressed: () {
-               print("sign up");
+              
+             
                postDate(context);
 
 
             },
-            child: Text("Sign Up".toUpperCase()),
+            
+            child: control_cricl==0? Text("Sign Up".toUpperCase()):
+             Center(
+              child: CircularProgressIndicator(
+              
+            ),
+             )
           ),
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(
