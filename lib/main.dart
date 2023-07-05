@@ -19,6 +19,7 @@ import 'demoBottombar.dart';
 import 'local_notifications.dart';
 import 'newTbb.dart';
 import 'otpPhoneCode.dart';
+import 'otpPhoneCode_2.dart';
 import 'otpTester.dart';
 
 
@@ -94,7 +95,7 @@ class MyApp extends StatelessWidget {
             // home: ProfilePage2()
             // home: CupertinoNavigationDemo(),
               //  home: otpTester(),
-              // home:otpPhone()
+              // home:  otpPhone_2("0190929290"),
 
 
     );

@@ -8,7 +8,7 @@ import 'package:my_app/otpPhoneCode.dart';
 import 'package:my_app/tbb.dart';
 import 'package:my_app/constants.dart';
 
-
+import '../../../Forgot_passwords.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 // import '../../../constants.dart';
 import '../../../homegrid2.dart';
@@ -56,15 +56,18 @@ class _LoginFormState extends State<LoginForm> {
     //     _box.put("val_sum", 0);
     //   }
   }
-  var apiName ="https://personalrec.onrender.com";
+
+  var apiName = "https://personalrec.onrender.com";
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  var controlPassShow = 0;
+
   postDate(context) async {
     String username = "g";
     username = emailController.text;
-    var url = Uri.parse(apiName+"/api/auth/login");
+    var url = Uri.parse(apiName + "/api/auth/login");
 //  final responsew = await http.get(Uri.parse('http://your-nodejs-server.com/get-jwt-token'));
 
     // Make a request to the Node.js server to get a JWT token
@@ -74,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
     ////dev.aloitconsultants.com:4000
 
     final response = await http.post(
-      Uri.parse(apiName+"/api/auth/login"),
+      Uri.parse(apiName + "/api/auth/login"),
       body: {'userEmailPhone': username, 'userPass': '12345678'},
     );
     print(response.body);
@@ -126,7 +129,6 @@ class _LoginFormState extends State<LoginForm> {
             // return otpPhone();
 
             //userdetails_new_with_sidebar
-
           },
         ),
       );
@@ -145,29 +147,134 @@ class _LoginFormState extends State<LoginForm> {
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
             decoration: InputDecoration(
-              hintText: "Your email",
+              hintText: "Your email Or Phone number",
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(defaultPadding),
                 child: Icon(Icons.person),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-            child: TextFormField(
-              controller: passwordController,
-              textInputAction: TextInputAction.done,
-              obscureText: true,
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                hintText: "Your password",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+           GestureDetector(
+            onTap: (){
+              if(controlPassShow==0){
+                setState(() {
+                  controlPassShow=1;
+                });
+              }
+            },
+            child:   Container(
+            child: Stack(
+              children: [
+                controlPassShow == 1
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: defaultPadding),
+                        child: TextFormField(
+                          controller: passwordController,
+                          textInputAction: TextInputAction.done,
+                          obscureText: true,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            hintText: "Your password",
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.lock),
+                            ),
+                          ),
+                        ),
+                      )
+                    : 
+                    
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: defaultPadding),
+                        child: TextFormField(
+                          controller: passwordController,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            hintText: "Your password",
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.lock),
+                            ),
+                          ),
+                        ),
+                      ),
+                Positioned(
+                  right: 30,
+                  top: 25,
+                  child: 
+                 SizedBox(
+                width: 100,
+                height: 40,
+                child:   ElevatedButton(onPressed: () {
+                   setState(() {
+                    if(controlPassShow==0)
+                     controlPassShow=1;
+                     else
+                     controlPassShow=0;
+                     
+                   });
+
+                }, 
+                
+               
+                child:  controlPassShow==0?
+                
+                Row(
+                  children: [
+                    Icon(Icons.remove_red_eye_outlined),
+                     Text(" show")
+                  ],
+                )
+                 
+                 :
+
+                 
+                Row(
+                  children: [
+                    Icon(Icons.hide_source_outlined),
+                     Text(" Hide")
+                  ],
+                )
+                
+                
                 ),
-              ),
+               )
+                )
+              ],
             ),
           ),
+           ),
+
+         GestureDetector(
+          onTap: (){
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return otpTester();
+                  },
+                ),
+              );
+
+          },
+          child: 
+           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+                    Text("Forgot Password",style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.bold
+                    ),),
+                    SizedBox(
+                      width: 20,
+                    )
+            ],
+          ),
+         ),
           const SizedBox(height: defaultPadding),
           Hero(
             tag: "login_btn",
