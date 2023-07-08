@@ -23,7 +23,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:my_app/AddTransactions.dart';
 import 'package:my_app/UserDetails.dart';
 import 'package:my_app/abc.dart';
@@ -37,6 +37,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
 import 'newTbb.dart';
+import 'package:dio/dio.dart';
 
 class ForgotPass_page extends StatefulWidget {
   late final String phoneNumber;
@@ -49,17 +50,17 @@ class ForgotPass_page extends StatefulWidget {
 }
 
 class _ForgotPass_pageState extends State<ForgotPass_page> {
-  get http => null;
-
   @override
   Widget build(BuildContext context) {
+    var apiName = "https://personalrec.onrender.com";
     final TextEditingController emailController = TextEditingController();
     final TextEditingController _textController_For_EmailSearch =
         TextEditingController();
     print(widget.phoneNumber + " " + widget.otp);
 
-    void initState() {
+    Future<void> initState() async {
       //        var box =  Hive.openBox("mybox");
+      //  var box = await Hive.openBox("mybox");
       // final _box2 = Hive.box("mybox");
       //  var _idLoggedIn= _box2.get("User_id");//my user id
       //     var     email= _box2.get("User_email");
@@ -119,62 +120,47 @@ class _ForgotPass_pageState extends State<ForgotPass_page> {
                 SizedBox(
                   child: ElevatedButton(
                       onPressed: () async {
+                        // // var sty = a1 + a2 + a3 + a4 + a5 + a6;
+                        // var box = await Hive.openBox("mybox");Ftext
+                        // final _box2 = Hive.box("mybox");
+                        // var gh = _box2.get("toki");
+                        // print(gh);
+                        // String user_name = _textController_For_EmailSearch.text;
+
+                        //  print("https://personalrec.onrender.com/api/user/searchuser/${_textController_For_EmailSearch.text}");
+                        // var response;
                         print(
                             widget.phoneNumber + " ----------- " + widget.otp);
 
-                    
+                        final response = await http.post(
+                            Uri.parse(apiName + "/api/auth/resetpassword"),
+                            body: {
+                              "userPhone": widget.phoneNumber,
+                              "otp": widget.otp,
+                              "userPass": emailController.text
+                            });
+                        print(response.body);
 
-                        
-                        try {
-                          var lastPassword = emailController.text;
-                             var response;
-                             print({
-                              "userPhone": widget.phoneNumber,
-                              "otp": widget.otp,
-                              "userPass":lastPassword // Remove the toString() method
-                            } );
-                            var jscon = {
-                              "userPhone": widget.phoneNumber,
-                              "otp": widget.otp,
-                              "userPass":lastPassword // Remove the toString() method
-                            };
-                          response = await http.post(
-                            Uri.https('personalrec.onrender.com',
-                                'api/auth/resetpassword'),
-                            headers: {
-                              'Content-Type': 'application/json; charset=UTF-8',
-                              // 'Cookie': 'jwt_token=$gh',
-                            },
-                            body: jscon
+                        final jsonData = jsonDecode(response.body);
+                        print("  -----  ");
+                        // print(response.body.toString());
+                        print(jsonData);
+                        Fluttertoast.showToast(msg: jsonData["message"]);
+                        if (jsonData["success"] &&
+                            emailController.text ==
+                                _textController_For_EmailSearch.text) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen();
+                                //         // return userDetails("email");
+                              },
+                            ),
                           );
-
-                          var jsonData = jsonDecode(response.body);
-                          print("  -----  ");
-                          print(response.body);
-                          print(jsonData);
+                        } else {
                           Fluttertoast.showToast(msg: jsonData["message"]);
-                          if (jsonData["success"] &&
-                              emailController.text ==
-                                  _textController_For_EmailSearch.text) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return LoginScreen();
-                                  //         // return userDetails("email");
-                                },
-                              ),
-                            );
-                          } else {
-                            Fluttertoast.showToast(msg: jsonData["message"]);
-                          } // print(a1 + a2 + a3 + a4 + a5 + a6);
-                        } catch (e) {
-                          print(e);
-                          Fluttertoast.showToast(msg: "User Not exit ");
-                          setState(() {
-                            // data = resp['slip']['advice'];
-                          });
-                        }
+                        } // print(a1 + a2 + a3 + a4 + a5 + a6);
                       },
                       child: Text("Verified")),
                 ),

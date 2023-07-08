@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_app/Screens/Login/components/login_form.dart';
+import 'package:my_app/Screens/Login/login_screen.dart';
 import 'package:my_app/abc.dart';
 import 'package:my_app/otpTester.dart';
 import 'package:otp_text_field/otp_field.dart';
@@ -29,16 +31,20 @@ import 'package:my_app/abc.dart';
 import 'package:my_app/addTransaction2.dart';
 import 'package:my_app/dashBoard2.dart';
 import 'package:my_app/tbb.dart';
+import 'Forgot_passwords.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:intl/intl.dart';
 import 'newTbb.dart';
 
-import 'otpPhoneCode.dart';
+// import 'otpPhoneCode.dart';
 
 class otpPhone extends StatefulWidget {
-  const otpPhone({super.key});
+  var mobile_number = "";
+  // const otpPhone({super.key});
+
+  otpPhone(this.mobile_number);
 
   @override
   State<otpPhone> createState() => _otpPhoneState();
@@ -46,6 +52,7 @@ class otpPhone extends StatefulWidget {
 
 class _otpPhoneState extends State<otpPhone> {
   var pin = "";
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   void onPinChanged(String value) {
@@ -65,6 +72,7 @@ class _otpPhoneState extends State<otpPhone> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.mobile_number);
     var height_safearea =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     var width_safearea = MediaQuery.of(context).size.width;
@@ -73,18 +81,28 @@ class _otpPhoneState extends State<otpPhone> {
 
     var width_safearea2 = 392;
     var height_safearea2 = 750;
-    final _box = Hive.box("mybox");
-    print(_box.get("phone_number"));
-    var mobile_num33 = _box.get("phone_number").toString();
+    //  Hive.openBox("mybox");
+    // final _box = Hive.box("mybox");
+    // print(_box.get("phone_number"));
+    // var mobile_num33 = _box.get("phone_number").toString();
     print(height_safearea);
     print(width_safearea);
+    // Future<void> initState() async {
+    //      await Hive.openBox("mybox");
+    // }
+ var control_ver=0;
+    void SetCircularIndi(){
+       setState(() {
+                      control_ver=1;
+                    });
+    }
 
-    var mobile_num3 = manipulateString(_box.get("phone_number").toString());
+    var mobile_num3 = "manipulateString(_box.getoString());";
     print(mobile_num2);
+   
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 33, 7, 79),
-        body: 
-        SafeArea(
+        body: SafeArea(
             child: Column(
           children: [
             Row(
@@ -131,8 +149,10 @@ class _otpPhoneState extends State<otpPhone> {
                 ),
               ],
             ),
+            control_ver==0?
             Center(
-              child: Row(
+              child:
+               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
@@ -257,17 +277,38 @@ class _otpPhoneState extends State<otpPhone> {
                   ),
                 ],
               ),
+            )
+            :
+            SizedBox(
+              width: width_safearea,
+              height: 150,
+              child: Center(
+                child: CircularProgressIndicator(
+
+              ),
+              )
+            ),
+            SizedBox(
+              height: 5,
             ),
             SizedBox(
               height: 0.074503311 * height_safearea,
             ),
-            SizedBox(
-              child: ElevatedButton(
-                  onPressed: () async {
+            
+                SizedBox(
+              child:  
+              control_ver==0?
+               ElevatedButton(
+                 
+                  child:  Text("Verified") ,
+                   onPressed: () async {
+                    SetCircularIndi();
+                   
+
                     var sty = a1 + a2 + a3 + a4 + a5 + a6;
-                    var box = await Hive.openBox("mybox");
-                    final _box2 = Hive.box("mybox");
-                    var gh = _box2.get("toki");
+                    // var box = await Hive.openBox("mybox");
+                    // final _box2 = Hive.box("mybox");
+                    var gh = " _box2.get();";
                     print(gh);
                     // String user_name = _textController_For_EmailSearch.text;
 
@@ -275,33 +316,34 @@ class _otpPhoneState extends State<otpPhone> {
                     var response;
                     try {
                       print(sty + " -----");
-                      int otp_num = int.parse(sty);
-                      var bodyData = {
-                        "userPhone": mobile_num33.toString(),
-                        "otp": otp_num, // Remove the toString() method
-                      };
+                      print(widget.mobile_number);
+                      // int otp_num = int.parse(sty);
+                      // var bodyData = {
+                      //   "userPhone": mobile_num33.toString(),
+                      //   "otp": otp_num, // Remove the toString() method
+                      // };
 
                       print({
                         "userPhone": "01738042664",
-                        "otp":sty,
+                        "otp": sty,
                       });
 
                       response = await http.post(
                         Uri.https(
-                            'personalrec.onrender.com', 'api/auth/otpverify'),
+                            'personalrec.onrender.com', 'api/auth/resetotp'),
                         headers: {
                           'Content-Type': 'application/json; charset=UTF-8',
-                          'Cookie': 'jwt_token=$gh',
+                          // 'Cookie': 'jwt_token=$gh',
                         },
                         body: jsonEncode({
-                        "userPhone": "01738042664",
-                       "otp":sty,// Remove the toString() method
-                      }), // Convert bodyData to a JSON string
+                          "userPhone": widget.mobile_number,
+                          "otp": sty, // Remove the toString() method
+                        }), // Convert bodyData to a JSON string
                       );
 
                       var jsonData = jsonDecode(response.body);
                       print("  -----  ");
-                      print(mobile_num33);
+                      print(sty);
                       print(jsonData);
                       Fluttertoast.showToast(msg: jsonData["message"]);
                       if (jsonData["success"]) {
@@ -309,15 +351,14 @@ class _otpPhoneState extends State<otpPhone> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return abc();
-                      //         // return userDetails("email");
+                              return LoginScreen();
+                              //         // return userDetails("email");
                             },
                           ),
-                         );
-                    } else {
+                        );
+                      } else {
                         //  Fluttertoast.showToast(msg: jsonData["message"]);
-                       } // print(a1 + a2 + a3 + a4 + a5 + a6);
-                     
+                      } // print(a1 + a2 + a3 + a4 + a5 + a6);
                     } catch (e) {
                       print(e);
                       // Fluttertoast.showToast(msg: "User Not exit ");
@@ -329,12 +370,18 @@ class _otpPhoneState extends State<otpPhone> {
                       pin = "";
                     });
                   },
-                  child: Text("Verified")),
-            ),
+                  
+                  
+                  )
+                  :
+                   Center(
+                    child: CircularProgressIndicator(),
+                  )  ,
+            )
+                   
+         
+         
           ],
         )));
-            
- 
- 
   }
 }

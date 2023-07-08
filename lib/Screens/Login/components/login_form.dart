@@ -13,6 +13,7 @@ import '../../../components/already_have_an_account_acheck.dart';
 // import '../../../constants.dart';
 import '../../../homegrid2.dart';
 import '../../../otpTester.dart';
+import '../../../signup_secondPages.dart';
 import '../../../testUserdetails.dart';
 import '../../../userDetailsTesting.dart';
 import '../../Signup/signup_screen.dart';
@@ -165,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
             child:   Container(
             child: Stack(
               children: [
-                controlPassShow == 1
+                controlPassShow == 0
                     ? Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: defaultPadding),
@@ -255,6 +256,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
+                    // return ForgotPass_page(otp: '123456',phoneNumber: '01886144124');
                     return otpTester();
                   },
                 ),
@@ -296,7 +298,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return SignUpScreen();
+                    return signup_second_pages();
                   },
                 ),
               );

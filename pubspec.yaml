@@ -39,7 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   get: ^4.6.1 
-  dio: ^5.0.3
+  dio: any
   shared_preferences: ^2.0.20
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -52,7 +52,7 @@ dependencies:
   badges: ^3.1.1
   readmore: ^2.2.0
   font_awesome_flutter: ^10.4.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: any
   image_picker: ^0.8.7+5
   firebase_core: ^2.13.1
   firebase_auth: ^4.6.2
@@ -63,6 +63,7 @@ dependencies:
   flutter_local_notifications: ^14.1.1
   workmanager: ^0.5.1
   fluttertoast: ^8.2.2
+  dio_http_cache: any
   
 
   

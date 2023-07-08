@@ -27,6 +27,8 @@ import '../../../constants.dart';
 // import '../../Login/login_screen.dart';
 import 'package:http/http.dart' as http;
 
+import 'otpPhoneCode_2.dart';
+
 class signup_second_pages extends StatefulWidget {
   const signup_second_pages({super.key});
 
@@ -159,7 +161,7 @@ class _signup_second_pagesState extends State<signup_second_pages> {
                 MaterialPageRoute(
                   builder: (context) {
                     // return MyBottomNavigationBar();
-                    return otpTester();
+                    return otpPhone(PhoneNumber);
                   },
                 ),
               );

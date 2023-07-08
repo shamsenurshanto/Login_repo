@@ -16,6 +16,7 @@ import 'package:my_app/userDetailsTesting.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'demoBottombar.dart';
+import 'dio_cached_manager.dart';
 import 'local_notifications.dart';
 import 'newTbb.dart';
 import 'otpPhoneCode.dart';
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
+      // home: const WelcomeScreen(),
             // home : dash_newMyBottomNavigationBar_new(),
             // home: const homeGrid(),
             // home: const transactionWithPending(),
@@ -96,6 +97,7 @@ class MyApp extends StatelessWidget {
             // home: CupertinoNavigationDemo(),
               //  home: otpTester(),
               // home:  otpPhone_2("0190929290"),
+              home: dio_cached_manager()
 
 
     );

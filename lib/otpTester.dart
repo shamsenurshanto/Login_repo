@@ -42,7 +42,7 @@ class otpTester extends StatefulWidget {
 }
 
 var mobile_num2 = "90000000009";
-
+  var sendOtpButtonStatusChanger =0;
 void initState() async {
   // super.initState();
   // await Hive.initFlutter();
@@ -88,8 +88,10 @@ class _otpTesterState extends State<otpTester> {
 
     var temp = 0.0;
 
-    var width_safearea2 = 392;
-    var height_safearea2 = 750;
+    var width_safearea2 = 800;
+    var height_safearea2 = 1200;
+    print(width_safearea);
+    print(height_safearea);
   void onPinChanged(String value) {
     setState(() {
       print(pin);
@@ -104,6 +106,7 @@ class _otpTesterState extends State<otpTester> {
   String a5 = "";
   String a6 = "";
   String a3 = "";
+
 
     var mobile_num33 = "_box.getoString();";
 
@@ -127,18 +130,18 @@ class _otpTesterState extends State<otpTester> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 160,
+                    height: (160/height_safearea2) * height_safearea,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(20, 40, 0, 30),
+                        padding: EdgeInsets.fromLTRB((20/width_safearea2) * width_safearea, (40/height_safearea2)*height_safearea, 0, (30/height_safearea2)*height_safearea),
                         child: Text(
                           "Verification Code",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (20/height_safearea2)*height_safearea,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
@@ -146,7 +149,7 @@ class _otpTesterState extends State<otpTester> {
                     ],
                   ),
                   SizedBox(
-                    height: 60,
+                    height: (60/height_safearea2)*height_safearea,
                   ),
                 
                   Row(
@@ -158,7 +161,7 @@ class _otpTesterState extends State<otpTester> {
                         child: Text(
                           "We Want to send You an OTP Code to this number for the Varification ",
                           style: TextStyle(
-                              fontSize: 20,
+                              fontSize: (20/width_safearea2)*width_safearea,
                               fontWeight: FontWeight.w400,
                               color: Colors.white),
                         ),
@@ -166,7 +169,7 @@ class _otpTesterState extends State<otpTester> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: (20/height_safearea2)*height_safearea,
                   ),
                   Column(
                     children: [
@@ -192,12 +195,15 @@ class _otpTesterState extends State<otpTester> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: (30/height_safearea2)*height_safearea,
                   ),
                       
 
                   ElevatedButton(
                       onPressed: () async {
+                        setState(() {
+                          sendOtpButtonStatusChanger=1;
+                        });
                         print("hello");
                         user_name = _textController_For_EmailSearch.text;
                         setState(() {
@@ -242,6 +248,9 @@ class _otpTesterState extends State<otpTester> {
                          );
                               }
                     else{
+                      setState(() {
+                        sendOtpButtonStatusChanger=0;
+                      });
                       
                     }
                        
@@ -254,7 +263,12 @@ class _otpTesterState extends State<otpTester> {
                           });
                         }
                       },
-                      child: Text("SEND OTP")
+                      child:  Container(
+                        child: sendOtpButtonStatusChanger==0? Text("SEND OTP") : CircularProgressIndicator(
+                          color: Colors.white,
+                        
+                      ),
+                      )
                       )
                 ],
               ),
