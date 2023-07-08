@@ -21,7 +21,8 @@ import 'package:shimmer/shimmer.dart';
 import 'models/team.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'newTbb.dart';
 
 class dash_new extends StatefulWidget {
@@ -127,10 +128,30 @@ class _dash_newState extends State<dash_new> {
     print(tokenString2);
     print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
-        headers: {'Cookie': 'jwt_token=$tokenString2'});
-    var jsonData = jsonDecode(response.body);
-    print(jsonData);
+    // var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
+    //     headers: {'Cookie': 'jwt_token=$tokenString2'});
+
+     Dio dio = Dio();
+  var response;
+    var jsonData;
+try {
+   response = await dio.get(
+    'https://$apiName/api/user/loansummary',
+    options: Options(
+      headers: {'Cookie': 'jwt_token=$tokenString2'},
+    ),
+  );
+
+  print(response.data.runtimeType);
+jsonData = jsonEncode(response.data);
+    print("here is json");
+    print(jsonDecode(jsonData));
+} catch (e) {
+  print('Error: $e');
+}
+
+
+    
 
     // start ----------------------------------------------->
      
