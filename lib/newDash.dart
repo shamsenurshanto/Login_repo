@@ -31,7 +31,8 @@ class dash_new extends StatefulWidget {
   @override
   _dash_newState createState() => _dash_newState();
 }
-
+  List<Team> teams = [];
+  List<Team> Iteams = [];
 class _dash_newState extends State<dash_new> {
   String _displayText = "";
 
@@ -46,7 +47,7 @@ class _dash_newState extends State<dash_new> {
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   @override
   Future<void> callFunctionAfterDelay() async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 0));
     setState(() {
       CircularProgressIndicator_var = 1;
     });
@@ -54,14 +55,11 @@ class _dash_newState extends State<dash_new> {
 
   void initState() {
     super.initState();
-    setState(() {
-      CircularProgressIndicator_var = 0;
-    });
-    Iteams.clear();
-    teams.clear();
+   
+   
     getTeams2();
-    callFunctionAfterDelay();
-
+   
+    // callFunctionAfterDelay();
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -74,19 +72,19 @@ class _dash_newState extends State<dash_new> {
   Map<String, int> hasUsedYet = {};
   Map<String, int> total_send = {};
   Map<String, int> total_received = {};
+  var mydata=0;
 
-  List<Team> teams = [];
-  List<Team> Iteams = [];
+
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
   getTeams2() async {
-    teams.clear();
+  
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var _idLoggedIn = _box2.get("User_id"); //my user id
     var email = _box2.get("User_email");
-    var apiName = "personalrec.onrender.com";
+  var apiName = "api.lenden.cloud";
 
     //hive initialization and get data
 
@@ -131,15 +129,25 @@ class _dash_newState extends State<dash_new> {
     // var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
     //     headers: {'Cookie': 'jwt_token=$tokenString2'});
 
-     Dio dio = Dio();
+   
+     
   var response;
     var jsonData;
+   
 try {
+    Dio dio = Dio();
+       DioCacheManager _dioCacherManager;
+     _dioCacherManager = DioCacheManager(CacheConfig());
+      Options _cacheOption =
+          buildCacheOptions(Duration(minutes: 5), forceRefresh: true);
+  
+      dio.interceptors.add(_dioCacherManager.interceptor);
+  dio.options.headers["Cookie"] = 'jwt_token=$tokenString2';
    response = await dio.get(
     'https://$apiName/api/user/loansummary',
-    options: Options(
-      headers: {'Cookie': 'jwt_token=$tokenString2'},
-    ),
+    options:_cacheOption
+    
+    
   );
 
   print(response.data.runtimeType);
@@ -159,8 +167,9 @@ jsonData = jsonEncode(response.data);
 
     
     // print(jsonData['data']);
+    var jsonData2 = jsonDecode(jsonData);
 
-    for (var eachTeam in jsonData['data']) {
+    for (var eachTeam in jsonData2['data']) {
       // String dateString =
       //     eachTeam['sender']['senderId']['createdAt'].toString();
       // dateString = "2023-02-06T10:36:26.420Z";
@@ -292,9 +301,7 @@ jsonData = jsonEncode(response.data);
             color: Colors.white,
           ),
         ),
-        body: height_safearea > width_safearea
-
-            ? 
+        body: 
             
             //for potraitr mode pMode
             SafeArea(
@@ -459,7 +466,7 @@ jsonData = jsonEncode(response.data);
                               //main container which carries rtow
                               print("---" + item.amount.toString());
 
-                              return CircularProgressIndicator_var == 1
+                              return Iteams.length!=0
                                   ? GestureDetector(
                                       onTap: () {
                                         Navigator.push(
@@ -674,385 +681,10 @@ jsonData = jsonEncode(response.data);
                   ),
                 )),
               )
-            :
-
-            /// for landscape mode  lmode
-            SafeArea(
-                child: SingleChildScrollView(
-                    child: Container(
-                  height: height_safearea + 250,
-                  child: Column(
-                    children: [
-                      //banner post where there is dart profile + row
-                      Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: SizedBox(
-                                  height: .200071599 * height_safearea,
-                                  width: .940071599 * width_safearea,
-                                  child: SvgPicture.asset(
-                                    'assets/images/geometricbg.svg',
-                                    fit: BoxFit.fill,
-                                    // Specify the width
-                                    // Specify the height
-                                  ),
-                                ),
-                              ),
-                              Center(
-                                // total balance container
-                                child: Container(
-                                    height: 0.150071599 * height_safearea,
-                                    width: .940071599 * width_safearea,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: const Color.fromARGB(
-                                          255, 230, 230, 238),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            //image
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  (15 / width_safearea2) *
-                                                      width_safearea,
-                                                  0.008353222 * height_safearea,
-                                                  0,
-                                                  0),
-                                              child: Container(
-                                                width: (90 / width_safearea2) *
-                                                    width_safearea,
-                                                height: 0.11852029 *
-                                                    height_safearea,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: Color.fromARGB(
-                                                          255, 101, 101, 230),
-                                                      width: 4),
-                                                ),
-                                                child: CircleAvatar(
-                                                  radius: 100,
-                                                  backgroundImage: NetworkImage(
-                                                    'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-
-                                            // column
-
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0,
-                                                  0.022673031 * height_safearea,
-                                                  0,
-                                                  0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Total Balance:",
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 43, 54, 80),
-                                                      fontSize: 0.019286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.0090000000 *
-                                                        height_safearea,
-                                                  ),
-                                                  Text(
-                                                    "You Owe : \ ৳" +
-                                                        totalOwnbyme.toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 217, 104, 23),
-                                                      fontSize: 0.030286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.0070000000 *
-                                                        height_safearea,
-                                                  ),
-                                                  Text(
-                                                    "You are Owed : \ ৳" +
-                                                        totalOwnFromMebyOthers
-                                                            .toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255,
-                                                          65,
-                                                          201,
-                                                          185), //rgb(172, 213, 20owes 8)
-                                                   fontSize: 0.030286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            height_safearea < width_safearea
-                                                ? SizedBox(
-                                                    width: (100 /
-                                                            width_safearea2) *
-                                                        width_safearea,
-                                                  )
-                                                : SizedBox()
-                                          ],
-                                        ),
-                                      ],
-                                    )),
-                              )
-                            ],
-                          )),
-
-                      ///the list view starts here
-                      ///
-                      ///
-
-                      SizedBox(
-                        width: width_safearea,
-                        height: 0.726 * height_safearea,
-                        child: SizedBox(
-                          width: (200 / width_safearea2) * width_safearea,
-                          child: ListView.builder(
-                            itemCount: teams.length,
-                            itemBuilder: (context, index) {
-                              final item = teams[index];
-                              //main container which carries rtow
-                              print("---" + item.amount.toString());
-
-                              return CircularProgressIndicator_var == 1
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return UserDetails(item);
-
-                                              // return userDetails(teams[index].mainMail);
-                                            },
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        width: height_safearea,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: const Color.fromARGB(
-                                                  255, 240, 226, 226),
-                                              width: 0.7,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      10, 2, 0, 9),
-                                                  child: Container(
-                                                    width: 140 / 4 + 12,
-                                                    height: 140 / 4 + 12,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              101,
-                                                              101,
-                                                              230),
-                                                          width: 2.4 + 1),
-                                                    ),
-                                                    child: CircleAvatar(
-                                                      radius: 100,
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                        "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                                            item.img_link,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      item.name.toString(),
-                                                      style: GoogleFonts.lato(
-                                                        color: Color.fromARGB(
-                                                            255, 43, 54, 80),
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2),
-                                                      child:
-                                                          item.Transaction_status ==
-                                                                  "PENDING"
-                                                              ? Text(
-                                                                  item.Transaction_status
-                                                                      .toString(),
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                  ),
-                                                                )
-                                                              : Text(
-                                                                  item.Transaction_status
-                                                                      .toString(),
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    color: Colors
-                                                                        .green,
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding: EdgeInsets.all(10),
-                                                    child: Column(
-                                                      children: [
-                                                        Text("you owe",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      3,
-                                                                      113,
-                                                                      12),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            )),
-                                                        Text(
-                                                          '\ ৳' +
-                                                              item.amount
-                                                                  .toString(),
-                                                          style:
-                                                              GoogleFonts.lato(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    3,
-                                                                    113,
-                                                                    12),
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                Padding(
-                                                    padding: EdgeInsets.all(10),
-                                                    child: Column(
-                                                      children: [
-                                                        Text("owes you",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      236,
-                                                                      8,
-                                                                      16),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            )),
-                                                        Text(
-                                                          '\ ৳' +
-                                                              item.Transaction_id
-                                                                  .toString(),
-                                                          style:
-                                                              GoogleFonts.lato(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    236,
-                                                                    8,
-                                                                    16),
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                SizedBox(
-                                                  width: 10,
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  : Container(
-                                      width: 350,
-                                      height: 600,
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    );
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-              ));
+           
+              
+              );
+              
+ 
   }
 }

@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 
 
+import 'constant.dart';
 import 'homeGrid.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   var _idLoggedIn;
   var email;
   var name;
-  var apiName = 'personalrec.onrender.com';
+ var apiName = "api.lenden.cloud";
   String _selectedLanguage = 'English';
   var name_;
    Future<void> setProfilePic() async
