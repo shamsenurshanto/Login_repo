@@ -33,6 +33,8 @@ class dash_new extends StatefulWidget {
 }
   List<Team> teams = [];
   List<Team> Iteams = [];
+ var jsonData=null;
+  var _data;
 class _dash_newState extends State<dash_new> {
   String _displayText = "";
 
@@ -56,8 +58,9 @@ class _dash_newState extends State<dash_new> {
   void initState() {
     super.initState();
    
-   
-    getTeams2();
+  
+    // getTeams2();
+    fetchData();
    
     // callFunctionAfterDelay();
     var box = Hive.openBox("mybox");
@@ -78,8 +81,57 @@ class _dash_newState extends State<dash_new> {
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-  getTeams2() async {
+     Future<void> fetchData() async {
+    var box = await Hive.openBox("mybox");
+    final _box2 = Hive.box("mybox");
+    var gh = _box2.get("toki");
+    var response;
+    // var jsonData;
+     
+try {
+    Dio dio = Dio();
+       DioCacheManager _dioCacherManager;
+     _dioCacherManager = DioCacheManager(CacheConfig());
+      Options _cacheOption =
+          buildCacheOptions(Duration(minutes: 15), forceRefresh: true);
   
+      dio.interceptors.add(_dioCacherManager.interceptor);
+  dio.options.headers["Cookie"] = 'jwt_token=$gh';
+   response = await dio.get(
+    'https://$apiName/api/user/loansummary',
+    options:_cacheOption
+    
+    
+  );
+  var jsonData2 = jsonEncode(response.data);
+  jsonData=jsonDecode(jsonData2);
+  print(jsonData['data']);
+  setState(() {
+    _data=jsonData['data'];
+    print(_data.length.toString()+" ---<");
+    // print(jsonData['success']);
+  });
+// jsonData = jsonEncode(response.data);
+//     print("here is json");
+//      jsonData2 = jsonDecode(jsonData);
+//     print(jsonData2['data'].length);
+//       print(jsonData2['data'][0]);
+//     print(jsonData2['data'][0]['userName']);//notification pages data
+} catch (e) {
+  print('Error: $e');
+}
+    // setState(() {
+    //  jsonData = jsonData2;
+    //  print("json print hocce");
+    //  print(jsonData['data'][0]['notifications']);
+    //  _data=jsonData;
+    
+    // });
+  
+  }
+
+  getTeams2() async {
+   teams.clear;
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var _idLoggedIn = _box2.get("User_id"); //my user id
@@ -215,7 +267,7 @@ jsonData = jsonEncode(response.data);
       });
 
       // print(mainName);
-
+      
       teams.add(team);
 
       print(teams[teams.length - 1].name);
@@ -457,23 +509,31 @@ jsonData = jsonEncode(response.data);
                       SizedBox(
                         width: width_safearea,
                         height: 0.726 * height_safearea,
-                        child: SizedBox(
+                        child:
+                       _data.length==0?
+                        Center(
+                          child: CircularProgressIndicator(
+
+                          ),
+                        ):
+                         SizedBox(
                           width: (200 / width_safearea2) * width_safearea,
                           child: ListView.builder(
-                            itemCount: teams.length,
+                            itemCount:    _data.length,
                             itemBuilder: (context, index) {
-                              final item = teams[index];
+                              // final item = teams[index];
                               //main container which carries rtow
-                              print("---" + item.amount.toString());
+                              print("---" + _data.length.toString());
 
-                              return Iteams.length!=0
-                                  ? GestureDetector(
+                              return 
+                              
+                             GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              return UserDetails(item);
+                                              return UserDetails(_data[index]['id']);
 
                                               // return userDetails(teams[index].mainMail);
                                             },
@@ -518,7 +578,7 @@ jsonData = jsonEncode(response.data);
                                                       backgroundImage:
                                                           NetworkImage(
                                                         "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                                            item.img_link,
+                                                           _data[index]['userPic'],
                                                       ),
                                                     ),
                                                   ),
@@ -533,7 +593,7 @@ jsonData = jsonEncode(response.data);
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      item.name.toString(),
+                                                     _data[index]['userName'],
                                                       style: GoogleFonts.lato(
                                                         color: Color.fromARGB(
                                                             255, 43, 54, 80),
@@ -542,43 +602,7 @@ jsonData = jsonEncode(response.data);
                                                             FontWeight.bold,
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(2),
-                                                      child:
-                                                          item.Transaction_status ==
-                                                                  "PENDING"
-                                                              ? Text(
-                                                                  item.Transaction_status
-                                                                      .toString(),
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                  ),
-                                                                )
-                                                              : Text(
-                                                                  item.Transaction_status
-                                                                      .toString(),
-                                                                  style:
-                                                                      GoogleFonts
-                                                                          .lato(
-                                                                    color: Colors
-                                                                        .green,
-                                                                    fontSize:
-                                                                        10,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                  ),
-                                                                ),
-                                                    )
+                                                    
                                                   ],
                                                 ),
                                               ],
@@ -604,7 +628,7 @@ jsonData = jsonEncode(response.data);
                                                             )),
                                                         Text(
                                                           '\ ৳' +
-                                                              item.amount
+                                                            _data[index]['total_sent']
                                                                   .toString(),
                                                           style:
                                                               GoogleFonts.lato(
@@ -640,7 +664,7 @@ jsonData = jsonEncode(response.data);
                                                             )),
                                                         Text(
                                                           '\ ৳' +
-                                                              item.Transaction_id
+                                                           _data[index]['total_received']
                                                                   .toString(),
                                                           style:
                                                               GoogleFonts.lato(
@@ -665,17 +689,12 @@ jsonData = jsonEncode(response.data);
                                           ],
                                         ),
                                       ),
-                                    )
-                                  : Container(
-                                      width: 350,
-                                      height: 600,
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
                                     );
+                                 
                             },
                           ),
                         ),
+                           
                       )
                     ],
                   ),
