@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ffi';
 
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,12 +29,17 @@ class UserDetails extends StatefulWidget {
   @override
   _UserDetailsState createState() => _UserDetailsState();
 }
+var _data;
+
+           List<Team> teams2 = [];
+           List<Team> teams4 = [];
+       List<dynamic> items = [];
 
 class _UserDetailsState extends State<UserDetails> {
   ///function for bangla
   String valAmount = "";
   var loanStaus = "";
-  List<dynamic> items = [];
+  
   
 
   var Lang_val = "English";
@@ -77,12 +84,20 @@ class _UserDetailsState extends State<UserDetails> {
   var month = "";
   var year = "";
   var day = "";
-
+   var apiName = "api.lenden.cloud";
+     List<Team> teams3 = [];
   void initState() {
     super.initState();
    
+   print("mojo");
+   print(
+    items.length
+   );
+    // getTeams2();
+   teams2.clear;
+    fetchData();
+   
 
-    getTeams2();
 
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -107,7 +122,7 @@ class _UserDetailsState extends State<UserDetails> {
     getTeams2();
   }
 
-  List<Team> teams2 = [];
+ 
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
 
@@ -122,6 +137,227 @@ class _UserDetailsState extends State<UserDetails> {
       // print(valAmount);
     }
     return amountOfUser;
+  }
+
+   Future<void> fetchData() async {
+    var box = await Hive.openBox("mybox");
+    final _box2 = Hive.box("mybox");
+    var gh = _box2.get("toki");
+    var response;
+    // var jsonData;
+   
+     
+try {
+    Dio dio = Dio();
+       DioCacheManager _dioCacherManager;
+     _dioCacherManager = DioCacheManager(CacheConfig());
+      Options _cacheOption =
+          buildCacheOptions(Duration(minutes: 15), forceRefresh: true);
+  
+      dio.interceptors.add(_dioCacherManager.interceptor);
+  dio.options.headers["Cookie"] = 'jwt_token=$gh';
+   response = await dio.get(
+    'https://$apiName/api/transaction/usersalltransactions',
+    options:_cacheOption
+    
+    
+  );
+  var jsonData2 = jsonEncode(response.data);
+  jsonData=jsonDecode(jsonData2);
+  print(jsonData['data']);
+
+  
+  setState(() {
+    _data=jsonData['data'];
+    print(_data.length.toString()+" ---<");
+      setState(() {
+      Notification_number = _data.length;
+    });
+    teams2.clear();
+
+     for (var eachTeam in jsonData['data']) 
+    {
+      // print(eachTeam['sender']['senderId']);
+      /// time
+      print(eachTeam['receiver']['receiverId']['userPic']);
+
+      // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
+      String mainMail2 = "";
+      String mainName = "";
+      print(eachTeam['type']['en_typeName']);
+      final team;
+      print(
+          "___________________________________________________--------------");
+      if (eachTeam['type']['en_typeName'] == "LoanTaken") {
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
+
+        //here it is gone for change    TO SEE EACH OTHER
+        var _idgh = _box2.get("User_id"); //my user id
+        var email = _box2.get("User_email");
+        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
+          print("ole");
+          print(_idgh);
+          print(email);
+          // loan given + mainmail
+          team = Team(
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+          );
+        } else {
+          print("lole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+
+            //  img_link: eachTeam['userPic']
+          );
+        }
+
+        print(mainName);
+      } else if (eachTeam['type']['en_typeName'] == "LoanGiven") {
+        //  mainMail2 = eachTeam['sender']['senderId']['_id'];
+        //     mainName = eachTeam['sender']['senderId']['userName'];
+
+        //here it is gone for change    TO SEE EACH OTHER
+        var _idgh = _box2.get("User_id"); //my user id
+        var email = _box2.get("User_email");
+        if (_idgh == eachTeam['sender']['senderId']['_id'].toString()) {
+          print("ole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Given",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['receiver']['receiverId']['_id'].toString(),
+            name: eachTeam['receiver']['receiverId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'].toString(),
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['receiver']['receiverId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+            //  img_link: eachTeam['userPic']
+          );
+        } else {
+          print("lole");
+          print(_idgh);
+          print(email);
+
+          team = Team(
+            id: eachTeam['sender']['senderId']['_id'].toString(),
+            sender_email: eachTeam['sender']['senderEmailPhone'].toString(),
+            receiver_email:
+                eachTeam['receiver']['receiverEmailPhone'].toString(),
+            type: "Loan Taken",
+            amount: eachTeam['amount'],
+            mainMail: eachTeam['sender']['senderId']['_id'].toString(),
+            name: eachTeam['sender']['senderId']['userName'].toString(),
+            Transaction_status: eachTeam['transactionStatus'],
+            Transaction_id: eachTeam['_id'].toString(),
+            Sender_status: eachTeam['senderStatus'],
+            Receiver_status: eachTeam['receiverStatus'],
+            img_link: eachTeam['sender']['senderId']['userPic'].toString(),
+            dateOfTransactions: eachTeam['createdAt'].toString(),
+          );
+        }
+      } else {
+        team = "";
+      }
+
+      // //print(mainName);
+      // if (eachTeam['_id'] != null &&
+      //     eachTeam['sender']['senderId'] != null &&
+      //     eachTeam['receiver']['receiverId'] != null &&
+      //     eachTeam['type'] != null &&
+      //     eachTeam['amount'] != null &&
+      //     mainMail2 != null) {
+
+      print("mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm2222222");
+      print(widget.teams.mainMail.toString());
+      print(team.mainMail.toString());
+      if (widget.teams.mainMail == team.mainMail) {
+        print(
+            "mmmmmmmmmmmm00000000000000mmmmmmmmmmmmmmmmmm--------------------------------------------------------bep");
+        print(widget.teams.id);
+        print(team.type);
+        //selfEmail
+        teams2.add(team);
+        teams4.add(team);
+        print("-----------Test");
+        print(widget.teams.mainMail);
+        print(team.mainMail);
+      }
+
+      print("iteam count -------------0000000000000000000000000000000000   " +
+          teams2.length.toString());
+      // teams2.add(team);
+
+      //print(teams[teams.length-1].name);
+    }
+    //print("---------------------------------------");
+    //print(teams.length);
+    setState(() {
+      print(items.length);
+      print("moja");
+      items = teams2;
+      
+    });
+
+
+    
+
+    // print(jsonData['success']);
+  });
+// jsonData = jsonEncode(response.data);
+//     print("here is json");
+//      jsonData2 = jsonDecode(jsonData);
+//     print(jsonData2['data'].length);
+//       print(jsonData2['data'][0]);
+//     print(jsonData2['data'][0]['userName']);//notification pages data
+} catch (e) {
+  print('Error: $e');
+}
+    // setState(() {
+    //  jsonData = jsonData2;
+    //  print("json print hocce");
+    //  print(jsonData['data'][0]['notifications']);
+    //  _data=jsonData;
+    
+    // });
+  
   }
 
   getTeams2() async {
@@ -145,7 +381,7 @@ class _UserDetailsState extends State<UserDetails> {
     String token = "";
 
     String cookie = gh;
-    var apiName='personalrec.onrender.com';
+    // var apiName='personalrec.onrender.com';
 
     String str = gh, ghh, tokenString2 = "";
     // tokenString2 = cookie;
@@ -184,7 +420,13 @@ class _UserDetailsState extends State<UserDetails> {
     //print(response.body);
     // //print(jsonData['data']);
 
-    for (var eachTeam in jsonData['data']) {
+    
+         
+        
+
+
+    for (var eachTeam in jsonData['data']) 
+    {
       // print(eachTeam['sender']['senderId']);
       /// time
       print(eachTeam['receiver']['receiverId']['userPic']);
@@ -517,21 +759,25 @@ class _UserDetailsState extends State<UserDetails> {
               ),
 
               /// the user dtls
-              items.length == 0
+           teams4.length==0
                   ? Container(
                       width: width_safearea,
                       height: (300/height_safearea2) * height_safearea,
                       child: Center(
                         child: CircularProgressIndicator(),
                       ))
-                  : SizedBox(
+                  :
+                   SizedBox(
                       width: width_safearea,
                       height: (411/750) * height_safearea,
                       child: SizedBox(
                         width:      (203/width_safearea2) * width_safearea,
-                        child: ListView.builder(
+                        child: 
+                          items.length>0?
+                           ListView.builder(
                           itemCount: items.length,
                           itemBuilder: (context, index) {
+                            
                             final item = items[index];
 
                             var month2 = Return_month(item.dateOfTransactions);
@@ -542,6 +788,7 @@ class _UserDetailsState extends State<UserDetails> {
                                 year.toString() +
                                 " " +
                                 day2.toString());
+                                print(teams4.length);
 
                             //main container which carries rtow
 
@@ -571,8 +818,11 @@ class _UserDetailsState extends State<UserDetails> {
                                     ),
                                   ),
                                 ),
-                                child: index == 0
-                                    ? Column(
+                                child: 
+                                
+                                index == 0
+                                    ? 
+                                    Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
@@ -754,10 +1004,11 @@ class _UserDetailsState extends State<UserDetails> {
                                     : 
                                     
                                     //if index is not 0 
-                                      Return_month(teams2[index - 1]
+                                      Return_month(teams2[index -1]
                                                       .dateOfTransactions) !=
                                                   month2
-                                              ?  Column(
+                                              ?  
+                                              Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
@@ -1104,10 +1355,21 @@ class _UserDetailsState extends State<UserDetails> {
                               ),
                             );
                           },
-                        ),
+                        )
+                        
+                        :
+                        
+                        
+                         Center(
+                          child: CircularProgressIndicator(),
+                         )
+                    
+                    
                       ),
                     )
 
+
+              
               //push 1
             ],
           ),

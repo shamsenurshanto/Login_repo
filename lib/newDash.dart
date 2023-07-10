@@ -35,6 +35,7 @@ class dash_new extends StatefulWidget {
   List<Team> Iteams = [];
  var jsonData=null;
   var _data;
+    var Notification_number = 0;
 class _dash_newState extends State<dash_new> {
   String _displayText = "";
 
@@ -109,6 +110,10 @@ try {
   setState(() {
     _data=jsonData['data'];
     print(_data.length.toString()+" ---<");
+      setState(() {
+      Notification_number = _data.length;
+    });
+
     // print(jsonData['success']);
   });
 // jsonData = jsonEncode(response.data);
@@ -302,6 +307,7 @@ jsonData = jsonEncode(response.data);
     var width_safearea = MediaQuery.of(context).size.width;
     var width_safearea2 = 352;
     var height_safearea2 = 750;
+      // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
 
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
     print("print the height");
@@ -310,29 +316,208 @@ jsonData = jsonEncode(response.data);
 
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-        appBar: AppBar(
-          // systemOverlayStyle: SystemUiOverlayStyle(
-          //   statusBarColor: Colors.white, // <-- SEE HERE
-          //   statusBarIconBrightness:
-          //       Brightness.dark, //<-- For Android SEE HERE (dark icons)
-          //   statusBarBrightness:
-          //       Brightness.light,
-          //        //<-- For iOS SEE HERE (dark icons)
-          // ),
-          foregroundColor: Colors.white,
-          elevation: 0,
-
-          // leading: Text(
-          //   "Transaction",
-          //   style: TextStyle(  color: Color.fromARGB(255, 155, 155, 176),),
-          // ),
-          // title: Text(
-          //   "Transaction",
-          //   style: TextStyle(  color: Color.fromARGB(255, 155, 155, 176),),
-          // ),
-
-          backgroundColor: Color.fromARGB(184, 255, 255, 255),
+         appBar:
+          AppBar(
+          title: Text(
+            "Dashboard",
+            style: TextStyle(color: Colors.black),
+          ),
+          leading: Builder(
+            builder: (BuildContext context) {
+              return Container(
+                height: 50,
+                child: Stack(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.menu_outlined,
+                      ),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
+                    ),
+                    Notification_number != 0
+                        ? Positioned(
+                            top: 10,
+                            left: 25,
+                            child: Container(
+                              width: 14,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  Notification_number.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10),
+                                ),
+                              ),
+                            ))
+                        : SizedBox(
+                            width: 0,
+                            height: 0,
+                          )
+                  ],
+                ),
+              );
+            },
+          ),
+          backgroundColor: Colors.white,
           // textDirection: TextDirection.rtl, // Set text direction to right-to-left
+          elevation: 0.0,
+
+          iconTheme:
+              IconThemeData(color: const Color.fromARGB(255, 130, 83, 211)),
+        ),
+        drawer:
+         SafeArea(
+            child: Stack(
+          children: [
+            Positioned(
+              child: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      child: Text(
+                        'দেনা পাওনা',
+                        style: TextStyle(color: Colors.white, fontSize: 0),
+                      ),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 38, 7, 91),
+                          image: DecorationImage(
+                              fit: BoxFit.scaleDown,
+                              image: AssetImage(
+                                'assets/icons/icon.png',
+                              ))),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text(
+                        'Home',
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 38, 7, 91),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () => {},
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.approval),
+                      title: Text('Acknowledgement Pending',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.arrow_circle_up_rounded,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('My Debits',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.arrow_circle_down,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('My Credits',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.send,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('Request a Debt (Pro)',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.receipt,
+                        color: const Color.fromARGB(255, 38, 7, 91),
+                      ),
+                      title: Text('Request a Payment (Pro)',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                    ListTile(
+                      leading: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.timelapse,
+                            color: const Color.fromARGB(255, 38, 7, 91),
+                          ),
+                        ],
+                      ),
+                      title: Text('Recent Dates',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      trailing: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 15 + 5,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  Notification_number.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      onTap: () => {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => tabBarForRecentDates()))
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Logout',
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 38, 7, 91),
+                              fontWeight: FontWeight.bold)),
+                      onTap: () => {Navigator.of(context).pop()},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        )
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -529,11 +714,32 @@ jsonData = jsonEncode(response.data);
                               
                              GestureDetector(
                                       onTap: () {
+
+                                       Team  team = Team(
+        id: _data[index]['id'].toString(),
+        sender_email: "eachTeam['sender']['senderEmailPhone'].toString()",
+        receiver_email:
+            "eachTeam['receiver']['receiverEmailPhone'].toString(),",
+        type: "Loan Given",
+        amount:  _data[index]['total_sent'], // total_send
+        mainMail:  _data[index]['id'].toString(), //id
+        name:  _data[index]['userName'].toString(), // name
+        Transaction_status: "eachTeam['transactionStatus']",
+        Transaction_id:  _data[index]['total_received']
+            .toString(), // total_received we use as t_id
+        Sender_status: "eachTeam['senderStatus']",
+        Receiver_status: "eachTeam['receiverStatus']",
+        img_link:  _data[index]['userPic'].toString(), //image
+        dateOfTransactions:  _data[index]['nearest_returnDate'].toString(),
+      );
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) {
-                                              return UserDetails(_data[index]['id']);
+                                              return UserDetails(
+                  
+                                                    team
+                                              );
 
                                               // return userDetails(teams[index].mainMail);
                                             },

@@ -578,7 +578,8 @@ class _homepage2State extends State<homepage2> {
               ),
             ),
           ],
-        )),
+        )
+        ),
         body: SafeArea(
             child: SingleChildScrollView(
           child:
