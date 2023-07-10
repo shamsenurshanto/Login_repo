@@ -11,6 +11,7 @@ import 'package:my_app/homePage2.dart';
 import 'package:my_app/profilePages.dart';
 
 import 'NotificationWidget.dart';
+import 'PendingForm.dart';
 import 'newDash.dart';
 import 'notificationPages.dart';
 
@@ -26,11 +27,16 @@ class _dash_newMyBottomNavigationBar_newState
   bool _isVisible = false;
 
   final List<Widget> _pages = [
-    homepage2(),
+    
     dash_new(),
+      
+   dash4(),
+ 
     ProfilePage(),
+   
+   
     NotificationPage(),
-    dash3()
+    
   ];
 
   void _onItemTapped(int index) {
@@ -64,24 +70,30 @@ class _dash_newMyBottomNavigationBar_newState
           unselectedItemColor: Colors.blueGrey,
           iconSize: 30,
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
-              label: 'Home',
-            ),
+            
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard),
               label: 'Dashboard',
             ),
+           
             BottomNavigationBarItem(
+              icon: Icon(Icons.approval),
+              label: 'Approvals',
+            ),
+              BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person),
               label: 'Profile',
             ),
+           
             BottomNavigationBarItem(
                 icon: notificationsButton(
                   counter: 20,
                   child: Icon(Icons.notifications_none_outlined),
                 ),
-                label: 'Notification')
+                label: 'Notification'),
+
+                
+                
             /**BottomNavigationBarItem(
             icon: notificationsButton(
               counter : 4,

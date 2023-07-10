@@ -31,11 +31,13 @@ class dash_new extends StatefulWidget {
   @override
   _dash_newState createState() => _dash_newState();
 }
-  List<Team> teams = [];
-  List<Team> Iteams = [];
- var jsonData=null;
-  var _data;
-    var Notification_number = 0;
+
+List<Team> teams = [];
+List<Team> Iteams = [];
+var jsonData = null;
+var _data;
+var Notification_number = 0;
+
 class _dash_newState extends State<dash_new> {
   String _displayText = "";
 
@@ -58,11 +60,10 @@ class _dash_newState extends State<dash_new> {
 
   void initState() {
     super.initState();
-   
-  
+
     // getTeams2();
     fetchData();
-   
+
     // callFunctionAfterDelay();
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
@@ -76,72 +77,66 @@ class _dash_newState extends State<dash_new> {
   Map<String, int> hasUsedYet = {};
   Map<String, int> total_send = {};
   Map<String, int> total_received = {};
-  var mydata=0;
-
+  var mydata = 0;
 
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-     Future<void> fetchData() async {
+  Future<void> fetchData() async {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
     var response;
     // var jsonData;
-     
-try {
-    Dio dio = Dio();
-       DioCacheManager _dioCacherManager;
-     _dioCacherManager = DioCacheManager(CacheConfig());
+
+    try {
+      Dio dio = Dio(  );
+      DioCacheManager _dioCacherManager;
+      _dioCacherManager = DioCacheManager(CacheConfig());
       Options _cacheOption =
           buildCacheOptions(Duration(minutes: 15), forceRefresh: true);
-  
-      dio.interceptors.add(_dioCacherManager.interceptor);
-  dio.options.headers["Cookie"] = 'jwt_token=$gh';
-   response = await dio.get(
-    'https://$apiName/api/user/loansummary',
-    options:_cacheOption
-    
-    
-  );
-  var jsonData2 = jsonEncode(response.data);
-  jsonData=jsonDecode(jsonData2);
-  print(jsonData['data']);
-  setState(() {
-    _data=jsonData['data'];
-    print(_data.length.toString()+" ---<");
-      setState(() {
-      Notification_number = _data.length;
-    });
 
-    // print(jsonData['success']);
-  });
+      dio.interceptors.add(_dioCacherManager.interceptor);
+      dio.options.headers["Cookie"] = 'jwt_token=$gh';
+      response = await dio.get('https://$apiName/api/user/loansummary',
+          options: _cacheOption);
+      var jsonData2 = jsonEncode(response.data);
+      jsonData = jsonDecode(jsonData2);
+      print(jsonData['data']);
+      setState(() {
+        _data = jsonData['data'];
+        print(_data.length.toString() + " ---<");
+        setState(() {
+          Notification_number = _data.length;
+        });
+
+        // print(jsonData['success']);
+      });
 // jsonData = jsonEncode(response.data);
 //     print("here is json");
 //      jsonData2 = jsonDecode(jsonData);
 //     print(jsonData2['data'].length);
 //       print(jsonData2['data'][0]);
 //     print(jsonData2['data'][0]['userName']);//notification pages data
-} catch (e) {
-  print('Error: $e');
-}
+    } catch (e) {
+      print('Error: $e');
+    }
     // setState(() {
     //  jsonData = jsonData2;
     //  print("json print hocce");
     //  print(jsonData['data'][0]['notifications']);
     //  _data=jsonData;
-    
+
     // });
-  
   }
 
   getTeams2() async {
-   teams.clear;
+    teams.clear;
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var _idLoggedIn = _box2.get("User_id"); //my user id
     var email = _box2.get("User_email");
-  var apiName = "api.lenden.cloud";
+    var apiName = "api.lenden.cloud";
 
     //hive initialization and get data
 
@@ -186,64 +181,36 @@ try {
     // var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
     //     headers: {'Cookie': 'jwt_token=$tokenString2'});
 
-   
-     
-  var response;
+    var response;
     var jsonData;
-   
-try {
-    Dio dio = Dio();
-       DioCacheManager _dioCacherManager;
-     _dioCacherManager = DioCacheManager(CacheConfig());
+
+    try {
+      Dio dio = Dio();
+      DioCacheManager _dioCacherManager;
+      _dioCacherManager = DioCacheManager(CacheConfig());
       Options _cacheOption =
           buildCacheOptions(Duration(minutes: 5), forceRefresh: true);
-  
+
       dio.interceptors.add(_dioCacherManager.interceptor);
-  dio.options.headers["Cookie"] = 'jwt_token=$tokenString2';
-   response = await dio.get(
-    'https://$apiName/api/user/loansummary',
-    options:_cacheOption
-    
-    
-  );
+      dio.options.headers["Cookie"] = 'jwt_token=$tokenString2';
+      response = await dio.get('https://$apiName/api/user/loansummary',
+          options: _cacheOption);
 
-  print(response.data.runtimeType);
-jsonData = jsonEncode(response.data);
-    print("here is json");
-    print(jsonDecode(jsonData));
-} catch (e) {
-  print('Error: $e');
-}
-
-
-    
+      print(response.data.runtimeType);
+      jsonData = jsonEncode(response.data);
+      print("here is json");
+      print(jsonDecode(jsonData));
+    } catch (e) {
+      print('Error: $e');
+    }
 
     // start ----------------------------------------------->
-     
 
-
-    
     // print(jsonData['data']);
     var jsonData2 = jsonDecode(jsonData);
 
     for (var eachTeam in jsonData2['data']) {
-      // String dateString =
-      //     eachTeam['sender']['senderId']['createdAt'].toString();
-      // dateString = "2023-02-06T10:36:26.420Z";
-      // DateTime dateTime = DateTime.parse(dateString);
-      // String month = DateFormat('MMM').format(dateTime); // e.g., "May"
-      // String date = DateFormat('dd').format(dateTime); // e.g., "06"
-
-      // print("dateTime  ---------- ::::::::::::::::::::");
-      // print(date + " " + month);
-      // print(eachTeam['receiver']['receiverId']['userPic']);
-
-      // print(eachTeam['sender']['senderId']);
-
-      // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
-      // String mainMail2 = "";
-      // String mainName = "";
-      // print(eachTeam['type']['en_typeName']);
+     
       final team;
       print(
           "___________________________________________________--------------");
@@ -266,13 +233,13 @@ jsonData = jsonEncode(response.data);
       );
 
       setState(() {
-        print(team.img_link.toString()+" -pic- "+team.mainMail);
+        print(team.img_link.toString() + " -pic- " + team.mainMail);
         totalOwnbyme += team.amount;
         totalOwnFromMebyOthers += int.parse(team.Transaction_id);
       });
 
       // print(mainName);
-      
+
       teams.add(team);
 
       print(teams[teams.length - 1].name);
@@ -307,7 +274,7 @@ jsonData = jsonEncode(response.data);
     var width_safearea = MediaQuery.of(context).size.width;
     var width_safearea2 = 352;
     var height_safearea2 = 750;
-      // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
 
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
     print("print the height");
@@ -316,8 +283,7 @@ jsonData = jsonEncode(response.data);
 
     return Scaffold(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-         appBar:
-          AppBar(
+        appBar: AppBar(
           title: Text(
             "Dashboard",
             style: TextStyle(color: Colors.black),
@@ -375,8 +341,7 @@ jsonData = jsonEncode(response.data);
           iconTheme:
               IconThemeData(color: const Color.fromARGB(255, 130, 83, 211)),
         ),
-        drawer:
-         SafeArea(
+        drawer: SafeArea(
             child: Stack(
           children: [
             Positioned(
@@ -517,8 +482,7 @@ jsonData = jsonEncode(response.data);
               ),
             ),
           ],
-        )
-        ),
+        )),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print("hello");
@@ -538,378 +502,340 @@ jsonData = jsonEncode(response.data);
             color: Colors.white,
           ),
         ),
-        body: 
-            
+        body:
+
             //for potraitr mode pMode
             SafeArea(
-                child: SingleChildScrollView(
-                    child: Container(
-                  height: height_safearea + 250,
-                  child: Column(
-                    children: [
-                      //banner post where there is dart profile + row
-                      Padding(
-                          padding: EdgeInsets.all(8),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: SizedBox(
-                                  height: .200071599 * height_safearea,
-                                  width: .940071599 * width_safearea,
-                                  child: SvgPicture.asset(
-                                    'assets/images/geometricbg.svg',
-                                    fit: BoxFit.fill,
-                                    // Specify the width
-                                    // Specify the height
-                                  ),
-                                ),
+          child: SingleChildScrollView(
+              child: Container(
+            height: height_safearea + 250,
+            child: Column(
+              children: [
+                //banner post where there is dart profile + row
+                Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: SizedBox(
+                            height: .200071599 * height_safearea,
+                            width: .940071599 * width_safearea,
+                            child: SvgPicture.asset(
+                              'assets/images/geometricbg.svg',
+                              fit: BoxFit.fill,
+                              // Specify the width
+                              // Specify the height
+                            ),
+                          ),
+                        ),
+                        Center(
+                          // total balance container
+                          child: Container(
+                              height: 0.150071599 * height_safearea,
+                              width: .940071599 * width_safearea,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: const Color.fromARGB(255, 230, 230, 238),
                               ),
-                              Center(
-                                // total balance container
-                                child: Container(
-                                    height: 0.150071599 * height_safearea,
-                                    width: .940071599 * width_safearea,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: const Color.fromARGB(
-                                          255, 230, 230, 238),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      //image
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            (15 / width_safearea2) *
+                                                width_safearea,
+                                            0.008353222 * height_safearea,
+                                            0,
+                                            0),
+                                        child: Container(
+                                          width: (90 / width_safearea2) *
+                                              width_safearea,
+                                          height: 0.10852029 * height_safearea,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                                color: Color.fromARGB(
+                                                    255, 101, 101, 230),
+                                                width: 4),
+                                          ),
+                                          child: CircleAvatar(
+                                            radius: 100,
+                                            backgroundImage: NetworkImage(
+                                              'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                      // column
+
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            0,
+                                            0.022673031 * height_safearea,
+                                            0,
+                                            0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            //image
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  (15 / width_safearea2) *
-                                                      width_safearea,
-                                                  0.008353222 * height_safearea,
-                                                  0,
-                                                  0),
-                                              child: Container(
-                                                width: (90 / width_safearea2) *
-                                                    width_safearea,
-                                                height: 0.10852029 *
+                                            Text(
+                                              "Total Balance:",
+                                              style: GoogleFonts.lato(
+                                                color: Color.fromARGB(
+                                                    255, 43, 54, 80),
+                                                fontSize: 0.019286396 *
                                                     height_safearea,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: Color.fromARGB(
-                                                          255, 101, 101, 230),
-                                                      width: 4),
-                                                ),
-                                                child: CircleAvatar(
-                                                  radius: 100,
-                                                  backgroundImage: NetworkImage(
-                                                    'https://media.istockphoto.com/id/1439271299/tr/vekt%C3%B6r/cute-koala-is-reading-book-vector-illustration-on-purple-background.jpg?s=170667a&w=0&k=20&c=bKzwjm8Pf8sS_UHnKQZ8VMoi3HlM8O24ZooOBY_WSjc=',
-                                                  ),
-                                                ),
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
-
-                                            // column
-
-                                            Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0,
-                                                  0.022673031 * height_safearea,
-                                                  0,
-                                                  0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Total Balance:",
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 43, 54, 80),
-                                                      fontSize: 0.019286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.0090000000 *
-                                                        height_safearea,
-                                                  ),
-                                                  Text(
-                                                    "You Owe : \ ৳" +
-                                                        totalOwnbyme.toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255, 217, 104, 23),
-                                                      fontSize: 0.020286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.0070000000 *
-                                                        height_safearea,
-                                                  ),
-                                                  Text(
-                                                    "You are Owed : \ ৳" +
-                                                        totalOwnFromMebyOthers
-                                                            .toString(),
-                                                    style: GoogleFonts.lato(
-                                                      color: Color.fromARGB(
-                                                          255,
-                                                          65,
-                                                          201,
-                                                          185), //rgb(172, 213, 20owes 8)
-                                                      fontSize: 0.020286396 *
-                                                          height_safearea,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ],
+                                            SizedBox(
+                                              height: 0.0090000000 *
+                                                  height_safearea,
+                                            ),
+                                            Text(
+                                              "You Owe : \ ৳" +
+                                                  totalOwnbyme.toString(),
+                                              style: GoogleFonts.lato(
+                                                color: Color.fromARGB(
+                                                    255, 217, 104, 23),
+                                                fontSize: 0.020286396 *
+                                                    height_safearea,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            height_safearea < width_safearea
-                                                ? SizedBox(
-                                                    width: (100 /
-                                                            width_safearea2) *
-                                                        width_safearea,
-                                                  )
-                                                : SizedBox()
+                                            SizedBox(
+                                              height: 0.0070000000 *
+                                                  height_safearea,
+                                            ),
+                                            Text(
+                                              "You are Owed : \ ৳" +
+                                                  totalOwnFromMebyOthers
+                                                      .toString(),
+                                              style: GoogleFonts.lato(
+                                                color: Color.fromARGB(
+                                                    255,
+                                                    65,
+                                                    201,
+                                                    185), //rgb(172, 213, 20owes 8)
+                                                fontSize: 0.020286396 *
+                                                    height_safearea,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ],
                                         ),
-                                      ],
-                                    )),
-                              )
-                            ],
-                          )),
+                                      ),
+                                      height_safearea < width_safearea
+                                          ? SizedBox(
+                                              width: (100 / width_safearea2) *
+                                                  width_safearea,
+                                            )
+                                          : SizedBox()
+                                    ],
+                                  ),
+                                ],
+                              )),
+                        )
+                      ],
+                    )),
 
-                      ///the list view starts here
-                      ///
-                      ///
+                ///the list view starts here
+                ///
+                ///
 
-                      SizedBox(
-                        width: width_safearea,
-                        height: 0.726 * height_safearea,
-                        child:
-                       _data.length==0?
-                        Center(
-                          child: CircularProgressIndicator(
-
-                          ),
-                        ):
-                         SizedBox(
+                SizedBox(
+                  width: width_safearea,
+                  height: 0.726 * height_safearea,
+                  child: _data.length == 0 || _data == null || _data.length <=0
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : SizedBox(
                           width: (200 / width_safearea2) * width_safearea,
                           child: ListView.builder(
-                            itemCount:    _data.length,
+                            itemCount: _data.length,
                             itemBuilder: (context, index) {
                               // final item = teams[index];
                               //main container which carries rtow
                               print("---" + _data.length.toString());
 
-                              return 
-                              
-                             GestureDetector(
-                                      onTap: () {
+                              return GestureDetector(
+                                onTap: () {
+                                  Team team = Team(
+                                    id: _data[index]['id'].toString(),
+                                    sender_email:
+                                        "eachTeam['sender']['senderEmailPhone'].toString()",
+                                    receiver_email:
+                                        "eachTeam['receiver']['receiverEmailPhone'].toString(),",
+                                    type: "Loan Given",
+                                    amount: _data[index]
+                                        ['total_sent'], // total_send
+                                    mainMail:
+                                        _data[index]['id'].toString(), //id
+                                    name: _data[index]['userName']
+                                        .toString(), // name
+                                    Transaction_status:
+                                        "eachTeam['transactionStatus']",
+                                    Transaction_id: _data[index]
+                                            ['total_received']
+                                        .toString(), // total_received we use as t_id
+                                    Sender_status: "eachTeam['senderStatus']",
+                                    Receiver_status:
+                                        "eachTeam['receiverStatus']",
+                                    img_link: _data[index]['userPic']
+                                        .toString(), //image
+                                    dateOfTransactions: _data[index]
+                                            ['nearest_returnDate']
+                                        .toString(),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return UserDetails(team);
 
-                                       Team  team = Team(
-        id: _data[index]['id'].toString(),
-        sender_email: "eachTeam['sender']['senderEmailPhone'].toString()",
-        receiver_email:
-            "eachTeam['receiver']['receiverEmailPhone'].toString(),",
-        type: "Loan Given",
-        amount:  _data[index]['total_sent'], // total_send
-        mainMail:  _data[index]['id'].toString(), //id
-        name:  _data[index]['userName'].toString(), // name
-        Transaction_status: "eachTeam['transactionStatus']",
-        Transaction_id:  _data[index]['total_received']
-            .toString(), // total_received we use as t_id
-        Sender_status: "eachTeam['senderStatus']",
-        Receiver_status: "eachTeam['receiverStatus']",
-        img_link:  _data[index]['userPic'].toString(), //image
-        dateOfTransactions:  _data[index]['nearest_returnDate'].toString(),
-      );
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return UserDetails(
-                  
-                                                    team
-                                              );
-
-                                              // return userDetails(teams[index].mainMail);
-                                            },
-                                          ),
-                                        );
+                                        // return userDetails(teams[index].mainMail);
                                       },
-                                      child: Container(
-                                        width: height_safearea,
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            bottom: BorderSide(
-                                              color: const Color.fromARGB(
-                                                  255, 240, 226, 226),
-                                              width: 0.7,
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: height_safearea,
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 240, 226, 226),
+                                        width: 0.7,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 2, 0, 9),
+                                            child: Container(
+                                              width: 140 / 4 + 12,
+                                              height: 140 / 4 + 12,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                border: Border.all(
+                                                    color: Color.fromARGB(
+                                                        255, 101, 101, 230),
+                                                    width: 2.4 + 1),
+                                              ),
+                                              child: CircleAvatar(
+                                                radius: 100,
+                                                backgroundImage: NetworkImage(
+                                                  "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
+                                                      _data[index]['userPic'],
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      10, 2, 0, 9),
-                                                  child: Container(
-                                                    width: 140 / 4 + 12,
-                                                    height: 140 / 4 + 12,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      border: Border.all(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              101,
-                                                              101,
-                                                              230),
-                                                          width: 2.4 + 1),
-                                                    ),
-                                                    child: CircleAvatar(
-                                                      radius: 100,
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                        "https://personalrecordback-production.up.railway.app/amendmentDoc/" +
-                                                           _data[index]['userPic'],
-                                                      ),
-                                                    ),
-                                                  ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _data[index]['userName'],
+                                                style: GoogleFonts.lato(
+                                                  color: Color.fromARGB(
+                                                      255, 43, 54, 80),
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                SizedBox(
-                                                  width: 20,
-                                                ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                     _data[index]['userName'],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Column(
+                                                children: [
+                                                  Text("you owe",
                                                       style: GoogleFonts.lato(
                                                         color: Color.fromARGB(
-                                                            255, 43, 54, 80),
-                                                        fontSize: 17,
+                                                            255, 3, 113, 12),
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                      ),
+                                                      )),
+                                                  Text(
+                                                    '\ ৳' +
+                                                        _data[index]
+                                                                ['total_sent']
+                                                            .toString(),
+                                                    style: GoogleFonts.lato(
+                                                      color: Color.fromARGB(
+                                                          255, 3, 113, 12),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                    
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                    padding: EdgeInsets.all(10),
-                                                    child: Column(
-                                                      children: [
-                                                        Text("you owe",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      3,
-                                                                      113,
-                                                                      12),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            )),
-                                                        Text(
-                                                          '\ ৳' +
-                                                            _data[index]['total_sent']
-                                                                  .toString(),
-                                                          style:
-                                                              GoogleFonts.lato(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    3,
-                                                                    113,
-                                                                    12),
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                Padding(
-                                                    padding: EdgeInsets.all(10),
-                                                    child: Column(
-                                                      children: [
-                                                        Text("owes you",
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      236,
-                                                                      8,
-                                                                      16),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            )),
-                                                        Text(
-                                                          '\ ৳' +
-                                                           _data[index]['total_received']
-                                                                  .toString(),
-                                                          style:
-                                                              GoogleFonts.lato(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    236,
-                                                                    8,
-                                                                    16),
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                SizedBox(
-                                                  width: 10,
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                 
+                                                  )
+                                                ],
+                                              )),
+                                          Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Column(
+                                                children: [
+                                                  Text("owes you",
+                                                      style: GoogleFonts.lato(
+                                                        color: Color.fromARGB(
+                                                            255, 236, 8, 16),
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      )),
+                                                  Text(
+                                                    '\ ৳' +
+                                                        _data[index][
+                                                                'total_received']
+                                                            .toString(),
+                                                    style: GoogleFonts.lato(
+                                                      color: Color.fromARGB(
+                                                          255, 236, 8, 16),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
+                                          SizedBox(
+                                            width: 10,
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
                             },
                           ),
                         ),
-                           
-                      )
-                    ],
-                  ),
-                )),
-              )
-           
-              
-              );
-              
- 
+                )
+              ],
+            ),
+          )),
+        ));
   }
 }
