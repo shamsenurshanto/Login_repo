@@ -38,7 +38,10 @@ var jsonData = null;
 var _data;
 var Notification_number = 0;
 
+  var CircularProgressIndicator_var=0;
+
 class _dash_newState extends State<dash_new> {
+
   String _displayText = "";
 
   List<String> pictureofUsers = [];
@@ -47,24 +50,22 @@ class _dash_newState extends State<dash_new> {
   var totalOwnbyme = 0.0;
   var totalOwnFromMebyOthers = 0.0;
   Timer? timer;
-  var CircularProgressIndicator_var = 0;
 
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   @override
-  Future<void> callFunctionAfterDelay() async {
-    await Future.delayed(Duration(seconds: 0));
-    setState(() {
-      CircularProgressIndicator_var = 1;
-    });
-  }
 
   void initState() {
     super.initState();
+     print("this is init ");
 
     // getTeams2();
     fetchData();
+   
+
+    // if(CircularProgressIndicator_var==0)
 
     // callFunctionAfterDelay();
+
     var box = Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
 
@@ -88,6 +89,8 @@ class _dash_newState extends State<dash_new> {
     var gh = _box2.get("toki");
     var response;
     // var jsonData;
+    print("this is fetch ");
+    print(  CircularProgressIndicator_var);
 
     try {
       Dio dio = Dio(  );
@@ -106,154 +109,21 @@ class _dash_newState extends State<dash_new> {
       setState(() {
         _data = jsonData['data'];
         print(_data.length.toString() + " ---<");
-        setState(() {
-          Notification_number = _data.length;
-        });
+        Notification_number = _data.length;
+          CircularProgressIndicator_var = 1;
 
         // print(jsonData['success']);
       });
-// jsonData = jsonEncode(response.data);
-//     print("here is json");
-//      jsonData2 = jsonDecode(jsonData);
-//     print(jsonData2['data'].length);
-//       print(jsonData2['data'][0]);
-//     print(jsonData2['data'][0]['userName']);//notification pages data
+
     } catch (e) {
       print('Error: $e');
     }
-    // setState(() {
-    //  jsonData = jsonData2;
-    //  print("json print hocce");
-    //  print(jsonData['data'][0]['notifications']);
-    //  _data=jsonData;
+ 
 
     // });
   }
-
-  getTeams2() async {
-    teams.clear;
-    var box = await Hive.openBox("mybox");
-    final _box2 = Hive.box("mybox");
-    var _idLoggedIn = _box2.get("User_id"); //my user id
-    var email = _box2.get("User_email");
-    var apiName = "api.lenden.cloud";
-
-    //hive initialization and get data
-
-    print("apii te +++++++++++++++++++++++");
-    var gh = _box2.get("tokens");
-
-    print(gh.runtimeType);
-
-    String token = "";
-
-    String cookie = gh;
-
-    String str = gh, ghh, tokenString2 = "";
-    // tokenString2 = cookie;
-    int flag = 0;
-
-    //making the jwt_token
-    for (int rune in str.runes) {
-      if (String.fromCharCode(rune) == '=') {
-        flag = 1;
-        continue;
-      } else if (String.fromCharCode(rune) == ';') {
-        tokenString2 += String.fromCharCode(rune);
-        break;
-      }
-
-      if (flag > 0) {
-        // print();
-        tokenString2 += String.fromCharCode(rune);
-      }
-    }
-
-    //ab33@gmail.com
-
-    print("token api ---------- ::::::::::::::::::::");
-    final _box = Hive.box("mybox");
-    _box.put("toki", tokenString2);
-
-    print(tokenString2);
-    print(tokenString2.runtimeType);
-
-    // var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
-    //     headers: {'Cookie': 'jwt_token=$tokenString2'});
-
-    var response;
-    var jsonData;
-
-    try {
-      Dio dio = Dio();
-      DioCacheManager _dioCacherManager;
-      _dioCacherManager = DioCacheManager(CacheConfig());
-      Options _cacheOption =
-          buildCacheOptions(Duration(minutes: 5), forceRefresh: true);
-
-      dio.interceptors.add(_dioCacherManager.interceptor);
-      dio.options.headers["Cookie"] = 'jwt_token=$tokenString2';
-      response = await dio.get('https://$apiName/api/user/loansummary',
-          options: _cacheOption);
-
-      print(response.data.runtimeType);
-      jsonData = jsonEncode(response.data);
-      print("here is json");
-      print(jsonDecode(jsonData));
-    } catch (e) {
-      print('Error: $e');
-    }
-
-    // start ----------------------------------------------->
-
-    // print(jsonData['data']);
-    var jsonData2 = jsonDecode(jsonData);
-
-    for (var eachTeam in jsonData2['data']) {
-     
-      final team;
-      print(
-          "___________________________________________________--------------");
-      team = Team(
-        id: eachTeam['id'].toString(),
-        sender_email: "eachTeam['sender']['senderEmailPhone'].toString()",
-        receiver_email:
-            "eachTeam['receiver']['receiverEmailPhone'].toString(),",
-        type: "Loan Given",
-        amount: eachTeam['total_sent'], // total_send
-        mainMail: eachTeam['id'].toString(), //id
-        name: eachTeam['userName'].toString(), // name
-        Transaction_status: "eachTeam['transactionStatus']",
-        Transaction_id: eachTeam['total_received']
-            .toString(), // total_received we use as t_id
-        Sender_status: "eachTeam['senderStatus']",
-        Receiver_status: "eachTeam['receiverStatus']",
-        img_link: eachTeam['userPic'].toString(), //image
-        dateOfTransactions: eachTeam['nearest_returnDate'].toString(),
-      );
-
-      setState(() {
-        print(team.img_link.toString() + " -pic- " + team.mainMail);
-        totalOwnbyme += team.amount;
-        totalOwnFromMebyOthers += int.parse(team.Transaction_id);
-      });
-
-      // print(mainName);
-
-      teams.add(team);
-
-      print(teams[teams.length - 1].name);
-      print(total_send[team.mainMail.toString()] = team.amount);
-    }
-    print("---------------------------------------");
-    print(teams.length);
-    setState(() {
-      Iteams = teams;
-
-      CircularProgressIndicator_var = 0;
-    });
-  }
-
+  
+  
   String getString(String number) {
     amountOfUser = "";
     for (var i = 0; i < number.length; i++) {
@@ -643,7 +513,8 @@ class _dash_newState extends State<dash_new> {
                               )),
                         )
                       ],
-                    )),
+                    )
+                    ),
 
                 ///the list view starts here
                 ///
@@ -652,14 +523,14 @@ class _dash_newState extends State<dash_new> {
                 SizedBox(
                   width: width_safearea,
                   height: 0.726 * height_safearea,
-                  child: _data.length == 0 || _data == null || _data.length <=0
-                      ? Center(
+                  child: 
+               CircularProgressIndicator_var==0? Center(
                           child: CircularProgressIndicator(),
                         )
                       : SizedBox(
                           width: (200 / width_safearea2) * width_safearea,
                           child: ListView.builder(
-                            itemCount: _data.length,
+                            itemCount: _data.length?? 0,
                             itemBuilder: (context, index) {
                               // final item = teams[index];
                               //main container which carries rtow

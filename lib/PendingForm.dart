@@ -1,5 +1,7 @@
 import 'dart:convert';
 // import 'dart:html';
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,9 +37,12 @@ class dash4 extends StatefulWidget {
   @override
   _dash4State createState() => _dash4State();
 }
-
+var Iteams ;
+var CircularProgressIndicator_var=0;
+ 
 class _dash4State extends State<dash4> {
   String _displayText = "";
+  List<Team> teamsP = [];
   var Lang_val;
   var _idLoggedIn;
   var arr = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
@@ -53,6 +58,8 @@ class _dash4State extends State<dash4> {
     final _box2 = Hive.box("mybox");
 
     Lang_val = _box2.get("Lang_val");
+     teamsP.clear;
+    getTeams2();
 
     //  Lang_val
   }
@@ -61,16 +68,17 @@ class _dash4State extends State<dash4> {
   String passFromTheclassmail = "";
   String passFromTheclassid = "";
   var apiName = "personalrec.onrender.com";
-  List<Team> teams = [];
+ 
   var amountOfUser;
   //https://smoggy-toad-fedora.cyclic.app/api/transaction/usersalltransactions
   // get teams
-  Future getTeams() async {
-    teams.clear();
+  getTeams2() async {
+    teamsP.clear;
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
-    _idLoggedIn = _box2.get("User_id"); //my user id
+    var _idLoggedIn = _box2.get("User_id"); //my user id
     var email = _box2.get("User_email");
+    var apiName = "api.lenden.cloud";
 
     //hive initialization and get data
 
@@ -112,15 +120,51 @@ class _dash4State extends State<dash4> {
     print(tokenString2);
     print(tokenString2.runtimeType);
 
-    var response = await http.get(Uri.https(apiName, 'api/transaction/pending'),
-        headers: {'Cookie': 'jwt_token=$tokenString2'});
-    var jsonData = jsonDecode(response.body);
-    print(response.body);
-    // print(jsonData['data']);
+    // var response = await http.get(Uri.https(apiName, 'api/user/loansummary'),
+    //     headers: {'Cookie': 'jwt_token=$tokenString2'});
 
-    for (var eachTeam in jsonData['data']) {
+    var response;
+    var jsonData;
+
+    try {
+      Dio dio = Dio();
+      DioCacheManager _dioCacherManager;
+      _dioCacherManager = DioCacheManager(CacheConfig());
+      Options _cacheOption =
+          buildCacheOptions(Duration(minutes: 5), forceRefresh: true);
+
+      dio.interceptors.add(_dioCacherManager.interceptor);
+      dio.options.headers["Cookie"] = 'jwt_token=$tokenString2';
+      response = await dio.get('https://$apiName/api/transaction/usersalltransactions',
+          options: _cacheOption);
+
+      print(response.data.runtimeType);
+      jsonData = jsonEncode(response.data);
+      print("here is json");
+      print(jsonDecode(jsonData));
+    } catch (e) {
+      print('Error: $e');
+    }
+
+    // start ----------------------------------------------->
+
+    // print(jsonData['data']);
+    var jsonData2 = jsonDecode(jsonData);
+
+     for (var eachTeam in jsonData2['data']) {
+      String dateString =
+          eachTeam['sender']['senderId']['createdAt'].toString();
+      dateString = "2023-02-06T10:36:26.420Z";
+      DateTime dateTime = DateTime.parse(dateString);
+      // String month = DateFormat('MMM').format(dateTime); // e.g., "May"
+      // String date = DateFormat('dd').format(dateTime); // e.g., "06"
+
+      // print("dateTime  ---------- ::::::::::::::::::::");
+      // print(date + " " + month);
+      // print(eachTeam['receiver']['receiverId']['userPic']);
+
       // print(eachTeam['sender']['senderId']);
-      print(eachTeam['receiver']['receiverId']['userPic']);
+
       // pictureofUsers.add(eachTeam['sender']['senderId']['userPic'].toString());
       String mainMail2 = "";
       String mainName = "";
@@ -128,6 +172,7 @@ class _dash4State extends State<dash4> {
       final team;
       print(
           "___________________________________________________--------------");
+          
       if (eachTeam['type']['en_typeName'] == "LoanTaken") {
         //  mainMail2 = eachTeam['sender']['senderId']['_id'];
         //     mainName = eachTeam['sender']['senderId']['userName'];
@@ -240,32 +285,48 @@ class _dash4State extends State<dash4> {
       } else {
         team = "";
       }
+    
+      teamsP.add(team);
 
       // print(mainName);
-      if (eachTeam['_id'] != null &&
-          eachTeam['sender']['senderId'] != null &&
-          eachTeam['receiver']['receiverId'] != null &&
-          eachTeam['type'] != null &&
-          eachTeam['amount'] != null &&
-          mainMail2 != null) {
-        print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-        print(mainName);
+      // if (eachTeam['_id'] != null &&
+      //     eachTeam['sender']['senderId'] != null &&
+      //     eachTeam['receiver']['receiverId'] != null &&
+      //     eachTeam['type'] != null &&
+      //     eachTeam['amount'] != null &&
+      //     mainMail2 != null) {
+       
 
-        teams.add(team);
-
-        print(teams[teams.length - 1].name);
-      }
+      //   print(teams[teams.length - 1].name);
+      // }
     }
     print("---------------------------------------");
-    print(teams.length);
-  }
+    print(teamsP.length);
+    setState(() {
+      Iteams=teamsP;
+       
+      CircularProgressIndicator_var=1;
+  
+ 
 
+    });
+   
+  }
+    // print("---------------------------------------");
+    // print(teamsP.length);
+  
+  
+  
+  
   // method somuho
 
   ReceiverAck(int index) async {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
+    setState(() {
+      CircularProgressIndicator_var=1;
+    });
     print("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
     var response = await http.post(
@@ -275,7 +336,7 @@ class _dash4State extends State<dash4> {
 
         'Cookie': 'jwt_token=$gh'
       },
-      body: {"id": teams[index].Transaction_id, "receiverStatus": "RECEIVED"},
+      body: {"id": teamsP[index].Transaction_id, "receiverStatus": "RECEIVED"},
     );
     //    print(widget.teams.Transaction_id);
     //  jsonData = jsonDecode(response.body);
@@ -287,6 +348,9 @@ class _dash4State extends State<dash4> {
     var box = await Hive.openBox("mybox");
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
+     setState(() {
+      CircularProgressIndicator_var=1;
+    });
 
     var response = await http.post(
       Uri.https(apiName, 'api/transaction/changestatus'),
@@ -295,9 +359,9 @@ class _dash4State extends State<dash4> {
 
         'Cookie': 'jwt_token=$gh'
       },
-      body: {"id": teams[index].Transaction_id, "senderStatus": "SENT"},
+      body: {"id": teamsP[index].Transaction_id, "senderStatus": "SENT"},
     );
-    print(teams[0].Transaction_id);
+    print(teamsP[0].Transaction_id);
     //  jsonData = jsonDecode(response.body);
     // print(jsonData);
     //  print("sent");
@@ -308,7 +372,7 @@ class _dash4State extends State<dash4> {
     final _box2 = Hive.box("mybox");
     var gh = _box2.get("toki");
     var response;
-    teams[index].type == "Loan Taken"
+    teamsP[index].type == "Loan Taken"
         ? response = await http.post(
             Uri.https(apiName, 'api/transaction/changestatus'),
             headers: {
@@ -317,7 +381,7 @@ class _dash4State extends State<dash4> {
               'Cookie': 'jwt_token=$gh'
             },
             body: {
-              "id": teams[index].Transaction_id,
+              "id": teamsP[index].Transaction_id,
               "receiverStatus": "Denied"
             },
           )
@@ -328,9 +392,9 @@ class _dash4State extends State<dash4> {
 
               'Cookie': 'jwt_token=$gh'
             },
-            body: {"id": teams[index].Transaction_id, "senderStatus": "Denied"},
+            body: {"id": teamsP[index].Transaction_id, "senderStatus": "Denied"},
           );
-    print(teams[0].Transaction_id);
+    print(teamsP[0].Transaction_id);
     //  jsonData = jsonDecode(response.body);
     // print(jsonData);
     //  print("sent");
@@ -338,6 +402,7 @@ class _dash4State extends State<dash4> {
 
   alertFunction(int index) {
     print("alert");
+   
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -355,7 +420,7 @@ class _dash4State extends State<dash4> {
               onPressed: () {
                 // Navigator.of(context).pop();
                 // print()
-                teams[index].type == "Loan Taken"
+                teamsP[index].type == "Loan Taken"
                     ? ReceiverAck(index)
                     : SenderAck(index);
                 Navigator.of(context).pop();
@@ -409,15 +474,15 @@ class _dash4State extends State<dash4> {
               ? Column(
                   children: [
                     Text("Sender Mail : " +
-                        teams[index].sender_email.toString()),
+                        teamsP[index].sender_email.toString()),
                     Text("Receiver Mail : " +
-                        teams[index].receiver_email.toString())
+                        teamsP[index].receiver_email.toString())
                   ],
                 )
               : Column(
                   children: [
-                    Text("প্রেরক : " + teams[index].sender_email.toString()),
-                    Text("প্রাপক : " + teams[index].receiver_email.toString())
+                    Text("প্রেরক : " + teamsP[index].sender_email.toString()),
+                    Text("প্রাপক : " + teamsP[index].receiver_email.toString())
                   ],
                 ),
           actions: [
@@ -498,15 +563,55 @@ class _dash4State extends State<dash4> {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          child: FutureBuilder(
-            future: getTeams(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Card(
+        child: 
+       CircularProgressIndicator_var==0  ?
+
+         Shimmer.fromColors(
+                    child: Center(
+                      child: Container(
+                          child: ListView.builder(
+                        itemCount: 10,
+                        padding: EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: width_safearea * 0.903061224,
+                                height: height_safearea * 0.133,
+                                margin: const EdgeInsets.only(
+                                    top: 8.0, bottom: 8.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      )),
+                    ),
+                    baseColor: Colors.grey.withOpacity(0.1),
+                    highlightColor: Colors.grey.shade300)
+
+                    :
+        Container(
+          child:
+
+           
+                 Card(
+
+
                     color: Colors.white,
-                    child: ListView.builder(
-                      itemCount: teams.length,
+                    child: 
+                    RefreshIndicator(
+                       onRefresh: ()async
+                       {
+                              initState();
+                       },
+                       child: ListView.builder(
+                      itemCount: Iteams.length,
                       padding: EdgeInsets.all(10),
                       itemBuilder: (context, index) {
                         return GestureDetector(
@@ -515,19 +620,23 @@ class _dash4State extends State<dash4> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return UserDetails(teams[index]);
+                                  return UserDetails(Iteams[index]);
 
                                   // return userDetails(teams[index].mainMail);
                                 },
                               ),
                             );
                           },
-                          child: Card(
+                          child: 
+                         Iteams[index].Transaction_status ==
+                                                        "PENDING"?
+                            Card(
                               elevation: 14.0,
                               color: Colors.grey[100],
                               margin: EdgeInsets.all(10),
-                              child: SizedBox(
-                                height: height_safearea * 0.133,
+                              child: 
+                              SizedBox(
+                                height: height_safearea * 0.163,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -547,7 +656,7 @@ class _dash4State extends State<dash4> {
                                                     const EdgeInsets.fromLTRB(
                                                         12, 8, 6, 8),
                                                 child: Text(
-                                                  teams[index].type,
+                                                  Iteams[index].type,
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       fontStyle:
@@ -557,7 +666,7 @@ class _dash4State extends State<dash4> {
                                                       color: Colors.black),
                                                 ),
                                               )
-                                            : teams[index].type == "Loan Given"
+                                            : Iteams[index].type == "Loan Given"
                                                 ? Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(12, 8, 6, 8),
@@ -624,7 +733,7 @@ class _dash4State extends State<dash4> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 12, 4, 16, 8),
                                             child: // if pending
-                                                teams[index].Transaction_status ==
+                                                Iteams[index].Transaction_status ==
                                                         "PENDING"
                                                     ? GestureDetector(
                                                         onTap: () {
@@ -657,7 +766,10 @@ class _dash4State extends State<dash4> {
                                                           color: Colors.green
                                                               .shade700, // set the color of the icon to red
                                                         ),
-                                                      ))
+                                                      )
+                                                      
+                                                      
+                                                      )
                                       ],
                                     ),
                                     SizedBox(
@@ -672,7 +784,7 @@ class _dash4State extends State<dash4> {
                                           padding: const EdgeInsets.fromLTRB(
                                               12, 1, 6, 8),
                                           child: Text(
-                                            teams[index].name.toUpperCase(),
+                                            Iteams[index].name.toUpperCase(),
                                             style: TextStyle(
                                                 fontSize: 10,
                                                 fontWeight: FontWeight.w900,
@@ -699,7 +811,7 @@ class _dash4State extends State<dash4> {
                                                         12, 8, 6, 4),
                                                 child: Text(
                                                   "\$" +
-                                                      teams[index]
+                                                      Iteams[index]
                                                           .amount
                                                           .toString(),
                                                   style: TextStyle(
@@ -719,7 +831,7 @@ class _dash4State extends State<dash4> {
                                                         12, 8, 6, 4),
                                                 child: Text(
                                                   "৳" +
-                                                      getString(teams[index]
+                                                      getString(Iteams[index]
                                                           .amount
                                                           .toString()),
                                                   style: TextStyle(
@@ -748,45 +860,66 @@ class _dash4State extends State<dash4> {
                                     )
                                   ],
                                 ),
-                              )),
+                              )
+                              
+                              )
+
+                          :
+                          SizedBox()
+                        
+                        
                         );
                       },
-                    ));
-              } else {
+                    
+                    )
+                      )
+                   
+
+
+              
+              
                 // return Center(child: CircularProgressIndicator());
 
-                return Shimmer.fromColors(
-                    child: Center(
-                      child: Container(
-                          child: ListView.builder(
-                        itemCount: 10,
-                        padding: EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: width_safearea * 0.903061224,
-                                height: height_safearea * 0.133,
-                                margin: const EdgeInsets.only(
-                                    top: 8.0, bottom: 8.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      )),
-                    ),
-                    baseColor: Colors.grey.withOpacity(0.1),
-                    highlightColor: Colors.grey.shade300);
-              }
-            },
+              
+                
+                // Shimmer.fromColors(
+                //     child: Center(
+                //       child: Container(
+                //           child: ListView.builder(
+                //         itemCount: 10,
+                //         padding: EdgeInsets.all(8),
+                //         itemBuilder: (context, index) {
+                //           return Row(
+                //             mainAxisAlignment: MainAxisAlignment.center,
+                //             crossAxisAlignment: CrossAxisAlignment.center,
+                //             children: [
+                //               Container(
+                //                 width: width_safearea * 0.903061224,
+                //                 height: height_safearea * 0.133,
+                //                 margin: const EdgeInsets.only(
+                //                     top: 8.0, bottom: 8.0),
+                //                 decoration: BoxDecoration(
+                //                   color: Colors.white,
+                //                   borderRadius: BorderRadius.circular(8),
+                //                 ),
+                //               ),
+                //             ],
+                //           );
+                //         },
+                //       )),
+                //     ),
+                //     baseColor: Colors.grey.withOpacity(0.1),
+                //     highlightColor: Colors.grey.shade300);
+                
+              
+            
+           
           ),
-        ),
+        )
+               
+               
+                
+      
       ),
     );
   }
