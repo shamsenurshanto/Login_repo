@@ -315,7 +315,7 @@ try {
         print(team.type);
         //selfEmail
         teams2.add(team);
-        teams4.add(team);
+        // teams4.add(team);
         print("-----------Test");
         print(widget.teams.mainMail);
         print(team.mainMail);
@@ -333,6 +333,7 @@ try {
       print(items.length);
       print("moja");
       items = teams2;
+      teams4=teams2;
       
     });
 
